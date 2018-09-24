@@ -1,0 +1,67 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="NameAndType">
+  <Enum Name="imbNLP.PartOfSpeech.flags.data.dat_business" Collapsed="true">
+    <Position X="0.75" Y="3.25" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AUlkoeEIQQgAREMgBAIqAAzhoEIEAggi1CR5iAAAEvQ=</HashCode>
+      <FileName>flags\data\dat_business.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="imbNLP.PartOfSpeech.flags.data.dat_contextualSubject" Collapsed="true">
+    <Position X="3" Y="3.25" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAEQAAAAAAAAAAAAAAAAAAABAAAAAAAACAACAAAA=</HashCode>
+      <FileName>flags\data\dat_contextualSubject.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="imbNLP.PartOfSpeech.flags.data.dat_datapoint" Collapsed="true">
+    <Position X="0.75" Y="4.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AQAAAAgAAAAAAACAAAAgAAAAAAAABAACAAEAAAAAAAA=</HashCode>
+      <FileName>flags\data\dat_datapoint.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="imbNLP.PartOfSpeech.flags.data.dat_emailType" Collapsed="true">
+    <Position X="5.25" Y="4.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AQAAAAAAAEAAAAAAIAAAAAAAAAAAAAAAAAQAAAAABCE=</HashCode>
+      <FileName>flags\data\dat_emailType.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="imbNLP.PartOfSpeech.flags.data.dat_generality" Collapsed="true">
+    <Position X="5.25" Y="3.25" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AQAAAAAQIACAgCAAAABAAAASAAgAAAAAAAAAAACgAIA=</HashCode>
+      <FileName>flags\data\dat_generality.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="imbNLP.PartOfSpeech.flags.data.dat_knownEntity" Collapsed="true">
+    <Position X="5.25" Y="4" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AQAAAAAAAAAAABAAAAIAAAAAAAAEAAAAAAAAAAAAEMA=</HashCode>
+      <FileName>flags\data\dat_knownEntity.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="imbNLP.PartOfSpeech.flags.data.dat_legalForm" Collapsed="true">
+    <Position X="3" Y="4.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AQEAAAAAIAAAAAAAAAAIAABAAAAAAAAAAAAAAAAAABA=</HashCode>
+      <FileName>flags\data\dat_legalForm.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="imbNLP.PartOfSpeech.flags.data.dat_measure" Collapsed="true">
+    <Position X="3" Y="4" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AMgAAAMAAAAgAAQAYEQIAAAAgAEAAAEiAAQEAAACAAA=</HashCode>
+      <FileName>flags\data\dat_measure.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="imbNLP.PartOfSpeech.flags.data.dat_phoneType" Collapsed="true">
+    <Position X="0.75" Y="4" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AQAgAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAIAQAAAAAA=</HashCode>
+      <FileName>flags\data\dat_phoneType.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

@@ -1,0 +1,273 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>imbNLP.Project</name>
+    </assembly>
+    <members>
+        <member name="P:imbNLP.Project.console.CommandConsole.workspace">
+            <summary>
+            Gets the workspace.
+            </summary>
+            <value>
+            The workspace.
+            </value>
+        </member>
+        <member name="M:imbNLP.Project.console.CommandConsoleWorkspace.#ctor(imbNLP.Project.console.CommandConsole)">
+            <summary>
+            Initializes the workspace for the imbNLP.Project console
+            </summary>
+            <param name="console">The console using this workspace</param>
+        </member>
+        <member name="M:imbNLP.Project.console.CommandConsoleWorkspace.setAdditionalWorkspaceFolders">
+            <summary>
+            Gets called during workspace construction, the method should initiate any additional subdirectories that console's project uses
+            </summary>
+            <remarks>
+            <example>
+            Place inside initiation of additional directories, required for your console's project class (inheriting: <see cref="T:imbACE.Services.console.aceAdvancedConsoleStateBase" />)
+            <code><![CDATA[
+            folderName = folder.Add(nameof(folderName), "Caption", "Description");
+            ]]></code></example>
+            </remarks>
+        </member>
+        <member name="P:imbNLP.Project.Dataset.GraphConverters.documentsConverter">
+            <summary>
+            static and autoinitiated object
+            </summary>
+        </member>
+        <member name="P:imbNLP.Project.Dataset.GraphConverters.DataSetDomainGraphConverter">
+            <summary>
+            static and autoinitiated object
+            </summary>
+        </member>
+        <member name="T:imbNLP.Project.Dataset.IWebDocumentsCategoryAdapter">
+            <summary>
+            Dataset repository loader and saver
+            </summary>
+        </member>
+        <member name="T:imbNLP.Project.Dataset.WebDirectoryIteration">
+            <summary>
+            Iteration in web directory harvesting operation
+            </summary>
+        </member>
+        <member name="T:imbNLP.Project.Dataset.WebDocumentsCategory">
+            <summary>
+            Hierarchical category model
+            </summary>
+            <seealso cref="T:imbSCI.Data.collection.graph.graphNodeCustom" />
+        </member>
+        <member name="M:imbNLP.Project.Dataset.WebDocumentsCategory.GetFirstLevelCategories">
+            <summary>
+            Creates dataset list, with all entities, groupped into first level categories.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:imbNLP.Project.Dataset.WebDocumentsCategory.GetSites(System.Int32)">
+            <summary>
+            Collects the sites from childer nodes until depth specified
+            </summary>
+            <param name="depth">The depth.</param>
+            <returns></returns>
+        </member>
+        <member name="P:imbNLP.Project.Dataset.WebDocumentsCategory.siteDocuments">
+            <summary>
+            Gets or sets the sites.
+            </summary>
+            <value>
+            The sites.
+            </value>
+        </member>
+        <member name="M:imbNLP.Project.Dataset.WebDocumentsCategory.GetAllSites">
+            <summary>
+            Collects all web sites from the children nodes
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:imbNLP.Project.Dataset.WebDocumentsCategory.GetDomainCategory(imbNLP.Project.Dataset.WebDomainCategory)">
+            <summary>
+            Gets the domain category.
+            </summary>
+            <param name="parent">The parent.</param>
+            <returns></returns>
+        </member>
+        <member name="T:imbNLP.Project.Dataset.WebDomainCategory">
+            <summary>
+            
+            </summary>
+            <seealso cref="T:imbSCI.Data.collection.graph.graphNodeCustom" />
+        </member>
+        <member name="M:imbNLP.Project.Dataset.WebDomainCategory.GetSites(System.Int32)">
+            <summary>
+            Collects the sites from childer nodes until depth specified
+            </summary>
+            <param name="depth">The depth.</param>
+            <returns></returns>
+        </member>
+        <member name="M:imbNLP.Project.Dataset.WebDomainCategory.Probe(System.String,imbSCI.Core.reporting.ILogBuilder)">
+            <summary>
+            Designates if the path seems to contain a WebKB formatted dataset
+            </summary>
+            <param name="path">The path.</param>
+            <returns></returns>
+        </member>
+        <member name="M:imbNLP.Project.Dataset.WebDomainCategory.GetDomainList(imbNLP.Project.Dataset.WebDomainCategoryFormatOptions,imbSCI.Core.reporting.ILogBuilder)">
+            <summary>
+            Gets the domain list.
+            </summary>
+            <param name="options">The options.</param>
+            <returns></returns>
+        </member>
+        <member name="M:imbNLP.Project.Dataset.WebDomainCategory.LoadDomainList(System.String,imbNLP.Project.Dataset.WebDomainCategoryFormatOptions,imbSCI.Core.reporting.ILogBuilder)">
+            <summary>
+            Loads the domain list.
+            </summary>
+            <param name="path">The path.</param>
+            <param name="options">The options.</param>
+        </member>
+        <member name="M:imbNLP.Project.Dataset.WebDomainCategory.Load(System.String,imbNLP.Project.Dataset.WebDomainCategoryFormatOptions,imbSCI.Core.reporting.ILogBuilder)">
+            <summary>
+            Loads the specified folder.
+            </summary>
+            <param name="folder">The folder.</param>
+            <param name="options">The options.</param>
+        </member>
+        <member name="M:imbNLP.Project.Dataset.WebDomainCategory.Save(System.String,imbNLP.Project.Dataset.WebDomainCategoryFormatOptions,imbSCI.Core.reporting.ILogBuilder)">
+            <summary>
+            Saves the specified folder.
+            </summary>
+            <param name="folder">The folder.</param>
+            <param name="options">The options.</param>
+        </member>
+        <member name="F:imbNLP.Project.Dataset.WebDomainCategoryFormatOptions.lazyLoading">
+            <summary>
+            The lazy loading - when loading <see cref="T:imbNLP.Project.Dataset.WebDocumentsCategory"/>, it will just index files, the content will be loaded once requested
+            </summary>
+        </member>
+        <member name="T:imbNLP.Project.Dataset.WebKBDatasetAdapter">
+            <summary>
+            Adapter for loading a WebKB-formatted dataset
+            </summary>
+            <seealso cref="T:imbNLP.Project.Dataset.IWebDocumentsCategoryAdapter" />
+        </member>
+        <member name="P:imbNLP.Project.Dataset.WebKBDatasetAdapter.description">
+            <summary>
+            Gets or sets the description.
+            </summary>
+            <value>
+            The description.
+            </value>
+        </member>
+        <member name="M:imbNLP.Project.Dataset.WebKBDatasetAdapter.GetURLPathFromFilename(System.String)">
+            <summary>
+            Gets the URL path from filename.
+            </summary>
+            <param name="filename">The filename.</param>
+            <returns></returns>
+        </member>
+        <member name="M:imbNLP.Project.Dataset.WebKBDatasetAdapter.GetFilenameFromURLPath(System.String)">
+            <summary>
+            Gets the filename from URL path.
+            </summary>
+            <param name="url">The URL.</param>
+            <returns></returns>
+        </member>
+        <member name="P:imbNLP.Project.Dataset.WebKBDatasetAdapter.SelectDomainName">
+            <summary>
+            Gets or sets the name of the select domain.
+            </summary>
+            <value>
+            The name of the select domain.
+            </value>
+        </member>
+        <member name="P:imbNLP.Project.Dataset.WebKBDatasetAdapter.SelectPath">
+            <summary>
+            Gets or sets the select path.
+            </summary>
+            <value>
+            The select path.
+            </value>
+        </member>
+        <member name="M:imbNLP.Project.Dataset.WebKBDatasetAdapter.LoadWebSiteDocument(System.IO.FileInfo,imbNLP.Toolkit.Documents.WebSiteDocuments,imbNLP.Project.Dataset.WebDomainCategoryFormatOptions)">
+            <summary>
+            Loads the web site document.
+            </summary>
+            <param name="fi">The fi.</param>
+            <param name="webSite">The web site.</param>
+            <returns></returns>
+        </member>
+        <member name="M:imbNLP.Project.Dataset.WebKBDatasetAdapter.LoadWebSites(imbNLP.Project.Dataset.WebDocumentsCategory,System.IO.DirectoryInfo,imbNLP.Project.Dataset.WebDomainCategoryFormatOptions,imbSCI.Core.reporting.ILogBuilder)">
+            <summary>
+            Loads the web sites.
+            </summary>
+            <param name="category">The category.</param>
+            <param name="di">The di.</param>
+            <param name="logger">The logger.</param>
+        </member>
+        <member name="M:imbNLP.Project.Dataset.WebKBDatasetAdapter.LoadDirectory(imbNLP.Project.Dataset.WebDocumentsCategory,System.IO.DirectoryInfo,imbNLP.Project.Dataset.WebDomainCategoryFormatOptions,imbSCI.Core.reporting.ILogBuilder)">
+            <summary>
+            Loads the directory.
+            </summary>
+            <param name="category">The category.</param>
+            <param name="di">The di.</param>
+            <param name="options">The options.</param>
+            <param name="logger">The logger.</param>
+        </member>
+        <member name="M:imbNLP.Project.Dataset.WebKBDatasetAdapter.LoadDataset(System.String,imbNLP.Project.Dataset.WebDomainCategoryFormatOptions,imbSCI.Core.reporting.ILogBuilder)">
+            <summary>
+            Loads the dataset.
+            </summary>
+            <param name="path">The path.</param>
+            <param name="logger">The logger.</param>
+            <returns></returns>
+        </member>
+        <member name="M:imbNLP.Project.Dataset.WebKBDatasetAdapter.GetWebDocumentSource(imbNLP.Toolkit.Documents.WebSiteDocument,imbSCI.Core.reporting.ILogBuilder)">
+            <summary>
+            Gets the web document source.
+            </summary>
+            <param name="page">The page.</param>
+            <returns></returns>
+        </member>
+        <member name="M:imbNLP.Project.Dataset.WebKBDatasetAdapter.SaveSubcategories(imbNLP.Project.Dataset.WebDocumentsCategory,imbSCI.Core.files.folders.folderNode,imbNLP.Project.Dataset.WebDomainCategoryFormatOptions,imbSCI.Core.reporting.ILogBuilder)">
+            <summary>
+            Saves the subcategories.
+            </summary>
+            <param name="category">The category.</param>
+            <param name="rootFolder">The root folder.</param>
+        </member>
+        <member name="M:imbNLP.Project.Dataset.WebKBDatasetAdapter.SaveWebSites(imbNLP.Project.Dataset.WebDocumentsCategory,imbSCI.Core.files.folders.folderNode,imbNLP.Project.Dataset.WebDomainCategoryFormatOptions,imbSCI.Core.reporting.ILogBuilder)">
+            <summary>
+            Saves the web sites.
+            </summary>
+            <param name="category">The category.</param>
+            <param name="rootFolder">The root folder.</param>
+        </member>
+        <member name="M:imbNLP.Project.Dataset.WebKBDatasetAdapter.Probe(System.String,imbSCI.Core.reporting.ILogBuilder)">
+            <summary>
+            Designates if the path seems to contain a WebKB formatted dataset
+            </summary>
+            <param name="path">The path.</param>
+            <returns></returns>
+        </member>
+        <member name="M:imbNLP.Project.Dataset.WebKBDatasetAdapter.SaveDataset(imbNLP.Project.Dataset.WebDocumentsCategory,System.String,imbNLP.Project.Dataset.WebDomainCategoryFormatOptions,imbSCI.Core.reporting.ILogBuilder)">
+            <summary>
+            Saves the dataset.
+            </summary>
+            <param name="dataset">The dataset.</param>
+            <param name="path">The path.</param>
+        </member>
+        <member name="T:imbNLP.Project.Plugin.imbNLPProjectPlugin">
+            <summary>
+            Plugin for imbACE console - imbNLPProjectPlugin
+            </summary>
+            <seealso cref="T:imbACE.Services.consolePlugins.aceConsolePluginBase" />
+        </member>
+        <member name="P:imbNLP.Project.Plugin.imbNLPProjectPlugin.parentConsole">
+            <summary>
+            Reference to parent console, containing this plugin instance. This property must stay private.
+            </summary>
+            <value>
+            The parent console.
+            </value>
+        </member>
+    </members>
+</doc>

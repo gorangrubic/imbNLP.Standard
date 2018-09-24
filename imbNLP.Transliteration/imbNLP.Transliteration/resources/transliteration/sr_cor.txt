@@ -1,0 +1,10 @@
+﻿// Correction table used for common typo equalization
+auto_capital_case=1; // this tells interpreter to automatically create capital letter pairs
+lang_A_id="sr_cor"; // defines identification for A members of a pair
+lang_B_id="sr_inc"; // defines identification for B members of a pair
+comment="Quasi-transliteration used to equalize misspelled words with the correct ones"; // 
+š:s 
+ž:z
+đ:dj
+č:c
+ć:c

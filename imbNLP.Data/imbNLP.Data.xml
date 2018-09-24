@@ -1,0 +1,3411 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>imbNLP.Data</name>
+    </assembly>
+    <members>
+        <member name="T:imbNLP.Data.basic.basicLanguage">
+            <summary>
+            Wrapper for Hunspell dictionary with properties for extra information/description
+            </summary>
+        </member>
+        <member name="M:imbNLP.Data.basic.basicLanguage.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:imbNLP.Data.basic.basicLanguage"/> class.
+            </summary>
+        </member>
+        <member name="M:imbNLP.Data.basic.basicLanguage.isKnownWord(System.String)">
+            <summary>
+            Checks if the word was found in the dictionary
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:imbNLP.Data.basic.basicLanguage.checkHuspell">
+            <summary>
+            Checks if hunspell files were found, and loads them
+            </summary>
+        </member>
+        <member name="P:imbNLP.Data.basic.basicLanguage.hunspellFactory">
+            <summary>
+            Spell Factory instance
+            </summary>
+        </member>
+        <member name="P:imbNLP.Data.basic.basicLanguage.hunspellHypen">
+            <summary>
+            Hypenizator
+            </summary>
+        </member>
+        <member name="P:imbNLP.Data.basic.basicLanguage.hunspellEngine">
+            <summary>
+            Objekat prema Hunspell engine-u. Objekat bi trebao da bude instanciran
+            </summary>
+        </member>
+        <member name="P:imbNLP.Data.basic.basicLanguage.affixFilePath">
+            <summary>
+            Path to affix file
+            </summary>
+        </member>
+        <member name="P:imbNLP.Data.basic.basicLanguage.dictFilePath">
+            <summary>
+            Path to dict file
+            </summary>
+        </member>
+        <member name="P:imbNLP.Data.basic.basicLanguage.hunspellAffixStream">
+            <summary>
+            Hunspell affix fajl stream - serijalizovana verzija Hunspell Afix fajla
+            </summary>
+        </member>
+        <member name="P:imbNLP.Data.basic.basicLanguage.hunspellDictStream">
+            <summary>
+            Hunspell dict fajl stream - serijalizovana verzija Hunspell dict fajla
+            </summary>
+        </member>
+        <member name="T:imbNLP.Data.basic.basicLanguageCheck">
+            <summary>
+            Operacije nad zadatom rečju
+            </summary>
+        </member>
+        <member name="F:imbNLP.Data.basic.basicLanguageCheck.spellCheck">
+            <summary>
+            Vraca TRUE i FALSE na pitanje da li je prepoznao rec
+            </summary>
+        </member>
+        <member name="F:imbNLP.Data.basic.basicLanguageCheck.getVariations">
+            <summary>
+            Vraca List - String sa slicnim recima
+            </summary>
+        </member>
+        <member name="F:imbNLP.Data.basic.basicLanguageCheck.fullAnalysis">
+            <summary>
+            Izvrsice sve analize koje su definisane u ovom enumu
+            </summary>
+        </member>
+        <member name="T:imbNLP.Data.basic.basicLanguageTools">
+            <summary>
+            Staticki alati za rad sa basicLanguage objektima i kolekcijom
+            </summary>
+        </member>
+        <member name="M:imbNLP.Data.basic.basicLanguageTools.getRootBySuggests(System.Collections.Generic.IEnumerable{System.String})">
+            <summary>
+            Izvlaci zajednicki koren iz predlozenih varijacija
+            </summary>
+            <param name="suggestSource"></param>
+            <returns></returns>
+        </member>
+        <member name="M:imbNLP.Data.basic.basicLanguageTools.testAndReport(imbNLP.Data.basic.basicLanguage,System.String,imbNLP.Data.basic.basicLanguageCheck)">
+            <summary>
+            Izvršava test i vraća rezultat u obliku string reporta
+            </summary>
+            <param name="model"></param>
+            <param name="testWord"></param>
+            <param name="operation"></param>
+            <returns></returns>
+        </member>
+        <member name="M:imbNLP.Data.basic.basicLanguageTools.languageTestSample(System.Collections.Generic.IEnumerable{System.String},System.Int32,imbNLP.Data.basic.basicLanguage,System.Double,System.Boolean)">
+            <summary>
+            Tests sample from provided words
+            </summary>
+            <param name="words">The words to take sample from</param>
+            <param name="take">Words to take</param>
+            <param name="model">Language model to test against</param>
+            <param name="criteria">The criteria.</param>
+            <param name="filterSample">if set to <c>true</c> it will skip short words and non-word tokens</param>
+            <returns>TRUE if more than <c>criteria</c> ratio of taken samples is positive for specified language</returns>
+        </member>
+        <member name="M:imbNLP.Data.basic.basicLanguageTools.spellCheckSample(imbNLP.Data.basic.basicLanguage,System.Collections.Generic.List{System.String})">
+            <summary>
+            Proverava grupu reci - vraca broj reci koje su prosle spell check
+            </summary>
+            <param name="model"></param>
+            <param name="words"></param>
+            <returns>Koliko reci je prepoznao</returns>
+        </member>
+        <member name="M:imbNLP.Data.basic.basicLanguageTools.getSuggestions(imbNLP.Data.basic.basicLanguage,System.String)">
+            <summary>
+            Vraca sugestije hunspellEngine-a
+            </summary>
+            <param name="model"></param>
+            <param name="word"></param>
+            <returns></returns>
+        </member>
+        <member name="M:imbNLP.Data.basic.basicLanguageTools.test(imbNLP.Data.basic.basicLanguage,System.String,imbNLP.Data.basic.basicLanguageCheck)">
+            <summary>
+            Univerzalni test poziv
+            </summary>
+            <param name="model"></param>
+            <param name="testWord"></param>
+            <param name="operation"></param>
+            <returns></returns>
+        </member>
+        <member name="T:imbNLP.Data.basic.enums.basicLanguageFileFormatType">
+            <summary>
+            Tipovi file formata za basicLanguage
+            </summary>
+        </member>
+        <member name="T:imbNLP.Data.basic.enums.huspellFileFormatType">
+            <summary>
+            Tipovi file formata za huspell
+            </summary>
+        </member>
+        <member name="T:imbNLP.Data.basic.enums.wordSyllableDetectionMethod">
+            <summary>
+            Jos nije implementirano
+            </summary>
+        </member>
+        <member name="F:imbNLP.Data.basic.enums.wordSyllableDetectionMethod.Tokenization">
+            <summary>
+            Koristi morfologiju za generisanje varijacija
+            </summary>
+            <remarks>
+            <para>Potrebno je definisati </para>
+            <list type="bullet" >
+            <item>doo</item>
+            <item>d.o.o.</item>
+            <item>d. o. o.</item>
+            <item>Doo</item>
+            <item>DOO</item>
+            </list>
+            </remarks>
+        </member>
+        <member name="F:imbNLP.Data.basic.enums.wordSyllableDetectionMethod.Huspell">
+            <summary>
+            Pravi varijacije za skraćenice
+            </summary>
+            <remarks>
+            <para>Skraćenice: ako je uneto DOO pravi varijacije:</para>
+            <list type="bullet" >
+            <item>doo</item>
+            <item>d.o.o.</item>
+            <item>d. o. o.</item>
+            <item>Doo</item>
+            <item>DOO</item>
+            </list>
+            </remarks>
+        </member>
+        <member name="T:imbNLP.Data.basic.enums.wordVariationsMethodType">
+            <summary>
+            2017: Metode za dobijanje predloga varijacija
+            </summary>
+        </member>
+        <member name="F:imbNLP.Data.basic.enums.wordVariationsMethodType.Huspell">
+            <summary>
+            Koristi Huspell algoritam za izdvajanje varijacija
+            </summary>
+        </member>
+        <member name="F:imbNLP.Data.basic.enums.wordVariationsMethodType.Morphology">
+            <summary>
+            Koristi morfologiju za generisanje varijacija
+            </summary>
+            <remarks>
+            <para>Potrebno je definisati </para>
+            <list type="bullet" >
+            <item>doo</item>
+            <item>d.o.o.</item>
+            <item>d. o. o.</item>
+            <item>Doo</item>
+            <item>DOO</item>
+            </list>
+            </remarks>
+        </member>
+        <member name="F:imbNLP.Data.basic.enums.wordVariationsMethodType.Abrevations">
+            <summary>
+            Pravi varijacije za skraćenice
+            </summary>
+            <remarks>
+            <para>Skraćenice: ako je uneto DOO pravi varijacije:</para>
+            <list type="bullet" >
+            <item>doo</item>
+            <item>d.o.o.</item>
+            <item>d. o. o.</item>
+            <item>Doo</item>
+            <item>DOO</item>
+            </list>
+            </remarks>
+        </member>
+        <member name="F:imbNLP.Data.basic.enums.wordVariationsMethodType.Formatings">
+            <summary>
+            Formalne varijacije za složenice - npr. kod naziva firme.
+            </summary>
+            <remarks>
+            <para>Nazivi firme koji imaju više reči se nekada pišu na različite načine. </para>
+            <para>Na primer: EURO FORM</para>
+            <list type="bullet" >
+            <item>EURO FORM</item>
+            <item>EURO-FORM</item>
+            <item>EUROFORM</item>
+            <item>EuroForm</item>
+            <item>EURO (samo prva reč)</item>
+            <item>...</item>
+            </list>
+            <para>Postoje i nazivi sa više od dve reči: EURO FORM TECH</para>
+            <list type="bullet" >
+            <item>EURO FORM</item>
+            <item>EUROFORM TECH</item>
+            <item>EURO FORMTECH</item>
+            <item>EuroForm Tech</item>
+            <item>...</item>
+            </list>
+            </remarks>
+        </member>
+        <member name="P:imbNLP.Data.basic.languageManagerAlphabet.resource">
+            <summary> </summary>
+        </member>
+        <member name="P:imbNLP.Data.basic.languageManagerAlphabet.manager">
+            <summary>
+            static and autoinitiated object
+            </summary>
+        </member>
+        <member name="P:imbNLP.Data.basic.languageManagerAlphabet.regexSelectLetters">
+            <summary> </summary>
+        </member>
+        <member name="T:imbNLP.Data.basic.languageManagerHunspell">
+            <summary>
+            Token Query resolver for Hunspell dictionaries
+            </summary>
+            <seealso cref="T:imbNLP.Data.extended.dict.core.tokenQueryResolverBase" />
+        </member>
+        <member name="P:imbNLP.Data.basic.languageManagerHunspell.resource">
+            <summary> </summary>
+        </member>
+        <member name="P:imbNLP.Data.basic.languageManagerHunspell.manager">
+            <summary>
+            static and autoinitiated object
+            </summary>
+        </member>
+        <member name="M:imbNLP.Data.basic.languageManagerHunspell.exploreToken(imbNLP.Data.extended.dict.core.tokenQuery)">
+            <summary>
+            Explores the token.
+            </summary>
+            <param name="query">The query.</param>
+            <returns></returns>
+        </member>
+        <member name="F:imbNLP.Data.case.enums.face.first">
+            <summary>
+            Prvo lice> ja
+            </summary>
+        </member>
+        <member name="F:imbNLP.Data.case.enums.face.second">
+            <summary>
+            drugo lice> Ti
+            </summary>
+        </member>
+        <member name="F:imbNLP.Data.case.enums.face.third">
+            <summary>
+            Trece lice> On
+            </summary>
+        </member>
+        <member name="F:imbNLP.Data.case.enums.gender.masculine">
+            <summary>
+            The masculine - muski rod
+            </summary>
+        </member>
+        <member name="F:imbNLP.Data.case.enums.gender.feminine">
+            <summary>
+            The feminine - zenski rod
+            </summary>
+        </member>
+        <member name="F:imbNLP.Data.case.enums.gender.neutre">
+            <summary>
+            The neutre - srednji rod
+            </summary>
+        </member>
+        <member name="T:imbNLP.Data.case.enums.genre">
+            <summary>
+            Rod
+            </summary>
+        </member>
+        <member name="F:imbNLP.Data.case.enums.numberSubType.basic">
+            <summary>
+            Osnovni broj
+            </summary>
+        </member>
+        <member name="F:imbNLP.Data.case.enums.numberSubType.ordinal">
+            <summary>
+            Redni broj: prvi drugi treći
+            </summary>
+        </member>
+        <member name="F:imbNLP.Data.case.enums.numberSubType.summary">
+            <summary>
+            Zbirni broj> dva>dvoje, tri>troje, četvoro, šestoro
+            </summary>
+        </member>
+        <member name="F:imbNLP.Data.case.enums.root.root">
+            <summary>
+            koren reci
+            </summary>
+        </member>
+        <member name="F:imbNLP.Data.case.enums.root.present">
+            <summary>
+            za glagole
+            </summary>
+        </member>
+        <member name="F:imbNLP.Data.case.enums.root.presentRoot">
+            <summary>
+            za glagole
+            </summary>
+        </member>
+        <member name="F:imbNLP.Data.case.enums.root.presentReplace">
+            <summary>
+            presentska osnova koju skida za criteria
+            </summary>
+        </member>
+        <member name="F:imbNLP.Data.case.enums.root.infinitive">
+            <summary>
+            za glagole
+            </summary>
+        </member>
+        <member name="F:imbNLP.Data.case.enums.root.infinitiveRoot">
+            <summary>
+            infinitivni koren
+            </summary>
+        </member>
+        <member name="F:imbNLP.Data.case.enums.root.presentFace3P">
+            <summary>
+            Prezent trećeg lica množine
+            </summary>
+        </member>
+        <member name="T:imbNLP.Data.case.wordCase">
+            <summary>
+            Izvestaj o stanju trenutne reci
+            </summary>
+        </member>
+        <member name="P:imbNLP.Data.case.wordCase.caseVotes">
+            <summary>
+            Svi prikupljeni glasovi
+            </summary>
+        </member>
+        <member name="P:imbNLP.Data.case.wordCaseFactors.wordNumber">
+            <summary>
+            Gramaticki broj u kome se nalazi rec
+            </summary>
+        </member>
+        <member name="P:imbNLP.Data.case.wordCaseFactors.wordFace">
+            <summary>
+            Gramaticko lice u kome se nalazi rec
+            </summary>
+        </member>
+        <member name="P:imbNLP.Data.case.wordCaseFactors.wordGenre">
+            <summary>
+            Gramaticki rod u kome se nalazi rec
+            </summary>
+        </member>
+        <member name="P:imbNLP.Data.case.wordCaseFactors.wordForm">
+            <summary>
+            Kog je oblika trenutna rec
+            </summary>
+        </member>
+        <member name="P:imbNLP.Data.case.wordCaseFactors.wordGramaticalCase">
+            <summary>
+            Padez u kome se nalazi rec
+            </summary>
+        </member>
+        <member name="P:imbNLP.Data.case.wordCaseFactors.root">
+            <summary>
+            Koren reci koji predlaze analiza
+            </summary>
+        </member>
+        <member name="P:imbNLP.Data.case.wordCaseFactors.infinitiveRoot">
+            <summary>
+            Koren infinitiva
+            </summary>
+        </member>
+        <member name="P:imbNLP.Data.case.wordCaseFactors.infinitiveSufix">
+            <summary>
+            Infinitivni sufix
+            </summary>
+        </member>
+        <member name="P:imbNLP.Data.case.wordCaseFactors.presentRoot">
+            <summary>
+            Koren u prezentu
+            </summary>
+        </member>
+        <member name="T:imbNLP.Data.consolePlugins.posResolverPlugin">
+            <summary>
+            Plugin for imbACE console
+            </summary>
+            <seealso cref="T:imbACE.Services.consolePlugins.aceConsolePluginBase" />
+        </member>
+        <member name="F:imbNLP.Data.enums.contentBlockGenericType.navigation">
+            <summary>
+            Sadrzi mnogo linkova
+            </summary>
+        </member>
+        <member name="T:imbNLP.Data.enums.contentRelationQueryType">
+            <summary>
+            šta se skuplja
+            </summary>
+        </member>
+        <member name="F:imbNLP.Data.enums.contentRelationType.next">
+            <summary>
+            sledeci token u nizu
+            </summary>
+        </member>
+        <member name="F:imbNLP.Data.enums.contentRelationType.prev">
+            <summary>
+            prethodni token u nizu
+            </summary>
+        </member>
+        <member name="F:imbNLP.Data.enums.contentRelationType.both">
+            <summary>
+            sledeci i prethodni
+            </summary>
+        </member>
+        <member name="F:imbNLP.Data.enums.contentRelationType.manyBoth">
+            <summary>
+            vise sledecih i prethodnih, u zavisnosti od parametra za limitiranje
+            </summary>
+        </member>
+        <member name="F:imbNLP.Data.enums.contentRelationType.manyNext">
+            <summary>
+            vise sledecih u zavisnosti od parametara za limitiranje
+            </summary>
+        </member>
+        <member name="F:imbNLP.Data.enums.contentRelationType.manyPrev">
+            <summary>
+            vise prethodnih u zavisnosti od parametara za limitiranje
+            </summary>
+        </member>
+        <member name="F:imbNLP.Data.enums.contentRelationType.parent">
+            <summary>
+            parent token
+            </summary>
+        </member>
+        <member name="F:imbNLP.Data.enums.contentRelationType.manyParent">
+            <summary>
+            vise parenta u zavisnosti od parametara za limitiranje
+            </summary>
+        </member>
+        <member name="F:imbNLP.Data.enums.contentRelationType.parentOneBefore">
+            <summary>
+            prev u odnosu na parent
+            </summary>
+        </member>
+        <member name="F:imbNLP.Data.enums.contentRelationType.parentOneAfter">
+            <summary>
+            next u odnosu na parent
+            </summary>
+        </member>
+        <member name="F:imbNLP.Data.enums.contentRelationType.parentManyBefore">
+            <summary>
+            manyPrev u odnosu na parent
+            </summary>
+        </member>
+        <member name="F:imbNLP.Data.enums.contentRelationType.parentManyAfter">
+            <summary>
+            manyAfter u odnosu na parent
+            </summary>
+        </member>
+        <member name="T:imbNLP.Data.enums.flags.contentBlockFlag">
+            <summary>
+            Flagovi - contentBlockFlag
+            </summary>
+        </member>
+        <member name="F:imbNLP.Data.enums.flags.contentBlockFlag.contentSection">
+            <summary>
+            Sadrzi descriptive / informativne paragraphe
+            </summary>
+        </member>
+        <member name="F:imbNLP.Data.enums.flags.contentBlockFlag.contactSection">
+            <summary>
+            Sekcija sa kontaktima - adresama
+            </summary>
+        </member>
+        <member name="F:imbNLP.Data.enums.flags.contentBlockFlag.headerSection">
+            <summary>
+            Nalazi se na pocetku strane, sadrzi navigaciju i naslov
+            </summary>
+        </member>
+        <member name="F:imbNLP.Data.enums.flags.contentBlockFlag.footerSection">
+            <summary>
+            Nalazi se na dnu strane, sadrzi navigaciju i nesto kratkog sadrzaja
+            </summary>
+        </member>
+        <member name="F:imbNLP.Data.enums.flags.contentBlockFlag.navigationMenu">
+            <summary>
+            Blok iskljucivo navigacija
+            </summary>
+        </member>
+        <member name="T:imbNLP.Data.enums.flags.contentParagraphFlag">
+            <summary>
+            Flagovi - contentParagraphFlag
+            </summary>
+        </member>
+        <member name="F:imbNLP.Data.enums.flags.contentParagraphFlag.heading">
+            <summary>
+            naslov
+            </summary>
+        </member>
+        <member name="F:imbNLP.Data.enums.flags.contentParagraphFlag.headingTop">
+            <summary>
+            Naslov najviseg ranga
+            </summary>
+        </member>
+        <member name="F:imbNLP.Data.enums.flags.contentParagraphFlag.navigation">
+            <summary>
+            Paragraf sadrzi samo navigacione elemente
+            </summary>
+        </member>
+        <member name="F:imbNLP.Data.enums.flags.contentParagraphFlag.descriptiveContent">
+            <summary>
+            Opisni sadrzaj sa regularnim recenicama
+            </summary>
+        </member>
+        <member name="F:imbNLP.Data.enums.flags.contentParagraphFlag.dataContent">
+            <summary>
+            Taksativni podaci
+            </summary>
+        </member>
+        <member name="T:imbNLP.Data.enums.flags.contentSentenceFlag">
+            <summary>
+            Flagovi - contentSentenceFlag
+            </summary>
+        </member>
+        <member name="F:imbNLP.Data.enums.flags.contentSentenceFlag.regular">
+            <summary>
+            Predstavlja regularnu recenicu --  zavrsava se sa pravilnim spliterom
+            </summary>
+        </member>
+        <member name="F:imbNLP.Data.enums.flags.contentSentenceFlag.caseFragment">
+            <summary>
+            obavezno pocinje malim slovom ili simbolom a ostalo sta bude
+            </summary>
+        </member>
+        <member name="F:imbNLP.Data.enums.flags.contentSentenceFlag.formating">
+            <summary>
+            u pitanju je simbolicki sadrzaj koji sluzi za dekoraciju, formatiranje itd
+            </summary>
+        </member>
+        <member name="F:imbNLP.Data.enums.flags.contentSentenceFlag.inregular">
+            <summary>
+            Nije pronadjen spliter na kraju recenice
+            </summary>
+        </member>
+        <member name="F:imbNLP.Data.enums.flags.contentSentenceFlag.title">
+            <summary>
+            Izgleda da je naslov u pitanju> sadrzaj pocinje velikim slovom ili je sve velikim slovima
+            </summary>
+        </member>
+        <member name="F:imbNLP.Data.enums.flags.contentSentenceFlag.titleSoftCase">
+            <summary>
+            Izgleda da je naslov koji ima "meki" case
+            </summary>
+        </member>
+        <member name="F:imbNLP.Data.enums.flags.contentSentenceFlag.titleStrongCase">
+            <summary>
+            Naslov koji je ceo velikim slovima
+            </summary>
+        </member>
+        <member name="F:imbNLP.Data.enums.flags.contentSentenceFlag.titleForItem">
+            <summary>
+            Kada je rec o naslovu za neku stavku
+            </summary>
+        </member>
+        <member name="F:imbNLP.Data.enums.flags.contentSentenceFlag.titleForLink">
+            <summary>
+            Kada znam da je u pitanju tekst iz a taga
+            </summary>
+        </member>
+        <member name="F:imbNLP.Data.enums.flags.contentSentenceFlag.navigationContainer">
+            <summary>
+            Sadrzi samo navigacioni link
+            </summary>
+        </member>
+        <member name="F:imbNLP.Data.enums.flags.contentSentenceFlag.navigationLink">
+            <summary>
+            Navigacioni link
+            </summary>
+        </member>
+        <member name="F:imbNLP.Data.enums.flags.contentSentenceFlag.titleForBlock">
+            <summary>
+            Kada je to jedina titularna recenica u bloku - paragrafu
+            </summary>
+        </member>
+        <member name="F:imbNLP.Data.enums.flags.contentSentenceFlag.item">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="F:imbNLP.Data.enums.flags.contentSentenceFlag.itemInList">
+            <summary>
+            zavrsava se ;
+            </summary>
+        </member>
+        <member name="F:imbNLP.Data.enums.flags.contentSentenceFlag.itemInListLast">
+            <summary>
+            zavrsava se sa ;...
+            </summary>
+        </member>
+        <member name="F:imbNLP.Data.enums.flags.contentSentenceFlag.exclamation">
+            <summary>
+            zavrsava se uzvikom
+            </summary>
+        </member>
+        <member name="F:imbNLP.Data.enums.flags.contentSentenceFlag.normal">
+            <summary>
+            Obicna recenica
+            </summary>
+        </member>
+        <member name="F:imbNLP.Data.enums.flags.contentSentenceFlag.question">
+            <summary>
+            zavrsava se upitnikom
+            </summary>
+        </member>
+        <member name="F:imbNLP.Data.enums.flags.contentSentenceFlag.pointing">
+            <summary>
+            zavrsava se karakterom : -- ukazuje na sledecu recenicu, sadrzaj
+            </summary>
+        </member>
+        <member name="F:imbNLP.Data.enums.flags.contentSentenceFlag.unfinished">
+            <summary>
+            zavrsava se tackama: ... ....
+            </summary>
+        </member>
+        <member name="T:imbNLP.Data.enums.flags.contentTokenFlag">
+            <summary>
+            Flagovi - contentTokenFlag
+            </summary>
+        </member>
+        <member name="F:imbNLP.Data.enums.flags.contentTokenFlag.known">
+            <summary>
+            Exists in knowledge base
+            </summary>
+        </member>
+        <member name="F:imbNLP.Data.enums.flags.contentTokenFlag.unknown">
+            <summary>
+            Possible oposite interpretation
+            </summary>
+        </member>
+        <member name="F:imbNLP.Data.enums.flags.contentTokenFlag.discovered">
+            <summary>
+            Positive claim: wasn-t known but now it is
+            </summary>
+        </member>
+        <member name="F:imbNLP.Data.enums.flags.contentTokenFlag.title">
+            <summary>
+            predstavlja deo naziva linka ili nekod entiteta - iz vise reci
+            </summary>
+        </member>
+        <member name="F:imbNLP.Data.enums.flags.contentTokenFlag.titleOneWord">
+            <summary>
+            naziv linka ili nekog entiteta - iz jedne reci
+            </summary>
+        </member>
+        <member name="F:imbNLP.Data.enums.flags.contentTokenFlag.titleNavigation">
+            <summary>
+            deo natpisa na linku
+            </summary>
+        </member>
+        <member name="F:imbNLP.Data.enums.flags.contentTokenFlag.listed">
+            <summary>
+            token se nalazi u enumeration pod recenicui
+            </summary>
+        </member>
+        <member name="F:imbNLP.Data.enums.flags.contentTokenFlag.number">
+            <summary>
+            tokeni sa brojem koji je formatiran tipa: +381  ili 25-45
+            </summary>
+        </member>
+        <member name="F:imbNLP.Data.enums.flags.contentTokenFlag.info">
+            <summary>
+            The information: in sense of directly applicable information
+            </summary>
+        </member>
+        <member name="F:imbNLP.Data.enums.flags.contentTokenFlag.internationalStandard">
+            <summary>
+            DIN, ISO itd
+            </summary>
+        </member>
+        <member name="F:imbNLP.Data.enums.nlpChunkType.unknown">
+            <summary>
+            Nedefinisan tip Chunk-a
+            </summary>
+        </member>
+        <member name="F:imbNLP.Data.enums.nlpChunkType.subjectPredicateObject">
+            <summary>
+            Subjekat - predikat - objekat >> struktura
+            </summary>
+        </member>
+        <member name="F:imbNLP.Data.enums.nlpChunkType.numberUnitPair">
+            <summary>
+            Broj koji je pracen mernom jedinicom
+            </summary>
+        </member>
+        <member name="F:imbNLP.Data.enums.nlpChunkType.listMembers">
+            <summary>
+            Svi clanovi neke liste
+            </summary>
+        </member>
+        <member name="F:imbNLP.Data.enums.nlpParagraphGenericType.textual">
+            <summary>
+            Dominiraju recenice normalnih tipova
+            </summary>
+        </member>
+        <member name="F:imbNLP.Data.enums.nlpParagraphGenericType.textual_single">
+            <summary>
+            Jedna tekstualna recenica - normalnog tipa
+            </summary>
+        </member>
+        <member name="F:imbNLP.Data.enums.nlpParagraphGenericType.textual_title">
+            <summary>
+            Ima samo jednu recenicu i ona je tima role_title
+            </summary>
+        </member>
+        <member name="F:imbNLP.Data.enums.nlpParagraphGenericType.textual_article">
+            <summary>
+            Pocinje sa naslovnom recenicom a onda dominiraju recenice normalnih tipova
+            </summary>
+        </member>
+        <member name="F:imbNLP.Data.enums.nlpParagraphGenericType.data_listed">
+            <summary>
+            Dominiraju recenice role_listItem i open_listStart tipa
+            </summary>
+        </member>
+        <member name="F:imbNLP.Data.enums.nlpParagraphGenericType.data_simple">
+            <summary>
+            Dominiraju recenice simple tipa
+            </summary>
+        </member>
+        <member name="F:imbNLP.Data.enums.nlpParagraphGenericType.data_single">
+            <summary>
+            Jedna recenica ne-normal tipa
+            </summary>
+        </member>
+        <member name="T:imbNLP.Data.enums.nlpSentenceBasicType">
+            <summary>
+            Osnovna podela recenica
+            </summary>
+        </member>
+        <member name="F:imbNLP.Data.enums.nlpSentenceBasicType.normal">
+            <summary>
+            Normalna izjavna, uzvicna ili upitna recenica koja postuje pravila velikih i malih slova
+            </summary>
+        </member>
+        <member name="F:imbNLP.Data.enums.nlpSentenceBasicType.list">
+            <summary>
+            Lista> pocetak ili item
+            </summary>
+        </member>
+        <member name="F:imbNLP.Data.enums.nlpSentenceBasicType.role">
+            <summary>
+            Recenica sa specificnom ulogom
+            </summary>
+        </member>
+        <member name="T:imbNLP.Data.enums.nlpSentenceGenericType">
+            <summary>
+            Podela recenica prema detektovanom tipu generickim algoritmom
+            </summary>
+        </member>
+        <member name="F:imbNLP.Data.enums.nlpSentenceGenericType.normal">
+            <summary>
+            pocinje sa velikim slovom i zavrsava se tackom
+            </summary>
+        </member>
+        <member name="F:imbNLP.Data.enums.nlpSentenceGenericType.normal_exclamation">
+            <summary>
+            Normalna recenica sa uzvikom na kraju
+            </summary>
+        </member>
+        <member name="F:imbNLP.Data.enums.nlpSentenceGenericType.normal_question">
+            <summary>
+            Upitna rečenica
+            </summary>
+        </member>
+        <member name="F:imbNLP.Data.enums.nlpSentenceGenericType.normal_unknown">
+            <summary>
+            Normalna recenica sa nepoznatim zavrsetkom
+            </summary>
+        </member>
+        <member name="F:imbNLP.Data.enums.nlpSentenceGenericType.list_startSentence">
+            <summary>
+            zapocinje listu
+            </summary>
+        </member>
+        <member name="F:imbNLP.Data.enums.nlpSentenceGenericType.normal_unfinished">
+            <summary>
+            ima tri tacke u produzetku
+            </summary>
+        </member>
+        <member name="F:imbNLP.Data.enums.nlpSentenceGenericType.list_item">
+            <summary>
+            predstavlja element liste
+            </summary>
+        </member>
+        <member name="F:imbNLP.Data.enums.nlpSentenceGenericType.role_title">
+            <summary>
+            igra ulogu naslova, sve je velikim slovom - ili je role_simpleText za kojim slede normalne recenice!
+            </summary>
+        </member>
+        <member name="F:imbNLP.Data.enums.nlpSentenceGenericType.role_simpleText">
+            <summary>
+            jednostavan tekstualni podatak
+            </summary>
+        </member>
+        <member name="F:imbNLP.Data.enums.nlpSyllableType.regular">
+            <summary>
+            slog je pravilan - prema pravilima jezika
+            </summary>
+        </member>
+        <member name="F:imbNLP.Data.enums.nlpSyllableType.irregular">
+            <summary>
+            slog nije pravilan
+            </summary>
+        </member>
+        <member name="F:imbNLP.Data.enums.nlpSyllableType.numeric">
+            <summary>
+            radi se o broju
+            </summary>
+        </member>
+        <member name="F:imbNLP.Data.enums.nlpSyllableType.symbol">
+            <summary>
+            radi se o simbolu
+            </summary>
+        </member>
+        <member name="T:imbNLP.Data.enums.nlpTokenGenericType">
+            <summary>
+            Generički tip tokena
+            </summary>
+        </member>
+        <member name="F:imbNLP.Data.enums.nlpTokenGenericType.unknown">
+            <summary>
+            ništa nije znano o ovom tokenu
+            </summary>
+        </member>
+        <member name="F:imbNLP.Data.enums.nlpTokenGenericType.knownWord">
+            <summary>
+            Poznata reč pronađena u rečniku za odabrani jezik - badf48
+            </summary>
+        </member>
+        <member name="F:imbNLP.Data.enums.nlpTokenGenericType.unknownWord">
+            <summary>
+            Nepoznata reč - nije pronađen u rečniku za odabrani jezik
+            </summary>
+        </member>
+        <member name="F:imbNLP.Data.enums.nlpTokenGenericType.wordAbrevation">
+            <summary>
+            skracenica
+            </summary>
+        </member>
+        <member name="F:imbNLP.Data.enums.nlpTokenGenericType.possibleName">
+            <summary>
+            Moguce da je u pitanju ime, prezime, naziv
+            </summary>
+        </member>
+        <member name="F:imbNLP.Data.enums.nlpTokenGenericType.possibleAcronim">
+            <summary>
+            Moguće da je akronim u pitanju
+            </summary>
+        </member>
+        <member name="F:imbNLP.Data.enums.nlpTokenGenericType.number">
+            <summary>
+            broj - može da ima , i . ali ne i ostale znake
+            </summary>
+        </member>
+        <member name="F:imbNLP.Data.enums.nlpTokenGenericType.numberOrdinal">
+            <summary>
+            redni broj
+            </summary>
+        </member>
+        <member name="F:imbNLP.Data.enums.nlpTokenGenericType.numberFormated">
+            <summary>
+            broj koji ima određeno formatiranje:  ":/-" itd
+            </summary>
+        </member>
+        <member name="F:imbNLP.Data.enums.nlpTokenGenericType.symbols">
+            <summary>
+            skup neodređenih simbola
+            </summary>
+        </member>
+        <member name="F:imbNLP.Data.enums.nlpTokenGenericType.mixedAlfasymbolic">
+            <summary>
+            Mešavina slova i simbola
+            </summary>
+        </member>
+        <member name="F:imbNLP.Data.enums.nlpTokenGenericType.mixedAlfanumeric">
+            <summary>
+            Pomešani alfanumerički token
+            </summary>
+        </member>
+        <member name="F:imbNLP.Data.enums.nlpTokenGenericType.email">
+            <summary>
+            email adresa
+            </summary>
+        </member>
+        <member name="F:imbNLP.Data.enums.nlpTokenGenericType.empty">
+            <summary>
+            Prazan podatak - nista
+            </summary>
+        </member>
+        <member name="F:imbNLP.Data.enums.tokenizationType.textTokenization">
+            <summary>
+            Prvobitni algoritam za tokenizaciju tako sto prvo pretvori sve u tekst
+            </summary>
+        </member>
+        <member name="F:imbNLP.Data.enums.tokenizationType.htmlTokenization">
+            <summary>
+            Novi algoritam koji obradjuje HTML nodove a ne samo tekst - zadrzava META informacije
+            </summary>
+        </member>
+        <member name="T:imbNLP.Data.evaluate.multiLanguageEvaluation">
+            <summary>
+            Results of multi language evaluation
+            </summary>
+        </member>
+        <member name="P:imbNLP.Data.evaluate.multiLanguageEvaluation.result_language">
+            <summary>
+            Language that was detected
+            </summary>
+            <value>
+            The result language.
+            </value>
+        </member>
+        <member name="P:imbNLP.Data.evaluate.multiLanguageEvaluation.result_ratio">
+            <summary>
+            Language score / singleLanguageTokens count
+            </summary>
+            <value>
+            The result ratio.
+            </value>
+        </member>
+        <member name="P:imbNLP.Data.evaluate.multiLanguageEvaluation.languageScore">
+            <summary>
+            Absolute score, without double matches - only words matched by single language is considered here
+            </summary>
+            <value>
+            The language score.
+            </value>
+        </member>
+        <member name="P:imbNLP.Data.evaluate.multiLanguageEvaluation.languageEnums">
+            <summary>
+            Gets or sets the language enums.
+            </summary>
+            <value>
+            The language enums.
+            </value>
+        </member>
+        <member name="P:imbNLP.Data.evaluate.multiLanguageEvaluation.multiLanguageTokens">
+            <summary>
+            Dismissed tokens as they matched more than one language
+            </summary>
+            <value>
+            The multi language tokens.
+            </value>
+        </member>
+        <member name="P:imbNLP.Data.evaluate.multiLanguageEvaluation.singleLanguageTokens">
+            <summary>
+            Valid tokens used in the final score evaluation
+            </summary>
+            <value>
+            The single language tokens.
+            </value>
+        </member>
+        <member name="P:imbNLP.Data.evaluate.multiLanguageEvaluation.allTestedTokens">
+            <summary>
+            All tested tokens - valid or not
+            </summary>
+            <value>
+            All tested tokens.
+            </value>
+        </member>
+        <member name="P:imbNLP.Data.evaluate.multiLanguageEvaluation.allContentTokens">
+            <summary>
+            All proper content tokens that were extracted from the page content
+            </summary>
+            <value>
+            All content tokens.
+            </value>
+        </member>
+        <member name="T:imbNLP.Data.evaluate.multiLanguageEvaluationTask">
+            <summary>
+            Settings carrier
+            </summary>
+        </member>
+        <member name="P:imbNLP.Data.evaluate.multiLanguageEvaluationTask.input_ignoredTokens">
+            <summary>
+            Tokens that are ignored based on provided list
+            </summary>
+            <value>
+            The input ignored tokens.
+            </value>
+        </member>
+        <member name="P:imbNLP.Data.evaluate.multiLanguageEvaluationTask.input_contentTokens">
+            <summary>
+            Tokens sent to evaluation
+            </summary>
+            <value>
+            The input ignored tokens.
+            </value>
+        </member>
+        <member name="T:imbNLP.Data.evaluate.multiLanguageEvaluator">
+            <summary>
+            Text evaluator not using SemanticLexicon but multiple dictionaries
+            </summary>
+        </member>
+        <member name="M:imbNLP.Data.evaluate.multiLanguageEvaluator.#ctor(imbNLP.Data.basicLanguageEnum[])">
+            <summary>
+            Initializes a new instance of the <see cref="T:imbNLP.Data.evaluate.multiLanguageEvaluator"/> class.
+            </summary>
+            <param name="languageIDs">The language i ds.</param>
+        </member>
+        <member name="M:imbNLP.Data.evaluate.multiLanguageEvaluator.setup(System.Collections.Generic.IEnumerable{imbNLP.Data.basicLanguageEnum})">
+            <summary>
+            Setups the specified language i ds.
+            </summary>
+            <param name="languageIDs">The language i ds.</param>
+        </member>
+        <member name="M:imbNLP.Data.evaluate.multiLanguageEvaluator.evaluate(System.String,System.Collections.Generic.List{System.String},System.Collections.Generic.List{System.String})">
+            <summary>
+            Evaluates the specified content. Before evaluation the content tokens are transformed with <see cref="!:termTools.getTokens(true, false, true, true)"/>
+            </summary>
+            <param name="content">The textual content</param>
+            <param name="ignoreTokens">The ignore tokens.</param>
+            <returns></returns>
+        </member>
+        <member name="M:imbNLP.Data.evaluate.multiLanguageEvaluator.evaluate(System.Collections.Generic.List{System.String},System.Collections.Generic.List{System.String},System.Collections.Generic.List{System.String})">
+            <summary>
+            Evaluates the specified content non-unique and non filtered tokens
+            </summary>
+            <param name="contentTokens">The content tokens to evaluate</param>
+            <param name="ignoreTokens">The ignore tokens to skip from evaluation</param>
+            <returns>Results of evaluation</returns>
+        </member>
+        <member name="M:imbNLP.Data.evaluate.multiLanguageEvaluator.GetAllProperTokensSortedByFrequency(System.String,System.Int32,System.Collections.Generic.List{System.String})">
+            <summary>
+            Gets all proper tokens sorted by frequency.
+            </summary>
+            <param name="content">The content.</param>
+            <param name="__tokenLengthMin">The token length minimum.</param>
+            <param name="input_ignoredTokens">The input ignored tokens.</param>
+            <returns></returns>
+        </member>
+        <member name="M:imbNLP.Data.evaluate.multiLanguageEvaluator.GetAllProperTokensSortedByFrequency(System.Collections.Generic.IEnumerable{System.String},System.Int32,System.Collections.Generic.List{System.String})">
+            <summary>
+            Gets all proper tokens sorted by frequency.
+            </summary>
+            <param name="input_contentTokens">The input content tokens.</param>
+            <param name="tokenLengthMin">The token length minimum.</param>
+            <param name="input_ignoredTokens">The input ignored tokens.</param>
+            <returns></returns>
+        </member>
+        <member name="M:imbNLP.Data.evaluate.multiLanguageEvaluator.evaluate(imbNLP.Data.evaluate.multiLanguageEvaluationTask,System.Collections.Generic.List{System.String})">
+            <summary>
+            Evaluates already defined evaluation task
+            </summary>
+            <param name="task">The task.</param>
+            <param name="processedTokens">Externally preprocessed tokens - if not supplied it will call <see cref="M:imbNLP.Data.evaluate.multiLanguageEvaluator.GetAllProperTokensSortedByFrequency(System.Collections.Generic.IEnumerable{System.String},System.Int32,System.Collections.Generic.List{System.String})"/> automatically</param>
+            <returns></returns>
+        </member>
+        <member name="T:imbNLP.Data.evaluate.textEvaluation">
+            <summary>
+            Performs textEvaluation and contains the results
+            </summary>
+            <seealso cref="!:aceCommonTypes.primitives.imbBindable" />
+        </member>
+        <member name="P:imbNLP.Data.evaluate.textEvaluation.parent">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="M:imbNLP.Data.evaluate.textEvaluation.evaluate(imbSCI.DataComplex.IWeightTable,System.Boolean)">
+            <summary>
+            Evaluates the specified input.
+            </summary>
+            <param name="input">The input.</param>
+        </member>
+        <member name="F:imbNLP.Data.evaluate.textEvaluationResultEnum.languageA">
+            <summary>
+            The language a
+            </summary>
+        </member>
+        <member name="F:imbNLP.Data.evaluate.textEvaluationResultEnum.languageB">
+            <summary>
+            The language b
+            </summary>
+        </member>
+        <member name="F:imbNLP.Data.evaluate.textEvaluationResultEnum.uncertain">
+            <summary>
+            The uncertain - mixed
+            </summary>
+        </member>
+        <member name="F:imbNLP.Data.evaluate.textEvaluationResultEnum.noneOfBoth">
+            <summary>
+            The none of both - the text is none of two languages
+            </summary>
+        </member>
+        <member name="F:imbNLP.Data.evaluate.textEvaluationResultEnum.notEnoughInformation">
+            <summary>
+            Not enough information
+            </summary>
+        </member>
+        <member name="T:imbNLP.Data.extended.apertium.languageManagerApertium">
+            <summary>
+            Manager for quering Apertium dictionary
+            </summary>
+            <seealso cref="T:imbNLP.Data.extended.dict.core.tokenQueryResolverBase" />
+        </member>
+        <member name="M:imbNLP.Data.extended.apertium.languageManagerApertium.makeQuery(System.String,imbNLP.PartOfSpeech.providers.dictionary.apertium.apertiumDictQueryScope,imbNLP.PartOfSpeech.providers.dictionary.apertium.apertiumDictNeedleSide)">
+            <summary>
+            Makes the query.
+            </summary>
+            <param name="token">The token.</param>
+            <param name="scope">The scope.</param>
+            <param name="side">The side.</param>
+            <returns></returns>
+            <exception cref="T:System.NotImplementedException">
+            </exception>
+        </member>
+        <member name="M:imbNLP.Data.extended.apertium.languageManagerApertium.query(System.String,imbNLP.PartOfSpeech.providers.dictionary.apertium.apertiumDictQueryScope,imbNLP.PartOfSpeech.providers.dictionary.apertium.apertiumDictNeedleSide)">
+            <summary>
+            Queries the specified token
+            </summary>
+            <param name="token">The token.</param>
+            <param name="scope">The scope.</param>
+            <param name="side">The side.</param>
+            <returns></returns>
+        </member>
+        <member name="M:imbNLP.Data.extended.apertium.languageManagerApertium.query(System.Collections.Generic.IEnumerable{System.String},imbNLP.PartOfSpeech.providers.dictionary.apertium.apertiumDictQueryScope,imbNLP.PartOfSpeech.providers.dictionary.apertium.apertiumDictNeedleSide)">
+            <summary>
+            Queries the specified tokens.
+            </summary>
+            <param name="tokens">The tokens.</param>
+            <param name="scope">The scope.</param>
+            <param name="side">The side.</param>
+            <returns></returns>
+        </member>
+        <member name="M:imbNLP.Data.extended.apertium.languageManagerApertium.queryForSynonyms(System.String,imbNLP.PartOfSpeech.providers.dictionary.apertium.apertiumDictQueryScope)">
+            <summary>
+            Queries for synonyms.
+            </summary>
+            <param name="token">The token.</param>
+            <param name="scope">The scope.</param>
+            <returns></returns>
+        </member>
+        <member name="M:imbNLP.Data.extended.apertium.languageManagerApertium.queryForGraph(System.String,imbNLP.PartOfSpeech.providers.dictionary.apertium.apertiumDictQueryScope,imbNLP.PartOfSpeech.providers.dictionary.apertium.apertiumDictNeedleSide)">
+            <summary>
+            Queries for graph.
+            </summary>
+            <param name="token">The token.</param>
+            <param name="scope">The scope.</param>
+            <param name="side">The side.</param>
+            <returns></returns>
+        </member>
+        <member name="M:imbNLP.Data.extended.apertium.languageManagerApertium.queryByGraphNode(imbNLP.PartOfSpeech.lexicUnit.tokenGraphs.tokenGraphNode,imbNLP.PartOfSpeech.providers.dictionary.apertium.apertiumDictQueryScope,imbNLP.PartOfSpeech.providers.dictionary.apertium.apertiumDictNeedleSide)">
+            <summary>
+            Queries by graph leaf child nodes and populates grand children
+            </summary>
+            <param name="graph">The graph.</param>
+            <param name="scope">The scope.</param>
+            <param name="side">The side.</param>
+            <returns></returns>
+        </member>
+        <member name="M:imbNLP.Data.extended.apertium.languageManagerApertium.queryForGraphSet(System.Collections.Generic.IEnumerable{System.String},imbNLP.PartOfSpeech.providers.dictionary.apertium.apertiumDictQueryScope,imbNLP.PartOfSpeech.providers.dictionary.apertium.apertiumDictNeedleSide)">
+            <summary>
+            Queries for graph for multiple tokens
+            </summary>
+            <param name="tokens">The tokens.</param>
+            <param name="scope">The scope.</param>
+            <param name="side">The side.</param>
+            <returns></returns>
+        </member>
+        <member name="P:imbNLP.Data.extended.apertium.languageManagerApertium.dictionaryOperator">
+            <summary> </summary>
+        </member>
+        <member name="P:imbNLP.Data.extended.apertium.languageManagerApertium.manager">
+            <summary>
+            Default manager for apertium dictionary
+            </summary>
+        </member>
+        <member name="P:imbNLP.Data.extended.apertium.languageManagerApertium.dictionaryXml">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="F:imbNLP.Data.extended.apertium.languageManagerApertium.SWITCH_TEXTvsXML_SEARCH">
+            <summary>
+            The switch: if <c>false</c> it will use XmlDocument, if <token></token>
+            </summary>
+        </member>
+        <member name="P:imbNLP.Data.extended.dict.core.tokenQuery.loger">
+            <summary> </summary>
+        </member>
+        <member name="P:imbNLP.Data.extended.dict.core.tokenQuery.language">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="P:imbNLP.Data.extended.dict.core.tokenQuery.responses">
+            <summary> </summary>
+        </member>
+        <member name="P:imbNLP.Data.extended.dict.core.tokenQuery.limitAnswer">
+            <summary>
+            Max. number of matches to be returned on quering knowledge base tables
+            </summary>
+        </member>
+        <member name="P:imbNLP.Data.extended.dict.core.tokenQuery.focus">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="P:imbNLP.Data.extended.dict.core.tokenQuery.token">
+            <summary> </summary>
+        </member>
+        <member name="P:imbNLP.Data.extended.dict.core.tokenQuery.metadata">
+            <summary> </summary>
+        </member>
+        <member name="P:imbNLP.Data.extended.dict.core.tokenQuery.sources">
+            <summary> </summary>
+        </member>
+        <member name="T:imbNLP.Data.extended.dict.core.tokenQueryResolverBase">
+            <summary>
+            Base class for token query resolver
+            </summary>
+        </member>
+        <member name="P:imbNLP.Data.extended.dict.core.tokenQueryResolverBase.table">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="P:imbNLP.Data.extended.dict.core.tokenQueryResolverBase.resourcesPath">
+            <summary> </summary>
+        </member>
+        <member name="P:imbNLP.Data.extended.dict.core.tokenQueryResponceCollection.flags">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="P:imbNLP.Data.extended.dict.core.tokenQueryResponceCollection.description">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="T:imbNLP.Data.extended.dict.core.tokenQueryResponse">
+            <summary>
+            Response about the query about a token
+            </summary>
+            <seealso cref="!:aceCommonTypes.primitives.imbBindable" />
+        </member>
+        <member name="P:imbNLP.Data.extended.dict.core.tokenQueryResponse.flags">
+            <summary>
+            Here it counts every hit my evaluators
+            </summary>
+        </member>
+        <member name="P:imbNLP.Data.extended.dict.core.tokenQueryResponse.exploreModel">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="P:imbNLP.Data.extended.dict.core.tokenQueryResponse.source">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="P:imbNLP.Data.extended.dict.core.tokenQueryResponse.dataRows">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="P:imbNLP.Data.extended.dict.core.tokenQueryResponse.dataTokens">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="P:imbNLP.Data.extended.dict.core.tokenQueryResponse.status">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="P:imbNLP.Data.extended.dict.core.tokenQueryResponse.metadata">
+            <summary> </summary>
+        </member>
+        <member name="M:imbNLP.Data.extended.dict.core.tokenQueryResponse.setResponse(System.String,System.String)">
+            <summary>
+            Sets the respons status to accept
+            </summary>
+            <param name="__response">The response.</param>
+            <param name="__description">The description.</param>
+        </member>
+        <member name="P:imbNLP.Data.extended.dict.core.tokenQueryResponse.response">
+            <summary> </summary>
+        </member>
+        <member name="P:imbNLP.Data.extended.dict.core.tokenQueryResponse.description">
+            <summary> </summary>
+        </member>
+        <member name="F:imbNLP.Data.extended.dict.core.tokenQueryResultEnum.dismiss">
+            <summary>
+            The dismiss: the token is dissmised as invalid, this is <c>termination</c> answer - it will stop other sources from quering
+            </summary>
+        </member>
+        <member name="F:imbNLP.Data.extended.dict.core.tokenQueryResultEnum.accept">
+            <summary>
+            The accept: the token is accepted as valid on targeted language
+            </summary>
+        </member>
+        <member name="F:imbNLP.Data.extended.dict.core.tokenQueryResultEnum.review">
+            <summary>
+            The review: algorithm asks user to do review
+            </summary>
+        </member>
+        <member name="F:imbNLP.Data.extended.dict.core.tokenQueryResultEnum.unknown_token">
+            <summary>
+            The unknown token -- response external managers use
+            </summary>
+        </member>
+        <member name="P:imbNLP.Data.extended.dict.dictTriplet.token">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="P:imbNLP.Data.extended.dict.dictTriplet.code">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="P:imbNLP.Data.extended.dict.dictTriplet.meaning">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="P:imbNLP.Data.extended.dict.languageManagerDict.splitRegex">
+            <summary> </summary>
+        </member>
+        <member name="P:imbNLP.Data.extended.dict.languageManagerDict.regexForLine">
+            <summary> </summary>
+        </member>
+        <member name="P:imbNLP.Data.extended.dict.languageManagerDict.resource">
+            <summary> </summary>
+        </member>
+        <member name="P:imbNLP.Data.extended.dict.languageManagerDict.manager">
+            <summary>
+            static and autoinitiated object
+            </summary>
+        </member>
+        <member name="P:imbNLP.Data.extended.domain.domainConceptEntry.concept">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="P:imbNLP.Data.extended.domain.domainConceptEntry.name">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="P:imbNLP.Data.extended.domain.domainConceptEntry.description">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="P:imbNLP.Data.extended.domain.domainConceptEntry.needles">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="T:imbNLP.Data.extended.domain.domainConceptGraph">
+            <summary>
+            Lexion conceptual hierarchy construction
+            </summary>
+            <seealso cref="!:imbSCI.Data.collection.graph.graphWrapNode&lt;imbNLP.Data.extended.domain.domainConceptEntry&gt;" />
+            <seealso cref="!:System.Collections.Generic.IEnumerable&lt;imbSCI.Data.collection.graph.graphWrapNode&lt;imbNLP.Data.extended.domain.domainConceptEntry&gt;&gt;" />
+        </member>
+        <member name="P:imbNLP.Data.extended.domain.domainConceptGraph.toConnect">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="M:imbNLP.Data.extended.domain.domainConceptGraph.connectToHooks(imbSCI.Core.reporting.ILogBuilder,System.Boolean)">
+            <summary>
+            Connects to the hooks
+            </summary>
+            <param name="response">The response.</param>
+            <param name="simulation">if set to <c>true</c> [simulation].</param>
+        </member>
+        <member name="M:imbNLP.Data.extended.domain.domainConceptGraph.buildConceptualMesh(imbSCI.Core.reporting.ILogBuilder,System.Boolean)">
+            <summary>
+            Builds the conceptual mesh.
+            </summary>
+            <param name="response">The response.</param>
+        </member>
+        <member name="P:imbNLP.Data.extended.domain.languageManagerConcepts.manager">
+            <summary>
+            Default manager
+            </summary>
+        </member>
+        <member name="F:imbNLP.Data.extended.enums.POS_srpLemKor.N">
+            <summary>
+            Noun, imenica
+            </summary>
+        </member>
+        <member name="F:imbNLP.Data.extended.enums.POS_srpLemKor.A">
+            <summary>
+            Adjective, pridev
+            </summary>
+        </member>
+        <member name="F:imbNLP.Data.extended.enums.POS_srpLemKor.V">
+            <summary>
+            Verb, glagol
+            </summary>
+        </member>
+        <member name="F:imbNLP.Data.extended.enums.POS_srpLemKor.PRO">
+            <summary>
+            The pronoun, predlog
+            </summary>
+        </member>
+        <member name="F:imbNLP.Data.extended.enums.POS_srpLemKor.NUM">
+            <summary>
+            The number
+            </summary>
+        </member>
+        <member name="F:imbNLP.Data.extended.enums.POS_srpLemKor.PREP">
+            <summary>
+            The preposition
+            </summary>
+        </member>
+        <member name="F:imbNLP.Data.extended.enums.POS_srpLemKor.CONJ">
+            <summary>
+            The conjunction
+            </summary>
+        </member>
+        <member name="F:imbNLP.Data.extended.enums.POS_srpLemKor.INT">
+            <summary>
+            The interjection
+            </summary>
+        </member>
+        <member name="F:imbNLP.Data.extended.enums.POS_srpLemKor.PAR">
+            <summary>
+            The particle
+            </summary>
+        </member>
+        <member name="F:imbNLP.Data.extended.enums.POS_srpLemKor.ADV">
+            <summary>
+            The adverb, prilog, nepromenjiva rec
+            </summary>
+        </member>
+        <member name="F:imbNLP.Data.extended.enums.POS_srpLemKor.PREF">
+            <summary>
+            The prefix
+            </summary>
+        </member>
+        <member name="F:imbNLP.Data.extended.enums.POS_srpLemKor.ABB">
+            <summary>
+            The abbreviation - skracenica
+            </summary>
+        </member>
+        <member name="F:imbNLP.Data.extended.enums.POS_srpLemKor.RN">
+            <summary>
+            The Roman Number - rimski broj
+            </summary>
+        </member>
+        <member name="F:imbNLP.Data.extended.enums.POS_srpLemKor.PUNCT">
+            <summary>
+            The punct - punktacija
+            </summary>
+        </member>
+        <member name="T:imbNLP.Data.extended.extendedLanguage">
+            <summary>
+            2017> Jezička podešavanja i operacije sa morfologijom
+            </summary>
+        </member>
+        <member name="P:imbNLP.Data.extended.extendedLanguage.regexSelectLetters">
+            <summary> </summary>
+        </member>
+        <member name="P:imbNLP.Data.extended.extendedLanguage.alfabet">
+            <summary>
+            Key=>capital letter, Value => Capital followed by minor
+            </summary>
+        </member>
+        <member name="P:imbNLP.Data.extended.extendedLanguage.basic">
+            <summary>
+            Referenca ka basicLanguage objektu
+            </summary>
+        </member>
+        <member name="P:imbNLP.Data.extended.extendedLanguage.iso2code">
+            <summary>
+            Bezbedno preuzimanje propertija iso2code iz objekta basic
+            </summary>
+        </member>
+        <member name="P:imbNLP.Data.extended.extendedLanguage.decimalSeparator">
+            <summary>
+            Decimalni separator
+            </summary>
+        </member>
+        <member name="P:imbNLP.Data.extended.extendedLanguage.kiloSeparator">
+            <summary>
+            Separator za hiljade, milione itd
+            </summary>
+        </member>
+        <member name="P:imbNLP.Data.extended.extendedLanguage.vowels">
+            <summary>
+            Svi samoglasnici - nije bitan case
+            </summary>
+        </member>
+        <member name="P:imbNLP.Data.extended.extendedLanguage.vowelsSpecial">
+            <summary>
+            Pomocni samoglasnici - nije bitan case
+            </summary>
+        </member>
+        <member name="P:imbNLP.Data.extended.extendedLanguage.syllableLengthLimit">
+            <summary>
+            Koliko je maksimalno dugačak jedan slog (bez samoglasnika) - služi za detektovanje slogova -
+            </summary>
+        </member>
+        <member name="T:imbNLP.Data.extended.namedEntities.languageManagerDBNamedEntities">
+            <summary>
+            TODO: Make this universal -- at this moment it is made for Serbian language
+            </summary>
+            <seealso cref="T:imbNLP.Data.extended.dict.core.tokenQueryResolverBase" />
+        </member>
+        <member name="P:imbNLP.Data.extended.namedEntities.languageManagerDBNamedEntities.namedEntityDataSet">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="P:imbNLP.Data.extended.namedEntities.languageManagerDBNamedEntities.positions">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="P:imbNLP.Data.extended.namedEntities.languageManagerDBNamedEntities.resource">
+            <summary> </summary>
+        </member>
+        <member name="P:imbNLP.Data.extended.namedEntities.languageManagerDBNamedEntities.manager">
+            <summary>
+            Main DB Named Entities manager
+            </summary>
+        </member>
+        <member name="P:imbNLP.Data.extended.namedEntities.languageManagerDBNamedEntities.total_count">
+            <summary> </summary>
+        </member>
+        <member name="M:imbNLP.Data.extended.namedEntities.languageManagerDBNamedEntities.exploreToken(imbNLP.Data.extended.dict.core.tokenQuery)">
+            <summary>
+            Explores the token.
+            </summary>
+            <param name="query">The query.</param>
+            <returns></returns>
+        </member>
+        <member name="M:imbNLP.Data.extended.namedEntities.languageManagerDBNamedEntities.makeQueryForDataTable(System.Data.DataTable,imbNLP.Data.extended.namedEntities.dataTableStringQueryEnum)">
+            <summary>
+            Makes the query for data table.
+            </summary>
+            <param name="table">The table.</param>
+            <param name="queryType">Type of the query.</param>
+            <returns></returns>
+        </member>
+        <member name="P:imbNLP.Data.extended.unitex.languageManagerUnitex.operatorDelaf">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="P:imbNLP.Data.extended.unitex.languageManagerUnitex.manager">
+            <summary>
+            static and autoinitiated object
+            </summary>
+        </member>
+        <member name="T:imbNLP.Data.extended.wordnet.languageManagerWordnet">
+            <summary>
+            WordNET Serbian and English
+            </summary>
+            <seealso cref="T:imbNLP.Data.extended.dict.core.tokenQueryResolverBase" />
+        </member>
+        <member name="M:imbNLP.Data.extended.wordnet.languageManagerWordnet.query_eng_symset(System.Collections.Generic.List{System.String},imbSCI.Core.reporting.ILogBuilder)">
+            <summary>
+            Returns words matching symset codes
+            </summary>
+            <param name="symsetCodes">The symset codes.</param>
+            <param name="response">The response.</param>
+            <returns></returns>
+        </member>
+        <member name="M:imbNLP.Data.extended.wordnet.languageManagerWordnet.query_eng(System.Collections.Generic.List{System.String},imbSCI.Core.reporting.ILogBuilder)">
+            <summary>
+            Queries Wordnet_eng codes by words/tokens/lemmas. This should be used before <see cref="!:query_eng_symset(List&lt;string&gt;, imbSCI.Core.interfaces.ILogBuilder)"/>
+            </summary>
+            <param name="eng_tokens">The eng tokens.</param>
+            <param name="response">The response.</param>
+            <returns></returns>
+        </member>
+        <member name="M:imbNLP.Data.extended.wordnet.languageManagerWordnet.queryWithGraph(imbNLP.PartOfSpeech.lexicUnit.tokenGraphs.tokenGraphNode,imbSCI.Core.reporting.ILogBuilder,imbNLP.Data.extended.wordnet.WordnetSource,imbNLP.Data.extended.wordnet.WordnetQueryType)">
+            <summary>
+            Queries apropriate wordnet database according to graph node type.
+            </summary>
+            <param name="graph">The graph.</param>
+            <param name="response">The response.</param>
+            <returns></returns>
+        </member>
+        <member name="M:imbNLP.Data.extended.wordnet.languageManagerWordnet.prepare_eng(imbSCI.Core.reporting.ILogBuilder)">
+            <summary>
+            Prepares the eng.
+            </summary>
+            <param name="response">The response.</param>
+        </member>
+        <member name="P:imbNLP.Data.extended.wordnet.languageManagerWordnet.wordnet_eng">
+            <summary> </summary>
+        </member>
+        <member name="P:imbNLP.Data.extended.wordnet.languageManagerWordnet.isEngWordNetReady">
+            <summary>
+            da li je spreman engleski wordnet
+            </summary>
+        </member>
+        <member name="P:imbNLP.Data.extended.wordnet.languageManagerWordnet.resource">
+            <summary> </summary>
+        </member>
+        <member name="P:imbNLP.Data.extended.wordnet.languageManagerWordnet.manager">
+            <summary>
+            static and autoinitiated object
+            </summary>
+        </member>
+        <member name="T:imbNLP.Data.extended.wordnet.symsetSpark">
+            <summary>
+            Model of single Wordnet eng term query expansion
+            </summary>
+            <seealso cref="!:aceCommonTypes.primitives.imbBindable" />
+        </member>
+        <member name="P:imbNLP.Data.extended.wordnet.symsetSpark.serbian">
+            <summary> </summary>
+        </member>
+        <member name="P:imbNLP.Data.extended.wordnet.symsetSpark.english">
+            <summary> </summary>
+        </member>
+        <member name="P:imbNLP.Data.extended.wordnet.symsetSpark.englishRootWord">
+            <summary>the word used to extract the spark</summary>
+        </member>
+        <member name="P:imbNLP.Data.extended.wordnet.symsetSpark.symsetCode">
+            <summary> </summary>
+        </member>
+        <member name="T:imbNLP.Data.extended.wordnet.wordnetSymsetResults">
+            <summary>
+            Result of wordnetSymsetQuery
+            </summary>
+            <seealso cref="!:aceCommonTypes.collection.special.translationTableMulti&lt;System.String, System.String&gt;" />
+        </member>
+        <member name="P:imbNLP.Data.extended.wordnet.wordnetSymsetResults.models">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="F:imbNLP.Data.extended.wordnet.wordnetTriplet.CODE_NOUN">
+            <summary>
+            The code noun - imenica
+            </summary>
+        </member>
+        <member name="F:imbNLP.Data.extended.wordnet.wordnetTriplet.CODE_VERB">
+            <summary>
+            The code verb - glagol
+            </summary>
+        </member>
+        <member name="F:imbNLP.Data.extended.wordnet.wordnetTriplet.CODE_ADJECTIVE">
+            <summary>
+            The code for adjective
+            </summary>
+        </member>
+        <member name="F:imbNLP.Data.extended.wordnet.wordnetTriplet.CODE_ADVERB">
+            <summary>
+            The code adverb: prilog
+            </summary>
+        </member>
+        <member name="F:imbNLP.Data.extended.wordnet.wordnetTriplet.CODE_ADJECTIVE_SATELLITE">
+            <summary>
+            The code adjective satellite
+            </summary>
+        </member>
+        <member name="P:imbNLP.Data.extended.wordnet.wordnetTriplet.original">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="P:imbNLP.Data.extended.wordnet.wordnetTriplet.token">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="P:imbNLP.Data.extended.wordnet.wordnetTriplet.code">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="P:imbNLP.Data.extended.wordnet.wordnetTriplet.meaning">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="T:imbNLP.Data.imbLanguageFrameworkManager">
+            <summary>
+            Manager klasa treba da omoguci referenciranje i upravljanje statickim resursima
+            </summary>
+        </member>
+        <member name="M:imbNLP.Data.imbLanguageFrameworkManager.GetBasicLanguage(imbNLP.Data.basicLanguageEnum)">
+            <summary>
+            Returns a basic language object with loaded dictionary file
+            </summary>
+            <param name="languageID">The language identifier.</param>
+            <returns></returns>
+        </member>
+        <member name="P:imbNLP.Data.imbLanguageFrameworkManager.log">
+            <summary>
+            Main log builder for the language framework
+            </summary>
+        </member>
+        <member name="M:imbNLP.Data.imbLanguageFrameworkManager.exploreToken(System.String,System.Object,imbNLP.Data.extended.dict.core.tokenQuerySourceEnum)">
+            <summary>
+            Explores the token.
+            </summary>
+            <param name="token">The token.</param>
+            <param name="metaobject">The metaobject.</param>
+            <param name="sources">The sources.</param>
+            <returns></returns>
+        </member>
+        <member name="M:imbNLP.Data.imbLanguageFrameworkManager.Prepare">
+            <summary>
+            2013C: Ovo je bitno da bude pozvano kako bi uspesno referencirao ovu Biblioteku!! -- > TREBA DA GA POZOVE manager.onApplicationReady()
+            </summary>
+        </member>
+        <member name="T:imbNLP.Data.NamespaceDoc">
+            <summary>
+            Data structures used by Natural Language Processing module of the imbVeles Framework
+            </summary>
+        </member>
+        <member name="T:imbNLP.Data.semanticLexicon.console.lexiconConsole">
+            <summary>
+            Lexicon Console - performs operations over Semantic Lexicon
+            </summary>
+            <seealso cref="!:aceCommonTypes.primitives.imbBindable" />
+        </member>
+        <member name="P:imbNLP.Data.semanticLexicon.console.lexiconConsole.manager">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="P:imbNLP.Data.semanticLexicon.console.lexiconConsole.state">
+            <summary> </summary>
+        </member>
+        <member name="P:imbNLP.Data.semanticLexicon.console.lexiconConsole.settings">
+            <summary> </summary>
+        </member>
+        <member name="P:imbNLP.Data.semanticLexicon.console.lexiconConsoleSettings.settings_filepath">
+            <summary>
+            Path where the settings is saved
+            </summary>
+        </member>
+        <member name="P:imbNLP.Data.semanticLexicon.console.lexiconConsoleSettings.defaultSession">
+            <summary>
+            Name of default Console Session to open
+            </summary>
+        </member>
+        <member name="P:imbNLP.Data.semanticLexicon.console.lexiconConsoleSettings.doRunConsoleOnWorkshop">
+            <summary>
+            Should automatically start Lexicon Console on entering Lexicon Workshop
+            </summary>
+        </member>
+        <member name="P:imbNLP.Data.semanticLexicon.console.lexiconConsoleSettings.doRunInitiationAutomatically">
+            <summary>
+            If true it runs Corpus initiation automatically
+            </summary>
+        </member>
+        <member name="P:imbNLP.Data.semanticLexicon.console.lexiconConsoleSettings.autoexecScriptFilename">
+            <summary>
+            Path to a script that will be automatically executed on console start up
+            </summary>
+        </member>
+        <member name="P:imbNLP.Data.semanticLexicon.console.lexiconConsoleSettings.doRunAutoexecScript">
+            <summary>
+            if TRUE it will run autoexec script from corpus project folder
+            </summary>
+        </member>
+        <member name="P:imbNLP.Data.semanticLexicon.console.lexiconConsoleState.consoleSessionName">
+            <summary>
+            Name of the current session
+            </summary>
+        </member>
+        <member name="P:imbNLP.Data.semanticLexicon.console.lexiconConsoleState.current">
+            <summary>
+            Description of $property$
+            </summary>
+        </member>
+        <member name="P:imbNLP.Data.semanticLexicon.core.IConcept.Id">
+            <summary>
+            Get the persistent identifier for this entity
+            </summary>
+        </member>
+        <member name="P:imbNLP.Data.semanticLexicon.core.IConcept.name">
+            <summary>
+            Name contains the inflected form of a word
+            </summary>
+            <value>
+            Name of a concept
+            </value>
+        </member>
+        <member name="P:imbNLP.Data.semanticLexicon.core.IConcept.relatedTo">
+            <summary>
+            Side - same level relation between the concepts
+            </summary>
+            <value>
+            The related to.
+            </value>
+        </member>
+        <member name="P:imbNLP.Data.semanticLexicon.core.IConcept.relatedFrom">
+            <summary>
+            Side - same level - relation between the concepts
+            </summary>
+            <value>
+            The related from.
+            </value>
+        </member>
+        <member name="P:imbNLP.Data.semanticLexicon.core.ITermInstance.Id">
+            <summary>
+            Get the persistent identifier for this entity
+            </summary>
+        </member>
+        <member name="P:imbNLP.Data.semanticLexicon.core.ITermInstance.name">
+            <summary>
+            Name contains the inflected form of a word
+            </summary>
+            <value>
+            inflected form of a word
+            </value>
+        </member>
+        <member name="P:imbNLP.Data.semanticLexicon.core.ITermLemma.Id">
+            <summary>
+            Get the persistent identifier for this entity
+            </summary>
+        </member>
+        <member name="P:imbNLP.Data.semanticLexicon.core.ITermLemma.name">
+            <summary>
+            Name contains the Lemma form of a word
+            </summary>
+            <value>
+            Lemmatic form of a word
+            </value>
+        </member>
+        <member name="P:imbNLP.Data.semanticLexicon.core.ITermLemma.compounds">
+            <summary>
+            Used for Phrase
+            </summary>
+            <value>
+            The compounds.
+            </value>
+        </member>
+        <member name="M:imbNLP.Data.semanticLexicon.core.lexiconItemTools.IsMatch(imbNLP.Data.semanticLexicon.core.ILexiconItem,System.String)">
+            <summary>
+            Determines whether the specified term is match.
+            </summary>
+            <param name="lexItem">The lex item.</param>
+            <param name="term">The term.</param>
+            <returns>
+              <c>true</c> if the specified term is match; otherwise, <c>false</c>.
+            </returns>
+        </member>
+        <member name="M:imbNLP.Data.semanticLexicon.core.lexiconItemTools.expandOnce(imbNLP.Data.semanticLexicon.core.ILexiconItem,imbNLP.Data.semanticLexicon.core.lexiconItemExpandEnum,System.Collections.Generic.List{imbNLP.Data.semanticLexicon.core.ILexiconItem})">
+            <summary>
+            Expands the once.
+            </summary>
+            <param name="lexItem">The lex item to expand from</param>
+            <param name="type">The type of expansion</param>
+            <param name="exclude">Items not to expand to</param>
+            <returns></returns>
+        </member>
+        <member name="T:imbNLP.Data.semanticLexicon.explore.termExploreItem">
+            <summary>
+            Jedinica term modela
+            </summary>
+            <seealso cref="!:aceCommonTypes.primitives.imbBindable" />
+        </member>
+        <member name="M:imbNLP.Data.semanticLexicon.explore.termExploreItem.ToString(imbSCI.Core.reporting.ILogBuilder,System.String,System.Boolean)">
+            <summary>
+            Logs a multiline description of the gramCaseSet
+            </summary>
+            <param name="log">The log.</param>
+        </member>
+        <member name="P:imbNLP.Data.semanticLexicon.explore.termExploreItem.inputForm">
+            <summary>
+            The initial form
+            </summary>
+        </member>
+        <member name="P:imbNLP.Data.semanticLexicon.explore.termExploreItem.gramSetDeclaration">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="P:imbNLP.Data.semanticLexicon.explore.termExploreItem.gramSet">
+            <summary> </summary>
+        </member>
+        <member name="P:imbNLP.Data.semanticLexicon.explore.termExploreItem.flags">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="P:imbNLP.Data.semanticLexicon.explore.termExploreItemCollection.items">
+            <summary> </summary>
+        </member>
+        <member name="M:imbNLP.Data.semanticLexicon.explore.termExploreItemCollection.Add(System.String,System.String)">
+            <summary>
+            Adds the specified instance form, or if already exists just adds gram declaration
+            </summary>
+            <param name="instanceForm">The instance form.</param>
+            <param name="declaration">The declaration.</param>
+            <returns></returns>
+        </member>
+        <member name="T:imbNLP.Data.semanticLexicon.explore.termExploreModel">
+            <summary>
+            Temp object to explore a term
+            </summary>
+            <seealso cref="T:imbNLP.Data.semanticLexicon.explore.termExploreItem" />
+        </member>
+        <member name="P:imbNLP.Data.semanticLexicon.explore.termExploreModel.lastModifiedByStage">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="P:imbNLP.Data.semanticLexicon.explore.termExploreModel.graph">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="P:imbNLP.Data.semanticLexicon.explore.termExploreModel.links_synonym">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="P:imbNLP.Data.semanticLexicon.explore.termExploreModel.links_lemmaConcept">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="P:imbNLP.Data.semanticLexicon.explore.termExploreModel.links_conceptConcept">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="P:imbNLP.Data.semanticLexicon.explore.termExploreModel.modelSource">
+            <summary> </summary>
+        </member>
+        <member name="M:imbNLP.Data.semanticLexicon.explore.termExploreModel.ToString(imbSCI.Core.reporting.ILogBuilder,System.Boolean,System.Boolean)">
+            <summary>
+            To the string.
+            </summary>
+            <param name="loger">The loger.</param>
+            <param name="expanded">if set to <c>true</c> [expanded].</param>
+        </member>
+        <member name="M:imbNLP.Data.semanticLexicon.explore.termExploreModel.filename(System.String)">
+            <summary>
+            Filenames the specified extension.
+            </summary>
+            <param name="extension">The extension.</param>
+            <returns></returns>
+        </member>
+        <member name="M:imbNLP.Data.semanticLexicon.explore.termExploreModel.#ctor(imbNLP.Data.semanticLexicon.core.ITermLemma)">
+            <summary>
+            Initializes a new instance of the <see cref="T:imbNLP.Data.semanticLexicon.explore.termExploreModel"/> class.
+            </summary>
+            <param name="lemmaSource">The lemma source.</param>
+        </member>
+        <member name="M:imbNLP.Data.semanticLexicon.explore.termExploreModel.GetShadow">
+            <summary>
+            Gets the shadow.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:imbNLP.Data.semanticLexicon.explore.termExploreModel.lemma">
+            <summary> </summary>
+        </member>
+        <member name="P:imbNLP.Data.semanticLexicon.explore.termExploreModel.instances">
+            <summary> </summary>
+        </member>
+        <member name="P:imbNLP.Data.semanticLexicon.explore.termExploreModel.translations">
+            <summary> </summary>
+        </member>
+        <member name="P:imbNLP.Data.semanticLexicon.explore.termExploreModel.translationRelated">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="P:imbNLP.Data.semanticLexicon.explore.termExploreModel.wordnetSynonyms">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="P:imbNLP.Data.semanticLexicon.explore.termExploreModel.wordnetSynonymSerbian">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="P:imbNLP.Data.semanticLexicon.explore.termExploreModel.synonyms">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="P:imbNLP.Data.semanticLexicon.explore.termExploreModel.wordnetSecondarySymsets">
+            <summary> </summary>
+        </member>
+        <member name="P:imbNLP.Data.semanticLexicon.explore.termExploreModel.wordnetPrimarySymsets">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="P:imbNLP.Data.semanticLexicon.explore.termExploreModel.wasExploreFailed">
+            <summary>
+            has exploration failed
+            </summary>
+        </member>
+        <member name="P:imbNLP.Data.semanticLexicon.explore.termExploreModel.rootWord">
+            <summary>
+            Description of $property$
+            </summary>
+        </member>
+        <member name="P:imbNLP.Data.semanticLexicon.explore.termExploreModel.lemmaForm">
+            <summary>
+            Lemmata form of the word
+            </summary>
+        </member>
+        <member name="T:imbNLP.Data.semanticLexicon.explore.termExploreModelSet">
+            <summary>
+            Collection of term explore models for lemmas
+            </summary>
+        </member>
+        <member name="P:imbNLP.Data.semanticLexicon.explore.termExploreModelSet.failedModels">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="P:imbNLP.Data.semanticLexicon.explore.termExploreModelSet.lemmasToCheck">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="P:imbNLP.Data.semanticLexicon.explore.termExploreModelSet.missingLemmas">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="F:imbNLP.Data.semanticLexicon.explore.termExploreModelSource.none">
+            <summary>
+            The none - unknown
+            </summary>
+        </member>
+        <member name="F:imbNLP.Data.semanticLexicon.explore.termExploreModelSource.fromFile">
+            <summary>
+            From file - loaded from file
+            </summary>
+        </member>
+        <member name="F:imbNLP.Data.semanticLexicon.explore.termExploreModelSource.fromLemma">
+            <summary>
+            From lemma - reconstructed from <see cref="T:imbNLP.Data.semanticLexicon.TermLemma"/>
+            </summary>
+        </member>
+        <member name="F:imbNLP.Data.semanticLexicon.explore.termExploreModelSource.fromToken">
+            <summary>
+            From token - constructed from String token
+            </summary>
+        </member>
+        <member name="M:imbNLP.Data.semanticLexicon.explore.termExploreProcedures.exploreStageTwo(System.String,imbSCI.Core.reporting.ILogBuilder,System.Boolean,System.Boolean,System.Boolean,imbNLP.Data.semanticLexicon.procedures.lexiconTaskBase)">
+            <summary>
+            The stage two exploration
+            </summary>
+            <param name="lemma">The lemma.</param>
+            <param name="response">The response.</param>
+            <param name="savemodel">if set to <c>true</c> [savemodel].</param>
+            <param name="debug">if set to <c>true</c> [debug].</param>
+            <param name="verbose">if set to <c>true</c> [verbose].</param>
+            <returns></returns>
+        </member>
+        <member name="M:imbNLP.Data.semanticLexicon.explore.termExploreProcedures.getSynonymsWithWordnetViaApertium(imbNLP.Data.semanticLexicon.explore.termExploreModel,imbSCI.Core.reporting.ILogBuilder,System.Boolean,System.Boolean)">
+            <summary>
+            Method: word -- translation --- synset ---- other synsets --- collecting all words --- translation --- word
+            </summary>
+            <param name="model">The model.</param>
+            <param name="response">The response.</param>
+            <param name="disableCodePrefixFilter">if set to <c>true</c> [disable code prefix filter].</param>
+            <param name="disableCodeBranchFilter">if set to <c>true</c> [disable code branch filter].</param>
+            <returns></returns>
+        </member>
+        <member name="M:imbNLP.Data.semanticLexicon.explore.termExploreProcedures.exploreWithUnitex(System.String,imbSCI.Core.reporting.ILogBuilder,System.Boolean)">
+            <summary>
+            Builds a term model out from Word input
+            </summary>
+            <param name="word">The word.</param>
+            <param name="response">The response.</param>
+            <returns></returns>
+        </member>
+        <member name="M:imbNLP.Data.semanticLexicon.explore.termExploreProcedures.exploreWithHunspell(imbNLP.Data.semanticLexicon.explore.termExploreItem,imbSCI.Core.reporting.ILogBuilder)">
+            <summary>
+            Explores the with hunspell.
+            </summary>
+            <param name="item">The item.</param>
+            <param name="log">The log.</param>
+            <returns></returns>
+        </member>
+        <member name="P:imbNLP.Data.semanticLexicon.explore.termExplorer.modelRegistry">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="P:imbNLP.Data.semanticLexicon.explore.termExplorer.lexicalItemRegistry">
+            <summary> </summary>
+        </member>
+        <member name="P:imbNLP.Data.semanticLexicon.explore.termExplorer.missing">
+            <summary> </summary>
+        </member>
+        <member name="P:imbNLP.Data.semanticLexicon.explore.termExplorer.found">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="P:imbNLP.Data.semanticLexicon.explore.termExplorer.termDiscoveryResolver">
+            <summary>
+            static and autoinitiated object
+            </summary>
+        </member>
+        <member name="P:imbNLP.Data.semanticLexicon.explore.termExplorer.failedList">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="P:imbNLP.Data.semanticLexicon.explore.termExplorer.manager">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="M:imbNLP.Data.semanticLexicon.explore.termExplorer.explore(System.String,imbSCI.Core.reporting.ILogBuilder,System.Boolean,System.Boolean,imbNLP.Data.semanticLexicon.explore.termExploreModel)">
+            <summary>
+            Explores definition on an unknown term
+            </summary>
+            <param name="term">The term.</param>
+            <param name="loger">The loger.</param>
+            <param name="shortExplore">if set to <c>true</c> [short explore].</param>
+            <param name="debug">if set to <c>true</c> [debug].</param>
+            <returns></returns>
+        </member>
+        <member name="T:imbNLP.Data.semanticLexicon.lexiconResponse">
+            <summary>
+            Extended lexicon response
+            </summary>
+            <seealso cref="!:System.Collections.Generic.List&lt;imbLanguageFramework.semanticLexicon.core.ILexiconItem&gt;" />
+        </member>
+        <member name="F:imbNLP.Data.semanticLexicon.lexiconResponse.responseType.lexicon">
+            <summary>
+            The lexicon: response is result of performed lexicon query
+            </summary>
+        </member>
+        <member name="F:imbNLP.Data.semanticLexicon.lexiconResponse.responseType.cachedLexicon">
+            <summary>
+            The cached lexicon: response was found in the cached content
+            </summary>
+        </member>
+        <member name="F:imbNLP.Data.semanticLexicon.lexiconResponse.responseType.failedQueries">
+            <summary>
+            The failed queries: response was created from failed query list
+            </summary>
+        </member>
+        <member name="M:imbNLP.Data.semanticLexicon.morphology.morphMachine.GetNextToken">
+            <summary>
+            Gets the next token - gets next not ingored file
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:imbNLP.Data.semanticLexicon.morphology.morphMachine.Explore(System.String,imbSCI.Core.reporting.ILogBuilder)">
+            <summary>
+            Explores the specified token.
+            </summary>
+            <param name="token">The token.</param>
+            <param name="loger">The loger.</param>
+            <returns></returns>
+        </member>
+        <member name="P:imbNLP.Data.semanticLexicon.morphology.morphMachine.rules">
+            <summary> </summary>
+        </member>
+        <member name="T:imbNLP.Data.semanticLexicon.morphology.morphMachineSerbian">
+            <summary>
+            Enables morphology and term resolution based on Serbian morphology rules
+            </summary>
+            <seealso cref="T:imbNLP.Data.semanticLexicon.morphology.morphMachine" />
+        </member>
+        <member name="M:imbNLP.Data.semanticLexicon.morphology.morphRuleMatch.createExploreItem(System.String)">
+            <summary>
+            Creates the explore item.
+            </summary>
+            <param name="token">The token.</param>
+            <returns></returns>
+        </member>
+        <member name="P:imbNLP.Data.semanticLexicon.morphology.morphRuleMatch.root">
+            <summary>
+            Gets or sets the root part of the word (first regex group
+            </summary>
+            <value>
+            The root.
+            </value>
+        </member>
+        <member name="P:imbNLP.Data.semanticLexicon.morphology.morphRuleMatch.stem">
+            <summary>
+            Gets or sets the stem part of the word - connecting root and sufix
+            </summary>
+            <value>
+            The stem.
+            </value>
+        </member>
+        <member name="P:imbNLP.Data.semanticLexicon.morphology.morphRuleMatch.sufix">
+            <summary>
+            Gets or sets the sufix part of the word
+            </summary>
+            <value>
+            The sufix.
+            </value>
+        </member>
+        <member name="T:imbNLP.Data.semanticLexicon.morphology.morphRuleMatchSet">
+            <summary>
+            Collection of matched rules and associated models
+            </summary>
+        </member>
+        <member name="P:imbNLP.Data.semanticLexicon.morphology.morphRuleMatchSet.matches">
+            <summary> </summary>
+        </member>
+        <member name="M:imbNLP.Data.semanticLexicon.morphology.morphRuleMatchSet.GetExploreItems">
+            <summary>
+            Gets the explore items.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:imbNLP.Data.semanticLexicon.morphology.morphRuleSet.Add(System.String,imbNLP.Data.semanticLexicon.posCase.gramFlags)">
+            <summary>
+            Adds the specified sufix: $ is last letter of nominative, # is n, t or s
+            </summary>
+            <param name="sufix">The sufix.</param>
+            <param name="gram">The gram.</param>
+            <returns></returns>
+        </member>
+        <member name="P:imbNLP.Data.semanticLexicon.morphology.morphRuleSet.rules">
+            <summary> </summary>
+        </member>
+        <member name="M:imbNLP.Data.semanticLexicon.posCase.gramCaseSet.GetAll">
+            <summary>
+            Creates inline string representation of the case set
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:imbNLP.Data.semanticLexicon.posCase.gramCaseSet.SetAll(System.String)">
+            <summary>
+            Reads the inline string representation and populates the content
+            </summary>
+        </member>
+        <member name="M:imbNLP.Data.semanticLexicon.posCase.gramCaseSet.ToString(imbSCI.Core.reporting.ILogBuilder,System.Boolean)">
+            <summary>
+            Logs a multiline description of the gramCaseSet
+            </summary>
+            <param name="log">The log.</param>
+        </member>
+        <member name="M:imbNLP.Data.semanticLexicon.posCase.gramCaseSet.ToString">
+            <summary>
+            Returns a string that represents the set in inline format
+            </summary>
+            <returns>
+            A string that represents the current object.
+            </returns>
+        </member>
+        <member name="M:imbNLP.Data.semanticLexicon.posCase.gramCaseSet.Add(System.String,imbNLP.Data.semanticLexicon.posCase.gramFlags)">
+            <summary>
+            Add gramFlags into the set, defined by the specified declaration. If the same declaration exists it is not added.
+            </summary>
+            <param name="declaration">The declaration.</param>
+            <returns>Created or existing <see cref="T:imbNLP.Data.semanticLexicon.posCase.gramFlags"/></returns>
+        </member>
+        <member name="P:imbNLP.Data.semanticLexicon.posCase.gramCaseSet.items">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="T:imbNLP.Data.semanticLexicon.posCase.gramFlags">
+            <summary>
+            Jedan gramatički unos iz UNITEX-a
+            </summary>
+        </member>
+        <member name="P:imbNLP.Data.semanticLexicon.posCase.gramFlags.stringForm">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="P:imbNLP.Data.semanticLexicon.posCase.gramFlags.type">
+            <summary>
+            POS term type
+            </summary>
+        </member>
+        <member name="P:imbNLP.Data.semanticLexicon.posCase.gramFlags.markers">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="P:imbNLP.Data.semanticLexicon.posCase.gramFlags.items">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="M:imbNLP.Data.semanticLexicon.posCase.gramFlags.GetAll(imbNLP.Data.semanticLexicon.posCase.gramFlagDeclarationParts)">
+            <summary>
+            Returns the complete gram case declaration
+            </summary>
+            <param name="parts">The parts.</param>
+            <returns></returns>
+        </member>
+        <member name="M:imbNLP.Data.semanticLexicon.posCase.gramFlags.SetAll(System.String,imbNLP.Data.semanticLexicon.posCase.gramFlagDeclarationParts)">
+            <summary>
+            Sets: <see cref="T:imbNLP.PartOfSpeech.flags.basic.pos_type"/>, and other pos flags contained in the specified declaration
+            </summary>
+            <param name="declaration">The declaration in Unitex format -- the part of DELAF entry without word and lemma, after dot: N:mp2q</param>
+            <param name="parts">The parts.</param>
+            <exception cref="T:imbACE.Core.core.exceptions.aceGeneralException">
+            POS type definition not found in the input declaration [" + declaration + "] - null - POS Type failed in SetAll()
+            or
+            POS type set to none by the input declaration [" + declaration + "] - null - POS Type failed in SetAll()
+            or
+            POS gram flags not found in the input declaration [" + declaration + "] - null - POS gram flags failed in SetAll()
+            </exception>
+        </member>
+        <member name="F:imbNLP.Data.semanticLexicon.posCase.posConverter.CODE_NOUN">
+            <summary>
+            The code noun - imenica
+            </summary>
+        </member>
+        <member name="F:imbNLP.Data.semanticLexicon.posCase.posConverter.CODE_VERB">
+            <summary>
+            The code verb - glagol
+            </summary>
+        </member>
+        <member name="F:imbNLP.Data.semanticLexicon.posCase.posConverter.CODE_ADJECTIVE">
+            <summary>
+            The code for adjective
+            </summary>
+        </member>
+        <member name="F:imbNLP.Data.semanticLexicon.posCase.posConverter.CODE_ADVERB">
+            <summary>
+            The code adverb: prilog
+            </summary>
+        </member>
+        <member name="F:imbNLP.Data.semanticLexicon.posCase.posConverter.CODE_ADJECTIVE_SATELLITE">
+            <summary>
+            The code adjective satellite
+            </summary>
+        </member>
+        <member name="P:imbNLP.Data.semanticLexicon.posCase.posConverter.posFlagsTranslator">
+            <summary>
+            static and autoinitiated object
+            </summary>
+        </member>
+        <member name="P:imbNLP.Data.semanticLexicon.posCase.posConverter.posTypeVsPattern">
+            <summary>
+            static and autoinitiated object
+            </summary>
+        </member>
+        <member name="P:imbNLP.Data.semanticLexicon.posCase.posConverter.posTypeVsString">
+            <summary>
+            static and autoinitiated object
+            </summary>
+        </member>
+        <member name="P:imbNLP.Data.semanticLexicon.posCase.posConverter.posTypeVsApertiumPosType">
+            <summary>
+            Translation between apertium and unitex
+            </summary>
+        </member>
+        <member name="P:imbNLP.Data.semanticLexicon.posCase.posConverter.apertiumToPos">
+            <summary>
+            static and autoinitiated object
+            </summary>
+        </member>
+        <member name="P:imbNLP.Data.semanticLexicon.posCase.posConverter.wordNetFirstNumToPosType">
+            <summary>
+            static and autoinitiated object
+            </summary>
+        </member>
+        <member name="P:imbNLP.Data.semanticLexicon.procedures.lexiconConstructionSettings.parallelTake">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="P:imbNLP.Data.semanticLexicon.procedures.lexiconConstructionSettings.settings_filepath">
+            <summary>
+            Path where the settings is saved
+            </summary>
+        </member>
+        <member name="P:imbNLP.Data.semanticLexicon.procedures.lexiconConstructionSettings.saveAllIterations">
+            <summary>
+            Number of task iterations to pass in order to call save all
+            </summary>
+        </member>
+        <member name="P:imbNLP.Data.semanticLexicon.procedures.lexiconConstructionSettings.fileTextSearchBlockSize">
+            <summary>
+            Gets or sets the size of the file text search block.
+            </summary>
+            <value>
+            The size of the file text search block.
+            </value>
+        </member>
+        <member name="P:imbNLP.Data.semanticLexicon.procedures.lexiconConstructionSettings.corpusProjectName">
+            <summary>
+            Name of the corpus project operation
+            </summary>
+        </member>
+        <member name="P:imbNLP.Data.semanticLexicon.procedures.lexiconConstructionSettings.corpusInput">
+            <summary>
+            Path of the input corpus
+            </summary>
+        </member>
+        <member name="P:imbNLP.Data.semanticLexicon.procedures.lexiconConstructor.projectFolderStructure">
+            <summary> </summary>
+        </member>
+        <member name="P:imbNLP.Data.semanticLexicon.procedures.lexiconConstructor.output">
+            <summary> </summary>
+        </member>
+        <member name="P:imbNLP.Data.semanticLexicon.procedures.lexiconConstructor.settings">
+            <summary> </summary>
+        </member>
+        <member name="P:imbNLP.Data.semanticLexicon.procedures.lexiconConstructor.tasks">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="M:imbNLP.Data.semanticLexicon.procedures.lexiconConstructor.runStage(System.String,System.Boolean,System.Int32,System.Boolean,System.Boolean,System.Boolean,imbSCI.Core.reporting.ILogBuilder)">
+            <summary>
+            Runs the stage.
+            </summary>
+            <param name="stageName">Name of the stage.</param>
+            <param name="response">The response.</param>
+            <param name="isReset">if set to <c>true</c> [is reset].</param>
+            <param name="take">The take.</param>
+            <param name="__savemodels">if set to <c>true</c> [savemodels].</param>
+            <param name="__debug">if set to <c>true</c> [debug].</param>
+            <param name="__verbose">if set to <c>true</c> [verbose].</param>
+            <param name="__response">The response.</param>
+        </member>
+        <member name="M:imbNLP.Data.semanticLexicon.procedures.lexiconConstructor.startConstruction(System.String)">
+            <summary>
+            Starts the construction --- prepares all files and structure
+            </summary>
+        </member>
+        <member name="P:imbNLP.Data.semanticLexicon.procedures.lexiconConstructor.manager">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="M:imbNLP.Data.semanticLexicon.procedures.lexiconConstructor.resetLexiconAndCorpus">
+            <summary>
+            Resets the lexicon and corpus.
+            </summary>
+        </member>
+        <member name="M:imbNLP.Data.semanticLexicon.procedures.lexiconConstructor.addTermModelToLexicon(imbNLP.Data.semanticLexicon.explore.termExploreModel)">
+            <summary>
+            Adds the term model to the lexicon
+            </summary>
+            <param name="termModel">The term model.</param>
+        </member>
+        <member name="M:imbNLP.Data.semanticLexicon.procedures.lexiconConstructor.saveTermModel(imbNLP.Data.semanticLexicon.explore.termExploreModel,System.String)">
+            <summary>
+            Saves the term model. Prefix is clean filename prefix without spacing character
+            </summary>
+            <param name="termModel">The term model.</param>
+            <param name="prefix">The prefix.</param>
+        </member>
+        <member name="M:imbNLP.Data.semanticLexicon.procedures.lexiconConstructor.loadTermModels(System.String,System.Boolean)">
+            <summary>
+            Loads any term model for the lemma form
+            </summary>
+            <param name="lemma">The lemma.</param>
+            <returns></returns>
+        </member>
+        <member name="M:imbNLP.Data.semanticLexicon.procedures.lexiconConstructor.getTermModel(imbNLP.Data.semanticLexicon.core.ITermLemma,System.Boolean)">
+            <summary>
+            Gets model from the Lexicon lemma entry -- loads from file, or if file do not exist - reconstructs it from the TermLema
+            </summary>
+            <param name="lemma">The lemma.</param>
+            <returns></returns>
+        </member>
+        <member name="M:imbNLP.Data.semanticLexicon.procedures.lexiconConstructor.loadScript(System.String)">
+            <summary>
+            Loads a script for autoexecution
+            </summary>
+            <param name="scriptFilename">The script filename.</param>
+            <returns></returns>
+        </member>
+        <member name="T:imbNLP.Data.semanticLexicon.procedures.lexiconConstructTaskOne">
+            <summary>
+            Task one is about lemmatization
+            </summary>
+            <seealso cref="T:imbNLP.Data.semanticLexicon.procedures.lexiconTaskBase" />
+        </member>
+        <member name="P:imbNLP.Data.semanticLexicon.procedures.lexiconConstructTaskState.shadow_filepath">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="P:imbNLP.Data.semanticLexicon.procedures.lexiconConstructTaskState.failedTasks_filepath">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="P:imbNLP.Data.semanticLexicon.procedures.lexiconConstructTaskState.scheduledTasks_filepath">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="P:imbNLP.Data.semanticLexicon.procedures.lexiconConstructTaskState.processedTasks_filepath">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="M:imbNLP.Data.semanticLexicon.procedures.lexiconConstructTaskState.taskStateReset(imbNLP.Data.semanticLexicon.procedures.lexiconTaskBase)">
+            <summary>
+            Brise sve sto je imao snimljeno o stageu
+            </summary>
+            <param name="task">The task.</param>
+        </member>
+        <member name="M:imbNLP.Data.semanticLexicon.procedures.lexiconConstructTaskState.taskStateStartSession(imbNLP.Data.semanticLexicon.procedures.lexiconTaskBase,System.Int32,System.Boolean,System.Boolean,System.Boolean,imbSCI.Core.reporting.ILogBuilder)">
+            <summary>
+            Priprema ga za start nove sesije
+            </summary>
+            <param name="task">The task.</param>
+            <param name="take">The take.</param>
+            <param name="__savemodels">if set to <c>true</c> [savemodels].</param>
+            <param name="__debug">if set to <c>true</c> [debug].</param>
+            <param name="__verbose">if set to <c>true</c> [verbose].</param>
+            <param name="response">The response.</param>
+        </member>
+        <member name="P:imbNLP.Data.semanticLexicon.procedures.lexiconConstructTaskState.entryList">
+             <summary>
+            
+             </summary>
+        </member>
+        <!-- Badly formed XML comment ignored for member "P:imbNLP.Data.semanticLexicon.procedures.lexiconConstructTaskState.timeSessionStart" -->
+        <!-- Badly formed XML comment ignored for member "P:imbNLP.Data.semanticLexicon.procedures.lexiconConstructTaskState.response" -->
+        <member name="P:imbNLP.Data.semanticLexicon.procedures.lexiconConstructTaskState.speedCurrent">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="P:imbNLP.Data.semanticLexicon.procedures.lexiconConstructTaskState.speedAverage">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="M:imbNLP.Data.semanticLexicon.procedures.lexiconConstructTaskState.stateSave">
+            <summary>
+            Ciklicni save
+            </summary>
+        </member>
+        <member name="M:imbNLP.Data.semanticLexicon.procedures.lexiconConstructTaskState.#ctor">
+            <summary>
+            Loaded version
+            </summary>
+        </member>
+        <member name="M:imbNLP.Data.semanticLexicon.procedures.lexiconConstructTaskState.#ctor(imbNLP.Data.semanticLexicon.procedures.lexiconTaskBase)">
+            <summary>
+            Initializes a new instance of the <see cref="T:imbNLP.Data.semanticLexicon.procedures.lexiconConstructTaskState"/> class.
+            </summary>
+            <param name="task">The task.</param>
+        </member>
+        <member name="P:imbNLP.Data.semanticLexicon.procedures.lexiconConstructTaskState.taskInitDateTime">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="P:imbNLP.Data.semanticLexicon.procedures.lexiconConstructTaskState.taskSessionStarts">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="P:imbNLP.Data.semanticLexicon.procedures.lexiconConstructTaskState.takeCount">
+            <summary>
+            Number of terms to process
+            </summary>
+        </member>
+        <member name="P:imbNLP.Data.semanticLexicon.procedures.lexiconConstructTaskState.folder">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="P:imbNLP.Data.semanticLexicon.procedures.lexiconConstructTaskState.lastSave">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="P:imbNLP.Data.semanticLexicon.procedures.lexiconConstructTaskState.verbose">
+            <summary> </summary>
+        </member>
+        <member name="P:imbNLP.Data.semanticLexicon.procedures.lexiconConstructTaskState.inputFileSize">
+            <summary> </summary>
+        </member>
+        <member name="P:imbNLP.Data.semanticLexicon.procedures.lexiconConstructTaskState.saveModel">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="P:imbNLP.Data.semanticLexicon.procedures.lexiconConstructTaskState.debug">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="P:imbNLP.Data.semanticLexicon.procedures.lexiconConstructTaskState.indexAbsolute">
+            <summary> </summary>
+        </member>
+        <member name="P:imbNLP.Data.semanticLexicon.procedures.lexiconConstructTaskState.index">
+            <summary> </summary>
+        </member>
+        <member name="P:imbNLP.Data.semanticLexicon.procedures.lexiconConstructTaskState.currentRatio">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="P:imbNLP.Data.semanticLexicon.procedures.lexiconConstructTaskState.shadowBuffer">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="P:imbNLP.Data.semanticLexicon.procedures.lexiconConstructTaskState.processedBuffer">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="P:imbNLP.Data.semanticLexicon.procedures.lexiconConstructTaskState.failedBuffer">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="P:imbNLP.Data.semanticLexicon.procedures.lexiconConstructTaskState.taskShadow">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="P:imbNLP.Data.semanticLexicon.procedures.lexiconConstructTaskState.processedTasks">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="P:imbNLP.Data.semanticLexicon.procedures.lexiconConstructTaskState.scheduledTasks">
+            <summary>
+            List of tasks left to be performed
+            </summary>
+        </member>
+        <member name="P:imbNLP.Data.semanticLexicon.procedures.lexiconConstructTaskState.failedTasks">
+            <summary> </summary>
+        </member>
+        <member name="T:imbNLP.Data.semanticLexicon.procedures.lexiconConstructTaskZero">
+            <summary>
+            Stage zero is about spliting corpora into english, serbian and english-serbian words
+            </summary>
+            <seealso cref="T:imbNLP.Data.semanticLexicon.procedures.lexiconTaskBase" />
+        </member>
+        <!-- Badly formed XML comment ignored for member "M:imbNLP.Data.semanticLexicon.procedures.lexiconTaskBase.stageParallelExecution" -->
+        <member name="M:imbNLP.Data.semanticLexicon.procedures.lexiconTaskBase.stageSingularExecution">
+            <summary>
+            Stages the singular execution.
+            </summary>
+        </member>
+        <member name="P:imbNLP.Data.semanticLexicon.procedures.lexiconTaskBase.state">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="P:imbNLP.Data.semanticLexicon.procedures.lexiconTaskBase.running">
+            <summary> </summary>
+        </member>
+        <member name="T:imbNLP.Data.semanticLexicon.semanticLexiconCache">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="P:imbNLP.Data.semanticLexicon.semanticLexiconCache.failedQueries">
+            <summary> </summary>
+        </member>
+        <member name="P:imbNLP.Data.semanticLexicon.semanticLexiconCache.lemmaCount">
+            <summary> </summary>
+        </member>
+        <member name="P:imbNLP.Data.semanticLexicon.semanticLexiconCache.instanceCount">
+            <summary> </summary>
+        </member>
+        <member name="P:imbNLP.Data.semanticLexicon.semanticLexiconCache.conceptCount">
+            <summary> </summary>
+        </member>
+        <member name="P:imbNLP.Data.semanticLexicon.semanticLexiconCache.twinsSavePath">
+            <summary> </summary>
+        </member>
+        <member name="M:imbNLP.Data.semanticLexicon.semanticLexiconCache.rebuildEncodedTwins(imbSCI.Core.reporting.ILogBuilder,imbNLP.Data.semanticLexicon.semanticLexiconContext)">
+            <summary>
+            Rebuilds the encoded twins.
+            </summary>
+            <param name="loger">The loger.</param>
+            <param name="context">The context.</param>
+        </member>
+        <member name="M:imbNLP.Data.semanticLexicon.semanticLexiconCache.preloadLexicon(imbSCI.Core.reporting.ILogBuilder,imbNLP.Data.semanticLexicon.semanticLexiconContext)">
+            <summary>
+            Preloads the lexicon.
+            </summary>
+            <param name="loger">The loger.</param>
+            <param name="context">The context.</param>
+        </member>
+        <member name="P:imbNLP.Data.semanticLexicon.semanticLexiconCache.doAllowLexiconQuery">
+            <summary>
+            Goes automatically <c>false</c> once the lexicon is preloaded
+            </summary>
+            <value>
+            <c>true</c> if [do allow lexicon query]; otherwise, <c>false</c>.
+            </value>
+        </member>
+        <member name="M:imbNLP.Data.semanticLexicon.semanticLexiconCache.getLemmasWithRoot(System.String,imbSCI.Core.reporting.ILogBuilder)">
+            <summary>
+            Gets the lemmas with root.
+            </summary>
+            <param name="rootWord">The root word.</param>
+            <param name="loger">The loger.</param>
+            <returns></returns>
+        </member>
+        <member name="M:imbNLP.Data.semanticLexicon.semanticLexiconCache.getLexiconItems(System.String,imbSCI.Core.reporting.ILogBuilder)">
+            <summary>
+            Gets the lexicon items from cached terms or failed queris
+            </summary>
+            <param name="termForm">The term form.</param>
+            <returns></returns>
+        </member>
+        <member name="M:imbNLP.Data.semanticLexicon.semanticLexiconCache._getLexiconItems(System.Collections.Generic.List{System.String},imbSCI.Core.reporting.ILogBuilder,System.Boolean)">
+            <summary>
+            Gets the lexicon items.
+            </summary>
+            <param name="termForm">The term form.</param>
+            <param name="loger">The loger.</param>
+            <returns></returns>
+        </member>
+        <member name="M:imbNLP.Data.semanticLexicon.semanticLexiconCache.decodeTwins(System.Collections.Generic.IEnumerable{System.String})">
+            <summary>
+            If a twin detected it is decoded into proper encoding token:  unicode -> ASCII
+            </summary>
+            <param name="tokens">The tokens.</param>
+            <returns>changed or unchanged tokens</returns>
+        </member>
+        <member name="M:imbNLP.Data.semanticLexicon.semanticLexiconCache.encodeTwins(System.Collections.Generic.IEnumerable{System.String})">
+            <summary>
+            If a twin detected it is decoded into proper encoding token: ASCII -> unicode
+            </summary>
+            <param name="tokens">The tokens.</param>
+            <returns>changed or unchanged tokens</returns>
+        </member>
+        <member name="M:imbNLP.Data.semanticLexicon.semanticLexiconCache.AddTemp(System.Collections.Generic.IEnumerable{System.String},imbSCI.Core.reporting.ILogBuilder,System.Boolean,System.Boolean)">
+            <summary>
+            Adds the temporary term definition and performs save once enough temp terms were aded
+            </summary>
+            <param name="terms">The terms.</param>
+            <param name="loger">The loger.</param>
+            <param name="insert">if set to <c>true</c> [insert].</param>
+            <returns></returns>
+        </member>
+        <member name="M:imbNLP.Data.semanticLexicon.semanticLexiconCache.AddTemp(System.String,imbSCI.Core.reporting.ILogBuilder,System.Boolean)">
+            <summary>
+            Adds the temporary.
+            </summary>
+            <param name="term">The term.</param>
+            <param name="loger">The loger.</param>
+            <returns></returns>
+        </member>
+        <member name="M:imbNLP.Data.semanticLexicon.semanticLexiconCache.Add(imbNLP.Data.semanticLexicon.core.ILexiconItem)">
+            <summary>
+            Sets the item into cache
+            </summary>
+            <param name="item">The item.</param>
+        </member>
+        <member name="M:imbNLP.Data.semanticLexicon.semanticLexiconCache.Add(System.Collections.Generic.IEnumerable{imbNLP.Data.semanticLexicon.core.ILexiconItem})">
+            <summary>
+            Adds the specified lexicon items into cache
+            </summary>
+            <param name="items">The items.</param>
+        </member>
+        <member name="P:imbNLP.Data.semanticLexicon.semanticLexiconCache.lemmas">
+            <summary> </summary>
+        </member>
+        <member name="P:imbNLP.Data.semanticLexicon.semanticLexiconCache.instances">
+            <summary> </summary>
+        </member>
+        <member name="M:imbNLP.Data.semanticLexicon.semanticLexiconContext.InitializeEntityMappingStore">
+            <summary>
+            Initialize the internal cache of entity attribute information.
+            </summary>
+            <remarks>
+            This method is normally invoked from the static constructor for the generated context class.
+            It is provided as a public static method to enable the use of the cached entity attribute 
+            information without the need to construct a context (typically in test code). 
+            In normal application code you should never need to explicitly call this method.
+            </remarks>
+        </member>
+        <member name="M:imbNLP.Data.semanticLexicon.semanticLexiconContext.#ctor(BrightstarDB.Client.IDataObjectStore)">
+            <summary>
+            Initialize a new entity context using the specified BrightstarDB
+            Data Object Store connection
+            </summary>
+            <param name="dataObjectStore">The connection to the BrightstarDB Data Object Store that will provide the entity objects</param>
+        </member>
+        <member name="M:imbNLP.Data.semanticLexicon.semanticLexiconContext.#ctor(System.String,System.Nullable{System.Boolean},System.String,System.Collections.Generic.IEnumerable{System.String},System.String)">
+            <summary>
+            Initialize a new entity context using the specified Brightstar connection string
+            </summary>
+            <param name="connectionString">The connection to be used to connect to an existing BrightstarDB store</param>
+            <param name="enableOptimisticLocking">OPTIONAL: If set to true optmistic locking will be applied to all entity updates</param>
+            <param name="updateGraphUri">OPTIONAL: The URI identifier of the graph to be updated with any new triples created by operations on the store. If
+            not defined, the default graph in the store will be updated.</param>
+            <param name="datasetGraphUris">OPTIONAL: The URI identifiers of the graphs that will be queried to retrieve entities and their properties.
+            If not defined, all graphs in the store will be queried.</param>
+            <param name="versionGraphUri">OPTIONAL: The URI identifier of the graph that contains version number statements for entities. 
+            If not defined, the <paramref name="updateGraphUri"/> will be used.</param>
+        </member>
+        <member name="M:imbNLP.Data.semanticLexicon.semanticLexiconContext.#ctor">
+            <summary>
+            Initialize a new entity context using the specified Brightstar
+            connection string retrieved from the configuration.
+            </summary>
+        </member>
+        <!-- Badly formed XML comment ignored for member "M:imbNLP.Data.semanticLexicon.semanticLexiconContext.#ctor(System.String,System.Collections.Generic.IEnumerable{System.String},System.String)" -->
+        <member name="P:imbNLP.Data.semanticLexicon.semanticLexiconManager.manager">
+            <summary>
+            The main instance of semantic lexicon manager
+            </summary>
+        </member>
+        <member name="P:imbNLP.Data.semanticLexicon.semanticLexiconManager.workspaceFolderPath">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="P:imbNLP.Data.semanticLexicon.semanticLexiconManager.console">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="P:imbNLP.Data.semanticLexicon.semanticLexiconManager.consoleSettings">
+            <summary>
+            imbControl property consoleSettings tipa lexiconConsoleSettings
+            </summary>
+        </member>
+        <member name="P:imbNLP.Data.semanticLexicon.semanticLexiconManager.constructor">
+            <summary>
+            imbControl property constructor tipa lexiconConstructor
+            </summary>
+        </member>
+        <member name="P:imbNLP.Data.semanticLexicon.semanticLexiconManager.settings">
+            <summary>
+            imbControl property settings tipa semanticLexiconManagerSettings
+            </summary>
+        </member>
+        <member name="P:imbNLP.Data.semanticLexicon.semanticLexiconManager.constructionSettings">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="P:imbNLP.Data.semanticLexicon.semanticLexiconManager.lexiconContext">
+            <summary> </summary>
+        </member>
+        <member name="M:imbNLP.Data.semanticLexicon.semanticLexiconManager.resolve(System.String)">
+            <summary>
+            Resolves the specified token into one or more <see cref="T:imbNLP.Data.semanticLexicon.TermLemma"/>s
+            </summary>
+            <param name="token">The token.</param>
+            <returns></returns>
+        </member>
+        <member name="M:imbNLP.Data.semanticLexicon.semanticLexiconManager.resolve(System.Collections.Generic.List{System.String})">
+            <summary>
+            Resolves the tokens into list of TermLemma instances
+            </summary>
+            <param name="tokens">The tokens.</param>
+            <returns></returns>
+        </member>
+        <member name="M:imbNLP.Data.semanticLexicon.semanticLexiconManager.getLemmas(System.Collections.Generic.IEnumerable{System.String})">
+            <summary>
+            Gets the lemmas from <see cref="T:System.Collections.Generic.IEnumerable`1"/>
+            </summary>
+            <param name="lemmaForms">The lemma forms.</param>
+            <returns></returns>
+        </member>
+        <member name="M:imbNLP.Data.semanticLexicon.semanticLexiconManager.getLemma(System.String)">
+            <summary>
+            Gets the lemma from string
+            </summary>
+            <param name="lemmaForm">The lemma form.</param>
+            <returns></returns>
+        </member>
+        <member name="M:imbNLP.Data.semanticLexicon.semanticLexiconManager.getConcept(System.String,System.Boolean,System.String,System.Boolean)">
+            <summary>
+            Gets of builds the concept
+            </summary>
+            <param name="conceptName">Name of the concept.</param>
+            <param name="autoBuild">if set to <c>true</c> [automatic build].</param>
+            <param name="description">The description.</param>
+            <returns></returns>
+        </member>
+        <member name="P:imbNLP.Data.semanticLexicon.semanticLexiconManager.explorer">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="P:imbNLP.Data.semanticLexicon.semanticLexiconManager.lexiconCache">
+            <summary>
+            static and autoinitiated object
+            </summary>
+        </member>
+        <member name="M:imbNLP.Data.semanticLexicon.semanticLexiconManager.getLexiconItems(System.String,imbSCI.Core.reporting.ILogBuilder,System.Boolean)">
+            <summary>
+            Gets the lexicon items.
+            </summary>
+            <param name="termForm">The term form.</param>
+            <param name="loger">The loger.</param>
+            <param name="callWithAutoDiscovery">if set to <c>true</c> [call with automatic discovery].</param>
+            <returns></returns>
+        </member>
+        <member name="M:imbNLP.Data.semanticLexicon.semanticLexiconManager._getLexiconItems(System.String,imbSCI.Core.reporting.ILogBuilder,System.Boolean)">
+            <summary>
+            Gets the lexicon items.
+            </summary>
+            <param name="termForm">The term form.</param>
+            <param name="loger">The loger.</param>
+            <returns></returns>
+        </member>
+        <member name="M:imbNLP.Data.semanticLexicon.semanticLexiconManager.sourceSearch(System.Collections.Generic.IEnumerable{System.String},imbNLP.Data.semanticLexicon.source.lexiconSourceTypeEnum,System.Boolean)">
+            <summary>
+            Search the source
+            </summary>
+            <param name="needles">The needles.</param>
+            <param name="sourceType">Type of the source.</param>
+            <param name="useRegex">if set to <c>true</c> [use regex].</param>
+            <returns></returns>
+        </member>
+        <member name="M:imbNLP.Data.semanticLexicon.semanticLexiconManager.prepare">
+            <summary>
+            Prepares this instance.
+            </summary>
+        </member>
+        <member name="P:imbNLP.Data.semanticLexicon.semanticLexiconManagerSettings.termExpansionDefault">
+            <summary>
+            Default value of term expansion
+            </summary>
+            <value>
+            The term expansion default.
+            </value>
+        </member>
+        <member name="P:imbNLP.Data.semanticLexicon.semanticLexiconManagerSettings.doQueryPreprocess">
+            <summary> If <c>true</c> it will perform preprocessing steps over each term query sent to semanticLexiconCache resolver </summary>
+        </member>
+        <member name="P:imbNLP.Data.semanticLexicon.semanticLexiconManagerSettings.DoPreloadLexicon">
+            <summary>
+            It will preload complete Lexicon at startup / prepare() call
+            </summary>
+        </member>
+        <member name="P:imbNLP.Data.semanticLexicon.semanticLexiconManagerSettings.DoInMemoryCache">
+            <summary>
+            It will keep in memory cache of query term vs lemmas
+            </summary>
+        </member>
+        <member name="P:imbNLP.Data.semanticLexicon.semanticLexiconManagerSettings.doAutoMakeSynonymRelationship">
+            <summary>
+            If set true it will automatically make synonym and conceptual links between newly added Terms
+            </summary>
+        </member>
+        <member name="P:imbNLP.Data.semanticLexicon.semanticLexiconManagerSettings.doAllowLexiconSaveOnExplore">
+            <summary>
+            If true it will allow newly discovered TermLemma and TermInstances to be saved into triplestore
+            </summary>
+        </member>
+        <member name="P:imbNLP.Data.semanticLexicon.semanticLexiconManagerSettings.doResolveWordsInDebugMode">
+            <summary>
+            If true it will do token resolving procedure in the Debug mode, generating CSV and txt reports for each lemma
+            </summary>
+        </member>
+        <member name="P:imbNLP.Data.semanticLexicon.semanticLexiconManagerSettings.sourceFiles">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="P:imbNLP.Data.semanticLexicon.semanticLexiconManagerSettings.doAutoexplore">
+            <summary>
+            When True it will automatically explore for undefined terms
+            </summary>
+        </member>
+        <member name="P:imbNLP.Data.semanticLexicon.source.lexiconSourceFile.sourceType">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="P:imbNLP.Data.semanticLexicon.source.lexiconSourceFile.filepath">
+            <summary>
+            File path to lexical resource file
+            </summary>
+        </member>
+        <member name="M:imbNLP.Data.semanticLexicon.source.lexiconSourceFileList.checkMissingFiles">
+            <summary>
+            Returns list of files missing
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:imbNLP.Data.semanticLexicon.source.lexiconSourceFileList.getFilePath(imbNLP.Data.semanticLexicon.source.lexiconSourceTypeEnum,System.String)">
+            <summary>
+            Gets the file paths for selected source type. If <c>regexPattern</c> is specified, local path to the resource has to match the regex
+            </summary>
+            <param name="source">The source type to query.</param>
+            <param name="regexPattern">The regex pattern to filter out available resources</param>
+            <returns>List of paths</returns>
+        </member>
+        <member name="M:imbNLP.Data.semanticLexicon.source.lexiconSourceFileList.getFilePaths(imbNLP.Data.semanticLexicon.source.lexiconSourceTypeEnum,System.String)">
+            <summary>
+            Gets the file paths for selected source type. If <c>regexPattern</c> is specified, local path to the resource has to match the regex
+            </summary>
+            <param name="source">The source type to query.</param>
+            <param name="regexPattern">The regex pattern to filter out available resources</param>
+            <returns>List of paths</returns>
+        </member>
+        <member name="M:imbNLP.Data.semanticLexicon.source.lexiconSourceFileList.setDefaults">
+            <summary>
+            Sets the default paths to the lexic resources
+            </summary>
+        </member>
+        <member name="M:imbNLP.Data.semanticLexicon.source.lexiconSourceFileList.getOperater(imbNLP.Data.semanticLexicon.source.lexiconSourceTypeEnum)">
+            <summary>
+            Gets the file search operter instance
+            </summary>
+            <param name="source">The source.</param>
+            <returns></returns>
+        </member>
+        <member name="F:imbNLP.Data.semanticLexicon.source.lexiconSourceTypeEnum.unitexDelaf">
+            <summary>
+            The unitex delaf
+            </summary>
+        </member>
+        <member name="F:imbNLP.Data.semanticLexicon.source.lexiconSourceTypeEnum.unitexDelas">
+            <summary>
+            The unitex DELACF - compounds
+            </summary>
+        </member>
+        <member name="F:imbNLP.Data.semanticLexicon.source.lexiconSourceTypeEnum.multitext">
+            <summary>
+            The MULTITEXT morphosyntactic resouce file format for inflected forms and lemmas
+            </summary>
+        </member>
+        <member name="F:imbNLP.Data.semanticLexicon.source.lexiconSourceTypeEnum.multitextSpec">
+            <summary>
+            Specification for MULTITEXT resource conversion
+            </summary>
+        </member>
+        <member name="P:imbNLP.Data.semanticLexicon.term.TempInstance.Id">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="P:imbNLP.Data.semanticLexicon.term.TempInstance.name">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="T:imbNLP.Data.semanticLexicon.term.termDocument">
+             <summary>
+            
+             </summary>
+             <seealso cref="!:aceCommonTypes.collection.tf_idf.weightTable" />
+        </member>
+        <member name="P:imbNLP.Data.semanticLexicon.term.termDocument.expansion">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="M:imbNLP.Data.semanticLexicon.term.termGraph.getSpark">
+            <summary>
+            Gets the spark from graph
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:imbNLP.Data.semanticLexicon.term.termGraph.lemma">
+            <summary> </summary>
+        </member>
+        <member name="P:imbNLP.Data.semanticLexicon.term.termGraph.termNotFoundInLexicon">
+            <summary>
+            Word was not found in the lexicon
+            </summary>
+        </member>
+        <member name="M:imbNLP.Data.semanticLexicon.term.termGraph.expand(System.Int32)">
+            <summary>
+            Expands the specified steps.
+            </summary>
+            <param name="steps">The steps.</param>
+        </member>
+        <member name="T:imbNLP.Data.semanticLexicon.term.termQueryDocument">
+             <summary>
+            
+             </summary>
+             <seealso cref="!:imbSCI.DataComplex.weightTable&lt;TWeightTableTerm&gt;.semanticLexicon.term.termSpark&gt;" />
+        </member>
+        <member name="M:imbNLP.Data.semanticLexicon.term.termQueryDocument.SetQuery(System.String,System.Int32,imbSCI.Core.reporting.ILogBuilder)">
+            <summary>
+            Proper way to set query content
+            </summary>
+            <param name="__querySource">The query source.</param>
+            <param name="expansionSteps">The expansion steps.</param>
+            <param name="response">The response.</param>
+        </member>
+        <member name="P:imbNLP.Data.semanticLexicon.term.termQueryDocument.querySource">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="T:imbNLP.Data.semanticLexicon.term.termSpark">
+            <summary>
+            A term in the query
+            </summary>
+            <seealso cref="!:aceCommonTypes.collection.tf_idf.weightTable" />
+            <seealso cref="T:imbSCI.DataComplex.IWeightTableTerm" />
+        </member>
+        <member name="M:imbNLP.Data.semanticLexicon.term.termSpark.#ctor(System.String)">
+            <summary>
+            Constructs unexpanded, single term spark
+            </summary>
+            <param name="term">The term.</param>
+        </member>
+        <member name="P:imbNLP.Data.semanticLexicon.term.termSpark.lemma">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="P:imbNLP.Data.semanticLexicon.term.termSpark.weight">
+            <summary>
+            Automatically calculated as cumulative weight
+            </summary>
+        </member>
+        <member name="P:imbNLP.Data.semanticLexicon.term.termSpark.AFreqPoints">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="T:imbNLP.Data.semanticLexicon.term.termSparkArm">
+            <summary>
+            One instance of the termSpark
+            </summary>
+            <seealso cref="T:imbSCI.DataComplex.IWeightTableTerm" />
+        </member>
+        <member name="P:imbNLP.Data.semanticLexicon.term.termSparkArm.lexItem">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="P:imbNLP.Data.semanticLexicon.term.termSparkArm.weight">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="P:imbNLP.Data.semanticLexicon.term.termSparkArm.name">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="P:imbNLP.Data.semanticLexicon.term.termSparkArm.AFreqPoints">
+            <summary>
+            Frequency points that should be added to the term
+            </summary>
+            <value>
+            a freq points.
+            </value>
+        </member>
+        <member name="P:imbNLP.Data.semanticLexicon.term.termTools.explorer">
+            <summary>
+            static and autoinitiated object
+            </summary>
+        </member>
+        <member name="M:imbNLP.Data.semanticLexicon.term.termTools.getSparks(System.Collections.Generic.List{System.String},System.Int32,imbSCI.Core.reporting.ILogBuilder,System.Boolean)">
+            <summary>
+            Transforms series of tokens into wparks
+            </summary>
+            <param name="tokens">The tokens.</param>
+            <param name="expansion">The expansion.</param>
+            <param name="loger">The loger.</param>
+            <returns></returns>
+        </member>
+        <member name="T:imbNLP.Data.semanticLexicon.term.tokenDocument">
+            <summary>
+            Token Document - providing tf-idf without Lexicon
+            </summary>
+            <seealso cref="!:imbSCI.DataComplex.weightTable&lt;TWeightTableTerm&gt;.collection.tf_idf.weightTableGenericTerm&gt;" />
+        </member>
+        <member name="T:imbNLP.Data.textMap.DimensionMapBase">
+            <summary>
+            Foundation of DimensionMap data structure
+            </summary>
+            <seealso cref="!:aceCommonTypes.sciDataStructures.data.package.IDataPackageItem" />
+        </member>
+        <member name="M:imbNLP.Data.textMap.DimensionMapBase.#ctor">
+            <summary>
+            Constructor used by serialization, do not use this
+            </summary>
+        </member>
+        <member name="M:imbNLP.Data.textMap.DimensionMapBase.#ctor(System.String,imbNLP.Data.textMap.IDimensionMap)">
+            <summary>
+            Initializes a new instance of the <see cref="T:imbNLP.Data.textMap.DimensionMapBase"/> class, setting dimension name and parent
+            </summary>
+            <param name="__dimensionName">Name of the dimension.</param>
+            <param name="__parent">The parent.</param>
+        </member>
+        <member name="P:imbNLP.Data.textMap.DimensionMapBase.entries">
+            <summary>
+            Map entries of the DimensionMap. Do not
+            </summary>
+            <value>
+            The entries.
+            </value>
+        </member>
+        <member name="M:imbNLP.Data.textMap.DimensionMapBase.ResolveHook(System.String)">
+            <summary>
+            Hook (universal ID, path, hash...) resolution that retrieve instance - the hooked/mapped object
+            </summary>
+            <param name="hook">The hook String</param>
+            <returns>Mapped object</returns>
+        </member>
+        <member name="M:imbNLP.Data.textMap.DimensionMapBase.GetHook(System.Object)">
+            <summary>
+            Gets the hook (universal ID, path, hash...) for specified instance - the hooked object
+            </summary>
+            <param name="instance">The instance.</param>
+            <returns>Universal ID to be used for mapping</returns>
+        </member>
+        <member name="P:imbNLP.Data.textMap.DimensionMapBase.doUseParentSurface">
+            <summary>
+            Gets or sets a value indicating whether [do use parent surface].
+            </summary>
+            <value>
+              <c>true</c> if [do use parent surface]; otherwise, <c>false</c>.
+            </value>
+        </member>
+        <member name="P:imbNLP.Data.textMap.DimensionMapBase.doWriteToParentSurface">
+            <summary>
+            If <c>true</c> it will allow <see cref="P:imbNLP.Data.textMap.DimensionMapBase.surface"/> to set <see cref="P:imbNLP.Data.textMap.DimensionMapBase.parent"/> surface value on Set
+            </summary>
+            <value>
+              <c>true</c> if [do write to parent surface]; otherwise, <c>false</c>.
+            </value>
+        </member>
+        <member name="P:imbNLP.Data.textMap.DimensionMapBase.surface">
+            <summary>
+            Textual representation that is mapped by hooks -- not used if <see cref="P:imbNLP.Data.textMap.DimensionMapBase.doUseParentSurface"/>
+            </summary>
+            <value>
+            The map surface.
+            </value>
+        </member>
+        <member name="P:imbNLP.Data.textMap.DimensionMapBase.dimensionName">
+            <summary>
+            Name of this dimension
+            </summary>
+            <value>
+            The name of the dimension.
+            </value>
+        </member>
+        <member name="M:imbNLP.Data.textMap.DimensionMapBase.OnBeforeSave">
+            <summary>
+            To be called before item is saved
+            </summary>
+        </member>
+        <member name="M:imbNLP.Data.textMap.DimensionMapBase.OnLoaded">
+            <summary>
+            To be called after item is loaded
+            </summary>
+        </member>
+        <member name="M:imbNLP.Data.textMap.DimensionMapBase.WriteXmlAppendix(System.Xml.XmlWriter)">
+            <summary>
+            XML serialization called at end of <see cref="M:imbNLP.Data.textMap.DimensionMapBase.WriteXml(System.Xml.XmlWriter)"/> - override this to add support for additional data of your inheriting class
+            </summary>
+            <param name="writer">The writer.</param>
+        </member>
+        <member name="M:imbNLP.Data.textMap.DimensionMapBase.ReadXmlAppendix(System.Xml.XmlReader)">
+            <summary>
+            XML deserialization called at end of <see cref="M:imbNLP.Data.textMap.DimensionMapBase.ReadXml(System.Xml.XmlReader)"/> - override this to add support for additional data of your inheriting class
+            </summary>
+            <param name="reader">The reader.</param>
+        </member>
+        <member name="M:imbNLP.Data.textMap.DimensionMapBase.GetSchema">
+            <summary>
+            This method is reserved and should not be used. When implementing the IXmlSerializable interface, you should return null (Nothing in Visual Basic) from this method, and instead, if specifying a custom schema is required, apply the <see cref="T:System.Xml.Serialization.XmlSchemaProviderAttribute" /> to the class.
+            </summary>
+            <returns>
+            An <see cref="T:System.Xml.Schema.XmlSchema" /> that describes the XML representation of the object that is produced by the <see cref="M:System.Xml.Serialization.IXmlSerializable.WriteXml(System.Xml.XmlWriter)" /> method and consumed by the <see cref="M:System.Xml.Serialization.IXmlSerializable.ReadXml(System.Xml.XmlReader)" /> method.
+            </returns>
+        </member>
+        <member name="M:imbNLP.Data.textMap.DimensionMapBase.WriteXml(System.Xml.XmlWriter)">
+            <summary>
+            Serializes data of this dimension
+            </summary>
+            <param name="writer">The <see cref="T:System.Xml.XmlWriter" /> stream to which the object is serialized.</param>
+        </member>
+        <member name="M:imbNLP.Data.textMap.DimensionMapBase.ReadXml(System.Xml.XmlReader)">
+            <summary>
+            De-serializes data of this dimension
+            </summary>
+            <param name="reader">The <see cref="T:System.Xml.XmlReader" /> stream from which the object is deserialized.</param>
+        </member>
+        <member name="T:imbNLP.Data.textMap.DimensionMapEntry">
+            <summary>
+            Map entry describing the starting (character position at <see cref="P:imbNLP.Data.textMap.DimensionMapBase.surface"/> string) and ending position of the hooked/mapped entry
+            </summary>
+        </member>
+        <member name="M:imbNLP.Data.textMap.DimensionMapEntry.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:imbNLP.Data.textMap.DimensionMapEntry"/> class.
+            </summary>
+        </member>
+        <member name="P:imbNLP.Data.textMap.DimensionMapEntry.hook">
+            <summary>
+            Gets or sets the hook.
+            </summary>
+            <value>
+            The hook.
+            </value>
+        </member>
+        <member name="F:imbNLP.Data.textMap.DimensionMapQueryTakeMode.selectInnerShadow">
+            <summary>
+            Selects only mappings being within/exactly as selected shadow , i.e. ones that are within the selection range (or hook shadow)
+            </summary>
+        </member>
+        <member name="F:imbNLP.Data.textMap.DimensionMapQueryTakeMode.selectPartialInnerShadow">
+            <summary>
+            Selects all mappings touched by the selection shadow, including ones that are only partially in the selected range(s) i.e. overlapping with the range (or hook shadow)
+            </summary>
+        </member>
+        <member name="F:imbNLP.Data.textMap.DimensionMapQueryTakeMode.selectOuterShadow">
+            <summary>
+            The select outer shadow
+            </summary>
+        </member>
+        <member name="T:imbNLP.Data.textMap.IDimensionMap">
+            <summary>
+            Base interface to a <see cref="!:DimensionMap"/>
+            </summary>
+            <seealso cref="!:aceCommonTypes.sciDataStructures.data.package.IDataPackageItem" />
+        </member>
+        <member name="P:imbNLP.Data.textMap.IDimensionMap.surface">
+            <summary>
+            Textual representation that is mapped by hooks -- not used if <see cref="!:doUseParentSurface"/>
+            </summary>
+            <value>
+            The map surface.
+            </value>
+        </member>
+        <member name="M:imbNLP.Data.textMap.IDimensionMap.OnLoaded">
+            <summary>
+            Called when load completed
+            </summary>
+        </member>
+        <member name="M:imbNLP.Data.textMap.IDimensionMap.OnBeforeSave">
+            <summary>
+            Called when before save procedure initiated
+            </summary>
+        </member>
+        <member name="T:imbNLP.Data.textMap.MultiDimensionMapBase">
+            <summary>
+            Collection of <see cref="!:DimensionMap"/>s, sharing the same <see cref="!:DimensionMap.surface"/> form
+            </summary>
+            <seealso cref="!:aceCommonTypes.sciDataStructures.data.textMap.IDimensionMap" />
+        </member>
+        <member name="P:imbNLP.Data.textMap.MultiDimensionMapBase.surface">
+            <summary>
+            Textual representation that is mapped by hooks -- not used if <see cref="!:doUseParentSurface"/>
+            </summary>
+            <value>
+            The map surface.
+            </value>
+        </member>
+        <member name="T:imbNLP.Data.textMap.NamespaceDoc">
+            <summary>
+            Multi-dimensional instance mapping on textual representation
+            </summary>
+            <remarks>
+            <para>The namespace provides data structures for multi-facet text-hook-instance mapping</para>
+            </remarks>
+        </member>
+    </members>
+</doc>

@@ -1,0 +1,158 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="NameAndType">
+  <Enum Name="imbNLP.PartOfSpeech.flags.basic.pos_verbType" Collapsed="true">
+    <Position X="2.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAgAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAQ=</HashCode>
+      <FileName>flags\basic\pos_verbType.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="imbNLP.PartOfSpeech.flags.basic.pos_type" Collapsed="true">
+    <Position X="0.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQCAAAAAAEAAAIAAAAAAAAAEAAkKAAIEAAEAIBAQAAI=</HashCode>
+      <FileName>flags\basic\pos_type.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="imbNLP.PartOfSpeech.flags.basic.pos_residualType" Collapsed="true">
+    <Position X="0.5" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAABAEAAAAACAAAAAAQAgAAAAAAAAAA=</HashCode>
+      <FileName>flags\basic\pos_residualType.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="imbNLP.PartOfSpeech.flags.basic.pos_adjectiveType" Collapsed="true">
+    <Position X="0.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAABAAAAEAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>flags\basic\pos_adjectiveType.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="imbNLP.PartOfSpeech.flags.basic.pos_adverbType" Collapsed="true">
+    <Position X="2.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAEAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>flags\basic\pos_adverbType.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="imbNLP.PartOfSpeech.flags.basic.pos_animatness" Collapsed="true">
+    <Position X="4" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIADAAAAAAAAA=</HashCode>
+      <FileName>flags\basic\pos_animatness.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="imbNLP.PartOfSpeech.flags.basic.pos_clitic" Collapsed="true">
+    <Position X="5.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAABAAAAAAA=</HashCode>
+      <FileName>flags\basic\pos_clitic.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="imbNLP.PartOfSpeech.flags.basic.pos_conjunctionFormation" Collapsed="true">
+    <Position X="7.5" Y="0.5" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAIAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>flags\basic\pos_conjunctionFormation.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="imbNLP.PartOfSpeech.flags.basic.pos_conjunctionType" Collapsed="true">
+    <Position X="7.5" Y="2.75" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAQAAAAA=</HashCode>
+      <FileName>flags\basic\pos_conjunctionType.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="imbNLP.PartOfSpeech.flags.basic.pos_definitness" Collapsed="true">
+    <Position X="2.25" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEgAAAAAAAAAA=</HashCode>
+      <FileName>flags\basic\pos_definitness.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="imbNLP.PartOfSpeech.flags.basic.pos_degree" Collapsed="true">
+    <Position X="4" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAACgAQAAAAAAAAA=</HashCode>
+      <FileName>flags\basic\pos_degree.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="imbNLP.PartOfSpeech.flags.basic.pos_gender" Collapsed="true">
+    <Position X="5.75" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQEgAAAAAAAAA=</HashCode>
+      <FileName>flags\basic\pos_gender.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="imbNLP.PartOfSpeech.flags.basic.pos_gramaticalCase" Collapsed="true">
+    <Position X="7.5" Y="1.25" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAKAAAIAAAQAQAAAAQAAAAAAAAAABAAAAAAAAAEAA=</HashCode>
+      <FileName>flags\basic\pos_gramaticalCase.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="imbNLP.PartOfSpeech.flags.basic.pos_negation" Collapsed="true">
+    <Position X="0.5" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAYAAAAAAAAAA=</HashCode>
+      <FileName>flags\basic\pos_negation.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="imbNLP.PartOfSpeech.flags.basic.pos_nounGroup" Collapsed="true">
+    <Position X="2.25" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAIAAAAgCkAAAAAAAAAAAAAA=</HashCode>
+      <FileName>flags\basic\pos_nounGroup.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="imbNLP.PartOfSpeech.flags.basic.pos_nounType" Collapsed="true">
+    <Position X="4" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAIAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>flags\basic\pos_nounType.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="imbNLP.PartOfSpeech.flags.basic.pos_number" Collapsed="true">
+    <Position X="5.75" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAMgAAAAAAAA=</HashCode>
+      <FileName>flags\basic\pos_number.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="imbNLP.PartOfSpeech.flags.basic.pos_numeralForm" Collapsed="true">
+    <Position X="7.5" Y="2" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAABAAAAAAAAAAAAAABAEAAAAAAAAAAAAA=</HashCode>
+      <FileName>flags\basic\pos_numeralForm.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="imbNLP.PartOfSpeech.flags.basic.pos_numeralType" Collapsed="true">
+    <Position X="0.5" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAAAAAAAAAAAEAAAAAAAABAAAAAAAAAAAAEAAAAAAAA=</HashCode>
+      <FileName>flags\basic\pos_numeralType.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="imbNLP.PartOfSpeech.flags.basic.pos_particleType" Collapsed="true">
+    <Position X="2.25" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAMAAAAA=</HashCode>
+      <FileName>flags\basic\pos_particleType.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="imbNLP.PartOfSpeech.flags.basic.pos_person" Collapsed="true">
+    <Position X="4" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABgAQAAAAA=</HashCode>
+      <FileName>flags\basic\pos_person.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="imbNLP.PartOfSpeech.flags.basic.pos_pronounType" Collapsed="true">
+    <Position X="5.75" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAABIAAAAAAAAAAACAAAEAAAAEAAAAAQAAAAEAAA=</HashCode>
+      <FileName>flags\basic\pos_pronounType.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

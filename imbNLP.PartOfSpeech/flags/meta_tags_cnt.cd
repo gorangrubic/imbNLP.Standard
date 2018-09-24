@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="NameAndType">
+  <Enum Name="imbNLP.PartOfSpeech.flags.token.cnt_blockRole" Collapsed="true">
+    <Position X="0.75" Y="0.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AQAAAAQAABAAAAAAAAAAAAAAAAAAAAIAAABAAAAAAAA=</HashCode>
+      <FileName>flags\token\cnt_blockRole.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="imbNLP.PartOfSpeech.flags.token.cnt_containerType" Collapsed="true">
+    <Position X="3" Y="0.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AQAAAAAQQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEA=</HashCode>
+      <FileName>flags\token\cnt_containerType.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="imbNLP.PartOfSpeech.flags.token.cnt_level">
+    <Position X="5.25" Y="0.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AQAAAAAAAAAIAAAAAAAAAAAARAAABAAIEAAAACAAAAI=</HashCode>
+      <FileName>flags\token\cnt_level.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

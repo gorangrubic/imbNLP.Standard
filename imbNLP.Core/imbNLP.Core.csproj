@@ -1,0 +1,76 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <!-- Don-t forget to modify Assembly info and Package info! -->
+  <PropertyGroup>
+    <TargetFrameworks>net40</TargetFrameworks>
+    <ApplicationIcon>imbNLP.ico</ApplicationIcon>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <PackageId>imbNLP.Core</PackageId>
+    <Version>0.2.24</Version>
+    <Title>imbNLP.Core</Title>
+    <Summary></Summary>
+    <PackageIconUrl>http://doc.veles.rs/imbNLP.ico</PackageIconUrl>
+    <PackageProjectUrl>http://blog.veles.rs/</PackageProjectUrl>
+    <PackageLicenseUrl>http://doc.veles.rs/LICENCE.txt</PackageLicenseUrl>
+    <Copyright>Copyright ©  2018</Copyright>
+    <Description>Core (legacy) package of the imbNLP library</Description>
+    <NeutralLanguage>en-US</NeutralLanguage>
+    <PackageReleaseNotes>
+    </PackageReleaseNotes>
+    <PackageTags></PackageTags>
+    <RepositoryUrl>https://github.com/</RepositoryUrl>
+    <RepositoryType>GitHub</RepositoryType>
+    <Authors>Goran Grubic</Authors>
+    <Company></Company>
+    <AssemblyVersion>0.2.1.1</AssemblyVersion>
+    <FileVersion>0.2.1.1</FileVersion>
+    <Product>imbNLP.Core Standard</Product>
+    <PackageRequireLicenseAcceptance>False</PackageRequireLicenseAcceptance>
+  </PropertyGroup>
+
+  <PropertyGroup Condition=" '$(TargetFramework)' == 'netstandard2.0'">
+    <DefineConstants>NETCORE</DefineConstants>
+  </PropertyGroup>
+
+  <PropertyGroup Condition=" '$(TargetFramework)' == 'net40'">
+    <DefineConstants>NET40</DefineConstants>
+  </PropertyGroup>
+
+  <PropertyGroup Condition=" '$(TargetFramework)' == 'net45'">
+    <DefineConstants>NET45</DefineConstants>
+  </PropertyGroup>
+
+  <!-- The node below enables XML documentation build, in all build (Debug,Release) configurations-->
+  <PropertyGroup>
+    <DocumentationFile>$(OutputPath)$(PackageId).xml</DocumentationFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <Folder Include="DocumentModel\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\imbNLP.Data\imbNLP.Data.csproj" />
+  </ItemGroup>
+
+  <Target Name="CopyPackage" AfterTargets="Pack">
+    <Copy SourceFiles="$(OutputPath)$(PackageId).$(PackageVersion).nupkg" DestinationFolder="G:\imbVelesOpenSource\LocalNuGet\imbVelesSecondGeneration\" />
+  </Target>
+
+  <!-- Uncomment the block below to enable "Automatic Version 1" Extension, to update Package version on each build> -->
+  <!-- Notice: The extension is 3rd party product (btw. it is free), you have to download it from the Microsoft Visual Studio Market -->
+
+  <PropertyGroup>
+    <UpdatePackageVersion>True</UpdatePackageVersion>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <WarningLevel>1</WarningLevel>
+  </PropertyGroup>
+
+
+  <!-- Uncomment the node below to enable automatic copying of the .nupkg file to local NuGet repository, on each package build. 
+Set the repository location by DestinationFolder attribute-->
+  <!-- 
+
+-->
+
+</Project>

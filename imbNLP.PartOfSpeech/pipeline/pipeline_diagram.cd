@@ -1,0 +1,60 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="imbNLP.PartOfSpeech.pipelineForPos.node.pipelineTableAnnotationNode">
+    <Position X="9.5" Y="5.5" Width="3.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAIAAAAAAA=</HashCode>
+      <FileName>pipelineForPos\node\pipelineAnnotationNode.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="imbNLP.PartOfSpeech.pipelineForPos.node.pipelineContentTokenLevelDistribution">
+    <Position X="2.5" Y="3.25" Width="3.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAABgBIAEIAAAAAAAAAAIAAAAAAAAIAAAAAAAAAAA=</HashCode>
+      <FileName>pipelineForPos\node\pipelineContentTokenLevelDistribution.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="imbNLP.PartOfSpeech.pipelineForPos.node.pipelineHTMLTagDetection">
+    <Position X="6" Y="5" Width="3.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>pipelineForPos\node\pipelineHTMLTagDetection.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="imbNLP.PartOfSpeech.pipelineForPos.node.pipelineLexicResourceResolverNode">
+    <Position X="9.5" Y="3.25" Width="3.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAIAA=</HashCode>
+      <FileName>pipelineForPos\node\pipelineLexicResourceResolverNode.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="imbNLP.PartOfSpeech.pipelineForPos.node.pipelineProperFormTransformer">
+    <Position X="2.5" Y="6.5" Width="3.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAIAAAAAAA=</HashCode>
+      <FileName>pipelineForPos\node\pipelineProperFormTransformer.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="imbNLP.PartOfSpeech.pipelineForPos.node.pipelineRegexTestNode">
+    <Position X="6" Y="6.75" Width="3.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAIAEAAAAAAIAEAAAQAEAAA=</HashCode>
+      <FileName>pipelineForPos\node\pipelineRegexTestNode.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="imbNLP.PartOfSpeech.pipelineForPos.node.pipelineTokenGenericAnnotation">
+    <Position X="6" Y="3.25" Width="3.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>pipelineForPos\node\pipelineTokenGenericAnnotation.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="imbNLP.PartOfSpeech.pipelineForPos.node.pipelineTransliterationNode">
+    <Position X="9.5" Y="7.75" Width="3.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAEAAAAAAIAAAAABAAAAAAACAAgAAA=</HashCode>
+      <FileName>pipelineForPos\node\pipelineTransliterationNode.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

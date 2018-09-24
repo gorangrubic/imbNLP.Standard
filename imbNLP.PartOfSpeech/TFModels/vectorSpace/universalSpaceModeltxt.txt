@@ -1,0 +1,7 @@
+﻿
+spaceModel opisuje odnose:
+* Label
+* Topic
+* Document
+* Term
+ 

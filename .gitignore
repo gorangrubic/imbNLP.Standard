@@ -328,3 +328,7 @@ ASALocalRun/
 
 # MFractors (Xamarin productivity tool) working folder 
 .mfractor/
+/imbNLP.Core/resources/reporting
+/imbNLP.Data/resources
+/imbNLP.Skunkworks
+/_codeBin

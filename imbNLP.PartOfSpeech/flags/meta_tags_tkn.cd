@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="NameAndType">
+  <Enum Name="imbNLP.PartOfSpeech.flags.token.tkn_contains" Collapsed="true">
+    <Position X="0.75" Y="1.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AQAIAEAAAIAAQCAAAAAAAAAAAQAAAEAAAAAAAAAAAAA=</HashCode>
+      <FileName>flags\token\tkn_contains.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="imbNLP.PartOfSpeech.flags.token.tkn_letterword" Collapsed="true">
+    <Position X="3" Y="1.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AQAAAAAAAAAAAAAAAAEIAAAACAAAAAAAEAAAAAAAgAA=</HashCode>
+      <FileName>flags\token\tkn_letterword.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="imbNLP.PartOfSpeech.flags.token.tkn_numeric" Collapsed="true">
+    <Position X="5.25" Y="1.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AQAAAAAAAAAABAAAAAABAAIAAYAAAABAAAAAAAAAAAI=</HashCode>
+      <FileName>flags\token\tkn_numeric.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="imbNLP.PartOfSpeech.flags.token.tkn_potential" Collapsed="true">
+    <Position X="5.25" Y="2.25" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AQCAIQIAAAAAAAAAAIAAAAAAAAAACAAAAAAIAAAAACA=</HashCode>
+      <FileName>flags\token\tkn_potential.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="imbNLP.PartOfSpeech.flags.token.tkn_specialforms" Collapsed="true">
+    <Position X="0.75" Y="2.25" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AQAEAAAAAAAAAAAgAAAAAAAAAAAIAAAAIAAAAAAAAAA=</HashCode>
+      <FileName>flags\token\tkn_specialforms.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="imbNLP.PartOfSpeech.flags.token.tkn_stream" Collapsed="true">
+    <Position X="3" Y="2.25" Width="2" />
+    <TypeIdentifier>
+      <HashCode>IQJQAAQgAABAAAEAARDAoIAAAAIAACAoAEAAAAIYAAA=</HashCode>
+      <FileName>flags\token\tkn_stream.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

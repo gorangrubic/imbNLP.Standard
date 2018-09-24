@@ -1,0 +1,2165 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>imbNLP.Core</name>
+    </assembly>
+    <members>
+        <member name="T:imbNLP.Core.contentPreprocess.contentPreprocessFlag">
+            <summary>
+            Flagovi - contentPreprocessFlag - izvrsavaju se pre nego sto se stvore recenice
+            </summary>
+        </member>
+        <member name="F:imbNLP.Core.contentPreprocess.contentPreprocessFlag.quoteStandardization">
+            <summary>
+            sve quote karaktere ce zameniti za standardizocanu quote formu
+            </summary>
+        </member>
+        <member name="F:imbNLP.Core.contentPreprocess.contentPreprocessFlag.acronimStandardization">
+            <summary>
+            Akronime sa . pretvara u velika slova, bez ..
+            </summary>
+        </member>
+        <member name="F:imbNLP.Core.contentPreprocess.contentPreprocessFlag.yearOrdinal">
+            <summary>
+            Svako pominjanje godine u odredjenom rednom formatu i/ili padezu predvara u YYYY. format
+            </summary>
+        </member>
+        <member name="F:imbNLP.Core.contentPreprocess.contentPreprocessFlag.titleStandardize">
+            <summary>
+            standardizuje ispis imena
+            </summary>
+        </member>
+        <member name="F:imbNLP.Core.contentPreprocess.contentPreprocessFlag.enbraceStandardize">
+            <summary>
+            Standardizuje nacin na koji je deo recenice zagradjen sa ({[ ili drugim zagradama
+            </summary>
+        </member>
+        <member name="F:imbNLP.Core.contentPreprocess.contentPreprocessFlag.enlistStandardize">
+            <summary>
+            Standardizuje nacin na koji je iskazano nabrajanje liste u recenici
+            </summary>
+        </member>
+        <member name="F:imbNLP.Core.contentPreprocess.contentPreprocessFlag.internationalStandardsFormat">
+            <summary>
+            The international standards format
+            </summary>
+        </member>
+        <member name="T:imbNLP.Core.contentPreprocess.detectionResult">
+            <summary>
+            2013c: Privremena kolekcija rezultata detekcije
+            </summary>
+        </member>
+        <member name="P:imbNLP.Core.contentPreprocess.detectionResult.sentences">
+            <summary>
+            Bindable property
+            </summary>
+        </member>
+        <member name="P:imbNLP.Core.contentPreprocess.detectionResult.subsentences">
+            <summary>
+            Bindable property
+            </summary>
+        </member>
+        <member name="P:imbNLP.Core.contentPreprocess.detectionResult.tokens">
+            <summary>
+            detektovani tokeni
+            </summary>
+        </member>
+        <member name="T:imbNLP.Core.contentPreprocess.paragraphDetection">
+            <summary>
+            Detekcija strukture paragrafa
+            </summary>
+        </member>
+        <member name="T:imbNLP.Core.contentPreprocess.paragraphDetectionFlag">
+            <summary>
+            Flagovi - paragraphDetectionFlag
+            </summary>
+        </member>
+        <member name="F:imbNLP.Core.contentPreprocess.paragraphDetectionFlag.dropSentenceWithNoToken">
+            <summary>
+            preskace recenice koje nemaju token
+            </summary>
+        </member>
+        <member name="F:imbNLP.Core.contentPreprocess.paragraphDetectionFlag.mergeSentenceWithSingleChild">
+            <summary>
+            kada vidi da recenica ima jedan item i da je taj idem recenica - onda sabija hijerarhiju za to jedno mesto
+            </summary>
+        </member>
+        <member name="F:imbNLP.Core.contentPreprocess.preprocess._select_standardsFormatting">
+            <summary>
+            Regex select standardsFormatting : [A-Z]{1,5}[\s\-\:]*[\d]{2,5}[\d\:]*
+            </summary>
+            <remarks>
+            <para>For text: example text</para>
+            <para>Selects: ex</para>
+            </remarks>
+        </member>
+        <member name="F:imbNLP.Core.contentPreprocess.preprocess._select_titleAllCapital">
+            <summary>
+            Regex select titleAllCapital : [\""][\s]{0,2}([A-Z]|[a-z]{1,}[\s\-]{0,2}){1,6}[\s]{0,2}[\""]
+            </summary>
+            <remarks>
+            <para>For text: " BIN METAL "</para>
+            <para>Selects: " BIN METAL "</para>
+            </remarks>
+        </member>
+        <member name="F:imbNLP.Core.contentPreprocess.preprocess._select_titleFirstCapital">
+            <summary>
+            Regex select titleFirstCapital : [\""][\s]{0,2}([A-Z]|[a-z]{1,}[\s\-]{0,2}){1,6}[\s]{0,2}[\""]
+            </summary>
+            <remarks>
+            <para>For text: example text</para>
+            <para>Selects: ex</para>
+            </remarks>
+            Regex pattern = new Regex(@"[\""][\s]{0,2}([A-Z]|[a-z]{1,}[\s\-]{0,2}){1,6}[\s]{0,2}[\""]", RegexOptions.Multiline);
+        </member>
+        <member name="F:imbNLP.Core.contentPreprocess.preprocess._select_yearOrdinalInGramarCase">
+            <summary>
+            Regex select yearOrdinalInGramarCase : [\d]{4}[-\s]{0,3}[a-z]{1,3}
+            </summary>
+            <remarks>
+            <para>For text: izradili smo 1985te godine, osnovana 1991 - te godine</para>
+            <para>Selects: 1985te, 1991 - te</para>
+            </remarks>
+        </member>
+        <member name="F:imbNLP.Core.contentPreprocess.preprocess._select_yearDigitsOnly">
+            <summary>
+            Regex select yearDigitsOnly : ([\d]{4})
+            </summary>
+            <remarks>
+            <para>For text: example text</para>
+            <para>Selects: ex</para>
+            </remarks>
+        </member>
+        <!-- Badly formed XML comment ignored for member "F:imbNLP.Core.contentPreprocess.preprocess._select_enbraceAllTypes" -->
+        <member name="M:imbNLP.Core.contentPreprocess.preprocess._replace_standardsFormatting(System.Text.RegularExpressions.Match)">
+            <summary>
+            Match Evaluation for standardsFormatting : _select_standardsFormatting
+            </summary>
+            <param name="m">Match with value to process</param>
+            <returns>For m.value "something" returns "SOMETHING"</returns>
+        </member>
+        <member name="M:imbNLP.Core.contentPreprocess.preprocess._replace_titleAllCapital(System.Text.RegularExpressions.Match)">
+            <summary>
+            Match Evaluation for titleAllCapital : _select_titleAllCapital
+            </summary>
+            <param name="m">Match with value to process</param>
+            <returns>For m.value " BIN-METAL " returns "BIN METAL"</returns>
+        </member>
+        <member name="M:imbNLP.Core.contentPreprocess.preprocess._replace_enbraceAllTypes(System.Text.RegularExpressions.Match)">
+            <summary>
+            Match Evaluation for enbraceAllTypes : _select_enbraceAllTypes
+            </summary>
+            <param name="m">Match with value to process</param>
+            <returns>For m.value "something" returns "SOMETHING"</returns>
+        </member>
+        <member name="M:imbNLP.Core.contentPreprocess.preprocess._replace_yearOrdinalInGramarCase(System.Text.RegularExpressions.Match)">
+            <summary>
+            Match Evaluation for yearOrdinalInGramarCase : _select_yearOrdinalInGramarCase
+            </summary>
+            <param name="m">Match with value to process</param>
+            <returns>For m.value "1985te" returns "."</returns>
+        </member>
+        <member name="M:imbNLP.Core.contentPreprocess.preprocess._replace_acronimWithDots(System.Text.RegularExpressions.Match)">
+             <summary>
+            
+             </summary>
+             <param name="m"></param>
+             <returns></returns>
+        </member>
+        <member name="F:imbNLP.Core.contentPreprocess.sentenceDetection._select_sentenceTerminator">
+            <summary>
+            Regex select sentenceTerminator : ([\.;!\?]+)$
+            </summary>
+            <remarks>
+            <para>Selektuje karaktere koji predstavljaju kraj recenice</para>
+            <para></para>
+            </remarks>
+        </member>
+        <!-- Badly formed XML comment ignored for member "F:imbNLP.Core.contentPreprocess.sentenceDetection._select_sentenceSpliter" -->
+        <member name="M:imbNLP.Core.contentPreprocess.sentenceDetection._replace_sentenceSpliter(System.Text.RegularExpressions.Match)">
+            <summary>
+            Match Evaluation for sentenceSpliter : _select_sentenceSpliter
+            </summary>
+            <param name="m">Match with value to process</param>
+            <returns>For m.value "something" returns "SOMETHING"</returns>
+        </member>
+        <member name="M:imbNLP.Core.contentPreprocess.sentenceDetection.splitContentToSentences(System.String)">
+            <summary>
+            Secka string u recenice
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:imbNLP.Core.contentPreprocess.sentenceDetection.basicFlaging(System.Collections.Generic.IEnumerable{imbNLP.Core.contentStructure.interafaces.IContentSentence})">
+            <summary>
+            vrsi osnovno obelezavanje recenica na osnovu sadrzaja
+            </summary>
+            <param name="sentences"></param>
+        </member>
+        <member name="T:imbNLP.Core.contentPreprocess.sentenceDetectionFlag">
+            <summary>
+            Flagovi - sentenceDetectionFlag
+            </summary>
+        </member>
+        <member name="F:imbNLP.Core.contentPreprocess.sentenceDetectionFlag.preprocessParagraphContent">
+            <summary>
+            Da li da obradi sadrzaj pre formiranja recenica
+            </summary>
+        </member>
+        <member name="F:imbNLP.Core.contentPreprocess.sentenceDetectionFlag.setSentenceToParagraph">
+            <summary>
+            Povezuje recenicu sa paragrafom
+            </summary>
+        </member>
+        <member name="F:imbNLP.Core.contentPreprocess.sentenceDetectionFlag.performBasicFlaging">
+            <summary>
+            Izvrsice osnovnu kategorizaciju recenice
+            </summary>
+        </member>
+        <member name="F:imbNLP.Core.contentPreprocess.sentenceDetectionFlag.performTokenDetection">
+            <summary>
+            Izvrsice setTokensFromContent na osnovu
+            </summary>
+        </member>
+        <member name="F:imbNLP.Core.contentPreprocess.subsentenceDetection._select_potentialPersonalNames">
+            <summary>
+            Regex select potentialPersonalNames : [A-ZČŠĆŽĐ]{1}[a-zžđščć]{2,}[\s]{1,4}[A-ZČŠĆŽĐ]{1}[a-zćšđčž]{2,}
+            </summary>
+            <remarks>
+            <para>For text: example text</para>
+            <para>Selects: ex</para>
+            </remarks>
+        </member>
+        <member name="F:imbNLP.Core.contentPreprocess.subsentenceDetection._select_potentialCityAndPost">
+            <summary>
+            Regex select potentialCityAndPost : (\b[\d]{5}[\s\n]{1,3}([A-ZČŠĆŽĐ]{1}[a-zžđščć]{1,}|[A-ZČŠĆŽĐ]{2,}))|(([A-ZČŠĆŽĐ]{1}[a-zžđščć]{1,}|[A-ZČŠĆŽĐ]{2,}){1}[\s\n]{1,3}[\d]{5}\b)
+            </summary>
+            <remarks>
+            <para>For text: example text</para>
+            <para>Selects: ex</para>
+            </remarks>
+        </member>
+        <member name="F:imbNLP.Core.contentPreprocess.subsentenceDetection._select_quotedSubSentence">
+            <summary>
+            Regex select quotedSubSentence : ([\""]([A-Za-z\s,;:\-])+[\""])
+            </summary>
+            <remarks>
+            <para>For text: example text</para>
+            <para>Selects: ex</para>
+            </remarks>
+        </member>
+        <member name="F:imbNLP.Core.contentPreprocess.subsentenceDetection._select_enbracedSubSentence">
+            <summary>
+            Regex select enbracedSubSentence : ([\(]([A-Za-z\s,;:\-])+[\)])
+            </summary>
+            <remarks>
+            <para>For text: example text</para>
+            <para>Selects: ex</para>
+            </remarks>
+        </member>
+        <member name="F:imbNLP.Core.contentPreprocess.subsentenceDetection._select_enumerationSubSentence">
+            <summary>
+            Regex select enumerationSubSentence : \b([\:]{1}([\s]*([A-ZČŠĆŽĐa-zžđščć]{1,3})+([\s]{0,2}([,\;\-]{1}|[\s]{0,1}[\w]{1}[\s]{1}))*){1,})
+            </summary>
+            <remarks>
+            <para>For text: example text</para>
+            <para>Selects: ex</para>
+            </remarks>
+        </member>
+        <member name="F:imbNLP.Core.contentPreprocess.subsentenceDetection._select_innerSentence">
+            <summary>
+            Regex select innerSentence : (,{1}[\s]{1})([\w\d\s]*)(,{1}[\s]{1})
+            </summary>
+            <remarks>
+            <para>For text: example text</para>
+            <para>Selects: ex</para>
+            </remarks>
+        </member>
+        <member name="M:imbNLP.Core.contentPreprocess.subsentenceDetection.setSubSentences``1(imbNLP.Core.contentStructure.interafaces.IContentSentence,imbNLP.Core.contentPreprocess.subsentenceDetectionFlag)">
+            <summary>
+            Vraca pod recenice za prosledjenu recenicu. sentence.content ce dobiti skremblovanu verziju - gde je izbaceno sve sto nije
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="content"></param>
+            <param name="sentence"></param>
+            <param name="page"></param>
+            <param name="_subflags"></param>
+            <returns></returns>
+        </member>
+        <member name="T:imbNLP.Core.contentPreprocess.subsentenceDetectionFlag">
+            <summary>
+            Flagovi - tokenDetectionFlag
+            </summary>
+        </member>
+        <member name="F:imbNLP.Core.contentPreprocess.subsentenceDetectionFlag.potentialPersonalNamesSubSentences">
+            <summary>
+            Izvrsice ucitavanje samo ako isti URL / komanda nije poslednja koja je izvrsena
+            </summary>
+        </member>
+        <member name="F:imbNLP.Core.contentPreprocess.tokenDetection._select_phoneNumber">
+            <summary>
+            Regex select phoneNumber : [\+0^]{1,2}[\s]{0,2}([\d\(\)]{2,5}[\s\(\)\-\.\/\\]{1,2}){3,5}
+            </summary>
+            <remarks>
+            <para>For text: example text</para>
+            <para>Selects: ex</para>
+            </remarks>
+        </member>
+        <member name="F:imbNLP.Core.contentPreprocess.tokenDetection._select_standards">
+            <summary>
+            Regex select standards : [A-Z]{1,5}[\s\-\:]*[\d]{2,5}[\d\:]*
+            </summary>
+            <remarks>
+            <para>For text: example text</para>
+            <para>Selects: ex</para>
+            </remarks>
+        </member>
+        <member name="F:imbNLP.Core.contentPreprocess.tokenDetection._select_emailAddress">
+            <summary>
+            Regex select emailAddress : [a-zA-Z\d_\.]+@[a-zA-Z_\.]*?\.[a-zA-Z\.]{2,6}
+            </summary>
+            <remarks>
+            <para>For text: example text</para>
+            <para>Selects: ex</para>
+            </remarks>
+        </member>
+        <member name="F:imbNLP.Core.contentPreprocess.tokenDetection._select_acronimIrregular">
+            <summary>
+            Regex select acronimIrregular : [\s]{1}([ZXCVBNMKLJHGFDSQWRTYP]{2,})[\s]{1}
+            </summary>
+            <remarks>
+            <para>For text: example text</para>
+            <para>Selects: ex</para>
+            </remarks>
+        </member>
+        <member name="F:imbNLP.Core.contentPreprocess.tokenDetection._select_acronimByLength">
+            <summary>
+            Regex select acronimByLength : [\s\b]{1}([A-Z]{3,4})[\s\b]{1}
+            </summary>
+            <remarks>
+            <para>For text: example text</para>
+            <para>Selects: ex</para>
+            </remarks>
+        </member>
+        <member name="F:imbNLP.Core.contentPreprocess.tokenDetection._select_yearNumber">
+            <summary>
+            Regex select yearNumber : ([\d]{4}[\.])
+            </summary>
+            <remarks>
+            <para>For text: example text</para>
+            <para>Selects: ex</para>
+            </remarks>
+        </member>
+        <member name="F:imbNLP.Core.contentPreprocess.tokenDetection._select_postOfficeNumber">
+            <summary>
+            Regex select postOfficeNumber : (([\d]{5})|([\d]{2}[\s]{1}[\d]{3})[\b]{1})[\W]{1}
+            </summary>
+            <remarks>
+            <para>For text: example text</para>
+            <para>Selects: ex</para>
+            </remarks>
+        </member>
+        <member name="F:imbNLP.Core.contentPreprocess.tokenDetection._select_tokenWithSplitter">
+            <summary>
+            Regex select tokenWithSplitter : ([\w\d\.,:;\"-|]{1,})\b[\W]{0,3}
+            </summary>
+            <remarks>
+            <para>For text: example text</para>
+            <para>Selects: ex</para>
+            </remarks>
+        </member>
+        <member name="F:imbNLP.Core.contentPreprocess.tokenDetection._select_tokenWithoutSplitter">
+            <summary>
+            Regex select tokenWithoutSplitter : ([\w\d\.,:;\""-|]{1,})\b
+            </summary>
+            <remarks>
+            <para>For text: example text</para>
+            <para>Selects: ex</para>
+            </remarks>
+        </member>
+        <member name="F:imbNLP.Core.contentPreprocess.tokenDetection._select_numberOrdal">
+            <summary>
+            Regex select numberOrdal : ([\w]{1}\.{1}\s{1}){2,}
+            </summary>
+            <remarks>
+            <para>For text: example text</para>
+            <para>Selects: ex</para>
+            </remarks>
+        </member>
+        <member name="M:imbNLP.Core.contentPreprocess.tokenDetection.setTokenCaseAndGeneral``1(``0)">
+            <summary>
+            vrsi osnovnu klasifikaciju tokena
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="newToken"></param>
+        </member>
+        <member name="M:imbNLP.Core.contentPreprocess.tokenDetection.setTokensForSentence``1(imbNLP.Core.contentStructure.interafaces.IContentSentence,System.Boolean,imbNLP.Core.contentPreprocess.tokenDetectionFlag,imbNLP.Core.contentStructure.core.contentMatchCollection)">
+            <summary>
+            Pravi tokene za prosledjenu recenicu
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="sentence"></param>
+            <param name="setTokenToSentence"></param>
+            <param name="flags"></param>
+            <param name="subsentenceMatches"></param>
+            <returns></returns>
+        </member>
+        <member name="M:imbNLP.Core.contentPreprocess.tokenDetection.setTokensFromContent``2(System.Object[])">
+            <summary>
+            Postavlja tokene u prosledjenu recenicu i vraca listu svih tokena
+            </summary>
+            <param name="content"></param>
+            <param name="sentence"></param>
+            <param name="language"></param>
+            <returns></returns>
+        </member>
+        <member name="T:imbNLP.Core.contentPreprocess.tokenDetectionFlag">
+            <summary>
+            Flagovi - tokenDetectionFlag
+            </summary>
+        </member>
+        <member name="F:imbNLP.Core.contentPreprocess.tokenDetectionFlag.acronims">
+            <summary>
+            Izvrsice ucitavanje samo ako isti URL / komanda nije poslednja koja je izvrsena
+            </summary>
+        </member>
+        <member name="T:imbNLP.Core.contentStructureHtml.collections.htmlContentLinkHive">
+            <summary>
+            Datastructure based on <see cref="T:imbNLP.Core.contentStructureHtml.elements.htmlContentPage"/> where parent element with link is indexed
+            </summary>
+        </member>
+        <member name="P:imbNLP.Core.contentStructureHtml.collections.htmlContentLinkHive.items">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="T:imbNLP.Core.contentStructureHtml.core.htmlTokenizationFlag">
+            <summary>
+            Flagovi - htmlTokenizationFlag
+            </summary>
+        </member>
+        <member name="F:imbNLP.Core.contentStructureHtml.core.htmlTokenizationFlag.removeInlineTags">
+            <summary>
+            Ne čuva informaciju o inline tagu
+            </summary>
+        </member>
+        <member name="T:imbNLP.Core.contentStructureHtml.elements.htmlContentBlock">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="M:imbNLP.Core.contentStructureHtml.elements.htmlContentExtensions.linkRootParent(imbNLP.Core.contentStructureHtml.elements.IHtmlContentElement)">
+            <summary>
+            Returns parent that has link tag in self
+            </summary>
+            <param name="item">The item.</param>
+            <returns></returns>
+        </member>
+        <member name="T:imbNLP.Core.contentStructureHtml.elements.htmlContentPage">
+            <summary>
+            2013c: LowLevel resurs
+            </summary>
+        </member>
+        <member name="M:imbNLP.Core.contentStructureHtml.elements.htmlContentPage.AppendDataFields(System.Data.PropertyCollection)">
+            <summary>
+            Appends its data points into new or existing property collection
+            </summary>
+            <param name="data">Property collection to add data into</param>
+            <returns>Updated or newly created property collection</returns>
+        </member>
+        <member name="M:imbNLP.Core.contentStructureHtml.elements.htmlContentParagraph.primaryFlaging(System.Object[])">
+            <summary>
+            Primarno obelezavanje - od mikro ka makro nivoa
+            </summary>
+            <remarks>Obelezavanje se oslanja samo na sopstvene podatke i podatke svojih itema</remarks>
+            <param name="resources"></param>
+        </member>
+        <member name="M:imbNLP.Core.contentStructureHtml.elements.htmlContentParagraph.secondaryFlaging(System.Object[])">
+            <summary>
+            Sekundarno obelezavanje -- od makro ka mikro novou
+            </summary>
+            <remarks>Obelezavanje se oslanja na podatke svog parenta i njegovog okruzenja</remarks>
+            <param name="resources"></param>
+        </member>
+        <member name="M:imbNLP.Core.contentStructureHtml.elements.htmlContentParagraph.generalSemanticsFlaging(System.Object[])">
+            <summary>
+            Sprovodi proces izvodjenja generalne semantike
+            </summary>
+            <param name="resources"></param>
+        </member>
+        <member name="M:imbNLP.Core.contentStructureHtml.elements.htmlContentParagraph.specialSematicsFlaging(System.Object[])">
+            <summary>
+            Izvodi specijalnu semantiku> u skladu sa zadatkom analize pravi triplete
+            </summary>
+            <param name="resources"></param>
+        </member>
+        <member name="P:imbNLP.Core.contentStructureHtml.elements.htmlContentParagraph.xpath">
+            <summary>
+            Bindable property
+            </summary>
+        </member>
+        <member name="P:imbNLP.Core.contentStructureHtml.elements.htmlContentParagraph.htmlNode">
+            <summary>
+            HTML node od koga se formira element
+            </summary>
+        </member>
+        <member name="T:imbNLP.Core.contentStructureHtml.elements.htmlContentSentence">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="M:imbNLP.Core.contentStructureHtml.elements.htmlContentSentence.primaryFlaging(System.Object[])">
+            <summary>
+            Primarno obelezavanje - od mikro ka makro nivoa
+            </summary>
+            <remarks>Obelezavanje se oslanja samo na sopstvene podatke i podatke svojih itema</remarks>
+            <param name="resources"></param>
+        </member>
+        <member name="M:imbNLP.Core.contentStructureHtml.elements.htmlContentSentence.secondaryFlaging(System.Object[])">
+            <summary>
+            Sekundarno obelezavanje -- od makro ka mikro novou
+            </summary>
+            <remarks>Obelezavanje se oslanja na podatke svog parenta i njegovog okruzenja</remarks>
+            <param name="resources"></param>
+        </member>
+        <member name="M:imbNLP.Core.contentStructureHtml.elements.htmlContentSentence.generalSemanticsFlaging(System.Object[])">
+            <summary>
+            Sprovodi proces izvodjenja generalne semantike
+            </summary>
+            <param name="resources"></param>
+        </member>
+        <member name="M:imbNLP.Core.contentStructureHtml.elements.htmlContentSentence.specialSematicsFlaging(System.Object[])">
+            <summary>
+            Izvodi specijalnu semantiku> u skladu sa zadatkom analize pravi triplete
+            </summary>
+            <param name="resources"></param>
+        </member>
+        <member name="P:imbNLP.Core.contentStructureHtml.elements.htmlContentSubSentence.linkRootParent">
+            <summary>
+            Gets the link root parent.
+            </summary>
+            <value>
+            The link root parent.
+            </value>
+        </member>
+        <member name="T:imbNLP.Core.contentStructureHtml.elements.htmlContentToken">
+             <summary>
+            
+             </summary>
+             <seealso cref="T:imbNLP.Core.contentStructure.elements.contentToken" />
+             <seealso cref="T:imbNLP.Core.contentStructureHtml.elements.IHtmlContentElement" />
+        </member>
+        <member name="P:imbNLP.Core.contentStructureHtml.elements.htmlContentToken.linkRootParent">
+            <summary>
+            if this HtmlToken is contained inside <c>a</c> tag - this property will return <see cref="T:imbNLP.Core.contentStructureHtml.elements.IHtmlContentElement"/>. If it is not part of <c>a</c> tag it will return <c>null</c>
+            </summary>
+            <value>
+            Returns parent that is associated to <c>a</c> htmltag
+            </value>
+        </member>
+        <member name="M:imbNLP.Core.contentStructureHtml.elements.htmlContentToken.primaryFlaging(System.Object[])">
+            <summary>
+            Primarno obelezavanje - od mikro ka makro nivoa
+            </summary>
+            <remarks>Obelezavanje se oslanja samo na sopstvene podatke i podatke svojih itema</remarks>
+            <param name="resources"></param>
+        </member>
+        <member name="M:imbNLP.Core.contentStructureHtml.elements.htmlContentToken.secondaryFlaging(System.Object[])">
+            <summary>
+            Sekundarno obelezavanje -- od makro ka mikro novou
+            </summary>
+            <remarks>Obelezavanje se oslanja na podatke svog parenta i njegovog okruzenja</remarks>
+            <param name="resources"></param>
+        </member>
+        <member name="M:imbNLP.Core.contentStructureHtml.elements.htmlContentToken.generalSemanticsFlaging(System.Object[])">
+            <summary>
+            Sprovodi proces izvodjenja generalne semantike
+            </summary>
+            <param name="resources"></param>
+        </member>
+        <member name="M:imbNLP.Core.contentStructureHtml.elements.htmlContentToken.specialSematicsFlaging(System.Object[])">
+            <summary>
+            Izvodi specijalnu semantiku> u skladu sa zadatkom analize pravi triplete
+            </summary>
+            <param name="resources"></param>
+        </member>
+        <member name="P:imbNLP.Core.contentStructureHtml.elements.htmlContentToken.AFreqPoints">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="P:imbNLP.Core.contentStructureHtml.elements.htmlContentToken.weight">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="T:imbNLP.Core.contentStructureHtml.elements.htmlLinkNode">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="P:imbNLP.Core.contentStructureHtml.elements.htmlLinkNode.isInnerLink">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="P:imbNLP.Core.contentStructureHtml.elements.htmlLinkNode.isPrimary">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="P:imbNLP.Core.contentStructureHtml.elements.htmlLinkNode.score">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="P:imbNLP.Core.contentStructureHtml.elements.htmlLinkNode.xpath">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="P:imbNLP.Core.contentStructureHtml.elements.htmlLinkNode.scoped">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="P:imbNLP.Core.contentStructureHtml.elements.htmlLinkNode.url">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="P:imbNLP.Core.contentStructureHtml.elements.htmlLinkNode.linkRootParent">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="T:imbNLP.Core.contentStructureHtml.elements.htmlLinkNodeCollection">
+             <summary>
+            
+             </summary>
+             <seealso cref="!:System.Collections.Generic.List&lt;imbSemanticEngine.contentStructureHtml.elements.htmlLinkNode&gt;" />
+        </member>
+        <member name="M:imbNLP.Core.contentStructureHtml.elements.htmlLinkNodeCollection.#ctor(imbNLP.Core.contentStructure.collections.contentTokenCollection)">
+            <summary>
+            Initializes a new instance of the <see cref="T:imbNLP.Core.contentStructureHtml.elements.htmlLinkNodeCollection"/> class.
+            </summary>
+            <param name="tkns">The TKNS.</param>
+        </member>
+        <member name="P:imbNLP.Core.contentStructureHtml.elements.htmlLinkNodeCollection.byUrl">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="P:imbNLP.Core.contentStructureHtml.elements.htmlLinkNodeCollection.scoped">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="P:imbNLP.Core.contentStructureHtml.elements.IHtmlContentElement.htmlNode">
+            <summary>
+            HTML node od koga se formira element
+            </summary>
+        </member>
+        <member name="T:imbNLP.Core.contentStructureHtml.tokenizator.htmlNodeProcessing">
+            <summary>
+            Ekstenzije koje omogućavaju rad sa HtmlNode objektima u kontekstu htmlTokenizacije
+            </summary>
+        </member>
+        <member name="M:imbNLP.Core.contentStructureHtml.tokenizator.htmlNodeProcessing.extractContent(System.Collections.Generic.IList{imbNLP.Core.contentStructure.interafaces.IContentToken})">
+            <summary>
+            Extracts the content.
+            </summary>
+            <param name="source">The source.</param>
+            <returns></returns>
+        </member>
+        <member name="M:imbNLP.Core.contentStructureHtml.tokenizator.htmlNodeProcessing.isTagAcceptable(HtmlAgilityPack.HtmlNode,imbCommonModels.structure.node)">
+            <summary>
+            Da li je ovaj Tag dozvoljen?
+            </summary>
+            <param name="node"></param>
+            <returns></returns>
+        </member>
+        <member name="F:imbNLP.Core.contentStructureHtml.tokenizator.htmlNodeProcessing._select_sentenceTerminator">
+            <summary>
+            Regex select sentenceTerminator : ([\.;!\?]+)$
+            </summary>
+            <remarks>
+            <para>Selektuje karaktere koji predstavljaju kraj recenice</para>
+            <para></para>
+            </remarks>
+        </member>
+        <member name="F:imbNLP.Core.contentStructureHtml.tokenizator.htmlNodeProcessing._select_sentenceSpliter">
+            <summary>
+            Regex select sentenceSpliter : (?=[\.;!\?])\s*(?=[A-ZČŠĆŽĐ\d])
+            </summary>
+            <remarks>
+            <para>For text: example text</para>
+            <para>Selects: ex</para>
+            </remarks>
+        </member>
+        <member name="M:imbNLP.Core.contentStructureHtml.tokenizator.htmlNodeProcessing.splitContentToSentences(System.String)">
+            <summary>
+            Interni algoritam za razbijanje na recenice
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:imbNLP.Core.contentStructureHtml.tokenizator.htmlNodeProcessing.createSentencesFromNode(HtmlAgilityPack.HtmlNode,imbNLP.Core.contentStructureHtml.elements.IHtmlContentElement,imbNLP.Core.contentStructure.collections.contentTokenCollection,imbNLP.Core.contentPreprocess.contentPreprocessFlag,imbNLP.Core.contentPreprocess.sentenceDetectionFlag)">
+            <summary>
+            Pravi rečenice na osnovu HtmlNode-a i vraća kolekciju -- koristi se za glavne rečenice kao i za pod rečenice
+            </summary>
+            <param name="htmlNode">The HTML node.</param>
+            <param name="parent">The parent.</param>
+            <param name="output">The output.</param>
+            <param name="preprocessFlags">The preprocess flags.</param>
+            <param name="flags">The flags.</param>
+            <returns></returns>
+        </member>
+        <member name="T:imbNLP.Core.contentStructure.categorization.blokCategorization">
+            <summary>
+            PREVAZIDJENO --- INTEGRISANO U contentStructure elemente - 2017
+            </summary>
+        </member>
+        <member name="M:imbNLP.Core.contentStructure.categorization.blokCategorization.paragraphAnalysis(imbNLP.Core.contentStructure.interafaces.IContentPage,imbNLP.Core.contentStructure.tokenizator.nlpTokenizatorSettings,imbNLP.Data.basic.basicLanguage)">
+            <summary>
+            Vrsi analizu paragrafa - za svaki paragraf unfreeze kolekciju recenica, pokrenuti obavezno posle kategorizacije recenica
+            </summary>
+            <param name="content"></param>
+            <param name="settings"></param>
+            <param name="language"></param>
+        </member>
+        <member name="T:imbNLP.Core.contentStructure.categorization.categoryDetector">
+            <summary>
+            Koristi se za kategorizaciju elemenata tokenized kontenta - nakon tokenizacije
+            </summary>
+        </member>
+        <member name="M:imbNLP.Core.contentStructure.categorization.categoryDetector.detectGenericTypes(imbNLP.Core.contentStructure.interafaces.IContentPage,imbNLP.Core.contentStructure.tokenizator.nlpTokenizatorSettings,imbNLP.Data.basic.basicLanguage)">
+            <summary>
+            Poziva detekciju generickih tipova za recenice, paragrafe i tokene. Odmrzava kolekcije u tokenizedContent
+            </summary>
+            <param name="tokenizedContent"></param>
+            <param name="settings"></param>
+            <param name="language"></param>
+            <returns></returns>
+        </member>
+        <member name="T:imbNLP.Core.contentStructure.categorization.tokenCategorization">
+            <summary>
+            Algoritmi za kategorizaciju
+            </summary>
+        </member>
+        <member name="M:imbNLP.Core.contentStructure.categorization.tokenCategorization.tokenAnalysis(imbNLP.Core.contentStructure.interafaces.IContentPage,imbNLP.Core.contentStructure.tokenizator.nlpTokenizatorSettings,imbNLP.Data.basic.basicLanguage)">
+            <summary>
+            OSNOVNA ANALIZA TOKENA: sprovodi od FAZE 1 do FAZE 3 - poziva nlpBase alate za svaki od tokena
+            </summary>
+            <param name="content"></param>
+            <param name="language"></param>
+        </member>
+        <member name="M:imbNLP.Core.contentStructure.categorization.tokenCategorization.findGenericTypeSecond(imbNLP.Core.contentStructure.interafaces.IContentToken,imbNLP.Data.basic.basicLanguage)">
+            <summary>
+            FAZA 2: podesava letter case, proverava jezik, proverava da li je mozda akronim - funkcionise samo ako su detektovani slogovi
+            </summary>
+            <param name="token"></param>
+            <param name="language"></param>
+            <returns></returns>
+        </member>
+        <member name="M:imbNLP.Core.contentStructure.categorization.tokenCategorization.findGenericTypeBasic(imbNLP.Core.contentStructure.interafaces.IContentToken)">
+            <summary>
+            FAZA 1: Osnovni nivo detekcije generickog tipa - koristi niz REGEX testova da bi utvrdio o kakvom se tokenu radi, da li je rec ili nije rec. Ako je rec cisti content tako da ostane samo rec.
+            </summary>
+            <param name="content"></param>
+            <returns></returns>
+        </member>
+        <member name="M:imbNLP.Core.contentStructure.categorization.tokenCategorization.genericToBaseType(imbNLP.Data.enums.nlpTokenGenericType)">
+            <summary>
+            Jednostavni konvertor izmedju base tipova i generic type
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="T:imbNLP.Core.contentStructure.collections.contentCollectionBase`1">
+            <summary>
+            Osnova svih kolekcija contentStructure porodice - na pocetku je zamrznuta
+            </summary>
+            <typeparam name="T">contentElement</typeparam>
+            <typeparam name="CT">Generic Type</typeparam>
+        </member>
+        <member name="M:imbNLP.Core.contentStructure.collections.contentCollectionBase`1.Nest(imbNLP.Core.contentStructure.interafaces.IContentElement)">
+            <summary>
+            Osvezava vezu za prethodnim elementom -- i prijavljuje se kod njega kao sledeci element
+            </summary>
+            <param name="item"></param>
+        </member>
+        <member name="M:imbNLP.Core.contentStructure.collections.contentCollectionBase`1.Add(`0)">
+            <summary>
+            Specijalni algoritam dodavanja u kolekciju
+            </summary>
+            <param name="item"></param>
+        </member>
+        <member name="M:imbNLP.Core.contentStructure.collections.contentCollectionBase`1.Query(imbNLP.Data.enums.contentRelationType,imbNLP.Core.contentStructure.interafaces.IContentElement,System.Int32)">
+            <summary>
+            Vraca listu elemenata u skladu sa upitom
+            </summary>
+            <param name="qRelation"></param>
+            <param name="qReference"></param>
+            <param name="limit"></param>
+            <returns></returns>
+        </member>
+        <member name="T:imbNLP.Core.contentStructure.collections.contentElementList">
+            <summary>
+            Lista elemenata bez mehanizama za postavljanje medjusobnih odnosa i analizu
+            </summary>
+        </member>
+        <member name="M:imbNLP.Core.contentStructure.collections.contentElementList.AddNullSafe(imbNLP.Core.contentStructure.interafaces.IContentElement)">
+            <summary>
+            Ako je Null vraca false
+            </summary>
+            <param name="element"></param>
+            <returns></returns>
+        </member>
+        <member name="T:imbNLP.Core.contentStructure.collections.contentPageCollection">
+            <summary>
+            Kolekcija svih ucitanih sadrzaja - grupisani su u contentPageSet
+            </summary>
+        </member>
+        <member name="P:imbNLP.Core.contentStructure.collections.contentPageCollection.currentSet">
+            <summary>
+            Trenutno selektovani contentPage
+            </summary>
+        </member>
+        <member name="P:imbNLP.Core.contentStructure.collections.contentPageCollection.current">
+            <summary>
+            Trenutno selektovani contentPage
+            </summary>
+        </member>
+        <member name="E:imbNLP.Core.contentStructure.collections.contentPageCollection.PropertyChanged">
+            <summary>
+            Event koji javlja da je promenjen neki property
+            </summary>
+        </member>
+        <member name="M:imbNLP.Core.contentStructure.collections.contentPageCollection.OnPropertChangedNoHandler(System.String)">
+            <summary>
+            Poziva se kada nema handlera za PropertyChangedEventHandler
+            </summary>
+        </member>
+        <member name="M:imbNLP.Core.contentStructure.collections.contentPageCollection.OnPropertyChanged(System.String)">
+            <summary>
+            Kreira event koji obaveštava da je promenjen neki parametar
+            </summary>
+            <remarks>
+            Neće biti kreiran event ako nije spremna aplikacija: imbSettingsManager.current.isReady
+            </remarks>
+            <param name="name"></param>
+        </member>
+        <member name="M:imbNLP.Core.contentStructure.collections.contentPageCollection.selectSet(System.String)">
+            <summary>
+            Selektuje i/ili instancijra
+            </summary>
+            <param name="setName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:imbNLP.Core.contentStructure.collections.contentPageCollection.Add(imbNLP.Core.contentStructure.interafaces.IContentPage)">
+            <summary>
+            Dodaje stranicu u odgovarajuci set - ili kreira novi set
+            </summary>
+            <param name="page"></param>
+            <returns></returns>
+        </member>
+        <member name="P:imbNLP.Core.contentStructure.collections.contentPageRegistry.items">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="T:imbNLP.Core.contentStructure.collections.contentPageSet">
+            <summary>
+            Collection of tokenized structures, gathered in one group <see cref="T:imbNLP.Core.contentStructure.collections.contentPageSet"/> by domain name.
+            </summary>
+            <remarks>
+            Skup tokenizovanih sadrzaja - povezuje ih zajednicki domen
+            </remarks>
+        </member>
+        <member name="E:imbNLP.Core.contentStructure.collections.contentPageSet.PropertyChanged">
+            <summary>
+            Event koji javlja da je promenjen neki property
+            </summary>
+        </member>
+        <member name="M:imbNLP.Core.contentStructure.collections.contentPageSet.OnPropertChangedNoHandler(System.String)">
+            <summary>
+            Poziva se kada nema handlera za PropertyChangedEventHandler
+            </summary>
+        </member>
+        <member name="M:imbNLP.Core.contentStructure.collections.contentPageSet.OnPropertyChanged(System.String)">
+            <summary>
+            Kreira event koji obaveštava da je promenjen neki parametar
+            </summary>
+            <remarks>
+            Neće biti kreiran event ako nije spremna aplikacija: imbSettingsManager.current.isReady
+            </remarks>
+            <param name="name"></param>
+        </member>
+        <member name="P:imbNLP.Core.contentStructure.collections.contentPageSet.current">
+            <summary>
+            Trenutno selektovani contentPage
+            </summary>
+        </member>
+        <member name="P:imbNLP.Core.contentStructure.collections.contentPageSet.name">
+            <summary>
+            keyName koji povezuje ceo set
+            </summary>
+        </member>
+        <member name="T:imbNLP.Core.contentStructure.collections.contentSentenceCollection">
+            <summary>
+            Kolekcija pod rečenica i rečenica
+            </summary>
+        </member>
+        <member name="P:imbNLP.Core.contentStructure.collections.contentSentenceCollection.Item(imbNLP.Data.enums.flags.contentSentenceFlag[])">
+            <summary>
+            Gets the <see cref="T:System.Collections.Generic.List`1"/> with the specified flags - any of these will trigger
+            </summary>
+            <value>
+            The <see cref="T:System.Collections.Generic.List`1"/>.
+            </value>
+            <param name="flag">The flag.</param>
+            <returns></returns>
+        </member>
+        <member name="M:imbNLP.Core.contentStructure.collections.IContentCollectionBase.Nest(imbNLP.Core.contentStructure.interafaces.IContentElement)">
+            <summary>
+            Osvezava vezu za prethodnim elementom -- i prijavljuje se kod njega kao sledeci element
+            </summary>
+            <param name="item"></param>
+        </member>
+        <member name="P:imbNLP.Core.contentStructure.core.contentElementBase.root">
+            <summary>
+            Gets the root.
+            </summary>
+            <value>
+            The root.
+            </value>
+        </member>
+        <member name="P:imbNLP.Core.contentStructure.core.contentElementBase.match">
+            <summary>
+            Kontent match meta info
+            </summary>
+        </member>
+        <member name="P:imbNLP.Core.contentStructure.core.contentElementBase.UID">
+            <summary>
+            imbControl property UID tipa String
+            </summary>
+        </member>
+        <member name="M:imbNLP.Core.contentStructure.core.contentElementBase.primaryFlaging(System.Object[])">
+            <summary>
+            izvrsava se od
+            </summary>
+            <param name="resources"></param>
+        </member>
+        <member name="M:imbNLP.Core.contentStructure.core.contentElementBase.setItem(imbNLP.Core.contentStructure.interafaces.IContentElement)">
+            <summary>
+            Podešava PREV i NEXT za nlpBase klase -- i dodaje item u svoju items kolekciju
+            </summary>
+            <remarks>
+            Radiće u slučaju da je item član liste kao i da nije. Ako nije dodeliće mu prev kao last
+            </remarks>
+            <typeparam name="T"></typeparam>
+            <param name="list"></param>
+        </member>
+        <member name="P:imbNLP.Core.contentStructure.core.contentElementBase.imbSCI#Data#interfaces#IObjectWithParent#parent">
+            <summary>
+            Referenca prema parent objektu
+            </summary>
+        </member>
+        <member name="P:imbNLP.Core.contentStructure.core.contentElementBase.imbSCI#Data#interfaces#IObjectWithPath#path">
+            <summary>
+            Putanja objekta
+            </summary>
+        </member>
+        <member name="P:imbNLP.Core.contentStructure.core.contentElementBase.id">
+            <summary>
+            Osnovni ID podatak
+            </summary>
+        </member>
+        <member name="P:imbNLP.Core.contentStructure.core.contentElementBase._nameAbbrevation">
+            <summary>
+            skracenica imena
+            </summary>
+        </member>
+        <member name="P:imbNLP.Core.contentStructure.core.contentElementBase.name">
+            <summary>
+            ime objekta - ime tipa i ID - ako je objekat deo glavnog niza
+            </summary>
+        </member>
+        <member name="F:imbNLP.Core.contentStructure.core.contentElementBase._items">
+            <summary>
+            Skup pod-itema
+            </summary>
+        </member>
+        <member name="P:imbNLP.Core.contentStructure.core.contentElementBase.isLast">
+            <summary>
+            Da li je reč o poslednjem elementu?
+            </summary>
+        </member>
+        <member name="P:imbNLP.Core.contentStructure.core.contentElementBase.isFirst">
+            <summary>
+            Da li je reč o prvom elementu?
+            </summary>
+        </member>
+        <member name="P:imbNLP.Core.contentStructure.core.contentElementBase.next">
+            <summary>
+            Referenca prema sledećem slogu
+            </summary>
+        </member>
+        <member name="P:imbNLP.Core.contentStructure.core.contentElementBase.prev">
+            <summary>
+            Referenca prema prethodnom slogu
+            </summary>
+        </member>
+        <member name="P:imbNLP.Core.contentStructure.core.contentElementBase.parent">
+            <summary>
+            referenca prema parent objektu
+            </summary>
+        </member>
+        <member name="P:imbNLP.Core.contentStructure.core.contentElementBase.page">
+            <summary>
+            Referenca prema stranici
+            </summary>
+        </member>
+        <member name="P:imbNLP.Core.contentStructure.core.contentElementBase.sourceContent">
+            <summary>
+            Izvorni content
+            </summary>
+        </member>
+        <member name="P:imbNLP.Core.contentStructure.core.contentElementBase.content">
+            <summary>
+            Originalni sadržaj koji je pronađen u tokenu
+            </summary>
+        </member>
+        <member name="P:imbNLP.Core.contentStructure.core.contentElementBase.spliter">
+            <summary>
+            Koji je spliter odredio odvajanje tokena
+            </summary>
+        </member>
+        <member name="T:imbNLP.Core.contentStructure.core.contentMatch">
+            <summary>
+            Interni REGEX MATCH
+            </summary>
+        </member>
+        <member name="P:imbNLP.Core.contentStructure.core.contentMatch.name">
+            <summary>
+            jedinstveno ime
+            </summary>
+        </member>
+        <member name="P:imbNLP.Core.contentStructure.core.contentMatch.associatedKey">
+            <summary>
+            kljuc koji je dodeljen
+            </summary>
+        </member>
+        <member name="P:imbNLP.Core.contentStructure.core.contentMatch.match">
+            <summary>
+            Bindable property
+            </summary>
+        </member>
+        <member name="P:imbNLP.Core.contentStructure.core.contentMatch.element">
+            <summary>
+            instanca content elementa koji je rezultat ovog matcha
+            </summary>
+        </member>
+        <member name="T:imbNLP.Core.contentStructure.core.contentMatchCollection">
+            <summary>
+            Kolekcija sa pronadjenim Regex match-ovima
+            </summary>
+        </member>
+        <member name="P:imbNLP.Core.contentStructure.core.contentMatchCollection.scrambled">
+            <summary>
+            sadrzaj koji je prekrecen
+            </summary>
+        </member>
+        <member name="P:imbNLP.Core.contentStructure.core.contentMatchCollection.sourceContent">
+            <summary>
+            izvorni sadrzaj
+            </summary>
+        </member>
+        <member name="M:imbNLP.Core.contentStructure.core.contentMatchCollection.isAllocated(System.Text.RegularExpressions.Match)">
+            <summary>
+            Da li je za dati Regex Match vec sve rezervisano
+            </summary>
+            <param name="m"></param>
+            <returns></returns>
+        </member>
+        <member name="M:imbNLP.Core.contentStructure.core.contentMatchCollection.allocated(System.Int32,System.Int32)">
+            <summary>
+            Vraca sve contentMatch instance koje se nalaze od indexa do kraja lengtha
+            </summary>
+            <param name="index"></param>
+            <param name="length"></param>
+            <returns></returns>
+        </member>
+        <member name="M:imbNLP.Core.contentStructure.core.contentMatchCollection.Add(System.Text.RegularExpressions.Regex,System.Enum)">
+            <summary>
+            Izvršava Regex i na osnovu rezultata upisuje contentMatch item u kolekciju i prepravlja content
+            </summary>
+            <param name="reg"></param>
+            <param name="flag"></param>
+            <returns></returns>
+        </member>
+        <member name="M:imbNLP.Core.contentStructure.core.contentMatchCollection.Add(System.String,System.Text.RegularExpressions.Regex,System.Enum,System.String)">
+            <summary>
+            Upisuje u sebe rezultate i vraca verziju ulaznog stringa u kojoj su presvrljana sva pojavljivanja pogodaka
+            </summary>
+            <param name="content"></param>
+            <param name="reg"></param>
+            <param name="mask"></param>
+            <returns></returns>
+        </member>
+        <member name="P:imbNLP.Core.contentStructure.core.contentMatchCollection.allocation">
+            <summary>
+            index -- koji Match zauzima koje karaktere
+            </summary>
+        </member>
+        <member name="T:imbNLP.Core.contentStructure.display.contentDisplaySettings">
+            <summary>
+            Podesavanja prikaza
+            </summary>
+        </member>
+        <member name="P:imbNLP.Core.contentStructure.display.contentDisplaySettings.colorMode">
+            <summary>
+            rezim prikaza boja
+            </summary>
+        </member>
+        <member name="P:imbNLP.Core.contentStructure.display.contentDisplaySettings.showTosMark">
+            <summary>
+            Da li da prikaže TOS oznaku
+            </summary>
+        </member>
+        <member name="P:imbNLP.Core.contentStructure.display.contentDisplaySettings.showContent">
+            <summary>
+            da li da prikaže content
+            </summary>
+        </member>
+        <member name="P:imbNLP.Core.contentStructure.display.contentDisplaySettings.showGenericTypeMark">
+            <summary>
+            Da li da prikaže generic type mark
+            </summary>
+        </member>
+        <member name="M:imbNLP.Core.contentStructure.display.contentStructureImportExportTools.makeReport(imbNLP.Core.contentStructure.interafaces.IContentElement,imbSCI.Core.reporting.render.ITextRender,System.Boolean)">
+            <summary>
+            Generiše izveštaj o contentPage objektu - vraca String Builder objekat
+            </summary>
+            <param name="sb"></param>
+            <returns></returns>
+        </member>
+        <member name="T:imbNLP.Core.contentStructure.display.contentStructureToDiagramModel">
+            <summary>
+            diagram model builder from content structure
+            </summary>
+            <seealso cref="T:imbSCI.DataComplex.diagram.builders.diagramBuilderUniversalTree" />
+        </member>
+        <member name="F:imbNLP.Core.contentStructure.display.templateFieldTKNReport.tkn_headtkncount">
+            <summary>
+            The TKN headtkncount - broj head contenta
+            </summary>
+        </member>
+        <member name="F:imbNLP.Core.contentStructure.display.templateFieldTKNReport.tkn_linkcount">
+            <summary>
+            Broj linkova u contentu
+            </summary>
+        </member>
+        <member name="T:imbNLP.Core.contentStructure.elements.contentBlock">
+            <summary>
+            2013c: LowLevel resurs
+            </summary>
+        </member>
+        <member name="P:imbNLP.Core.contentStructure.elements.contentBlock.Item(System.Int32)">
+            <summary>
+            Gets the <see cref="T:System.Object"/> with the specified key.
+            </summary>
+            <value>
+            The <see cref="T:System.Object"/>.
+            </value>
+            <param name="key">The key.</param>
+            <returns></returns>
+        </member>
+        <member name="P:imbNLP.Core.contentStructure.elements.contentBlock.Item(System.String)">
+            <summary>
+            Gets the <see cref="T:System.Object"/> with the specified child name.
+            </summary>
+            <value>
+            The <see cref="T:System.Object"/>.
+            </value>
+            <param name="childName">Name of the child.</param>
+            <returns></returns>
+        </member>
+        <member name="P:imbNLP.Core.contentStructure.elements.contentBlock.title">
+            <summary>
+            block title - dobijen analizom sadrzaja
+            </summary>
+        </member>
+        <member name="P:imbNLP.Core.contentStructure.elements.contentBlock.flags">
+            <summary>
+            flagovi za blok
+            </summary>
+        </member>
+        <member name="P:imbNLP.Core.contentStructure.elements.contentBlock.items">
+            <summary>
+            Blokovi sadrzaja
+            </summary>
+        </member>
+        <member name="T:imbNLP.Core.contentStructure.elements.contentPage">
+            <summary>
+            2013c: LowLevel resurs
+            </summary>
+        </member>
+        <member name="P:imbNLP.Core.contentStructure.elements.contentPage.Item(System.Int32)">
+            <summary>
+            Gets the <see cref="T:System.Object"/> with the specified key.
+            </summary>
+            <value>
+            The <see cref="T:System.Object"/>.
+            </value>
+            <param name="key">The key.</param>
+            <returns></returns>
+        </member>
+        <member name="P:imbNLP.Core.contentStructure.elements.contentPage.Item(System.String)">
+            <summary>
+            Gets the <see cref="T:System.Object"/> with the specified child name.
+            </summary>
+            <value>
+            The <see cref="T:System.Object"/>.
+            </value>
+            <param name="childName">Name of the child.</param>
+            <returns></returns>
+        </member>
+        <member name="M:imbNLP.Core.contentStructure.elements.contentPage.recountItems">
+            <summary>
+            Popunjava kolekcije> paragraphs, sentences, tokens
+            </summary>
+        </member>
+        <member name="P:imbNLP.Core.contentStructure.elements.contentPage.project">
+            <summary>
+            referenca prema projektu u kojem je sadrzana ova stranica
+            </summary>
+        </member>
+        <member name="P:imbNLP.Core.contentStructure.elements.contentPage.document">
+            <summary>
+            referenca prema dokumentu u kojem je sadrzana ova stranica. Ukoliko je null onda je stranica sama za sebe
+            </summary>
+        </member>
+        <member name="M:imbNLP.Core.contentStructure.elements.contentPage.primaryFlaging(System.Object[])">
+            <summary>
+            #1 PrimaryFlaging krece od tokena ka stranici -- od mikro ka makro nivou
+            </summary>
+        </member>
+        <member name="M:imbNLP.Core.contentStructure.elements.contentPage.secondaryFlaging(System.Object[])">
+            <summary>
+            #2 SecondaryFlaging krece od makro ka mikro novou
+            </summary>
+        </member>
+        <member name="M:imbNLP.Core.contentStructure.elements.contentPage.generalSemanticsFlaging(System.Object[])">
+            <summary>
+            #3 Izvlacene generalne semantike stvara osnovne, opste, ne-specificne, tvrdnje na osnovu obradjenog teksta
+            </summary>
+            <param name="resources"></param>
+        </member>
+        <member name="M:imbNLP.Core.contentStructure.elements.contentPage.specialSematicsFlaging(System.Object[])">
+            <summary>
+            #4 Specijalna semantika stvara tvrdnje usko vezane za zadatak obrade
+            </summary>
+            <param name="resources"></param>
+        </member>
+        <member name="P:imbNLP.Core.contentStructure.elements.contentPage.items">
+            <summary>
+            Blokovi sadrzaja
+            </summary>
+        </member>
+        <member name="P:imbNLP.Core.contentStructure.elements.contentPage.paragraphs">
+            <summary>
+            Bindable property
+            </summary>
+        </member>
+        <member name="P:imbNLP.Core.contentStructure.elements.contentPage.sentences">
+            <summary>
+            Sve rečenice u nlpContent-u
+            </summary>
+        </member>
+        <member name="P:imbNLP.Core.contentStructure.elements.contentPage.chunks">
+            <summary>
+            Svi chunkovi
+            </summary>
+        </member>
+        <member name="P:imbNLP.Core.contentStructure.elements.contentPage.tokens">
+            <summary>
+            Svi tokeni pronadjeni u nlpContentu
+            </summary>
+        </member>
+        <member name="M:imbNLP.Core.contentStructure.elements.contentPage.acceptSourcePage(imbCommonModels.structure.node)">
+            <summary>
+            Preuzima opisne podatke iz node/crawledpage objekta -- poziva se iz tokenizatora, ne prenosi sam asdrza
+            </summary>
+            <param name="sourcePage"></param>
+        </member>
+        <member name="P:imbNLP.Core.contentStructure.elements.contentPage.headTokens">
+            <summary>
+            Tokeni iz naslova, imena domena itd
+            </summary>
+        </member>
+        <member name="P:imbNLP.Core.contentStructure.elements.contentPage.domainInfo">
+            <summary>
+            Informacije o domenu
+            </summary>
+        </member>
+        <member name="P:imbNLP.Core.contentStructure.elements.contentPage.contentTitle">
+            <summary>
+            Naziv sadrzaja
+            </summary>
+        </member>
+        <member name="P:imbNLP.Core.contentStructure.elements.contentPage.contentUrl">
+            <summary>
+            Adresa stranice
+            </summary>
+        </member>
+        <member name="P:imbNLP.Core.contentStructure.elements.contentPage.blocks">
+            <summary>
+            Gets or sets the blocks of page
+            </summary>
+            <value>
+            The blocks.
+            </value>
+        </member>
+        <member name="P:imbNLP.Core.contentStructure.elements.contentParagraph.Item(System.Int32)">
+            <summary>
+            Gets the <see cref="T:System.Object"/> with the specified key.
+            </summary>
+            <value>
+            The <see cref="T:System.Object"/>.
+            </value>
+            <param name="key">The key.</param>
+            <returns></returns>
+        </member>
+        <member name="P:imbNLP.Core.contentStructure.elements.contentParagraph.Item(System.String)">
+            <summary>
+            Gets the <see cref="T:System.Object"/> with the specified child name.
+            </summary>
+            <value>
+            The <see cref="T:System.Object"/>.
+            </value>
+            <param name="childName">Name of the child.</param>
+            <returns></returns>
+        </member>
+        <member name="F:imbNLP.Core.contentStructure.elements.contentParagraph._select_sentenceTerminator">
+            <summary>
+            Regex select sentenceTerminator : ([\.;!\?]+)$
+            </summary>
+            <remarks>
+            <para>Selektuje karaktere koji predstavljaju kraj recenice</para>
+            <para></para>
+            </remarks>
+        </member>
+        <member name="F:imbNLP.Core.contentStructure.elements.contentParagraph._select_sentenceSpliter">
+            <summary>
+            Regex select sentenceSpliter :
+            </summary>
+            <remarks>
+            <para>For text: example text</para>
+            <para>Selects: ex</para>
+            </remarks>
+        </member>
+        <member name="P:imbNLP.Core.contentStructure.elements.contentParagraph.items">
+            <summary>
+            Skup svih recenica
+            </summary>
+        </member>
+        <member name="P:imbNLP.Core.contentStructure.elements.contentParagraph.flags">
+            <summary>
+            Description of $property$
+            </summary>
+        </member>
+        <member name="M:imbNLP.Core.contentStructure.elements.contentParagraph.setParagraphFromContent``3(System.Object[])">
+            <summary>
+            GLAVNA KOMANDA KOD TOKENIZACIJE - Za prosledjen paragraph pravi recenice, podrecenice i tokene. Vrsi registrovanje tokena i recenica u IContentPage output-u ako bude prosledjen
+            </summary>
+            <typeparam name="TSentence">Tip za recenice</typeparam>
+            <typeparam name="TSubSentence">Tip za pod recenice</typeparam>
+            <typeparam name="TToken">Tip za tokene</typeparam>
+            <param name="paragraph"></param>
+            <param name="resources">IContentPage za registraciju sadrzaja;  paragraphDetectionFlags; sentenceDetectionFlags; contentPreprocessFlags;tokenDetectionFlags;tokenDetectionFlags</param>
+        </member>
+        <member name="M:imbNLP.Core.contentStructure.elements.contentParagraph._setSentencesFromContent``1(System.Object[])">
+             <summary>
+            
+             </summary>
+             <typeparam name="TSentence"></typeparam>
+             <param name="resources"></param>
+             <returns></returns>
+        </member>
+        <member name="T:imbNLP.Core.contentStructure.elements.contentSentence">
+            <summary>
+            2013c: LowLevel resurs
+            </summary>
+        </member>
+        <member name="F:imbNLP.Core.contentStructure.elements.contentSentence._select_tokenWithSplitter">
+            <summary>
+            Regex select tokenWithSplitter : ([\w\d\.,:;\"-|]{1,})\b[\W]{0,3}
+            </summary>
+            <remarks>
+            <para>For text: example text</para>
+            <para>Selects: ex</para>
+            </remarks>
+        </member>
+        <member name="F:imbNLP.Core.contentStructure.elements.contentSentence._select_tokenWithoutSplitter">
+            <summary>
+            Regex select tokenWithoutSplitter : ([\w\d\.,:;\""-|]{1,})\b
+            </summary>
+            <remarks>
+            <para>For text: example text</para>
+            <para>Selects: ex</para>
+            </remarks>
+        </member>
+        <member name="P:imbNLP.Core.contentStructure.elements.contentSentence.sentenceFlags">
+            <summary>
+            flagovi o recenici
+            </summary>
+        </member>
+        <member name="M:imbNLP.Core.contentStructure.elements.contentSentence.GetFlags">
+            <summary>
+            Gets the flags.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:imbNLP.Core.contentStructure.elements.contentSentence.setTokensFromContent``2(System.Object[])">
+            <summary>
+            Glavni metod za obradu sadrzaja jedne recenice >> prvo poziva setSubSentences, zatim setTokensForSentence
+            </summary>
+            <typeparam name="T"></typeparam>
+            <typeparam name="TS"></typeparam>
+            <param name="resources"> tokenDetectionFlags flags, contentTokenCollection contentTokenCollections</param>
+            <returns></returns>
+        </member>
+        <member name="P:imbNLP.Core.contentStructure.elements.contentSentence.items">
+            <summary>
+            svi tokeni u recenici
+            </summary>
+        </member>
+        <member name="P:imbNLP.Core.contentStructure.elements.contentSentence.flags">
+            <summary>
+            flagovi
+            </summary>
+        </member>
+        <member name="P:imbNLP.Core.contentStructure.elements.contentSentence.detectionFlags">
+            <summary>
+            flagovi dobijeni tokom detektovanja
+            </summary>
+        </member>
+        <member name="M:imbNLP.Core.contentStructure.elements.contentSentence._setTokensForSentence``1(System.Object[])">
+            <summary>
+            Može da sam izvrši macroTokens ili da dobije gotove. Primenjuje subsentence algoritam i vrši standardnu detekciju tokena --- NAJBITNIJE JE STO SLAZE TOKENE/SUBSENTENCE u parent
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="resources"></param>
+            <returns></returns>
+        </member>
+        <member name="M:imbNLP.Core.contentStructure.elements.contentSentence._setMacroTokensForSentence``1(System.Object[])">
+            <summary>
+            Izdvaja makro tokene unutar recenice ili pod recenice
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="resources"></param>
+            <returns></returns>
+        </member>
+        <member name="M:imbNLP.Core.contentStructure.elements.contentSentence._setSubSentences``1(imbNLP.Core.contentPreprocess.tokenDetectionFlag,imbNLP.Core.contentStructure.core.contentMatchCollection)">
+            <summary>
+            Postavlja pod recenice -- proslediti> tokenDetectionFlags
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="resources"> tokenDetectionFlags subflags, contentMatchCollection subsentenceMatches</param>
+            <returns></returns>
+        </member>
+        <member name="P:imbNLP.Core.contentStructure.elements.contentSubSentence.masterToken">
+            <summary>
+            Token koji sadrzi celu pod recenicu
+            </summary>
+        </member>
+        <member name="T:imbNLP.Core.contentStructure.elements.contentSyllable">
+            <summary>
+            Slog iliti subtoken
+            </summary>
+        </member>
+        <member name="P:imbNLP.Core.contentStructure.elements.contentSyllable.Item(System.Int32)">
+            <summary>
+            Gets the <see cref="T:System.Object"/> with the specified key.
+            </summary>
+            <value>
+            The <see cref="T:System.Object"/>.
+            </value>
+            <param name="key">The key.</param>
+            <returns></returns>
+        </member>
+        <member name="P:imbNLP.Core.contentStructure.elements.contentSyllable.Item(System.String)">
+            <summary>
+            Gets the <see cref="T:System.Object"/> with the specified child name.
+            </summary>
+            <value>
+            The <see cref="T:System.Object"/>.
+            </value>
+            <param name="childName">Name of the child.</param>
+            <returns></returns>
+        </member>
+        <member name="P:imbNLP.Core.contentStructure.elements.contentSyllable.items">
+            <summary>
+            Syllable nema pod iteme
+            </summary>
+        </member>
+        <member name="P:imbNLP.Core.contentStructure.elements.contentSyllable.type">
+            <summary>
+            Tip sloga
+            </summary>
+        </member>
+        <member name="P:imbNLP.Core.contentStructure.elements.contentToken.Item(System.Int32)">
+            <summary>
+            Gets the <see cref="T:System.Object"/> with the specified key.
+            </summary>
+            <value>
+            The <see cref="T:System.Object"/>.
+            </value>
+            <param name="key">The key.</param>
+            <returns></returns>
+        </member>
+        <member name="P:imbNLP.Core.contentStructure.elements.contentToken.Item(System.String)">
+            <summary>
+            Gets the <see cref="T:System.Object"/> with the specified child name.
+            </summary>
+            <value>
+            The <see cref="T:System.Object"/>.
+            </value>
+            <param name="childName">Name of the child.</param>
+            <returns></returns>
+        </member>
+        <member name="F:imbNLP.Core.contentStructure.elements.contentToken.__select_tokenSplitter">
+            <summary>
+            Regex select tokenSplitter : (([\W\s\+\.\,]+){1,}$)
+            </summary>
+            <remarks>
+            <para>For text: example text</para>
+            <para>Selects: ex</para>
+            </remarks>
+        </member>
+        <member name="P:imbNLP.Core.contentStructure.elements.contentToken.next_Token">
+            <summary>
+            Bezbedno preuzimanje propertija Token iz objekta next
+            </summary>
+        </member>
+        <member name="M:imbNLP.Core.contentStructure.elements.contentToken.primaryFlaging(System.Object[])">
+            <summary>
+            Primarno obeležavanje -- OVO JE POČETAK OBELEŽAVANAJA: dakle od mikro ka makro nivou, ne oslanjati se na podatke iz viših elemenata
+            </summary>
+            <param name="resources"></param>
+        </member>
+        <member name="M:imbNLP.Core.contentStructure.elements.contentToken.generalSemanticsFlaging(System.Object[])">
+            <summary>
+            Ovde primenjuje: Nazive gradova, brojeve poste, prezimena,
+            </summary>
+            <param name="resources"></param>
+        </member>
+        <member name="P:imbNLP.Core.contentStructure.elements.contentToken.items">
+            <summary>
+            Kolekcija slogova
+            </summary>
+        </member>
+        <member name="P:imbNLP.Core.contentStructure.elements.contentToken.baseType">
+            <summary>
+            osnovna klasifikacija tokena
+            </summary>
+        </member>
+        <member name="P:imbNLP.Core.contentStructure.elements.contentToken.detectionFlags">
+            <summary>
+            flagovi dodeljeni prilikom detekcije
+            </summary>
+        </member>
+        <member name="P:imbNLP.Core.contentStructure.elements.contentToken.flags">
+            <summary>
+            flagovi o samom tokenu
+            </summary>
+        </member>
+        <member name="M:imbNLP.Core.contentStructure.elements.contentToken.syllablesDetection(imbNLP.Core.contentStructure.tokenizator.nlpTokenizatorSettings)">
+            <summary>
+            pod FAZA 2.a: detektovanje slogova - poziva ga faza 2, nema potrebe posebno pozivati --- ne radi dobro
+            </summary>
+            <param name="token"></param>
+            <param name="language"></param>
+        </member>
+        <member name="M:imbNLP.Core.contentStructure.elements.contentToken.GetFlags">
+            <summary>
+            Gets the flags.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:imbNLP.Core.contentStructure.elements.contentToken.origin">
+            <summary>
+            poreklo tokena
+            </summary>
+        </member>
+        <member name="P:imbNLP.Core.contentStructure.interafaces.IContentElement.sourceContent">
+            <summary>
+            Izvorni content
+            </summary>
+        </member>
+        <member name="P:imbNLP.Core.contentStructure.interafaces.IContentElement.content">
+            <summary>
+            Originalni sadržaj koji je pronađen u tokenu
+            </summary>
+        </member>
+        <member name="P:imbNLP.Core.contentStructure.interafaces.IContentElement.spliter">
+            <summary>
+            Koji je spliter odredio odvajanje tokena
+            </summary>
+        </member>
+        <member name="P:imbNLP.Core.contentStructure.interafaces.IContentElement.items">
+            <summary>
+            Skup pod-itema
+            </summary>
+        </member>
+        <member name="P:imbNLP.Core.contentStructure.interafaces.IContentElement.isLast">
+            <summary>
+            Da li je reč o poslednjem elementu?
+            </summary>
+        </member>
+        <member name="P:imbNLP.Core.contentStructure.interafaces.IContentElement.isFirst">
+            <summary>
+            Da li je reč o prvom elementu?
+            </summary>
+        </member>
+        <member name="P:imbNLP.Core.contentStructure.interafaces.IContentElement.next">
+            <summary>
+            Referenca prema sledećem slogu
+            </summary>
+        </member>
+        <member name="P:imbNLP.Core.contentStructure.interafaces.IContentElement.prev">
+            <summary>
+            Referenca prema prethodnom slogu
+            </summary>
+        </member>
+        <member name="P:imbNLP.Core.contentStructure.interafaces.IContentElement.parent">
+            <summary>
+            referenca prema parent objektu
+            </summary>
+        </member>
+        <member name="M:imbNLP.Core.contentStructure.interafaces.IContentElement.setItem(imbNLP.Core.contentStructure.interafaces.IContentElement)">
+            <summary>
+            Podešava PREV i NEXT za nlpBase klase
+            </summary>
+            <remarks>
+            Radiće u slučaju da je item član liste kao i da nije. Ako nije dodeliće mu prev kao last
+            </remarks>
+            <typeparam name="T"></typeparam>
+            <param name="list"></param>
+        </member>
+        <member name="M:imbNLP.Core.contentStructure.interafaces.IContentElement.primaryFlaging(System.Object[])">
+            <summary>
+            izvrsava se od
+            </summary>
+            <param name="resources"></param>
+        </member>
+        <member name="P:imbNLP.Core.contentStructure.interafaces.IContentPage.paragraphs">
+            <summary>
+            Blokovi sadrzaja
+            </summary>
+        </member>
+        <member name="P:imbNLP.Core.contentStructure.interafaces.IContentPage.sentences">
+            <summary>
+            Sve rečenice u nlpContent-u
+            </summary>
+        </member>
+        <member name="P:imbNLP.Core.contentStructure.interafaces.IContentPage.chunks">
+            <summary>
+            Svi chunkovi
+            </summary>
+        </member>
+        <member name="P:imbNLP.Core.contentStructure.interafaces.IContentPage.tokens">
+            <summary>
+            Svi tokeni pronadjeni u nlpContentu
+            </summary>
+        </member>
+        <member name="P:imbNLP.Core.contentStructure.interafaces.IContentPage.contentTitle">
+            <summary>
+            Naziv sadrzaja
+            </summary>
+        </member>
+        <member name="P:imbNLP.Core.contentStructure.interafaces.IContentPage.contentUrl">
+            <summary>
+            Adresa stranice
+            </summary>
+        </member>
+        <member name="P:imbNLP.Core.contentStructure.interafaces.IContentPage.domainInfo">
+            <summary>
+            Informacije o domenu
+            </summary>
+        </member>
+        <member name="M:imbNLP.Core.contentStructure.interafaces.IContentPage.recountItems">
+            <summary>
+            Popunjava kolekcije> paragraphs, sentences, tokens
+            </summary>
+        </member>
+        <member name="M:imbNLP.Core.contentStructure.interafaces.IContentPage.acceptSourcePage(imbCommonModels.structure.node)">
+            <summary>
+            Preuzima opisne podatke iz node/crawledpage objekta -- poziva se iz tokenizatora, ne prenosi sam asdrza
+            </summary>
+            <param name="sourcePage"></param>
+        </member>
+        <member name="P:imbNLP.Core.contentStructure.interafaces.IContentParagraph.flags">
+            <summary>
+            Description of $property$
+            </summary>
+        </member>
+        <member name="T:imbNLP.Core.contentStructure.interafaces.IContentProject">
+            <summary>
+            Projekat se sastoji od vise dokumenata -- primena: obrada source code-a -- teski futur
+            </summary>
+        </member>
+        <member name="P:imbNLP.Core.contentStructure.interafaces.IContentSentence.sentenceFlags">
+            <summary>
+            Tip rečenice
+            </summary>
+        </member>
+        <member name="M:imbNLP.Core.contentStructure.interafaces.IContentSentence.setTokensFromContent``2(System.Object[])">
+            <summary>
+            Postavlja tokene u prosledjenu recenicu i vraca listu svih tokena
+            </summary>
+            <param name="content"></param>
+            <param name="sentence"></param>
+            <param name="language"></param>
+            <returns></returns>
+        </member>
+        <member name="P:imbNLP.Core.contentStructure.interafaces.IContentToken.flags">
+            <summary>
+            tip tokena na generičkom nivou - predstavlja polaznu tačku za dalje analize na osnovu semantičkog modela
+            </summary>
+        </member>
+        <member name="P:imbNLP.Core.contentStructure.interafaces.IContentToken.has_tosInstance">
+            <summary>
+            Da li ima tosInstance?
+            </summary>
+        </member>
+        <member name="P:imbNLP.Core.contentStructure.interafaces.IContentToken.baseType">
+            <summary>
+            osnovna klasifikacija tokena
+            </summary>
+        </member>
+        <member name="T:imbNLP.Core.contentStructure.metaElements.contentChunk">
+            <summary>
+            Jedna veza izmedju više tokena
+            </summary>
+        </member>
+        <member name="P:imbNLP.Core.contentStructure.metaElements.contentChunk.Item(System.Int32)">
+            <summary>
+            Gets the <see cref="T:System.Object"/> with the specified key.
+            </summary>
+            <value>
+            The <see cref="T:System.Object"/>.
+            </value>
+            <param name="key">The key.</param>
+            <returns></returns>
+        </member>
+        <member name="P:imbNLP.Core.contentStructure.metaElements.contentChunk.Item(System.String)">
+            <summary>
+            Gets the <see cref="T:System.Object"/> with the specified child name.
+            </summary>
+            <value>
+            The <see cref="T:System.Object"/>.
+            </value>
+            <param name="childName">Name of the child.</param>
+            <returns></returns>
+        </member>
+        <member name="M:imbNLP.Core.contentStructure.metaElements.contentChunk.primaryFlaging(System.Object[])">
+            <summary>
+            izvrsava se od
+            </summary>
+            <param name="resources"></param>
+        </member>
+        <member name="P:imbNLP.Core.contentStructure.metaElements.contentChunk.items">
+            <summary>
+            kolekcija elemenata koji cine chunk
+            </summary>
+        </member>
+        <member name="P:imbNLP.Core.contentStructure.metaElements.contentChunk.chunkType">
+            <summary>
+            Tip chunka
+            </summary>
+        </member>
+        <member name="T:imbNLP.Core.contentStructure.tokenizator.fakeTokenizator">
+            <summary>
+            tokenizator koji vraca prazan contentPage
+            </summary>
+        </member>
+        <member name="T:imbNLP.Core.contentStructure.tokenizator.nlpTokenizator">
+            <summary>
+            Vrši GENERIC level analizu - sa analizu prema semantičkom modelu koristi se meaningEngine
+            </summary>
+        </member>
+        <member name="M:imbNLP.Core.contentStructure.tokenizator.nlpTokenizator.tokenizeContent``1(``0,imbNLP.Core.contentStructure.tokenizator.nlpTokenizatorSettings)">
+            <summary>
+            Univerzalni poziv za tokenizaciju. U zavisnosti od tipa T odabrace najbolji tokenizator
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="content"></param>
+            <param name="settings"></param>
+            <param name="semantics"></param>
+            <returns></returns>
+        </member>
+        <member name="T:imbNLP.Core.contentStructure.tokenizator.nlpTokenizatorSettings">
+            <summary>
+            2013c: LowLevel resurs
+            </summary>
+        </member>
+        <member name="P:imbNLP.Core.contentStructure.tokenizator.nlpTokenizatorSettings.vowelRegex">
+            <summary>
+            Bindable property
+            </summary>
+        </member>
+        <member name="P:imbNLP.Core.contentStructure.tokenizator.nlpTokenizatorSettings.vowelLastRegex">
+            <summary>
+            Bindable property
+            </summary>
+        </member>
+        <member name="P:imbNLP.Core.contentStructure.tokenizator.nlpTokenizatorSettings.doCategorizationLog">
+            <summary>
+            Da li da vodi log kateogirzacije Tokena, Recenica i Paragrapha
+            </summary>
+        </member>
+        <member name="P:imbNLP.Core.contentStructure.tokenizator.nlpTokenizatorSettings.doTokenTypeDetection_basic">
+            <summary>
+            Da li da vrsi osnovnu proveru tipa tokena
+            </summary>
+        </member>
+        <member name="P:imbNLP.Core.contentStructure.tokenizator.nlpTokenizatorSettings.doTokenTypeDetection_second">
+            <summary>
+            Da li da vrsi napredninu proveru tipa tokena pomocu recnika, podesava letter case itd
+            </summary>
+        </member>
+        <member name="P:imbNLP.Core.contentStructure.tokenizator.nlpTokenizatorSettings.doTokenTypeDetection_languageBasic">
+            <summary>
+            Da li da vrsi osnovnu proveru pomocu recnika - da li je poznata rec itd
+            </summary>
+        </member>
+        <member name="P:imbNLP.Core.contentStructure.tokenizator.nlpTokenizatorSettings.doTokenTypeDetection_languageAdvanced">
+            <summary>
+            Da li da vrsi naprednu proveru pomocu jezicnih definicija
+            </summary>
+        </member>
+        <member name="P:imbNLP.Core.contentStructure.tokenizator.nlpTokenizatorSettings.doSentenceDetection">
+            <summary>
+            Da li da vrsi proveru recenica
+            </summary>
+        </member>
+        <member name="P:imbNLP.Core.contentStructure.tokenizator.nlpTokenizatorSettings.doParagraphDetection">
+            <summary>
+            Da li da vrsi proveru tipa paragrafa
+            </summary>
+        </member>
+        <member name="P:imbNLP.Core.contentStructure.tokenizator.nlpTokenizatorSettings.doBlockDetection">
+            <summary>
+            Da li detektuje tip blokova
+            </summary>
+        </member>
+        <member name="P:imbNLP.Core.contentStructure.tokenizator.nlpTokenizatorSettings.syllabLengthLimit">
+            <summary>
+            Maksimalna duzina sloga
+            </summary>
+        </member>
+        <member name="P:imbNLP.Core.contentStructure.tokenizator.nlpTokenizatorSettings.tknType">
+            <summary>
+            tip tokenizacije
+            </summary>
+        </member>
+        <member name="T:imbNLP.Core.contentStructure.tokenizator.plainTextTokenizator">
+            <summary>
+            2016:C PRIMARNI TOKENIZATOR
+            Experimentalni plain text tokenizator
+            </summary>
+        </member>
+        <member name="M:imbNLP.Core.contentStructure.tokenizator.plainTextTokenizator.tokenizeContent(System.Object[])">
+            <summary>
+            Vrsi tokenizaciju String/PlainText sadrzaja.
+            </summary>
+            <param name="resources">Preporuceni resursi: String content, basicLanguage language, node page </param>
+            <returns></returns>
+        </member>
+        <member name="F:imbNLP.Core.contentStructure.tokenizator.tokenization.sentenceElements">
+            <summary>
+            Uzima elemente recenice> prvo slovo, sadrzaj i punktaciju kojom se zavrsava recenica
+            </summary>
+        </member>
+        <member name="F:imbNLP.Core.contentStructure.tokenizator.tokenization.wordSelectClean">
+            <summary>
+            selektuje samo reci
+            </summary>
+        </member>
+        <member name="F:imbNLP.Core.contentStructure.tokenizator.tokenization.wordSelect">
+            <summary>
+            Selektuje rec ali i punkptaciju
+            </summary>
+        </member>
+        <member name="F:imbNLP.Core.contentStructure.tokenizator.tokenization.methodParameters">
+            <summary>
+            Selektuje sadrzaj koji je uokviren u zagradama - a same zagrade izostavlja u grupi 1
+            </summary>
+        </member>
+        <member name="T:imbNLP.Core.contentStructure.tokenizator.tokenizatorBase">
+            <summary>
+            2013c: LowLevel resurs
+            </summary>
+        </member>
+        <member name="P:imbNLP.Core.contentStructure.tokenizator.tokenizatorBase.settings">
+            <summary>
+            Podesavanja tokenizatora
+            </summary>
+        </member>
+        <member name="M:imbNLP.Core.contentStructure.tokenizator.tokenizatorBase.setSentencesFromContent``2(System.Text.RegularExpressions.Regex,System.String,imbNLP.Core.contentStructure.interafaces.IContentParagraph)">
+            <summary>
+            ZASTARELO
+            </summary>
+            <typeparam name="TSentence"></typeparam>
+            <typeparam name="TToken"></typeparam>
+            <param name="reg"></param>
+            <param name="sourceLine"></param>
+            <param name="paragraph"></param>
+            <param name="filter"></param>
+            <returns></returns>
+        </member>
+        <member name="M:imbNLP.Core.contentStructure.tokenizator.tokenizatorBase.setTokensFromContent``1(System.String,imbNLP.Core.contentStructure.interafaces.IContentSentence)">
+            <summary>
+            Postavlja tokene u prosledjenu recenicu i vraca listu svih tokena
+            </summary>
+            <param name="content"></param>
+            <param name="sentence"></param>
+            <param name="language"></param>
+            <returns></returns>
+        </member>
+        <member name="M:imbNLP.Core.decomposing.html.tools.GetTagNames(HtmlAgilityPack.HtmlNode,System.Int32)">
+            <summary>
+            Gets the tag and its parent nodes names, until the limit is reached
+            </summary>
+            <param name="node">The node.</param>
+            <param name="limit">The limit.</param>
+            <returns></returns>
+        </member>
+        <member name="M:imbNLP.Core.decomposing.html.tools.isTagAcceptable(HtmlAgilityPack.HtmlNode,imbCommonModels.structure.node,System.Boolean,System.Boolean)">
+            <summary>
+            Da li je ovaj Tag dozvoljen?
+            </summary>
+            <param name="node"></param>
+            <returns></returns>
+        </member>
+        <member name="F:imbNLP.Core.decomposing.html.tools._select_sentenceTerminator">
+            <summary>
+            Regex select sentenceTerminator : ([\.;!\?]+)$
+            </summary>
+            <remarks>
+            <para>Selektuje karaktere koji predstavljaju kraj recenice</para>
+            <para></para>
+            </remarks>
+        </member>
+        <member name="F:imbNLP.Core.decomposing.html.tools._select_sentenceSpliter">
+            <summary>
+            Regex select sentenceSpliter : (?=[\.;!\?])\s*(?=[A-ZČŠĆŽĐ\d])
+            </summary>
+            <remarks>
+            <para>For text: example text</para>
+            <para>Selects: ex</para>
+            </remarks>
+        </member>
+        <member name="M:imbNLP.Core.decomposing.html.tools.splitContentToSentences(System.String)">
+            <summary>
+            Interni algoritam za razbijanje na recenice
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:imbNLP.Core.decomposing.html.tools.buildTree(HtmlAgilityPack.HtmlDocument,System.String,System.Boolean,System.Boolean)">
+            <summary>
+            Builds the content tree out of <see cref="T:HtmlAgilityPack.HtmlDocument"/>
+            </summary>
+            <param name="htmlDoc">The HTML document</param>
+            <param name="__name">The name of the root</param>
+            <returns></returns>
+        </member>
+        <member name="T:imbNLP.Core.textRetrive.textRetriveEngine">
+            <summary>
+            Mehanizam za preuzimanje cistog teksta iz HTML-a
+            </summary>
+        </member>
+        <member name="M:imbNLP.Core.textRetrive.textRetriveEngine.checkNode(System.Xml.XPath.XPathNavigator,imbNLP.Core.textRetrive.textRetriveSetup)">
+            <summary>
+            Proverava da li je prosledjeni node u saglasju sa podesavanjima
+            </summary>
+            <param name="source"></param>
+            <param name="settings"></param>
+            <returns></returns>
+        </member>
+        <member name="M:imbNLP.Core.textRetrive.textRetriveEngine.retriveText(System.Xml.XPath.XPathNavigator,imbNLP.Core.textRetrive.textRetriveSetup)">
+            <summary>
+            2014c> novi mehanizam za tekstualnu reprezentaciju ucitanog dokumenta
+            </summary>
+            <param name="source"></param>
+            <param name="settings"></param>
+            <returns></returns>
+        </member>
+        <member name="M:imbNLP.Core.textRetrive.textRetriveEngine.deploySpacing(System.String,System.Xml.XPath.XPathNavigator,imbNLP.Core.textRetrive.textRetriveSetup)">
+            <summary>
+            Primenjuje podesavanja spejsinga - simulacija HTML strukture
+            </summary>
+            <param name="insert"></param>
+            <param name="parentTag"></param>
+            <param name="settings"></param>
+            <returns></returns>
+        </member>
+        <member name="M:imbNLP.Core.textRetrive.textRetriveEngine.retriveText(System.Xml.XmlNode,imbNLP.Core.textRetrive.textRetriveSetup)">
+            <summary>
+            2013A> GLAVNI mehaniza za preuzimanje TXT reprezentacije XmlNoda *podržani i multilevel
+            </summary>
+            <param name="source"></param>
+            <param name="settings"></param>
+            <returns></returns>
+        </member>
+        <member name="T:imbNLP.Core.textRetrive.textRetriveSetup">
+            <summary>
+            Podešavanja vezana za vađenje teksta iz XmlNode-a, odnosno iz HTML-a
+            </summary>
+        </member>
+        <member name="P:imbNLP.Core.textRetrive.textRetriveSetup.insertNewLine">
+            <summary>
+            Da li da ubaci dodatni newLine posle svakog taga
+            </summary>
+        </member>
+        <member name="P:imbNLP.Core.textRetrive.textRetriveSetup.divExtractMode">
+            <summary>
+            Rezim obrade za
+            </summary>
+        </member>
+        <member name="P:imbNLP.Core.textRetrive.textRetriveSetup.spanExtractMode">
+            <summary>
+            Rezim obrade za
+            </summary>
+        </member>
+        <member name="P:imbNLP.Core.textRetrive.textRetriveSetup.aExtractMode">
+            <summary>
+            Rezim obrade za
+            </summary>
+        </member>
+        <member name="P:imbNLP.Core.textRetrive.textRetriveSetup.liExtractMode">
+            <summary>
+            Rezim obrade za
+            </summary>
+        </member>
+        <member name="P:imbNLP.Core.textRetrive.textRetriveSetup.luExtractMode">
+            <summary>
+            Rezim obrade za
+            </summary>
+        </member>
+        <member name="P:imbNLP.Core.textRetrive.textRetriveSetup.tdExtractMode">
+            <summary>
+            Rezim obrade za
+            </summary>
+        </member>
+        <member name="P:imbNLP.Core.textRetrive.textRetriveSetup.trExtractMode">
+            <summary>
+            Rezim obrade za
+            </summary>
+        </member>
+        <member name="P:imbNLP.Core.textRetrive.textRetriveSetup.pExtractMode">
+            <summary>
+            Rezim obrade za
+            </summary>
+        </member>
+        <member name="P:imbNLP.Core.textRetrive.textRetriveSetup.headingExtractMode">
+            <summary>
+            Rezim obrade za
+            </summary>
+        </member>
+        <member name="P:imbNLP.Core.textRetrive.textRetriveSetup.commentExtractMode">
+            <summary>
+            Rezim obrade za
+            </summary>
+        </member>
+        <member name="P:imbNLP.Core.textRetrive.textRetriveSetup.tableExtractMode">
+            <summary>
+            Kako se ponasa kada naleti na TABLE tag - obrada
+            </summary>
+        </member>
+        <member name="P:imbNLP.Core.textRetrive.textRetriveSetup.metaSpaceExtractMode">
+            <summary>
+            Rezim obrade za
+            </summary>
+        </member>
+        <member name="P:imbNLP.Core.textRetrive.textRetriveSetup.metaExtractMode">
+            <summary>
+            Rezim obrade za
+            </summary>
+        </member>
+        <member name="P:imbNLP.Core.textRetrive.textRetriveSetup.linksExtractMode">
+            <summary>
+            Koje vrednosti iz linka prikazuje u extraktu :: Rezim obrade za
+            </summary>
+        </member>
+        <member name="P:imbNLP.Core.textRetrive.textRetriveSetup.inlineSpace">
+            <summary>
+            Koliko da odmakne kada je inline opcija
+            </summary>
+        </member>
+        <member name="P:imbNLP.Core.textRetrive.textRetriveSetup.doExportScripts">
+            <summary>
+            Da li text export sadrži SCRIPT tagove?
+            </summary>
+        </member>
+        <member name="P:imbNLP.Core.textRetrive.textRetriveSetup.doExportStyles">
+            <summary>
+            Da li da izvozi definicije stilova
+            </summary>
+        </member>
+        <member name="P:imbNLP.Core.textRetrive.textRetriveSetup.doExportTitle">
+            <summary>
+            Da li na pocetku da prikaze TITLE
+            </summary>
+        </member>
+        <member name="P:imbNLP.Core.textRetrive.textRetriveSetup.doExportComments">
+            <summary>
+            Da li izvozi komentare
+            </summary>
+        </member>
+        <member name="P:imbNLP.Core.textRetrive.textRetriveSetup.doCompressNewLines">
+            <summary>
+            Da li da kompresuje nove linije? svako pojavljivanje 3 nl za redom pretvara u 2nl
+            </summary>
+        </member>
+        <member name="P:imbNLP.Core.textRetrive.textRetriveSetup.doRetrieveChildren">
+            <summary>
+            Da li vraca text i za child nodove
+            </summary>
+        </member>
+        <member name="P:imbNLP.Core.textRetrive.textRetriveSetup.doHtmlCleanUp">
+            <summary>
+            Da li da ocisti HTML nakon izvlacenja sadrzaja?
+            </summary>
+        </member>
+        <member name="P:imbNLP.Core.textRetrive.textRetriveSetup.doCyrToLatTransliteration">
+            <summary>
+            Da li da izvrsi transliteraciju iz Cyr u Lat
+            </summary>
+        </member>
+        <member name="T:imbNLP.Core.textRetrive.textRetrive_structure">
+            <summary>
+            Kako se ponaša prema: div, span, li, ul, headings, td, tr
+            </summary>
+        </member>
+        <member name="F:imbNLP.Core.textRetrive.textRetrive_structure.normal">
+            <summary>
+            prepiše vrednost i lupi enter
+            </summary>
+        </member>
+        <member name="F:imbNLP.Core.textRetrive.textRetrive_structure.newLine">
+            <summary>
+            doda još jedan newLine gore i dole
+            </summary>
+        </member>
+        <member name="F:imbNLP.Core.textRetrive.textRetrive_structure.spaceInline">
+            <summary>
+            Ostane u liniji, samo doda space
+            </summary>
+        </member>
+    </members>
+</doc>

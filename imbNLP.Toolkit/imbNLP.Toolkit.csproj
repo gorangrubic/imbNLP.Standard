@@ -1,0 +1,95 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <!-- Don-t forget to modify Assembly info and Package info! -->
+  <PropertyGroup>
+    <TargetFrameworks>net40</TargetFrameworks>
+    <ApplicationIcon>imbNLP.ico</ApplicationIcon>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <PackageId>imbNLP.Toolkit</PackageId>
+    <Version>0.2.16</Version>
+    <Title>imbNLP.Toolkit</Title>
+    <Summary></Summary>
+    <PackageIconUrl>http://doc.veles.rs/imbNLP.ico</PackageIconUrl>
+    <PackageProjectUrl>http://blog.veles.rs/</PackageProjectUrl>
+    <PackageLicenseUrl>http://doc.veles.rs/LICENCE.txt</PackageLicenseUrl>
+    <Copyright>Copyright ©  2018</Copyright>
+    <Description>Collection of low-level methods for topic modeling (LSA, pLSA, LDA...), stemming, term weighting, word embedding (Word2Vec, GloVe) and other usefull classes from other authors and open source projects. The purpose of this library is to provide multi-target support, NuGet packaging of the methods collected all around the web - and to enhance XML documentation.</Description>
+    <NeutralLanguage>en-US</NeutralLanguage>
+    <PackageReleaseNotes>
+    </PackageReleaseNotes>
+    <PackageTags>Word2Vec, GloVec, LSA, pLSA, LDA, SVD, Parser2, stemmers, NLP</PackageTags>
+    <RepositoryUrl>https://github.com/imbNLP.Standard</RepositoryUrl>
+    <RepositoryType>GitHub</RepositoryType>
+    <Authors></Authors>
+    <Company></Company>
+    <AssemblyVersion>0.2.1</AssemblyVersion>
+    <FileVersion>0.2.1</FileVersion>
+    <Product>imbNLP.Toolkit</Product>
+    <PackageRequireLicenseAcceptance>False</PackageRequireLicenseAcceptance>
+  </PropertyGroup>
+
+  <PropertyGroup Condition=" '$(TargetFramework)' == 'netstandard2.0'">
+    <DefineConstants>NETCORE</DefineConstants>
+  </PropertyGroup>
+
+  <PropertyGroup Condition=" '$(TargetFramework)' == 'net40'">
+    <DefineConstants>NET40</DefineConstants>
+  </PropertyGroup>
+
+  <PropertyGroup Condition=" '$(TargetFramework)' == 'net45'">
+    <DefineConstants>NET45</DefineConstants>
+  </PropertyGroup>
+
+  <!-- The node below enables XML documentation build, in all build (Debug,Release) configurations-->
+  <PropertyGroup>
+    <DocumentationFile>$(OutputPath)$(PackageId).xml</DocumentationFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="WordVectors\GloVe\app.cs" />
+    <Compile Remove="WordVectors\GloVe\disk.cs" />
+    <Compile Remove="WordVectors\GloVe\gram.cs" />
+    <Compile Remove="WordVectors\GloVe\hash.cs" />
+    <Compile Remove="WordVectors\GloVe\matrix.cs" />
+    <Compile Remove="WordVectors\GloVe\parse.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="WordVectors\GloVe\app.cs" />
+    <None Include="WordVectors\GloVe\disk.cs" />
+    <None Include="WordVectors\GloVe\gram.cs" />
+    <None Include="WordVectors\GloVe\hash.cs" />
+    <None Include="WordVectors\GloVe\matrix.cs" />
+    <None Include="WordVectors\GloVe\parse.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Weighting\Vectors\" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Accord" Version="3.8.0" />
+    <PackageReference Include="Accord.MachineLearning" Version="3.8.0" />
+    <PackageReference Include="Accord.Math" Version="3.8.0" />
+    <PackageReference Include="Accord.Neuro" Version="3.8.0" />
+    <PackageReference Include="Accord.Statistics" Version="3.8.0" />
+    <PackageReference Include="HtmlAgilityPack" Version="1.8.7" />
+    <PackageReference Include="imbNLP.Transliteration" Version="0.2.1.1" />
+    <PackageReference Include="imbSCI.DataComplex.Standard" Version="0.3.70" />
+    <PackageReference Include="imbSCI.Graph.Standard" Version="0.3.70" />
+  </ItemGroup>
+
+  <!-- Uncomment the block below to enable "Automatic Version 1" Extension, to update Package version on each build> -->
+  <!-- Notice: The extension is 3rd party product (btw. it is free), you have to download it from the Microsoft Visual Studio Market -->
+  
+  <PropertyGroup>
+    <UpdatePackageVersion>True</UpdatePackageVersion>
+  </PropertyGroup>
+
+
+  <!-- Uncomment the node below to enable automatic copying of the .nupkg file to local NuGet repository, on each package build. 
+Set the repository location by DestinationFolder attribute-->
+  
+  <Target Name="CopyPackage" AfterTargets="Pack">
+    <Copy SourceFiles="$(OutputPath)$(PackageId).$(PackageVersion).nupkg" DestinationFolder="G:\imbVelesOpenSource\LocalNuGet\imbVelesSecondGeneration\" />
+  </Target>
+
+
+</Project>

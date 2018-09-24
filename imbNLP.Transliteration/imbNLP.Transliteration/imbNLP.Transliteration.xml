@@ -1,0 +1,255 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>imbNLP.Transliteration</name>
+    </assembly>
+    <members>
+        <member name="T:imbNLP.Transliteration.NamespaceDoc">
+            <summary>
+            <para>Provides simple transliteration use</para>
+            </summary>
+            <remarks>
+            <para>To use in your code:</para>
+            <para>Add <c>using imbNLP.Transliteration;</c> in header of your file</para>
+            <para>Then call <see cref="M:imbNLP.Transliteration.transliterationTool.transliterate(System.String,System.String,System.Boolean)"/> extension on strings you want to transliterate</para>
+            <para></para>
+            <list type="bullet">
+            	<listheader>
+            		<term>How to add your transliteration definition?</term>
+            		<description>Short guide on adding your definition without recompiling the library</description>
+            	</listheader>
+                <item>
+            		<term>Add <c>resources/transliteration</c> directory at your solution</term>
+            		<description>Here all custom transliteration rules should be defined as txt files</description>
+            	</item>
+            	<item>
+            		<term>Add your transliteration definition</term>
+            		<description>Create new text file in resources/transliteration directory named as: [language_id].txt</description>
+            	</item>
+            	<item>
+            		<term>Set solution item</term>
+            		<description>Set "Content" and "Copy always" in solution item properties of your definition file</description>
+            	</item>
+            	<item>
+            		<term>To learn about definition format</term>
+            		<description>Check readme.txt and existing example of sr.txt</description>
+            	</item>
+            </list>
+            </remarks>
+            <![CDATA[   ]]>
+            <seealso cref="T:imbNLP.Transliteration.transliterationTool" />
+            <seealso cref="T:imbNLP.Transliteration.ruleSet.transliterationPairSet" />
+            <seealso cref="T:imbNLP.Transliteration.ruleSet.transliterationPairEntry" />
+        </member>
+        <member name="T:imbNLP.Transliteration.ruleSet.NamespaceDoc">
+            <summary>
+            <para>Classes used by internal operations of the library.</para>
+            </summary>
+            <remarks>
+            <para>These classes are internally used by <see cref="M:imbNLP.Transliteration.transliterationTool.transliterate(System.String,System.String,System.Boolean)"/> method</para>
+            </remarks>
+        </member>
+        <member name="T:imbNLP.Transliteration.ruleSet.transliteration">
+            <summary>
+            Helper class
+            </summary>
+        </member>
+        <member name="F:imbNLP.Transliteration.ruleSet.transliteration.DEF_MEMBER_SEPARATOR">
+            <summary>
+            String that separates values in the replacement pair
+            </summary>
+        </member>
+        <member name="F:imbNLP.Transliteration.ruleSet.transliteration.DEF_PAIR_SEPARATOR">
+            <summary>
+            String that separates pairs from each other
+            </summary>
+        </member>
+        <member name="F:imbNLP.Transliteration.ruleSet.transliteration.DEF_COMMENT">
+            <summary>
+            Prefix that defines a comment line
+            </summary>
+        </member>
+        <member name="F:imbNLP.Transliteration.ruleSet.transliteration.DEF_PARAM_SEPARATOR">
+            <summary>
+            Parameter value assigment separator
+            </summary>
+        </member>
+        <member name="F:imbNLP.Transliteration.ruleSet.transliteration.regex_paramSelector">
+            <summary>
+            Regex that selects parametar entries in the transliteration file
+            </summary>
+        </member>
+        <member name="F:imbNLP.Transliteration.ruleSet.transliteration.FORMAT_PAIR">
+            <summary>
+            Format for pair serialization (when writing a pairSet to the harddrive)
+            </summary>
+        </member>
+        <member name="F:imbNLP.Transliteration.ruleSet.transliteration.FORMAT_PARAMETER">
+            <summary>
+            Format for serializing a parameter and its value
+            </summary>
+        </member>
+        <member name="P:imbNLP.Transliteration.ruleSet.transliteration.isPrepared">
+            <summary>
+            Gets a value indicating whether this instance is prepared.
+            </summary>
+            <value>
+              <c>true</c> if this instance is prepared; otherwise, <c>false</c>.
+            </value>
+        </member>
+        <member name="M:imbNLP.Transliteration.ruleSet.transliteration.GetTransliterationPairSet(System.String)">
+            <summary>
+            Gets the transliteration pair set by filename or <see cref="P:imbNLP.Transliteration.ruleSet.transliterationPairSet.lang_A_id"/> identifier
+            </summary>
+            <param name="id">The identifier [filename or lang_A_id]</param>
+            <returns>null if no transliteration pair set found</returns>
+        </member>
+        <member name="M:imbNLP.Transliteration.ruleSet.transliteration.getPrepared">
+            <summary>
+            Gets the transliteration engine prepared
+            </summary>
+        </member>
+        <member name="M:imbNLP.Transliteration.ruleSet.transliteration.getDefinitionDirectoryPath">
+            <summary>
+            Gets the definitions directory path.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:imbNLP.Transliteration.ruleSet.transliteration.getDefinitionFiles">
+            <summary>
+            Gets all transliteration ruleset definition files.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:imbNLP.Transliteration.ruleSet.transliterationPairEntry">
+            <summary>
+            Single entry of transliteration rules
+            </summary>
+        </member>
+        <member name="P:imbNLP.Transliteration.ruleSet.transliterationPairEntry.A">
+            <summary>
+            Letter or bi-graph that should be transliterated to <see cref="P:imbNLP.Transliteration.ruleSet.transliterationPairEntry.B"/>
+            </summary>
+            <value>
+            a.
+            </value>
+        </member>
+        <member name="P:imbNLP.Transliteration.ruleSet.transliterationPairEntry.B">
+            <summary>
+            Letter or bi-graph <see cref="P:imbNLP.Transliteration.ruleSet.transliterationPairEntry.A"/> should be transliterated to.
+            </summary>
+            <value>
+            The b.
+            </value>
+        </member>
+        <member name="M:imbNLP.Transliteration.ruleSet.transliterationPairEntry.GetInversed">
+            <summary>
+            Returns an inversed definition
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:imbNLP.Transliteration.ruleSet.transliterationPairEntry.ConvertFromEntry(System.String)">
+            <summary>
+            Converts from entry string definition
+            </summary>
+            <param name="defLine">The definition line.</param>
+            <exception cref="T:System.ArgumentOutOfRangeException">
+            defLine - Definition line should contain only A:B, no spaces and no other symbols
+            or
+            defLine - Definition [" + defLine + "] is not in proper format
+            </exception>
+        </member>
+        <member name="M:imbNLP.Transliteration.ruleSet.transliterationPairEntry.ConvertToEntry">
+            <summary>
+            Converts to entry definition string
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:imbNLP.Transliteration.ruleSet.transliterationPairSet">
+            <summary>
+            Single alphabet-2-alphabet mapping
+            </summary>
+        </member>
+        <member name="P:imbNLP.Transliteration.ruleSet.transliterationPairSet.IsInitiated">
+            <summary>
+            Indicating if the transliteration table is filled with definitions, i.e. loaded
+            </summary>
+            <value>
+              <c>true</c> if this instance is initiated; otherwise, <c>false</c>.
+            </value>
+        </member>
+        <member name="P:imbNLP.Transliteration.ruleSet.transliterationPairSet.lang_A_id">
+            <summary>
+            Gets or sets the language identifier for A side
+            </summary>
+            <value>
+            The language A identifier.
+            </value>
+        </member>
+        <member name="P:imbNLP.Transliteration.ruleSet.transliterationPairSet.lang_B_id">
+            <summary>
+            Gets or sets the language identifier for B side
+            </summary>
+            <value>
+            The language B identifier.
+            </value>
+        </member>
+        <member name="P:imbNLP.Transliteration.ruleSet.transliterationPairSet.auto_capital_case">
+            <summary>
+            Gets or sets a value indicating whether pairs for uppercase letters are automatically built
+            </summary>
+            <value>
+              <c>true</c> if [automatic capital case]; otherwise, <c>false</c>.
+            </value>
+        </member>
+        <member name="M:imbNLP.Transliteration.ruleSet.transliterationPairSet.Add(System.String,System.String)">
+            <summary>
+            Adds new definition pair
+            </summary>
+            <param name="A">a.</param>
+            <param name="B">The b.</param>
+        </member>
+        <member name="M:imbNLP.Transliteration.ruleSet.transliterationPairSet.ConvertFromAtoB(System.String)">
+            <summary>
+            Converts from alphabet A to B
+            </summary>
+            <param name="input">The input text that contains letters in alphabet A</param>
+            <returns>transliterated form</returns>
+        </member>
+        <member name="M:imbNLP.Transliteration.ruleSet.transliterationPairSet.ConvertFromBtoA(System.String)">
+            <summary>
+            Converts from alphabet B to A
+            </summary>
+            <param name="input">The input text that contains letters in alphabet B</param>
+            <returns>transliterated form</returns>
+        </member>
+        <member name="M:imbNLP.Transliteration.ruleSet.transliterationPairSet.SaveToString">
+            <summary>
+            Saves the transliteration pair set into string form
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:imbNLP.Transliteration.ruleSet.transliterationPairSet.LoadFromString(System.String)">
+            <summary>
+            Populates the pairs from string form
+            </summary>
+            <param name="input">The input.</param>
+        </member>
+        <member name="T:imbNLP.Transliteration.transliterationTool">
+            <summary>
+            Extension methods for end use
+            </summary>
+        </member>
+        <member name="M:imbNLP.Transliteration.transliterationTool.transliterate(System.String,System.String,System.Boolean)">
+            <summary>
+            Transliterates the <c>inputString</c> according to specified language identifier for the source.
+            </summary>
+            <remarks></remarks>
+            <param name="inputString">The input string, to be transliterated</param>
+            <param name="id_of_source">The identifier of the source string</param>
+            <param name="inverse">Should the transliteration be in opposite direction?</param>
+            <returns>Transliterated text</returns>
+            <exception cref="T:System.ArgumentOutOfRangeException">id_of_source - Transliteration definition not found for [" + id_of_source + "]</exception>
+        </member>
+    </members>
+</doc>

@@ -1,0 +1,100 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="imbNLP.PartOfSpeech.microData.core.microDataBase">
+    <Position X="3.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAA=</HashCode>
+      <FileName>microData\core\microDataBase.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="imbNLP.PartOfSpeech.microData.microEMailAddress">
+    <Position X="7.5" Y="0.5" Width="1.75" />
+    <InheritanceLine Type="imbNLP.PartOfSpeech.microData.core.microDataBase" FixedToPoint="true">
+      <Path>
+        <Point X="4" Y="0.5" />
+        <Point X="4" Y="0.125" />
+        <Point X="8.375" Y="0.125" />
+        <Point X="8.375" Y="0.5" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAIAAAAAAAAAAAAAAAABAABAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>microData\microEMailAddress.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="type" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="imbNLP.PartOfSpeech.microData.microMeasureWithUnit">
+    <Position X="0.5" Y="0.5" Width="2" />
+    <AssociationLine Name="valuesWithUnit" Type="imbNLP.PartOfSpeech.microData.microValueWithUnit">
+      <MemberNameLabel ManuallyPlaced="true" ManuallySized="true">
+        <Position X="-0.867" Y="0.975" Height="0.182" Width="1.247" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAACAAAAgAAAAAIAAAAA=</HashCode>
+      <FileName>microData\microMeasureWithUnit.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="datapointType" />
+      <Property Name="measure" />
+    </ShowAsAssociation>
+    <ShowAsCollectionAssociation>
+      <Property Name="valuesWithUnit" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="imbNLP.PartOfSpeech.microData.microPhoneNumber">
+    <Position X="5.5" Y="0.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAACAAAAQAAAAAAAAAAAAAABBAAAAAAAAAAAAAA=</HashCode>
+      <FileName>microData\microPhoneNumber.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="type" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="imbNLP.PartOfSpeech.microData.microStandardCertificate">
+    <Position X="3" Y="3.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAEgAAAAAAAAAAABAAAAAAAAAAAAABAAA=</HashCode>
+      <FileName>microData\microStandardCertificate.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="imbNLP.PartOfSpeech.microData.microValueWithUnit">
+    <Position X="0.5" Y="4.25" Width="2" />
+    <TypeIdentifier>
+      <HashCode>QAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACA=</HashCode>
+      <FileName>microData\microValueWithUnit.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Enum Name="imbNLP.PartOfSpeech.flags.data.dat_datapoint" Collapsed="true">
+    <Position X="0.5" Y="2.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AQAAAAgAAAAAAACAAAAgAAAAAAAABAACAAEAAAAAAAA=</HashCode>
+      <FileName>flags\data\dat_datapoint.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="imbNLP.PartOfSpeech.flags.data.dat_emailType" Collapsed="true">
+    <Position X="7.5" Y="2.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AQAAAAAAAEAAAAAAIAAAAAAAAAAAAAAAAAQAAAAABCE=</HashCode>
+      <FileName>flags\data\dat_emailType.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="imbNLP.PartOfSpeech.flags.data.dat_phoneType" Collapsed="true">
+    <Position X="5.5" Y="2.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AQAgAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAIAQAAAAAA=</HashCode>
+      <FileName>flags\data\dat_phoneType.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="imbNLP.PartOfSpeech.flags.data.dat_measure" Collapsed="true">
+    <Position X="0.5" Y="2" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AMgAAAMAAAAgAAQAYEQIAAAAgAEAAAEiAAQEAAACAAA=</HashCode>
+      <FileName>flags\data\dat_measure.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

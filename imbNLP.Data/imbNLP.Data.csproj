@@ -1,0 +1,148 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <!-- Don-t forget to modify Assembly info and Package info! -->
+  <PropertyGroup>
+    <TargetFrameworks>net40</TargetFrameworks>
+    <ApplicationIcon>imbNLP.ico</ApplicationIcon>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <PackageId>imbNLP.Data</PackageId>
+    <Version>0.2.26</Version>
+    <Title>imbNLP.Data</Title>
+    <Summary></Summary>
+    <PackageIconUrl>http://doc.veles.rs/imbNLP.ico</PackageIconUrl>
+    <PackageProjectUrl>http://blog.veles.rs/</PackageProjectUrl>
+    <PackageLicenseUrl>http://doc.veles.rs/LICENCE.txt</PackageLicenseUrl>
+    <Copyright>Copyright ©  2018</Copyright>
+    <Description>Natural Language Processing libraries of Veles project, Core and Data namespaces dealing with lexic resources, pipeline decomposition and other NLP stuff</Description>
+    <NeutralLanguage>en-US</NeutralLanguage>
+    <PackageReleaseNotes>Supports 4.0 and 4.5 for now</PackageReleaseNotes>
+    <PackageTags></PackageTags>
+    <RepositoryUrl>https://github.com/</RepositoryUrl>
+    <RepositoryType>GitHub</RepositoryType>
+    <Authors>Goran Grubić</Authors>
+    <Company></Company>
+    <AssemblyVersion>0.2.1.2</AssemblyVersion>
+    <FileVersion>0.2.1.2</FileVersion>
+    <Product>imbNLP.Data Standard</Product>
+    <PackageRequireLicenseAcceptance>False</PackageRequireLicenseAcceptance>
+  </PropertyGroup>
+
+  <PropertyGroup Condition=" '$(TargetFramework)' == 'netstandard2.0'">
+    <DefineConstants>NETCORE</DefineConstants>
+  </PropertyGroup>
+
+  <PropertyGroup Condition=" '$(TargetFramework)' == 'net40'">
+    <DefineConstants>NET40</DefineConstants>
+  </PropertyGroup>
+
+  <PropertyGroup Condition=" '$(TargetFramework)' == 'net45'">
+    <DefineConstants>NET45</DefineConstants>
+  </PropertyGroup>
+
+  <!-- The node below enables XML documentation build, in all build (Debug,Release) configurations-->
+  <PropertyGroup>
+    <DocumentationFile>bin\Debug\net40\imbNLP.Data.xml</DocumentationFile>
+  </PropertyGroup>
+
+
+  <ItemGroup>
+
+    <Folder Include="resources\lexical\unitex\srlat\CasSys\Share\" />
+    <Folder Include="resources\lexical\unitex\srlat\Disamb\" />
+    
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="BrightstarDB" Version="1.13.3" />
+    <PackageReference Include="imbNLP.Transliteration" Version="0.2.1.1" />
+    <PackageReference Include="NHunspell" Version="1.2.5359.26126" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\imbNLP.PartOfSpeech\imbNLP.PartOfSpeech.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Update="Hunspellx64.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Hunspellx86.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="semanticLexicon\semanticLexiconContext.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>semanticLexiconContext.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349b6-6b84-4df5-91f0-309beebad82d}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Update="semanticLexicon\semanticLexiconContext.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>semanticLexiconContext.tt</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(TargetFramework)' == 'net45'">
+
+    <PackageReference Include="System.Drawing.Primitives">
+      <Version>4.3.0</Version>
+    </PackageReference>
+    <PackageReference Include="System.ComponentModel.Annotations">
+      <Version>4.4.1</Version>
+    </PackageReference>
+    <!--  <PackageReference Include="WinInsider.System.Windows.Primitives">
+        <Version>1.0.0</Version>
+      </PackageReference> -->
+    <!-- <PackageReference Include="Xamarin.Forms">
+        <Version>3.0.0.482510</Version>
+      </PackageReference>-->
+  </ItemGroup>
+
+
+  <!--  
+  <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0'">
+    <PackageReference Include="System.ComponentModel.Annotations">
+      <Version>4.4.1</Version>
+    </PackageReference>
+    <PackageReference Include="System.Drawing.Primitives">
+      <Version>4.3.0</Version>
+    </PackageReference>
+    <PackageReference Include="Wibci.Xamarin.Forms.Converters">
+      <Version>2.0.0</Version>
+    </PackageReference>
+  </ItemGroup>-->
+
+
+
+  <ItemGroup Condition="'$(TargetFramework)' == 'net40'">
+    <Reference Include="System.ComponentModel.DataAnnotations">
+      <HintPath>C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\System.ComponentModel.DataAnnotations.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+
+  <!-- Uncomment the block below to enable "Automatic Version 1" Extension, to update Package version on each build> -->
+  <!-- Notice: The extension is 3rd party product (btw. it is free), you have to download it from the Microsoft Visual Studio Market -->
+
+  <PropertyGroup>
+    <UpdatePackageVersion>True</UpdatePackageVersion>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net45|AnyCPU'">
+    <WarningLevel>1</WarningLevel>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net40|AnyCPU'">
+    <WarningLevel>1</WarningLevel>
+  </PropertyGroup>
+
+
+  <!-- Uncomment the node below to enable automatic copying of the .nupkg file to local NuGet repository, on each package build. 
+Set the repository location by DestinationFolder attribute-->
+ 
+  <Target Name="CopyPackage" AfterTargets="Pack">
+    <Copy SourceFiles="$(OutputPath)$(PackageId).$(PackageVersion).nupkg" DestinationFolder="G:\imbVelesOpenSource\LocalNuGet\imbVelesSecondGeneration\" />
+  </Target>
+
+
+</Project>

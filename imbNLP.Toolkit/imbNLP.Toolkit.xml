@@ -1,0 +1,3345 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>imbNLP.Toolkit</name>
+    </assembly>
+    <members>
+        <member name="T:imbNLP.Toolkit.Classifiers.Core.ClassifierNeuralNetworkSettings">
+            <summary>
+            Expanded classifier settings, used to setup neural networks
+            </summary>
+        </member>
+        <member name="T:imbNLP.Toolkit.Classifiers.Core.ClassifierSettings">
+            <summary>
+            General settings model for classifiers
+            </summary>
+        </member>
+        <member name="T:imbNLP.Toolkit.Classifiers.Core.IClassifier">
+            <summary>
+            Classification algorithm wrapper
+            </summary>
+        </member>
+        <member name="P:imbNLP.Toolkit.Classifiers.Core.IClassifier.name">
+            <summary>
+            Gets or sets the name.
+            </summary>
+            <value>
+            The name.
+            </value>
+        </member>
+        <member name="T:imbNLP.Toolkit.Classifiers.simpleMaxVoteMachine">
+            <summary>
+            Simple max vote machine --- used by <see cref="!:WebPostSimpleClassifier"/> classifier
+            </summary>
+        </member>
+        <member name="M:imbNLP.Toolkit.Classifiers.simpleMaxVoteMachine.Decide(System.Double[])">
+            <summary>
+            Just returns index of the highest score in the array
+            </summary>
+            <param name="scores">The scores.</param>
+            <returns></returns>
+        </member>
+        <member name="M:imbNLP.Toolkit.Core.CacheServiceProvider.Dispose">
+            <summary>
+            Releases unmanaged and - optionally - managed resources.
+            </summary>
+        </member>
+        <member name="T:imbNLP.Toolkit.Core.IDescribe">
+            <summary>
+            Object having Describe method 
+            </summary>
+        </member>
+        <member name="T:imbNLP.Toolkit.Core.Relationship`2">
+            <summary>
+            Generic class for single relationship definition
+            </summary>
+            <typeparam name="TNodeA">The type of the node a.</typeparam>
+            <typeparam name="TNodeB">The type of the node b.</typeparam>
+        </member>
+        <member name="T:imbNLP.Toolkit.Core.Relationships`2">
+            <summary>
+            Describes relationships between instances in the <see cref="!:SpaceModel"/>
+            </summary>
+            <typeparam name="TNodeA">The type of the node a.</typeparam>
+            <typeparam name="TNodeB">The type of the node b.</typeparam>
+        </member>
+        <member name="F:imbNLP.Toolkit.Core.Relationships`2.links">
+            <summary>
+            The links
+            </summary>
+        </member>
+        <member name="M:imbNLP.Toolkit.Core.Relationships`2.Add(`0,`1,System.Double)">
+            <summary>
+            Adds the specified a.
+            </summary>
+            <param name="A">a.</param>
+            <param name="B">The b.</param>
+            <param name="weight">The weight.</param>
+            <returns></returns>
+        </member>
+        <member name="M:imbNLP.Toolkit.Core.Relationships`2.GetAllLinked(`0)">
+            <summary>
+            Gets all linked.
+            </summary>
+            <param name="nodeA">The node a.</param>
+            <returns></returns>
+        </member>
+        <member name="M:imbNLP.Toolkit.Core.Relationships`2.GetAllLinked(`1)">
+            <summary>
+            Gets all nodes A linked to specified node B
+            </summary>
+            <param name="nodeB">The node b.</param>
+            <returns></returns>
+        </member>
+        <member name="T:imbNLP.Toolkit.Corpora.Corpora">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="T:imbNLP.Toolkit.Corpora.Document">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="F:imbNLP.Toolkit.Corpora.Document.Words">
+            <summary>
+            The words
+            </summary>
+        </member>
+        <member name="F:imbNLP.Toolkit.Corpora.Document.Length">
+            <summary>
+            The length
+            </summary>
+        </member>
+        <member name="M:imbNLP.Toolkit.Corpora.Document.Init(System.String,imbNLP.Toolkit.Corpora.WordDictionary)">
+            <summary>
+            Initializes the specified string.
+            </summary>
+            <param name="str">The string.</param>
+            <param name="WD">The wd.</param>
+        </member>
+        <member name="T:imbNLP.Toolkit.Corpora.FeatureFilter">
+            <summary>
+            Feature filter
+            </summary>
+        </member>
+        <member name="M:imbNLP.Toolkit.Corpora.FeatureFilter.SelectFeatures(imbNLP.Toolkit.Space.SpaceModel)">
+            <summary>
+            Selects the top <see cref="P:imbNLP.Toolkit.Corpora.FeatureFilter.limit"/> terms, ranked by <see cref="P:imbNLP.Toolkit.Corpora.FeatureFilter.function"/>
+            </summary>
+            <param name="space">The space.</param>
+            <returns></returns>
+        </member>
+        <member name="T:imbNLP.Toolkit.Corpora.FeatureWeightFactor">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:imbNLP.Toolkit.Corpora.FeatureWeightFactor.Settings">
+            <summary>
+            Gets or sets the settings.
+            </summary>
+            <value>
+            The settings.
+            </value>
+        </member>
+        <member name="T:imbNLP.Toolkit.Corpora.FeatureWeightModel">
+            <summary>
+            Model for weight computation
+            </summary>
+            <seealso cref="T:imbNLP.Toolkit.Weighting.Global.IGlobalElement" />
+        </member>
+        <member name="M:imbNLP.Toolkit.Corpora.FeatureWeightModel.Deploy(imbSCI.Core.reporting.ILogBuilder)">
+            <summary>
+            Deploys this instance.
+            </summary>
+        </member>
+        <member name="M:imbNLP.Toolkit.Corpora.FeatureWeightModel.GetSignature">
+            <summary>
+            Gets the signature.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:imbNLP.Toolkit.Corpora.FeatureWeightModel.PrepareTheModel(imbNLP.Toolkit.Space.SpaceModel)">
+            <summary>
+            Prepares the model.
+            </summary>
+            <param name="space">The space.</param>
+        </member>
+        <member name="M:imbNLP.Toolkit.Corpora.FeatureWeightModel.GetWeights(System.Collections.Generic.List{System.String},imbNLP.Toolkit.Space.SpaceDocumentModel,imbNLP.Toolkit.Space.SpaceModel,imbNLP.Toolkit.Space.SpaceLabel)">
+            <summary>
+            Gets the weights.
+            </summary>
+            <param name="termWhiteList">The term white list.</param>
+            <param name="document">The document.</param>
+            <param name="space">The space.</param>
+            <param name="label">The label.</param>
+            <returns></returns>
+        </member>
+        <member name="M:imbNLP.Toolkit.Corpora.FeatureWeightModel.GetElementFactor(System.String,imbNLP.Toolkit.Space.SpaceDocumentModel)">
+            <summary>
+            Gets the local element factor
+            </summary>
+            <param name="term">The term.</param>
+            <param name="document">The document.</param>
+            <returns></returns>
+        </member>
+        <member name="M:imbNLP.Toolkit.Corpora.FeatureWeightModel.GetElementFactor(System.String,imbNLP.Toolkit.Space.SpaceModel,imbNLP.Toolkit.Space.SpaceLabel)">
+            <summary>
+            Gets the product of global element factors
+            </summary>
+            <param name="term">The term.</param>
+            <param name="space">The space.</param>
+            <param name="label">The label.</param>
+            <returns></returns>
+        </member>
+        <member name="M:imbNLP.Toolkit.Documents.Analysis.ContentAnalytics.ProduceMetrics(System.String,System.Collections.Generic.IEnumerable{imbNLP.Toolkit.Documents.WebSiteDocumentsSet},imbSCI.Core.reporting.ILogBuilder)">
+            <summary>
+            Produces metrics for the data set specified
+            </summary>
+            <param name="runName">Name of the run.</param>
+            <param name="dataset">The dataset.</param>
+            <param name="logger">The logger.</param>
+            <returns></returns>
+        </member>
+        <member name="P:imbNLP.Toolkit.Documents.Analysis.ContentMetrics.Name">
+            <summary> name of the entry </summary>
+        </member>
+        <member name="P:imbNLP.Toolkit.Documents.Analysis.ContentMetrics.Class">
+            <summary> Number of classes in the dataset </summary>
+        </member>
+        <member name="P:imbNLP.Toolkit.Documents.Analysis.ContentMetrics.DocumentSets">
+            <summary> Number of document sets in the dataset </summary>
+        </member>
+        <member name="P:imbNLP.Toolkit.Documents.Analysis.ContentMetrics.Documents">
+            <summary> Number of documents in the data set </summary>
+        </member>
+        <member name="P:imbNLP.Toolkit.Documents.Analysis.ContentMetrics.TokensDoc">
+            <summary> Number of tokens in the documents </summary>
+        </member>
+        <member name="P:imbNLP.Toolkit.Documents.Analysis.ContentMetrics.UniqueTokensDoc">
+            <summary> Number of distinct tokens in the dataset, before stemming </summary>
+        </member>
+        <member name="P:imbNLP.Toolkit.Documents.Analysis.ContentMetrics.StemmedTokensDoc">
+            <summary> Number of stemmed terms, in the dataset </summary>
+        </member>
+        <member name="P:imbNLP.Toolkit.Documents.Analysis.ContentMetrics.Terms">
+            <summary> Distinct terms in the class, summed on category level (after stemming) </summary>
+        </member>
+        <member name="P:imbNLP.Toolkit.Documents.Analysis.ContentMetrics.SourceLength">
+            <summary> Total number of characters in source codes of the documents </summary>
+        </member>
+        <member name="P:imbNLP.Toolkit.Documents.Analysis.ContentMetrics.RenderLength">
+            <summary> Total number of characters in rendered textural representation </summary>
+        </member>
+        <member name="T:imbNLP.Toolkit.Documents.Analysis.MetricsBase">
+            <summary>
+            Base class for metrics containers
+            </summary>
+        </member>
+        <member name="M:imbNLP.Toolkit.Documents.Analysis.MetricsBase.Plus``1(``0)">
+            <summary>
+            Pluses the specified b.
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="b">The b.</param>
+        </member>
+        <member name="M:imbNLP.Toolkit.Documents.Analysis.MetricsBase.Minus``1(``0)">
+            <summary>
+            Minuses the specified b.
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="b">The b.</param>
+        </member>
+        <member name="M:imbNLP.Toolkit.Documents.Analysis.MetricsBase.Divide``1(``0)">
+            <summary>
+            Divides the specified b.
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="b">The b.</param>
+        </member>
+        <member name="M:imbNLP.Toolkit.Documents.Analysis.MetricsBase.Power``1(``0)">
+            <summary>
+            Powers the specified b.
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="b">The b.</param>
+        </member>
+        <member name="M:imbNLP.Toolkit.Documents.Analysis.MetricsBase.Divide(System.Double)">
+            <summary>
+            Divides the specified b.
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="b">The b.</param>
+        </member>
+        <member name="M:imbNLP.Toolkit.Documents.Analysis.MetricsBase.Power(System.Double)">
+            <summary>
+            Powers the specified b.
+            </summary>
+            <param name="b">The b.</param>
+        </member>
+        <member name="M:imbNLP.Toolkit.Documents.Analysis.MetricsBase.Init">
+            <summary>
+            Initializes this instance, registers all Integers and Doubles
+            </summary>
+        </member>
+        <member name="T:imbNLP.Toolkit.Documents.Analysis.NamespaceDoc">
+            <summary>
+            Descriptive analysis of dataset
+            </summary>
+            <remarks>
+            One-time analytic tools for descriptive reporting about structure of the dataset
+            </remarks>
+        </member>
+        <member name="T:imbNLP.Toolkit.Documents.Analysis.NamespaceGroupDoc">
+            <inheritdoc/>
+        </member>
+        <member name="T:imbNLP.Toolkit.Documents.HtmlAnalysis.HtmlTagCategoryTree">
+            <summary>
+            Provides statistics on HTML node structures
+            </summary>
+            <seealso cref="T:imbNLP.Toolkit.Documents.HtmlAnalysis.HtmlTagCounter" />
+        </member>
+        <member name="M:imbNLP.Toolkit.Documents.HtmlAnalysis.HtmlTagCategoryTree.Merge(imbNLP.Toolkit.Documents.HtmlAnalysis.HtmlTagCategoryTree)">
+            <summary>
+            Merges the specified item b.
+            </summary>
+            <param name="itemB">The item b.</param>
+        </member>
+        <member name="M:imbNLP.Toolkit.Documents.HtmlAnalysis.HtmlTagCategoryTree.GetResultList">
+            <summary>
+            Gets the result list.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:imbNLP.Toolkit.Documents.HtmlAnalysis.HtmlTagCategoryTree.GetDataTable(System.String,System.String)">
+            <summary>
+            Gets the data table.
+            </summary>
+            <param name="_name">The name.</param>
+            <param name="_description">The description.</param>
+            <returns></returns>
+        </member>
+        <member name="M:imbNLP.Toolkit.Documents.HtmlAnalysis.HtmlTagCategoryTree.CountTags(System.Collections.Generic.IEnumerable{HtmlAgilityPack.HtmlNode})">
+            <summary>
+            Counts the tags.
+            </summary>
+            <param name="nodes">The nodes.</param>
+        </member>
+        <member name="P:imbNLP.Toolkit.Documents.HtmlAnalysis.HtmlTagCategoryTree.UnknownTags">
+            <summary>
+            Gets or sets the unknown tags.
+            </summary>
+            <value>
+            The unknown tags.
+            </value>
+        </member>
+        <member name="M:imbNLP.Toolkit.Documents.HtmlAnalysis.HtmlTagCategoryTree.GetIMBStandardCategoryTree">
+            <summary>
+            Declares standard 
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:imbNLP.Toolkit.Documents.HtmlAnalysis.HtmlTagCounter.DefineTags(System.String[])">
+            <summary>
+            Defines the tags.
+            </summary>
+            <param name="_tags">The tags.</param>
+        </member>
+        <member name="T:imbNLP.Toolkit.Documents.HtmlAnalysis.HtmlTagCounterResult">
+            <summary>
+            One entry in tag counter table
+            </summary>
+        </member>
+        <member name="P:imbNLP.Toolkit.Documents.HtmlAnalysis.HtmlTagCounterResult.Path">
+            <summary> Path to the category </summary>
+        </member>
+        <member name="P:imbNLP.Toolkit.Documents.HtmlAnalysis.HtmlTagCounterResult.Name">
+            <summary> Category name </summary>
+        </member>
+        <member name="P:imbNLP.Toolkit.Documents.HtmlAnalysis.HtmlTagCounterResult.Description">
+            <summary> Description </summary>
+        </member>
+        <member name="P:imbNLP.Toolkit.Documents.HtmlAnalysis.HtmlTagCounterResult.Score">
+            <summary> Absolute score of the tag category </summary>
+        </member>
+        <member name="P:imbNLP.Toolkit.Documents.HtmlAnalysis.HtmlTagCounterResult.WeightedScore">
+            <summary> Ratio </summary>
+        </member>
+        <member name="P:imbNLP.Toolkit.Documents.HtmlAnalysis.HtmlTagCounterResult.Tags">
+            <summary> Tags </summary>
+        </member>
+        <member name="T:imbNLP.Toolkit.Documents.TextExtraction.textExtractionEngine">
+            <summary>
+            Mehanizam za preuzimanje cistog teksta iz HTML-a
+            </summary>
+        </member>
+        <member name="M:imbNLP.Toolkit.Documents.TextExtraction.textExtractionEngine.checkNode(System.Xml.XPath.XPathNavigator,imbNLP.Toolkit.Documents.TextExtraction.textExtractionSetup)">
+            <summary>
+            Proverava da li je prosledjeni node u saglasju sa podesavanjima
+            </summary>
+            <param name="source"></param>
+            <param name="settings"></param>
+            <returns></returns>
+        </member>
+        <member name="M:imbNLP.Toolkit.Documents.TextExtraction.textExtractionEngine.retriveText(System.Xml.XPath.XPathNavigator,imbNLP.Toolkit.Documents.TextExtraction.textExtractionSetup)">
+            <summary>
+            2014c> novi mehanizam za tekstualnu reprezentaciju ucitanog dokumenta
+            </summary>
+            <param name="source"></param>
+            <param name="settings"></param>
+            <returns></returns>
+        </member>
+        <member name="M:imbNLP.Toolkit.Documents.TextExtraction.textExtractionEngine.deploySpacing(System.String,System.Xml.XPath.XPathNavigator,imbNLP.Toolkit.Documents.TextExtraction.textExtractionSetup)">
+            <summary>
+            Primenjuje podesavanja spejsinga - simulacija HTML strukture
+            </summary>
+            <param name="insert"></param>
+            <param name="parentTag"></param>
+            <param name="settings"></param>
+            <returns></returns>
+        </member>
+        <member name="T:imbNLP.Toolkit.Documents.TextExtraction.textExtractionSetup">
+            <summary>
+            Podešavanja vezana za vađenje teksta iz XmlNode-a, odnosno iz HTML-a
+            </summary>
+        </member>
+        <member name="P:imbNLP.Toolkit.Documents.TextExtraction.textExtractionSetup.insertNewLine">
+            <summary>
+            Da li da ubaci dodatni newLine posle svakog taga
+            </summary>
+        </member>
+        <member name="P:imbNLP.Toolkit.Documents.TextExtraction.textExtractionSetup.divExtractMode">
+            <summary>
+            Rezim obrade za
+            </summary>
+        </member>
+        <member name="P:imbNLP.Toolkit.Documents.TextExtraction.textExtractionSetup.spanExtractMode">
+            <summary>
+            Rezim obrade za
+            </summary>
+        </member>
+        <member name="P:imbNLP.Toolkit.Documents.TextExtraction.textExtractionSetup.aExtractMode">
+            <summary>
+            Rezim obrade za
+            </summary>
+        </member>
+        <member name="P:imbNLP.Toolkit.Documents.TextExtraction.textExtractionSetup.liExtractMode">
+            <summary>
+            Rezim obrade za
+            </summary>
+        </member>
+        <member name="P:imbNLP.Toolkit.Documents.TextExtraction.textExtractionSetup.luExtractMode">
+            <summary>
+            Rezim obrade za
+            </summary>
+        </member>
+        <member name="P:imbNLP.Toolkit.Documents.TextExtraction.textExtractionSetup.tdExtractMode">
+            <summary>
+            Rezim obrade za
+            </summary>
+        </member>
+        <member name="P:imbNLP.Toolkit.Documents.TextExtraction.textExtractionSetup.trExtractMode">
+            <summary>
+            Rezim obrade za
+            </summary>
+        </member>
+        <member name="P:imbNLP.Toolkit.Documents.TextExtraction.textExtractionSetup.pExtractMode">
+            <summary>
+            Rezim obrade za
+            </summary>
+        </member>
+        <member name="P:imbNLP.Toolkit.Documents.TextExtraction.textExtractionSetup.headingExtractMode">
+            <summary>
+            Rezim obrade za
+            </summary>
+        </member>
+        <member name="P:imbNLP.Toolkit.Documents.TextExtraction.textExtractionSetup.commentExtractMode">
+            <summary>
+            Rezim obrade za
+            </summary>
+        </member>
+        <member name="P:imbNLP.Toolkit.Documents.TextExtraction.textExtractionSetup.tableExtractMode">
+            <summary>
+            Kako se ponasa kada naleti na TABLE tag - obrada
+            </summary>
+        </member>
+        <member name="P:imbNLP.Toolkit.Documents.TextExtraction.textExtractionSetup.metaSpaceExtractMode">
+            <summary>
+            Rezim obrade za
+            </summary>
+        </member>
+        <member name="P:imbNLP.Toolkit.Documents.TextExtraction.textExtractionSetup.metaExtractMode">
+            <summary>
+            Rezim obrade za
+            </summary>
+        </member>
+        <member name="P:imbNLP.Toolkit.Documents.TextExtraction.textExtractionSetup.linksExtractMode">
+            <summary>
+            Koje vrednosti iz linka prikazuje u extraktu :: Rezim obrade za
+            </summary>
+        </member>
+        <member name="P:imbNLP.Toolkit.Documents.TextExtraction.textExtractionSetup.inlineSpace">
+            <summary>
+            Koliko da odmakne kada je inline opcija
+            </summary>
+        </member>
+        <member name="P:imbNLP.Toolkit.Documents.TextExtraction.textExtractionSetup.doExportScripts">
+            <summary>
+            Da li text export sadrži SCRIPT tagove?
+            </summary>
+        </member>
+        <member name="P:imbNLP.Toolkit.Documents.TextExtraction.textExtractionSetup.doExportStyles">
+            <summary>
+            Da li da izvozi definicije stilova
+            </summary>
+        </member>
+        <member name="P:imbNLP.Toolkit.Documents.TextExtraction.textExtractionSetup.doExportTitle">
+            <summary>
+            Da li na pocetku da prikaze TITLE
+            </summary>
+        </member>
+        <member name="P:imbNLP.Toolkit.Documents.TextExtraction.textExtractionSetup.doExportComments">
+            <summary>
+            Da li izvozi komentare
+            </summary>
+        </member>
+        <member name="P:imbNLP.Toolkit.Documents.TextExtraction.textExtractionSetup.doCompressNewLines">
+            <summary>
+            Da li da kompresuje nove linije? svako pojavljivanje 3 nl za redom pretvara u 2nl
+            </summary>
+        </member>
+        <member name="P:imbNLP.Toolkit.Documents.TextExtraction.textExtractionSetup.doRetrieveChildren">
+            <summary>
+            Da li vraca text i za child nodove
+            </summary>
+        </member>
+        <member name="P:imbNLP.Toolkit.Documents.TextExtraction.textExtractionSetup.doHtmlCleanUp">
+            <summary>
+            Da li da ocisti HTML nakon izvlacenja sadrzaja?
+            </summary>
+        </member>
+        <member name="P:imbNLP.Toolkit.Documents.TextExtraction.textExtractionSetup.doCyrToLatTransliteration">
+            <summary>
+            Da li da izvrsi transliteraciju iz Cyr u Lat
+            </summary>
+        </member>
+        <member name="T:imbNLP.Toolkit.Documents.TextExtraction.textExtraction_structure">
+            <summary>
+            Kako se ponaša prema: div, span, li, ul, headings, td, tr
+            </summary>
+        </member>
+        <member name="F:imbNLP.Toolkit.Documents.TextExtraction.textExtraction_structure.normal">
+            <summary>
+            prepiše vrednost i lupi enter
+            </summary>
+        </member>
+        <member name="F:imbNLP.Toolkit.Documents.TextExtraction.textExtraction_structure.newLine">
+            <summary>
+            doda još jedan newLine gore i dole
+            </summary>
+        </member>
+        <member name="F:imbNLP.Toolkit.Documents.TextExtraction.textExtraction_structure.spaceInline">
+            <summary>
+            Ostane u liniji, samo doda space
+            </summary>
+        </member>
+        <member name="T:imbNLP.Toolkit.Documents.WebSiteDocument">
+            <summary>
+            Single web page document
+            </summary>
+        </member>
+        <member name="M:imbNLP.Toolkit.Documents.WebSiteDocument.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:imbNLP.Toolkit.Documents.WebSiteDocument"/> class.
+            </summary>
+        </member>
+        <member name="M:imbNLP.Toolkit.Documents.WebSiteDocument.#ctor(System.String,System.Boolean,System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:imbNLP.Toolkit.Documents.WebSiteDocument"/> class.
+            </summary>
+            <param name="_path">The path.</param>
+            <param name="lazyLoad">if set to <c>true</c> [lazy load].</param>
+            <param name="_fullPath">The full path.</param>
+        </member>
+        <member name="M:imbNLP.Toolkit.Documents.WebSiteDocument.Set(System.String,System.String)">
+            <summary>
+            Sets the specified headers.
+            </summary>
+            <param name="_Headers">The headers.</param>
+            <param name="_Source">The source.</param>
+        </member>
+        <member name="M:imbNLP.Toolkit.Documents.WebSiteDocument.Load(System.String)">
+            <summary>
+            Loads the specified full path.
+            </summary>
+            <param name="_fullPath">The full path.</param>
+        </member>
+        <member name="P:imbNLP.Toolkit.Documents.WebSiteDocument.path">
+            <summary>
+            URL path, relative to domain name
+            </summary>
+            <value>
+            The path.
+            </value>
+        </member>
+        <member name="P:imbNLP.Toolkit.Documents.WebSiteDocument.HTMLSource">
+            <summary>
+            Original HTML source code
+            </summary>
+            <value>
+            The HTML source.
+            </value>
+        </member>
+        <member name="P:imbNLP.Toolkit.Documents.WebSiteDocument.HTTPHeader">
+            <summary>
+            HTTP Header of the document
+            </summary>
+            <value>
+            The HTTP header.
+            </value>
+        </member>
+        <member name="T:imbNLP.Toolkit.Documents.WebSiteDocuments">
+            <summary>
+            Single web site
+            </summary>
+        </member>
+        <member name="M:imbNLP.Toolkit.Documents.WebSiteDocuments.GetOrAdd(System.String)">
+            <summary>
+            Gets the or add.
+            </summary>
+            <param name="fullUrl">The full URL.</param>
+            <returns></returns>
+        </member>
+        <member name="T:imbNLP.Toolkit.Documents.WebSiteDocumentsSet">
+            <summary>
+            Selected set of WebSiteDocuments
+            </summary>
+        </member>
+        <member name="M:imbNLP.Toolkit.Documents.WebSiteDocumentsSet.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:imbNLP.Toolkit.Documents.WebSiteDocumentsSet"/> class.
+            </summary>
+        </member>
+        <member name="M:imbNLP.Toolkit.Documents.WebSiteDocumentsSet.#ctor(System.String,System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:imbNLP.Toolkit.Documents.WebSiteDocumentsSet"/> class.
+            </summary>
+            <param name="_name">The name.</param>
+            <param name="_desc">The desc.</param>
+        </member>
+        <member name="M:imbNLP.Toolkit.Documents.WebSiteDocumentsSet.RemoveEmptyDocuments(imbSCI.Core.reporting.ILogBuilder,System.Int32)">
+            <summary>
+            Removes the empty documents, and document sets with less pages than <c>minPageCount</c>
+            </summary>
+            <param name="logger">The logger.</param>
+            <param name="minPageCount">The minimum page count.</param>
+        </member>
+        <member name="P:imbNLP.Toolkit.Documents.WebSiteDocumentsSet.name">
+            <summary>
+            Name of the set, also serves as category identification
+            </summary>
+            <value>
+            The name.
+            </value>
+        </member>
+        <member name="P:imbNLP.Toolkit.Documents.WebSiteDocumentsSet.description">
+            <summary>
+            Optional description
+            </summary>
+            <value>
+            The description.
+            </value>
+        </member>
+        <member name="P:imbNLP.Toolkit.Documents.WebSiteDocumentsSet.datasetSourceName">
+            <summary>
+            Optional info on dataset source
+            </summary>
+            <value>
+            The name of the dataset source.
+            </value>
+        </member>
+        <member name="T:imbNLP.Toolkit.TextDocument">
+            <summary>
+            Simple document model
+            </summary>
+            <seealso cref="T:imbNLP.Toolkit.TextDocumentBase" />
+        </member>
+        <member name="P:imbNLP.Toolkit.TextDocument.content">
+            <summary>
+            Content of the document
+            </summary>
+            <value>
+            The content.
+            </value>
+        </member>
+        <member name="M:imbNLP.Toolkit.TextDocument.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:imbNLP.Toolkit.TextDocument"/> class.
+            </summary>
+            <param name="__content">The content.</param>
+        </member>
+        <member name="M:imbNLP.Toolkit.TextDocument.ToString">
+            <summary>
+            Returns a <see cref="T:System.String" /> that represents this instance.
+            </summary>
+            <returns>
+            A <see cref="T:System.String" /> that represents this instance.
+            </returns>
+        </member>
+        <member name="T:imbNLP.Toolkit.TextDocumentLayer">
+            <summary>
+            Textual component of the document
+            </summary>
+        </member>
+        <member name="P:imbNLP.Toolkit.TextDocumentLayer.name">
+            <summary>
+            Gets or sets the name.
+            </summary>
+            <value>
+            The name.
+            </value>
+        </member>
+        <member name="P:imbNLP.Toolkit.TextDocumentLayer.content">
+            <summary>
+            Content of the document
+            </summary>
+            <value>
+            The content.
+            </value>
+        </member>
+        <member name="P:imbNLP.Toolkit.TextDocumentLayerCollection.name">
+            <summary>
+            Gets or sets the name.
+            </summary>
+            <value>
+            The name.
+            </value>
+        </member>
+        <member name="P:imbNLP.Toolkit.TextDocumentSet.name">
+            <summary>
+            Gets or sets the name.
+            </summary>
+            <value>
+            The name.
+            </value>
+        </member>
+        <member name="P:imbNLP.Toolkit.TextDocumentBase.name">
+            <summary>
+            Gets or sets the name.
+            </summary>
+            <value>
+            The name.
+            </value>
+        </member>
+        <member name="P:imbNLP.Toolkit.TextDocumentBase.labels">
+            <summary>
+            Labels attached to the document (i.e. categories)
+            </summary>
+            <value>
+            The labels.
+            </value>
+        </member>
+        <member name="T:imbNLP.Toolkit.Entity.DocumentBlenderFunction">
+            <summary>
+            Function that blends multiple documents into single document representation
+            </summary>
+        </member>
+        <member name="F:imbNLP.Toolkit.Entity.DocumentBlenderFunctionOptions.binaryAggregation">
+            <summary>
+            an content part can be excluded or included, no fuzzy option
+            </summary>
+        </member>
+        <member name="F:imbNLP.Toolkit.Entity.DocumentBlenderFunctionOptions.weightedAggregation">
+            <summary>
+            an content parts are associated with their specific weights
+            </summary>
+        </member>
+        <member name="F:imbNLP.Toolkit.Entity.DocumentBlenderFunctionOptions.pageLevel">
+            <summary>
+            base content unit is page/document
+            </summary>
+        </member>
+        <member name="F:imbNLP.Toolkit.Entity.DocumentBlenderFunctionOptions.blockLevel">
+            <summary>
+            base content unit is block of content
+            </summary>
+        </member>
+        <member name="F:imbNLP.Toolkit.Entity.DocumentBlenderFunctionOptions.sentenceLevel">
+            <summary>
+            base content unit is sentence
+            </summary>
+        </member>
+        <member name="F:imbNLP.Toolkit.Entity.DocumentBlenderFunctionOptions.uniqueContentUnitsOnly">
+            <summary>
+            Only content units that are DocumentSet-wide unique will be included in the blended output
+            </summary>
+        </member>
+        <member name="T:imbNLP.Toolkit.Entity.DocumentFilterFunction">
+            <summary>
+            Ranks and selects the documents from the input dataset
+            </summary>
+            <seealso cref="T:imbNLP.Toolkit.Planes.Core.PlaneMethodFunctionBase" />
+            <seealso cref="T:imbNLP.Toolkit.Entity.IEntityPlaneFunction" />
+        </member>
+        <member name="M:imbNLP.Toolkit.Entity.DocumentFilterFunction.FilterDocumentSet(imbNLP.Toolkit.TextDocumentSet)">
+            <summary>
+            Filters the document set by creation descending rank, scored by <see cref="P:imbNLP.Toolkit.Entity.DocumentFilterFunction.function"/> and taking first <see cref="P:imbNLP.Toolkit.Entity.DocumentFilterFunction.limit"/> web pages
+            </summary>
+            <param name="input">The input.</param>
+            <returns></returns>
+        </member>
+        <member name="T:imbNLP.Toolkit.Entity.DocumentFunctions.DocumentDistinctFunction">
+            <summary>
+            Number of distinct textual tokens, extracted from the document
+            </summary>
+            <seealso cref="T:imbNLP.Toolkit.Entity.DocumentFunctions.DocumentStatisticFunction" />
+        </member>
+        <member name="T:imbNLP.Toolkit.Entity.DocumentFunctions.DocumentEntropyFunction">
+            <summary>
+            Entropy of distinct textual tokens' frequencies
+            </summary>
+            <seealso cref="T:imbNLP.Toolkit.Entity.DocumentFunctions.DocumentStatisticFunction" />
+        </member>
+        <member name="M:imbNLP.Toolkit.Entity.DocumentFunctions.DocumentEntropyFunction.Compute(imbNLP.Toolkit.TextDocumentLayerCollection,imbNLP.Toolkit.TextDocumentSet)">
+            <summary>
+            Computes the specified document.
+            </summary>
+            <param name="document">The document.</param>
+            <param name="documentSet">The document set.</param>
+            <returns></returns>
+        </member>
+        <member name="T:imbNLP.Toolkit.Entity.DocumentFunctions.DocumentLengthFunction">
+            <summary>
+            Total count of non-distinct textual tokens, extracted from the document
+            </summary>
+            <seealso cref="T:imbNLP.Toolkit.Entity.DocumentFunctions.DocumentStatisticFunction" />
+        </member>
+        <member name="T:imbNLP.Toolkit.Entity.DocumentFunctions.DocumentStatisticFunction">
+            <summary>
+            Document function based on textual token statistics in documents
+            </summary>
+            <seealso cref="T:imbNLP.Toolkit.Entity.DocumentFunctions.DocumentFunctionBase" />
+        </member>
+        <member name="T:imbNLP.Toolkit.Entity.DocumentFunctions.DocumentTermGain">
+            <summary>
+            Iterative function that selects page with highest number of yet unknown text tokens in each iteration, therefore maximizes number of tokens used for classification
+            </summary>
+            <seealso cref="T:imbNLP.Toolkit.Entity.DocumentFunctions.DocumentFunctionBase" />
+        </member>
+        <member name="M:imbNLP.Toolkit.Entity.DocumentFunctions.DocumentTermGain.Compute(imbNLP.Toolkit.TextDocumentLayerCollection,imbNLP.Toolkit.TextDocumentSet)">
+            <summary>
+            Computes the specified document.
+            </summary>
+            <param name="document">The document.</param>
+            <param name="documentSet">The document set.</param>
+            <returns></returns>
+        </member>
+        <member name="T:imbNLP.Toolkit.Entity.DocumentFunctions.DocumentVarianceFunction">
+            <summary>
+            Variance of distinct textual tokens' frequencies
+            </summary>
+            <seealso cref="T:imbNLP.Toolkit.Entity.DocumentFunctions.DocumentStatisticFunction" />
+        </member>
+        <member name="T:imbNLP.Toolkit.Entity.DocumentRenderFunction">
+            <summary>
+            Function that renders HTML Document into document layers
+            </summary>
+        </member>
+        <member name="M:imbNLP.Toolkit.Entity.DocumentRenderFunction.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:imbNLP.Toolkit.Entity.DocumentRenderFunction"/> class.
+            </summary>
+        </member>
+        <member name="P:imbNLP.Toolkit.Entity.DocumentRenderFunction.instructions">
+            <summary>
+            Additional rendering instructions - for meta values, page title...
+            </summary>
+            <value>
+            The instructions.
+            </value>
+        </member>
+        <member name="M:imbNLP.Toolkit.Entity.DocumentRenderFunction.RenderDocumentSet(imbNLP.Toolkit.Documents.WebSiteDocumentsSet,imbSCI.Core.reporting.ILogBuilder)">
+            <summary>
+            Renders the specified set into List of <see cref="T:imbNLP.Toolkit.TextDocumentSet"/>s
+            </summary>
+            <param name="input">The input.</param>
+            <param name="logger">The logger.</param>
+            <returns></returns>
+        </member>
+        <member name="M:imbNLP.Toolkit.Entity.DocumentRenderFunction.RenderText(System.String)">
+            <summary>
+            Renders the provided HTML source
+            </summary>
+            <param name="htmlDocSource">The HTML document source.</param>
+            <returns></returns>
+        </member>
+        <member name="T:imbNLP.Toolkit.Entity.DocumentRenderInstruction">
+            <summary>
+            Special HTML rendering instruction
+            </summary>
+        </member>
+        <member name="M:imbNLP.Toolkit.Entity.DocumentRenderInstruction.GetTitleInstruction">
+            <summary>
+            Gets the title instruction.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:imbNLP.Toolkit.Entity.DocumentRenderInstruction.GetBodyTextInstruction">
+            <summary>
+            Gets special instruction for visible text rendering, <see cref="F:imbNLP.Toolkit.Entity.DocumentRenderInstruction.BODYTEXT_NAME"/>
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:imbNLP.Toolkit.Entity.DocumentRenderInstruction.GetDescriptionInstruction">
+            <summary>
+            Gets the description instruction.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:imbNLP.Toolkit.Entity.DocumentRenderInstruction.GetContentInstruction">
+            <summary>
+            Gets the content instruction.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:imbNLP.Toolkit.Entity.DocumentRenderInstruction.#ctor(System.String,System.String,System.Double)">
+            <summary>
+            Initializes a new instance of the <see cref="T:imbNLP.Toolkit.Entity.DocumentRenderInstruction"/> class.
+            </summary>
+            <param name="_name">The name.</param>
+            <param name="_xpath">The xpath.</param>
+        </member>
+        <member name="M:imbNLP.Toolkit.Entity.DocumentRenderInstruction.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:imbNLP.Toolkit.Entity.DocumentRenderInstruction"/> class.
+            </summary>
+        </member>
+        <member name="F:imbNLP.Toolkit.Entity.DocumentRenderInstruction.BODYTEXT_NAME">
+            <summary>
+            This is willcard instruction <see cref="P:imbNLP.Toolkit.Entity.DocumentRenderInstruction.name"/>, executing render of all visible text nodes within the body tag
+            </summary>
+        </member>
+        <member name="P:imbNLP.Toolkit.Entity.DocumentRenderInstruction.name">
+            <summary>
+            Human readable comment on the instruction
+            </summary>
+            <value>
+            The name.
+            </value>
+        </member>
+        <member name="P:imbNLP.Toolkit.Entity.DocumentRenderInstruction.XPath">
+            <summary>
+            XPath used for selecting the nodes
+            </summary>
+            <value>
+            The x path.
+            </value>
+        </member>
+        <member name="M:imbNLP.Toolkit.Entity.DocumentRenderInstruction.Render(HtmlAgilityPack.HtmlNode)">
+            <summary>
+            Renders the specified node.
+            </summary>
+            <param name="node">The node.</param>
+            <returns></returns>
+        </member>
+        <member name="T:imbNLP.Toolkit.ExperimentModel.CategorySlicedFolds">
+            <summary>
+            Sliced category into k-folds
+            </summary>
+            <seealso cref="!:System.Collections.Generic.List&lt;imbNLP.Toolkit.Documents.WebSiteDocumentsSet&gt;" />
+        </member>
+        <member name="M:imbNLP.Toolkit.ExperimentModel.CategorySlicedFolds.Deploy(imbNLP.Toolkit.Documents.WebSiteDocumentsSet,System.Int32,System.Boolean)">
+            <summary>
+            Slices category specified <c>input</c> into <c>K</c> folds
+            </summary>
+            <param name="input">The input.</param>
+            <param name="K">The k.</param>
+            <param name="random">if set to <c>true</c> [random].</param>
+        </member>
+        <member name="T:imbNLP.Toolkit.ExperimentModel.CrossValidation.CrossValidationModel">
+            <summary>
+            Settings for cross validation model
+            </summary>
+        </member>
+        <member name="P:imbNLP.Toolkit.ExperimentModel.CrossValidation.CrossValidationModel.SingleFold">
+            <summary>
+            In single fold mode - it trains and tests with the same dataset
+            </summary>
+            <value>
+              <c>true</c> if [single fold]; otherwise, <c>false</c>.
+            </value>
+        </member>
+        <member name="M:imbNLP.Toolkit.ExperimentModel.CrossValidation.CrossValidationModel.Describe(imbSCI.Core.reporting.ILogBuilder)">
+            <summary>
+            Describes the cross validation settings
+            </summary>
+            <param name="logger">The logger.</param>
+        </member>
+        <member name="M:imbNLP.Toolkit.ExperimentModel.CrossValidation.CrossValidationModel.GetDistributionMatrix">
+            <summary>
+            Gets the distribution matrix - showing what folds are to be part of training set (true) and what test set (false)
+            </summary>
+            <returns>training set (true), test set (false)</returns>
+        </member>
+        <member name="P:imbNLP.Toolkit.ExperimentModel.CrossValidation.CrossValidationModel.LimitFoldsExecution">
+            <summary>
+            if set above 0, only specified number of folds will be executed
+            </summary>
+            <value>
+            The limit folds execution.
+            </value>
+        </member>
+        <member name="P:imbNLP.Toolkit.ExperimentModel.CrossValidation.CrossValidationModel.randomFolds">
+            <summary>
+            Gets or sets a value indicating whether distribution among folds should be randomized
+            </summary>
+            <value>
+              <c>true</c> if [random folds]; otherwise, <c>false</c>.
+            </value>
+        </member>
+        <member name="P:imbNLP.Toolkit.ExperimentModel.CrossValidation.CrossValidationModel.K">
+            <summary>
+            Number of folds
+            </summary>
+            <value>
+            The k.
+            </value>
+        </member>
+        <member name="P:imbNLP.Toolkit.ExperimentModel.CrossValidation.CrossValidationModel.TrainingFolds">
+            <summary>
+            Gets or sets the training folds.
+            </summary>
+            <value>
+            The training folds.
+            </value>
+        </member>
+        <member name="P:imbNLP.Toolkit.ExperimentModel.CrossValidation.CrossValidationModel.TestFolds">
+            <summary>
+            Gets the test folds.
+            </summary>
+            <value>
+            The test folds.
+            </value>
+        </member>
+        <member name="T:imbNLP.Toolkit.ExperimentModel.ExperimentDataSetFold">
+            <summary>
+            One experimental "fold" with training and testing documents.
+            </summary>
+            <seealso cref="!:System.Collections.Generic.List&lt;imbNLP.Toolkit.Documents.WebSiteDocumentsSet&gt;" />
+        </member>
+        <member name="M:imbNLP.Toolkit.ExperimentModel.ExperimentDataSetFold.CopyLabelNames(System.Collections.Generic.IEnumerable{imbNLP.Toolkit.Documents.WebSiteDocumentsSet})">
+            <summary>
+            Copies the label names.
+            </summary>
+            <param name="input">The input.</param>
+        </member>
+        <member name="P:imbNLP.Toolkit.ExperimentModel.ExperimentDataSetFold.name">
+            <summary>
+            Identified of the fold
+            </summary>
+            <value>
+            The name.
+            </value>
+        </member>
+        <member name="T:imbNLP.Toolkit.ExperimentModel.ExperimentDataSetFolds">
+            <summary>
+            Folds for the cross validation experiment
+            </summary>
+            <seealso cref="!:System.Collections.Generic.List&lt;imbNLP.Toolkit.ExperimentModel.ExperimentDataSetFold&gt;" />
+        </member>
+        <member name="M:imbNLP.Toolkit.ExperimentModel.ExperimentDataSetFolds.Deploy(imbNLP.Toolkit.ExperimentModel.CrossValidation.CrossValidationModel,System.Collections.Generic.List{imbNLP.Toolkit.Documents.WebSiteDocumentsSet},imbSCI.Core.reporting.ILogBuilder)">
+            <summary>
+            Deploys the specified settings.
+            </summary>
+            <param name="_settings">The settings.</param>
+            <param name="_dataset">Un-folded dataset, without having the unknown class defined</param>
+            <param name="logger">The logger.</param>
+        </member>
+        <member name="T:imbNLP.Toolkit.ExperimentModel.ExperimentModelExecutionContext">
+            <summary>
+            Main context for an experiment execution
+            </summary>
+            <seealso cref="T:imbNLP.Toolkit.Planes.Core.IPlaneContext" />
+        </member>
+        <member name="M:imbNLP.Toolkit.ExperimentModel.ExperimentModelExecutionContext.PrepareNotes(imbSCI.Core.files.folders.folderNode,System.String,imbSCI.Core.reporting.ILogBuilder)">
+            <summary>
+            Prepares the notes.
+            </summary>
+            <param name="_rootFolder">The root folder.</param>
+            <param name="_experimentDescription">The experiment description.</param>
+            <param name="logger">The logger.</param>
+        </member>
+        <member name="M:imbNLP.Toolkit.ExperimentModel.ExperimentModelExecutionContext.PrepareDataset(System.Collections.Generic.List{imbNLP.Toolkit.Documents.WebSiteDocumentsSet},imbNLP.Toolkit.ExperimentModel.CrossValidation.CrossValidationModel,System.Int32)">
+            <summary>
+            Prepares the dataset.
+            </summary>
+            <param name="dataset">The dataset.</param>
+            <param name="validationModel">The validation model.</param>
+        </member>
+        <member name="M:imbNLP.Toolkit.ExperimentModel.ExperimentModelExecutionContext.CloseExperiment(imbSCI.Core.reporting.ILogBuilder,System.Int64)">
+            <summary>
+            Generates the final reports and read me files
+            </summary>
+        </member>
+        <member name="P:imbNLP.Toolkit.ExperimentModel.ExperimentModelExecutionContext.finalReport">
+            <summary>
+            Instance of the inter-fold average
+            </summary>
+            <value>
+            The final report.
+            </value>
+        </member>
+        <member name="P:imbNLP.Toolkit.ExperimentModel.ExperimentModelExecutionContext.truthTable">
+            <summary>
+            Truth table - document to class associations for the complete dataset
+            </summary>
+            <value>
+            The truth table.
+            </value>
+        </member>
+        <member name="P:imbNLP.Toolkit.ExperimentModel.ExperimentModelExecutionContext.dataset">
+            <summary>
+            Complete input dataset
+            </summary>
+            <value>
+            The dataset.
+            </value>
+        </member>
+        <member name="P:imbNLP.Toolkit.ExperimentModel.ExperimentModelExecutionContext.folds">
+            <summary>
+            Dataset k-fold crossvalidation iterations
+            </summary>
+            <value>
+            The folds.
+            </value>
+        </member>
+        <member name="T:imbNLP.Toolkit.ExperimentModel.ExperimentNodeReporter">
+            <summary>
+            Generates reports for a experiment node
+            </summary>
+        </member>
+        <member name="T:imbNLP.Toolkit.ExperimentModel.ToolkitExperimentNotes">
+             <summary>
+            
+             </summary>
+             <seealso cref="!:imbACE.Core.core.builderForLog" />
+        </member>
+        <member name="M:imbNLP.Toolkit.ExperimentModel.ToolkitExperimentNotes.StartSubnotes(System.String,System.String)">
+            <summary>
+            Creates instance of subnotes 
+            </summary>
+            <param name="subfolder">The subfolder.</param>
+            <param name="description">The description.</param>
+            <returns></returns>
+        </member>
+        <member name="M:imbNLP.Toolkit.ExperimentModel.ToolkitExperimentNotes.LogException(System.String,System.Exception,System.String,System.Boolean)">
+            <summary>
+            Logs the exception.
+            </summary>
+            <param name="context">The context.</param>
+            <param name="ex">The ex.</param>
+            <param name="prefix">The prefix.</param>
+            <param name="skipSave">if set to <c>true</c> [skip save].</param>
+        </member>
+        <member name="M:imbNLP.Toolkit.ExperimentModel.ToolkitExperimentNotes.SaveNote(System.String)">
+            <summary>
+            Saves the note into assigned folder. Default name: note.txt
+            </summary>
+            <param name="name">The name.</param>
+        </member>
+        <member name="T:imbNLP.Toolkit.ExperimentModel.ExperimentTruthTable">
+            <summary>
+            Index of document-2-class associations, used for confusion matrix, i.e. classification performances evaluation
+            </summary>
+        </member>
+        <member name="M:imbNLP.Toolkit.ExperimentModel.ExperimentTruthTable.GroupByTrueCategory(System.Collections.Generic.List{imbNLP.Toolkit.Feature.FeatureVectorWithLabelID})">
+            <summary>
+            Groups the test result entries by their real categories
+            </summary>
+            <param name="testResults">The test results.</param>
+            <returns></returns>
+        </member>
+        <member name="M:imbNLP.Toolkit.ExperimentModel.ExperimentTruthTable.EvaluateTestResultsToMetricSet(System.Collections.Generic.List{imbNLP.Toolkit.Feature.FeatureVectorWithLabelID},System.String,imbSCI.Core.reporting.ILogBuilder)">
+            <summary>
+            Evaluates the test results and returns te metric set
+            </summary>
+            <param name="testResults">Set of test results.</param>
+            <param name="_testName">Descriptive name to be attached at results report.</param>
+            <param name="logger">The logger - to log any problems, if occourred.</param>
+            <returns></returns>
+        </member>
+        <member name="M:imbNLP.Toolkit.ExperimentModel.ExperimentTruthTable.EvaluateTestResults(System.Collections.Generic.List{imbNLP.Toolkit.Feature.FeatureVectorWithLabelID},System.String,imbSCI.Core.reporting.ILogBuilder,imbSCI.Core.math.classificationMetrics.classificationMetricComputation)">
+            <summary>
+            Evaluates the test results.
+            </summary>
+            <param name="testResults">Set of test results.</param>
+            <param name="_testName">Descriptive name to be attached at results report.</param>
+            <param name="logger">The logger - to log any problems, if occourred.</param>
+            <param name="averagingMethod">The averaging method.</param>
+            <returns></returns>
+        </member>
+        <member name="M:imbNLP.Toolkit.ExperimentModel.ExperimentTruthTable.Deploy(System.Collections.Generic.List{imbNLP.Toolkit.Documents.WebSiteDocumentsSet},imbSCI.Core.reporting.ILogBuilder)">
+            <summary>
+            Deploys the specified dataset.
+            </summary>
+            <param name="dataset">The dataset.</param>
+            <param name="logger">The logger.</param>
+        </member>
+        <member name="M:imbNLP.Toolkit.ExperimentModel.ValidationResultReportingTools.ReportToLog(imbSCI.Core.math.classificationMetrics.IClassificationReport,imbSCI.Core.reporting.ILogBuilder)">
+            <summary>
+            Reports to log.
+            </summary>
+            <param name="report">The report.</param>
+            <param name="logger">The logger.</param>
+        </member>
+        <member name="T:imbNLP.Toolkit.Feature.FeatureVectorConstructor">
+            <summary>
+            Creates Feature vectors with dimensions specified 
+            </summary>
+        </member>
+        <member name="M:imbNLP.Toolkit.Feature.FeatureVectorConstructor.Deploy(imbNLP.Toolkit.Feature.Settings.FeatureVectorConstructorSettings,imbNLP.Toolkit.Vectors.VectorSpace)">
+            <summary>
+            Deploys the specified settings.
+            </summary>
+            <param name="settings">The settings.</param>
+            <param name="vectorSpace">The vector space.</param>
+        </member>
+        <member name="P:imbNLP.Toolkit.Feature.FeatureVectorConstructor.dimensionFunctionSet">
+            <summary>
+            Dimension providers, instantiated 
+            </summary>
+            <value>
+            The document vs cat dimension set.
+            </value>
+        </member>
+        <member name="M:imbNLP.Toolkit.Feature.FeatureVectorConstructor.ConstructFeatureVector(imbNLP.Toolkit.Vectors.IVector)">
+            <summary>
+            Constructs a feature vector - having dimension values set by <see cref="P:imbNLP.Toolkit.Feature.FeatureVectorConstructor.dimensionFunctionSet"/>
+            </summary>
+            <param name="vector">The vector.</param>
+            <returns></returns>
+        </member>
+        <member name="M:imbNLP.Toolkit.Feature.FeatureSpaceDimensionBase.ComputeDimension(imbNLP.Toolkit.Vectors.IVector,System.Int32)">
+            <summary>
+            Computes the dimension value for the given vector
+            </summary>
+            <param name="vector">The vector.</param>
+            <returns></returns>
+        </member>
+        <member name="T:imbNLP.Toolkit.Feature.FeatureSpaceDimensionSimilarity">
+            <summary>
+            Dimension constructor based on similarity functions.
+            </summary>
+            <seealso cref="T:imbNLP.Toolkit.Feature.FeatureSpaceDimensionBase" />
+        </member>
+        <member name="M:imbNLP.Toolkit.Feature.FeatureSpaceDimensionSimilarity.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:imbNLP.Toolkit.Feature.FeatureSpaceDimensionSimilarity"/> class.
+            </summary>
+        </member>
+        <member name="P:imbNLP.Toolkit.Feature.FeatureSpaceDimensionSimilarity.similarityFunction">
+            <summary>
+            Similarity function used to compute the dimension between document and class FeatureVectors
+            </summary>
+            <value>
+            The similarity function.
+            </value>
+        </member>
+        <member name="P:imbNLP.Toolkit.Feature.FeatureSpaceDimensionSimilarity.classVector">
+            <summary>
+            Reference to a FeatureVector that represents a class (in multi-class classification problem)
+            </summary>
+            <value>
+            The class vector.
+            </value>
+        </member>
+        <member name="M:imbNLP.Toolkit.Feature.FeatureSpaceDimensionSimilarity.ComputeDimension(imbNLP.Toolkit.Vectors.IVector,System.Int32)">
+            <summary>
+            Computes the dimension value for the given vector
+            </summary>
+            <param name="vector">The vector.</param>
+            <returns></returns>
+        </member>
+        <member name="T:imbNLP.Toolkit.Feature.FeatureVector">
+            <summary>
+            Final product of the model, fector to be fed into classification algorithm
+            </summary>
+            <seealso cref="T:imbSCI.Data.interfaces.IObjectWithName" />
+        </member>
+        <member name="M:imbNLP.Toolkit.Feature.FeatureVector.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:imbNLP.Toolkit.Feature.FeatureVector"/> class.
+            </summary>
+        </member>
+        <member name="M:imbNLP.Toolkit.Feature.FeatureVector.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:imbNLP.Toolkit.Feature.FeatureVector"/> class.
+            </summary>
+            <param name="name">The name.</param>
+        </member>
+        <member name="P:imbNLP.Toolkit.Feature.FeatureVector.name">
+            <summary>
+            Gets or sets the name.
+            </summary>
+            <value>
+            The name.
+            </value>
+        </member>
+        <member name="P:imbNLP.Toolkit.Feature.FeatureVector.dimensions">
+            <summary>
+            Gets or sets the dimensions.
+            </summary>
+            <value>
+            The dimensions.
+            </value>
+        </member>
+        <member name="T:imbNLP.Toolkit.Feature.FeatureVectorClassifier">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:imbNLP.Toolkit.Feature.FeatureVectorWithLabelID">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:imbNLP.Toolkit.Feature.FeatureVectorWithLabelID.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:imbNLP.Toolkit.Feature.FeatureVectorWithLabelID"/> class.
+            </summary>
+        </member>
+        <member name="M:imbNLP.Toolkit.Feature.FeatureVectorWithLabelID.#ctor(imbNLP.Toolkit.Feature.FeatureVector,System.Int32)">
+            <summary>
+            Initializes a new instance of the <see cref="T:imbNLP.Toolkit.Feature.FeatureVectorWithLabelID"/> class.
+            </summary>
+            <param name="_vector">The vector.</param>
+            <param name="_labelID">The label identifier.</param>
+        </member>
+        <member name="P:imbNLP.Toolkit.Feature.FeatureVectorWithLabelID.vector">
+            <summary>
+            Gets or sets the vector.
+            </summary>
+            <value>
+            The vector.
+            </value>
+        </member>
+        <member name="P:imbNLP.Toolkit.Feature.FeatureVectorWithLabelID.labelID">
+            <summary>
+            Gets or sets the label identifier.
+            </summary>
+            <value>
+            The label identifier.
+            </value>
+        </member>
+        <member name="T:imbNLP.Toolkit.Feature.Settings.dimensionSpecification">
+            <summary>
+            Serializable specification for dimensions
+            </summary>
+        </member>
+        <member name="M:imbNLP.Toolkit.Feature.Settings.dimensionSpecification.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:imbNLP.Toolkit.Feature.Settings.dimensionSpecification"/> class.
+            </summary>
+        </member>
+        <member name="P:imbNLP.Toolkit.Feature.Settings.dimensionSpecification.type">
+            <summary>
+            Gets or sets the type.
+            </summary>
+            <value>
+            The type.
+            </value>
+        </member>
+        <member name="P:imbNLP.Toolkit.Feature.Settings.dimensionSpecification.functionName">
+            <summary>
+            Dimension computation class name
+            </summary>
+            <value>
+            The name of the function.
+            </value>
+        </member>
+        <member name="F:imbNLP.Toolkit.Feature.Settings.FeatureVectorDimensionType.directTermWeight">
+            <summary>
+            The direct term weight - dimension directly supplies the classifier with feature weights
+            </summary>
+        </member>
+        <member name="P:imbNLP.Toolkit.Feature.Settings.FeatureVectorConstructorSettings.topicDimensions">
+            <summary>
+            Dimensions computed as function between document and topics in the <see cref="T:imbNLP.Toolkit.Vectors.VectorSpace"/>
+            </summary>
+            <value>
+            The topic dimensions.
+            </value>
+        </member>
+        <member name="P:imbNLP.Toolkit.Feature.Settings.FeatureVectorConstructorSettings.featureDimensions">
+            <summary>
+            Dimensions based on direct funneling of the feature weights
+            </summary>
+            <value>
+            The feature dimensions.
+            </value>
+        </member>
+        <member name="P:imbNLP.Toolkit.Feature.Settings.FeatureVectorConstructorSettings.labelDimensions">
+            <summary>
+            Dimensions to be computed for each category / class
+            </summary>
+            <value>
+            The category dimensions.
+            </value>
+        </member>
+        <member name="T:imbNLP.Toolkit.Functions.CosineSimilarityFunction">
+            <summary>
+            Cosine similarity
+            </summary>
+            <seealso cref="T:imbNLP.Toolkit.Functions.SimilarityFunctionBase" />
+        </member>
+        <member name="M:imbNLP.Toolkit.Functions.CosineSimilarityFunction.ComputeSimilarity(System.Collections.Generic.IEnumerable{imbNLP.Toolkit.Processing.WeightDictionaryEntry},System.Collections.Generic.IEnumerable{imbNLP.Toolkit.Processing.WeightDictionaryEntry})">
+            <summary>
+            Computes the similarity.
+            </summary>
+            <param name="vectorA">The vector a.</param>
+            <param name="vectorB">The vector b.</param>
+            <returns></returns>
+        </member>
+        <member name="T:imbNLP.Toolkit.Functions.IVectorSimilarityFunction">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:imbNLP.Toolkit.Functions.SimilarityFunctionBase">
+            <summary>
+            Base class for similarity computation functions
+            </summary>
+        </member>
+        <member name="M:imbNLP.Toolkit.Functions.SimilarityFunctionBase.ComputeSimilarity(System.Collections.Generic.IEnumerable{imbNLP.Toolkit.Processing.WeightDictionaryEntry},System.Collections.Generic.IEnumerable{imbNLP.Toolkit.Processing.WeightDictionaryEntry})">
+            <summary>
+            Computes the similarity.
+            </summary>
+            <param name="vectorA">The vector a.</param>
+            <param name="vectorB">The vector b.</param>
+            <returns></returns>
+        </member>
+        <member name="T:imbNLP.Toolkit.Planes.Core.IPlaneMethodDesign">
+            <summary>
+            Customized design of methods, functions and algorithms - to meet requirements of an experimental method and setup
+            </summary>
+        </member>
+        <member name="M:imbNLP.Toolkit.Planes.Core.IPlaneMethodDesign.DeploySettings(imbNLP.Toolkit.Planes.Core.IPlaneSettings,imbNLP.Toolkit.ExperimentModel.ToolkitExperimentNotes,imbSCI.Core.reporting.ILogBuilder)">
+            <summary>
+            Prepares everything for operation
+            </summary>
+            <param name="settings">The settings.</param>
+            <param name="_notes">The notes.</param>
+            <param name="logger">The logger.</param>
+        </member>
+        <member name="M:imbNLP.Toolkit.Planes.Core.IPlaneMethodDesign.ExecutePlaneMethod(imbNLP.Toolkit.Planes.Core.IPlaneContext,imbNLP.Toolkit.ExperimentModel.ExperimentModelExecutionContext,imbSCI.Core.reporting.ILogBuilder)">
+            <summary>
+            Executes the plane method, invoking contained functions according to the settings
+            </summary>
+            <param name="inputContext">The input context - related to this plane.</param>
+            <param name="generalContext">General execution context, attached to the <see cref="T:imbNLP.Toolkit.Planes.PlanesMethodDesign" /></param>
+            <param name="logger">The logger.</param>
+            <returns>Retur</returns>
+        </member>
+        <member name="T:imbNLP.Toolkit.Planes.Core.IPlaneSpace">
+            <summary>
+            Data internally constructed by the <see cref="T:imbNLP.Toolkit.Planes.Core.IPlaneMethodDesign"/> functions and algorithms
+            </summary>
+        </member>
+        <member name="T:imbNLP.Toolkit.Planes.Core.PlaneContextProvider">
+            <summary>
+            Storage for created contextes
+            </summary>
+        </member>
+        <member name="M:imbNLP.Toolkit.Planes.Core.PlaneContextProvider.GetContext``1">
+            <summary>
+            Gets the context of specified type
+            </summary>
+            <typeparam name="T"></typeparam>
+            <returns></returns>
+        </member>
+        <member name="M:imbNLP.Toolkit.Planes.Core.PlaneContextProvider.StoreAndReceive(imbNLP.Toolkit.Planes.Core.IPlaneContext)">
+            <summary>
+            Stores the and receive.
+            </summary>
+            <param name="context">The context.</param>
+        </member>
+        <member name="M:imbNLP.Toolkit.Planes.Core.PlaneContextProvider.Receive(imbNLP.Toolkit.Planes.Core.PlaneContextProvider)">
+            <summary>
+            Receives contexts stored at the <c>provider</c>
+            </summary>
+            <param name="provider">The provider.</param>
+        </member>
+        <member name="M:imbNLP.Toolkit.Planes.Core.PlaneContextProvider.StoreContext(imbNLP.Toolkit.Planes.Core.IPlaneContext)">
+            <summary>
+            Stores or updates the context
+            </summary>
+            <param name="context">The context.</param>
+        </member>
+        <member name="T:imbNLP.Toolkit.Planes.CorpusPlaneContext">
+            <summary>
+            
+            </summary>
+            <seealso cref="T:imbNLP.Toolkit.Planes.ICorpusPlaneContext" />
+            <seealso cref="T:imbNLP.Toolkit.Planes.Core.IPlaneContext" />
+        </member>
+        <member name="M:imbNLP.Toolkit.Planes.CorpusPlaneContext.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:imbNLP.Toolkit.Planes.CorpusPlaneContext"/> class.
+            </summary>
+        </member>
+        <member name="P:imbNLP.Toolkit.Planes.CorpusPlaneContext.corpus_documents">
+            <summary>
+            Gets or sets the corpus documents.
+            </summary>
+            <value>
+            The corpus documents.
+            </value>
+        </member>
+        <member name="P:imbNLP.Toolkit.Planes.CorpusPlaneContext.dataset">
+            <summary>
+            Gets or sets the dataset.
+            </summary>
+            <value>
+            The dataset.
+            </value>
+        </member>
+        <member name="T:imbNLP.Toolkit.Planes.CorpusPlaneMethodDesign">
+            <summary>
+            
+            </summary>
+            <seealso cref="T:imbNLP.Toolkit.Planes.Core.IPlaneMethodDesign" />
+        </member>
+        <member name="P:imbNLP.Toolkit.Planes.CorpusPlaneMethodDesign.tokenizer">
+            <summary>
+            Gets or sets the tokenizer.
+            </summary>
+            <value>
+            The tokenizer.
+            </value>
+        </member>
+        <member name="P:imbNLP.Toolkit.Planes.CorpusPlaneMethodDesign.stemmer">
+            <summary>
+            Gets or sets the stemmer.
+            </summary>
+            <value>
+            The stemmer.
+            </value>
+        </member>
+        <member name="P:imbNLP.Toolkit.Planes.CorpusPlaneMethodDesign.transliteration">
+            <summary>
+            Gets or sets the transliteration.
+            </summary>
+            <value>
+            The transliteration.
+            </value>
+        </member>
+        <member name="P:imbNLP.Toolkit.Planes.CorpusPlaneMethodDesign.filter">
+            <summary>
+            Gets or sets the filter.
+            </summary>
+            <value>
+            The filter.
+            </value>
+        </member>
+        <member name="P:imbNLP.Toolkit.Planes.CorpusPlaneMethodDesign.weightModel">
+            <summary>
+            Gets or sets the weight model.
+            </summary>
+            <value>
+            The weight model.
+            </value>
+        </member>
+        <member name="P:imbNLP.Toolkit.Planes.CorpusPlaneMethodDesign.spaceConstructor">
+            <summary>
+            Gets or sets the space constructor.
+            </summary>
+            <value>
+            The space constructor.
+            </value>
+        </member>
+        <member name="M:imbNLP.Toolkit.Planes.CorpusPlaneMethodDesign.DeploySettings(imbNLP.Toolkit.Planes.Core.IPlaneSettings,imbNLP.Toolkit.ExperimentModel.ToolkitExperimentNotes,imbSCI.Core.reporting.ILogBuilder)">
+            <summary>
+            Prepares everything for operation
+            </summary>
+            <param name="settings">The settings.</param>
+            <param name="_notes">The notes.</param>
+            <param name="logger">The logger.</param>
+        </member>
+        <member name="M:imbNLP.Toolkit.Planes.CorpusPlaneMethodDesign.ExecutePlaneMethod(imbNLP.Toolkit.Planes.Core.IPlaneContext,imbNLP.Toolkit.ExperimentModel.ExperimentModelExecutionContext,imbSCI.Core.reporting.ILogBuilder)">
+            <summary>
+            Executes the plane method, invoking contained functions according to the settings
+            </summary>
+            <param name="inputContext">The input context - related to this plane.</param>
+            <param name="generalContext">General execution context, attached to the <see cref="T:imbNLP.Toolkit.Planes.PlanesMethodDesign" /></param>
+            <param name="logger">The logger.</param>
+            <returns>
+            Retur
+            </returns>
+        </member>
+        <member name="T:imbNLP.Toolkit.Planes.EntityPlaneContext">
+            <summary>
+            Context for Entity Plane
+            </summary>
+            <seealso cref="T:imbNLP.Toolkit.Planes.IEntityPlaneContext" />
+            <seealso cref="T:imbNLP.Toolkit.Planes.Core.IPlaneContext" />
+        </member>
+        <member name="M:imbNLP.Toolkit.Planes.EntityPlaneContext.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:imbNLP.Toolkit.Planes.EntityPlaneContext"/> class.
+            </summary>
+        </member>
+        <member name="M:imbNLP.Toolkit.Planes.EntityPlaneContext.#ctor(System.Collections.Generic.List{imbNLP.Toolkit.Documents.WebSiteDocumentsSet})">
+            <summary>
+            Initializes a new instance of the <see cref="T:imbNLP.Toolkit.Planes.EntityPlaneContext"/> class.
+            </summary>
+            <param name="_dataset">The dataset.</param>
+        </member>
+        <member name="P:imbNLP.Toolkit.Planes.EntityPlaneContext.dataset">
+            <summary>
+            Gets or sets the dataset.
+            </summary>
+            <value>
+            The dataset.
+            </value>
+        </member>
+        <member name="T:imbNLP.Toolkit.Planes.EntityPlaneMethodDesign">
+            <summary>
+            Entity representation and transformation procedure
+            </summary>
+            <seealso cref="T:imbNLP.Toolkit.Planes.Core.IPlaneMethodDesign" />
+        </member>
+        <member name="P:imbNLP.Toolkit.Planes.EntityPlaneMethodDesign.render">
+            <summary>
+            Gets or sets the render.
+            </summary>
+            <value>
+            The render.
+            </value>
+        </member>
+        <member name="P:imbNLP.Toolkit.Planes.EntityPlaneMethodDesign.filter">
+            <summary>
+            Gets or sets the filter.
+            </summary>
+            <value>
+            The filter.
+            </value>
+        </member>
+        <member name="P:imbNLP.Toolkit.Planes.EntityPlaneMethodDesign.blender">
+            <summary>
+            Gets or sets the blender.
+            </summary>
+            <value>
+            The blender.
+            </value>
+        </member>
+        <member name="M:imbNLP.Toolkit.Planes.EntityPlaneMethodDesign.DeploySettings(imbNLP.Toolkit.Planes.Core.IPlaneSettings,imbNLP.Toolkit.ExperimentModel.ToolkitExperimentNotes,imbSCI.Core.reporting.ILogBuilder)">
+            <summary>
+            Prepares everything for operation
+            </summary>
+            <param name="settings">The settings.</param>
+            <param name="logger">The logger.</param>
+        </member>
+        <member name="M:imbNLP.Toolkit.Planes.EntityPlaneMethodDesign.ExecutePlaneMethod(imbNLP.Toolkit.Planes.Core.IPlaneContext,imbNLP.Toolkit.ExperimentModel.ExperimentModelExecutionContext,imbSCI.Core.reporting.ILogBuilder)">
+            <summary>
+            Executes the plane method, invoking contained functions according to the settings
+            </summary>
+            <param name="inputContext">The input context - related to this plane.</param>
+            <param name="generalContext">General execution context, attached to the <see cref="T:imbNLP.Toolkit.Planes.PlanesMethodDesign" /></param>
+            <param name="logger">The logger.</param>
+            <returns>
+            Retur
+            </returns>
+        </member>
+        <member name="T:imbNLP.Toolkit.Planes.FeaturePlaneContext">
+            <summary>
+            Feature Plane context
+            </summary>
+            <seealso cref="T:imbNLP.Toolkit.Planes.IFeaturePlaneContext" />
+            <seealso cref="T:imbNLP.Toolkit.Planes.Core.IPlaneContext" />
+        </member>
+        <member name="T:imbNLP.Toolkit.Planes.FeaturePlaneMethodDesign">
+            <summary>
+            
+            </summary>
+            <seealso cref="T:imbNLP.Toolkit.Planes.Core.IPlaneMethodDesign" />
+        </member>
+        <member name="P:imbNLP.Toolkit.Planes.FeaturePlaneMethodDesign.classifier">
+            <summary>
+            Gets or sets the classifier.
+            </summary>
+            <value>
+            The classifier.
+            </value>
+        </member>
+        <member name="M:imbNLP.Toolkit.Planes.FeaturePlaneMethodDesign.DeploySettings(imbNLP.Toolkit.Planes.Core.IPlaneSettings,imbNLP.Toolkit.ExperimentModel.ToolkitExperimentNotes,imbSCI.Core.reporting.ILogBuilder)">
+            <summary>
+            Prepares everything for operation
+            </summary>
+            <param name="settings">The settings.</param>
+            <param name="_notes">The notes.</param>
+            <param name="logger">The logger.</param>
+        </member>
+        <member name="M:imbNLP.Toolkit.Planes.FeaturePlaneMethodDesign.ExecutePlaneMethod(imbNLP.Toolkit.Planes.Core.IPlaneContext,imbNLP.Toolkit.ExperimentModel.ExperimentModelExecutionContext,imbSCI.Core.reporting.ILogBuilder)">
+            <summary>
+            Executes the plane method, invoking contained functions according to the settings
+            </summary>
+            <param name="inputContext">The input context - related to this plane.</param>
+            <param name="generalContext">General execution context, attached to the <see cref="T:imbNLP.Toolkit.Planes.PlanesMethodDesign" /></param>
+            <param name="logger">The logger.</param>
+            <returns>
+            Retur
+            </returns>
+        </member>
+        <member name="T:imbNLP.Toolkit.Planes.FeaturePlaneMethodSettings">
+            <summary>
+            Settings for all vector planes of a NLP experiment
+            </summary>
+            <seealso cref="T:imbNLP.Toolkit.Planes.Core.IPlaneSettings" />
+        </member>
+        <member name="P:imbNLP.Toolkit.Planes.FeaturePlaneMethodSettings.classifierSettings">
+            <summary>
+            Settings for the classification algorithm
+            </summary>
+            <value>
+            The classifier settings.
+            </value>
+        </member>
+        <member name="T:imbNLP.Toolkit.Planes.ICorpusPlaneContext">
+            <summary>
+            Corpus plane context
+            </summary>
+            <seealso cref="T:imbNLP.Toolkit.Planes.Core.IPlaneContext" />
+        </member>
+        <member name="T:imbNLP.Toolkit.Planes.IVectorPlaneContext">
+            <summary>
+            Vector plane context interface
+            </summary>
+            <seealso cref="T:imbNLP.Toolkit.Planes.Core.IPlaneContext" />
+        </member>
+        <member name="P:imbNLP.Toolkit.Planes.IVectorPlaneContext.vectorSpace">
+            <summary>
+            Gets or sets the vector space.
+            </summary>
+            <value>
+            The vector space.
+            </value>
+        </member>
+        <member name="T:imbNLP.Toolkit.Planes.MethodDesignBase">
+            <summary>
+            Common base for method design classes
+            </summary>
+        </member>
+        <!-- Badly formed XML comment ignored for member "T:imbNLP.Toolkit.Planes.NamespaceDoc" -->
+        <member name="T:imbNLP.Toolkit.Planes.NamespaceGroupDoc">
+            <inheritdoc/>
+        </member>
+        <member name="T:imbNLP.Toolkit.Planes.PlanesMethodContext">
+            <summary>
+            Context of the planes procedure
+            </summary>
+            <seealso cref="T:imbNLP.Toolkit.Planes.IEntityPlaneContext" />
+            <seealso cref="T:imbNLP.Toolkit.Planes.ICorpusPlaneContext" />
+            <seealso cref="T:imbNLP.Toolkit.Planes.IVectorPlaneContext" />
+            <seealso cref="T:imbNLP.Toolkit.Planes.IFeaturePlaneContext" />
+            <seealso cref="T:imbNLP.Toolkit.Planes.Core.IPlaneContext" />
+        </member>
+        <member name="P:imbNLP.Toolkit.Planes.PlanesMethodContext.dataset">
+            <summary>
+            Reference to the fold
+            </summary>
+            <value>
+            The dataset.
+            </value>
+        </member>
+        <member name="M:imbNLP.Toolkit.Planes.PlanesMethodDesign.CreateContext(System.String,imbSCI.Core.files.folders.folderNode)">
+            <summary>
+            Creates the context.
+            </summary>
+            <param name="name">The name.</param>
+            <param name="folder">Root folder for experiment</param>
+            <returns></returns>
+        </member>
+        <member name="T:imbNLP.Toolkit.Planes.PlanesMethodSettings">
+            <summary>
+            Settings covering the whole 
+            </summary>
+            <seealso cref="T:imbNLP.Toolkit.Planes.Core.IPlaneSettings" />
+        </member>
+        <member name="M:imbNLP.Toolkit.Planes.PlanesMethodSettings.GetDefaultSettings">
+            <summary>
+            Gets default configuration
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:imbNLP.Toolkit.Planes.PlanesMethodSettings.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:imbNLP.Toolkit.Planes.PlanesMethodSettings"/> class.
+            </summary>
+        </member>
+        <member name="P:imbNLP.Toolkit.Planes.PlanesMethodSettings.entityMethod">
+            <summary>
+            Gets or sets the entity method settings
+            </summary>
+            <value>
+            The entity method.
+            </value>
+        </member>
+        <member name="P:imbNLP.Toolkit.Planes.PlanesMethodSettings.corpusMethod">
+            <summary>
+            Gets or sets the corpus method settings
+            </summary>
+            <value>
+            The corpus method.
+            </value>
+        </member>
+        <member name="P:imbNLP.Toolkit.Planes.PlanesMethodSettings.vectorMethod">
+            <summary>
+            Gets or sets the vector method settings
+            </summary>
+            <value>
+            The vector method.
+            </value>
+        </member>
+        <member name="P:imbNLP.Toolkit.Planes.PlanesMethodSettings.featureMethod">
+            <summary>
+            Gets or sets the feature method settings
+            </summary>
+            <value>
+            The feature method.
+            </value>
+        </member>
+        <member name="T:imbNLP.Toolkit.Planes.VectorPlaneContext">
+            <summary>
+            Vector Plane context
+            </summary>
+            <seealso cref="T:imbNLP.Toolkit.Planes.IVectorPlaneContext" />
+            <seealso cref="T:imbNLP.Toolkit.Planes.Core.IPlaneContext" />
+        </member>
+        <member name="P:imbNLP.Toolkit.Planes.VectorPlaneContext.vectorSpace">
+            <summary>
+            Gets or sets the vector space.
+            </summary>
+            <value>
+            The vector space.
+            </value>
+        </member>
+        <member name="T:imbNLP.Toolkit.Planes.VectorPlaneMethodDesign">
+            <summary>
+            
+            </summary>
+            <seealso cref="T:imbNLP.Toolkit.Planes.MethodDesignBase" />
+            <seealso cref="T:imbNLP.Toolkit.Planes.Core.IPlaneMethodDesign" />
+        </member>
+        <member name="M:imbNLP.Toolkit.Planes.VectorPlaneMethodDesign.ExecutePlaneMethod(imbNLP.Toolkit.Planes.Core.IPlaneContext,imbNLP.Toolkit.ExperimentModel.ExperimentModelExecutionContext,imbSCI.Core.reporting.ILogBuilder)">
+            <summary>
+            Generates feature vectors 
+            </summary>
+            <param name="inputContext">The input context - related to this plane.</param>
+            <param name="generalContext">General execution context, attached to the <see cref="T:imbNLP.Toolkit.Planes.PlanesMethodDesign" /></param>
+            <param name="logger">The logger.</param>
+            <returns>
+            Retur
+            </returns>
+        </member>
+        <member name="T:imbNLP.Toolkit.Processing.ITokenizer">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:imbNLP.Toolkit.Processing.StemmingContext">
+            <summary>
+            Provides basic optimization for stemmer by caching results for the words
+            </summary>
+        </member>
+        <member name="P:imbNLP.Toolkit.Processing.StemmingContext.stemmer">
+            <summary>
+            Gets or sets the stemmer.
+            </summary>
+            <value>
+            The stemmer.
+            </value>
+        </member>
+        <member name="P:imbNLP.Toolkit.Processing.StemmingContext.wordToStem">
+            <summary>
+            Gets or sets the word to stem.
+            </summary>
+            <value>
+            The word to stem.
+            </value>
+        </member>
+        <member name="M:imbNLP.Toolkit.Processing.StemmingContext.Stem(System.String)">
+            <summary>
+            Stems the specified token.
+            </summary>
+            <param name="token">The token.</param>
+            <returns></returns>
+        </member>
+        <member name="T:imbNLP.Toolkit.Processing.TokenDictionary">
+            <summary>
+            Stores raw frequencies of the tokens
+            </summary>
+        </member>
+        <member name="P:imbNLP.Toolkit.Processing.TokenDictionary.Count">
+            <summary>
+            Gets the count of distinct tokens in the dictionary
+            </summary>
+            <value>
+            The count.
+            </value>
+        </member>
+        <member name="M:imbNLP.Toolkit.Processing.TokenDictionary.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:imbNLP.Toolkit.Processing.TokenDictionary"/> class.
+            </summary>
+        </member>
+        <member name="M:imbNLP.Toolkit.Processing.TokenDictionary.#ctor(System.Collections.Generic.IEnumerable{System.String})">
+            <summary>
+            Builds dictionary from tokens specified
+            </summary>
+            <param name="tokens">The tokens.</param>
+        </member>
+        <member name="M:imbNLP.Toolkit.Processing.TokenDictionary.GetTokens">
+            <summary>
+            Gets list of currently known tokens
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:imbNLP.Toolkit.Processing.TokenDictionary.GetRankedTokenFrequency(System.Int32)">
+            <summary>
+            Gets ranked list of tokens and their absolute frequencies
+            </summary>
+            <param name="limit">The limit.</param>
+            <returns></returns>
+        </member>
+        <member name="M:imbNLP.Toolkit.Processing.TokenDictionary.MergeDictionary(imbNLP.Toolkit.Processing.TokenDictionary)">
+            <summary>
+            Collects all tokens and sums their frequencies with existing data in the dictionary
+            </summary>
+            <param name="input">The input.</param>
+        </member>
+        <member name="M:imbNLP.Toolkit.Processing.TokenDictionary.GetTokenIDs(System.Collections.Generic.IEnumerable{System.String})">
+            <summary>
+            Returns list of IDs for given token list
+            </summary>
+            <param name="input">The input.</param>
+            <returns></returns>
+        </member>
+        <member name="M:imbNLP.Toolkit.Processing.TokenDictionary.CountTokens(System.Collections.Generic.IEnumerable{System.String})">
+            <summary>
+            Counts the tokens.
+            </summary>
+            <param name="tokens">The tokens.</param>
+        </member>
+        <member name="M:imbNLP.Toolkit.Processing.TokenDictionary.GetMaxFrequency">
+            <summary>
+            Returns maximum frequency
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:imbNLP.Toolkit.Processing.TokenDictionary.GetSumFrequency">
+            <summary>
+            Sum of all frequencies
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:imbNLP.Toolkit.Processing.TokenDictionary.GetSquareRootOfSumSquareFrequencies">
+            <summary>
+            Returns square root of summation of the sqares of term frequencies
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:imbNLP.Toolkit.Processing.TokenDictionary.CountToken(System.String,System.Int32)">
+            <summary>
+            Adds oscore point/s to the token frequency. If the token wasn't registered with the dictionary, it will register it automatically.
+            </summary>
+            <param name="token">The token - token in the dictionary</param>
+            <param name="score">The score - points to be added.</param>
+        </member>
+        <member name="M:imbNLP.Toolkit.Processing.TokenDictionary.GetTokenFrequency(System.String)">
+            <summary>
+            Gets frequency of the token
+            </summary>
+            <param name="token">The token.</param>
+            <returns></returns>
+        </member>
+        <member name="M:imbNLP.Toolkit.Processing.TokenDictionary.GetTokenByID(System.Int32)">
+            <summary>
+            Gets the token by identifier.
+            </summary>
+            <param name="id">The identifier.</param>
+            <returns></returns>
+        </member>
+        <member name="M:imbNLP.Toolkit.Processing.TokenDictionary.GetTokenID(System.String)">
+            <summary>
+            Returns ID of the token specified
+            </summary>
+            <param name="str">The token</param>
+            <returns></returns>
+        </member>
+        <member name="M:imbNLP.Toolkit.Processing.TokenDictionary.AddToken(System.String,System.Int32)">
+            <summary>
+            Registers new token, returns assigned ID
+            </summary>
+            <param name="str">The string.</param>
+            <returns></returns>
+        </member>
+        <member name="T:imbNLP.Toolkit.Processing.TokenizerBase">
+            <summary>
+            Common base for different tokenizers.
+            </summary>
+        </member>
+        <member name="M:imbNLP.Toolkit.Processing.TokenizerBase.Tokenize(System.String)">
+            <summary>
+            Tokenizes the specified text, according to the configuration of the tokenizer
+            </summary>
+            <param name="text">The text.</param>
+            <returns></returns>
+        </member>
+        <member name="P:imbNLP.Toolkit.Processing.TokenizerBase.InputReplacers">
+            <summary>
+            Set of replacement rules to be applied on a text, before splitting the text into tokens
+            </summary>
+            <value>
+            The input replacers.
+            </value>
+        </member>
+        <member name="M:imbNLP.Toolkit.Processing.TokenizerBase.ExecuteInputReplacers(System.String)">
+            <summary>
+            Executes all replacement rules from the <see cref="P:imbNLP.Toolkit.Processing.TokenizerBase.InputReplacers"/> collection
+            </summary>
+            <param name="text">The text.</param>
+            <returns></returns>
+        </member>
+        <member name="P:imbNLP.Toolkit.Processing.TokenizerBase.TokenSplitterChars">
+            <summary>
+            Characters that are going to be used to split the text into tokens
+            </summary>
+            <value>
+            The token splitter chars.
+            </value>
+        </member>
+        <member name="T:imbNLP.Toolkit.Processing.TokenizerBasic">
+            <summary>
+            Basic tokenizer for English - it removes all non-Latin characters during tokenization
+            </summary>
+            <seealso cref="T:imbNLP.Toolkit.Processing.TokenizerBase" />
+        </member>
+        <member name="M:imbNLP.Toolkit.Processing.TokenizerBasic.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:imbNLP.Toolkit.Processing.TokenizerBasic"/> class.
+            </summary>
+        </member>
+        <member name="T:imbNLP.Toolkit.Processing.TokenizeReplaceRule">
+            <summary>
+            Instance of string replacement rule, utilized by tokenizers
+            </summary>
+        </member>
+        <member name="P:imbNLP.Toolkit.Processing.TokenizeReplaceRule.RegexSearch">
+            <summary>
+            Regular expression used as needle
+            </summary>
+            <value>
+            The regex search.
+            </value>
+        </member>
+        <member name="P:imbNLP.Toolkit.Processing.TokenizeReplaceRule.RegexReplace">
+            <summary>
+            Replacement string value
+            </summary>
+            <value>
+            The regex replace.
+            </value>
+        </member>
+        <member name="P:imbNLP.Toolkit.Processing.TokenizeReplaceRule.Comment">
+            <summary>
+            Human-readable comment on Regex replacement instruction
+            </summary>
+            <value>
+            The comment.
+            </value>
+        </member>
+        <member name="M:imbNLP.Toolkit.Processing.TokenizeReplaceRule.#ctor">
+            <summary>
+            Constructor to be used by XML serializer
+            </summary>
+        </member>
+        <member name="M:imbNLP.Toolkit.Processing.TokenizeReplaceRule.#ctor(System.String,System.String,System.String)">
+            <summary>
+            Main constructor, to be used when rule is specified from the code
+            </summary>
+            <param name="Search">The search.</param>
+            <param name="Replace">The replace.</param>
+        </member>
+        <member name="M:imbNLP.Toolkit.Processing.TokenizeReplaceRule.Execute(System.String)">
+            <summary>
+            Executes the rule against the specified text.
+            </summary>
+            <param name="text">The text.</param>
+            <returns>processed version of the text</returns>
+        </member>
+        <member name="T:imbNLP.Toolkit.Processing.WeightDictionary">
+            <summary>
+            Table of terms with weights
+            </summary>
+        </member>
+        <member name="P:imbNLP.Toolkit.Processing.WeightDictionary.entries">
+            <summary>
+            Entries of dictionary
+            </summary>
+            <value>
+            The entries.
+            </value>
+        </member>
+        <member name="M:imbNLP.Toolkit.Processing.WeightDictionary.AddEntry(System.String,System.Double)">
+            <summary>
+            Adds the entry.
+            </summary>
+            <param name="term">The term.</param>
+            <param name="score">The score.</param>
+            <returns></returns>
+        </member>
+        <member name="M:imbNLP.Toolkit.Processing.WeightDictionary.AddEntry(System.String,System.Double[])">
+            <summary>
+            Adds the entry.
+            </summary>
+            <param name="term">The term.</param>
+            <param name="score">The score.</param>
+            <returns></returns>
+        </member>
+        <member name="P:imbNLP.Toolkit.Processing.WeightDictionary.index">
+            <summary>
+            Index of weights vs terms
+            </summary>
+            <value>
+            The index.
+            </value>
+        </member>
+        <member name="T:imbNLP.Toolkit.Processing.WeightDictionaryEntry">
+            <summary>
+            Entry describing weight for a textual token
+            </summary>
+        </member>
+        <member name="M:imbNLP.Toolkit.Processing.WeightDictionaryEntry.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:imbNLP.Toolkit.Processing.WeightDictionaryEntry"/> class.
+            </summary>
+        </member>
+        <member name="M:imbNLP.Toolkit.Processing.WeightDictionaryEntry.#ctor(System.String,System.Double)">
+            <summary>
+            Initializes a new instance of the <see cref="T:imbNLP.Toolkit.Processing.WeightDictionaryEntry"/> class.
+            </summary>
+            <param name="_name">The name.</param>
+            <param name="_weight">The weight.</param>
+        </member>
+        <member name="M:imbNLP.Toolkit.Processing.WeightDictionaryEntry.#ctor(System.String,System.Double[])">
+            <summary>
+            Creates multi dimensional weight entry
+            </summary>
+            <param name="_name">The name.</param>
+            <param name="_weight">The weight.</param>
+        </member>
+        <member name="P:imbNLP.Toolkit.Processing.WeightDictionaryEntry.name">
+            <summary>
+            Text token
+            </summary>
+            <value>
+            The name.
+            </value>
+        </member>
+        <member name="P:imbNLP.Toolkit.Processing.WeightDictionaryEntry.weight">
+            <summary>
+            Wight
+            </summary>
+            <value>
+            The weight.
+            </value>
+        </member>
+        <member name="T:imbNLP.Toolkit.Processing.WeightDictionaryEntryPair">
+            <summary>
+            Pair of matched features
+            </summary>
+        </member>
+        <member name="M:imbNLP.Toolkit.Processing.WeightDictionaryEntryPair.#ctor(System.String,System.Double,System.Double)">
+            <summary>
+            Initializes a new instance of the <see cref="T:imbNLP.Toolkit.Processing.WeightDictionaryEntryPair"/> class.
+            </summary>
+            <param name="_name">The name.</param>
+            <param name="_wa">The wa.</param>
+            <param name="_wb">The wb.</param>
+        </member>
+        <member name="P:imbNLP.Toolkit.Processing.WeightDictionaryEntryPair.name">
+            <summary>
+            Text token
+            </summary>
+            <value>
+            The name.
+            </value>
+        </member>
+        <member name="P:imbNLP.Toolkit.Processing.WeightDictionaryEntryPair.weight_A">
+            <summary>
+            Wight
+            </summary>
+            <value>
+            The weight.
+            </value>
+        </member>
+        <member name="P:imbNLP.Toolkit.Processing.WeightDictionaryEntryPair.weight_B">
+            <summary>
+            Wight
+            </summary>
+            <value>
+            The weight.
+            </value>
+        </member>
+        <member name="T:imbNLP.Toolkit.Processing.WeightDictionaryEntryPairs">
+            <summary>
+            Set of matched features
+            </summary>
+            <seealso cref="!:System.Collections.Generic.List&lt;imbNLP.Toolkit.Processing.WeightDictionaryEntryPair&gt;" />
+        </member>
+        <member name="M:imbNLP.Toolkit.Processing.WeightDictionaryEntryPairs.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:imbNLP.Toolkit.Processing.WeightDictionaryEntryPairs"/> class.
+            </summary>
+        </member>
+        <member name="M:imbNLP.Toolkit.Processing.WeightDictionaryEntryPairs.#ctor(System.Collections.Generic.IEnumerable{imbNLP.Toolkit.Processing.WeightDictionaryEntry},System.Collections.Generic.IEnumerable{imbNLP.Toolkit.Processing.WeightDictionaryEntry},System.Int32,System.Int32)">
+            <summary>
+            Initializes a new instance of the <see cref="T:imbNLP.Toolkit.Processing.WeightDictionaryEntryPairs"/> class.
+            </summary>
+            <param name="vectorA">The vector a.</param>
+            <param name="vectorB">The vector b.</param>
+            <param name="vectorADimID">The vector a dim identifier.</param>
+            <param name="vectorBDimID">The vector b dim identifier.</param>
+        </member>
+        <member name="T:imbNLP.Toolkit.Processing.WeightDictionaryTools">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:imbNLP.Toolkit.Processing.WeightDictionaryTools.CompressNumericVector(imbNLP.Toolkit.Processing.WeightDictionaryEntry,imbSCI.Core.enums.operation)">
+            <summary>
+            Compresses the numeric vector.
+            </summary>
+            <param name="nVector">The n vector.</param>
+            <param name="operation">Allowed operations: <see cref="F:imbSCI.Core.enums.operation.multiplication"/>, <see cref="F:imbSCI.Core.enums.operation.max"/>, <see cref="F:imbSCI.Core.enums.operation.min"/>, <see cref="F:imbSCI.Core.enums.operation.plus"/></param>
+            <returns></returns>
+            <exception cref="T:System.ArgumentOutOfRangeException">Operation [" + operation.ToString() + "] not supported by this method. - operation</exception>
+        </member>
+        <member name="T:imbNLP.Toolkit.Reporting.NamespaceDoc">
+            <summary>
+            Reporting tools and helpers
+            </summary>
+            <remarks>
+            Extension methods and classes that help reporting on the data produced by imbNLP.Toolkit
+            </remarks>
+        </member>
+        <member name="T:imbNLP.Toolkit.Reporting.NamespaceGroupDoc">
+            <inheritdoc/>
+        </member>
+        <member name="M:imbNLP.Toolkit.Reporting.ReportGenerators.MakeTable``2(imbNLP.Toolkit.Core.Relationships{``0,``1},System.String,System.String)">
+            <summary>
+            Makes the table.
+            </summary>
+            <typeparam name="TNodeA">The type of the node a.</typeparam>
+            <typeparam name="TNodeB">The type of the node b.</typeparam>
+            <param name="relationship">The relationship.</param>
+            <param name="name">The name.</param>
+            <param name="description">The description.</param>
+            <returns></returns>
+        </member>
+        <member name="M:imbNLP.Toolkit.Reporting.ReportGenerators.MakeTable(imbNLP.Toolkit.Processing.WeightDictionary,System.String,System.String,System.Collections.Generic.List{System.String},System.Int32)">
+            <summary>
+            Makes ranked weight table
+            </summary>
+            <param name="terms">The terms.</param>
+            <param name="name">The name.</param>
+            <param name="description">The description.</param>
+            <param name="dimension">Custom names of dimensions - for case of vector collection</param>
+            <param name="limit">The limit.</param>
+            <returns></returns>
+        </member>
+        <member name="M:imbNLP.Toolkit.Reporting.ReportGenerators.MakeTable(imbNLP.Toolkit.Processing.TokenDictionary,System.String,System.String,System.Int32)">
+            <summary>
+            Makes ranked table with term frequencies
+            </summary>
+            <param name="terms">The terms.</param>
+            <param name="name">The name.</param>
+            <param name="description">The description.</param>
+            <param name="limit">The limit.</param>
+            <returns></returns>
+        </member>
+        <member name="T:imbNLP.Toolkit.Space.SpaceCategoryModel">
+            <summary>
+            Model for a category
+            </summary>
+            <seealso cref="T:imbNLP.Toolkit.Space.SpaceTerm" />
+        </member>
+        <member name="M:imbNLP.Toolkit.Space.SpaceCategoryModel.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:imbNLP.Toolkit.Space.SpaceCategoryModel"/> class.
+            </summary>
+        </member>
+        <member name="M:imbNLP.Toolkit.Space.SpaceCategoryModel.#ctor(imbNLP.Toolkit.Space.SpaceLabel,System.Collections.Generic.IEnumerable{imbNLP.Toolkit.Space.SpaceDocumentModel})">
+            <summary>
+            Initializes a new instance of the <see cref="T:imbNLP.Toolkit.Space.SpaceCategoryModel"/> class.
+            </summary>
+            <param name="label">The label.</param>
+            <param name="documents">The documents.</param>
+        </member>
+        <member name="T:imbNLP.Toolkit.Space.SpaceCorpora">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="T:imbNLP.Toolkit.Space.SpaceCorporaEntry">
+            <summary>
+            Statistical row in the corpora
+            </summary>
+        </member>
+        <member name="T:imbNLP.Toolkit.Space.SpaceDocumentModel">
+            <summary>
+            Model of an document, sent for analysis by a algorithm in the toolkit
+            </summary>
+            <remarks>
+            <para>The frequency property of DocumentModel, represents total number of tokens that are represented by the model (i.e. sum of all absolute frequencies of the LemmaTerm)</para>
+            </remarks>
+        </member>
+        <member name="F:imbNLP.Toolkit.Space.SpaceDocumentModel.Words">
+            <summary>
+            Index of words
+            </summary>
+            <value>
+            The words.
+            </value>
+        </member>
+        <member name="F:imbNLP.Toolkit.Space.SpaceDocumentModel.Length">
+            <summary>
+            The length - number of tokens
+            </summary>
+        </member>
+        <member name="P:imbNLP.Toolkit.Space.SpaceDocumentModel.terms">
+            <summary>
+            Terms of the document
+            </summary>
+            <value>
+            The terms.
+            </value>
+        </member>
+        <member name="M:imbNLP.Toolkit.Space.SpaceDocumentModel.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:imbNLP.Toolkit.Space.SpaceDocumentModel"/> class.
+            </summary>
+        </member>
+        <member name="T:imbNLP.Toolkit.Space.SpaceLabel">
+            <summary>
+            Label - represents Category or Class in context of text classification problem
+            </summary>
+            <seealso cref="T:imbNLP.Toolkit.Space.SpaceTerm" />
+        </member>
+        <member name="F:imbNLP.Toolkit.Space.SpaceLabel.UNKNOWN">
+            <summary>
+            The unknown - label name for non label :)
+            </summary>
+        </member>
+        <member name="T:imbNLP.Toolkit.Space.SpaceModel">
+            <summary>
+            Describes associations between entities in the model, e.g. <see cref="T:imbNLP.Toolkit.Space.SpaceTopic"/>-<see cref="T:imbNLP.Toolkit.Space.SpaceDocumentModel"/> and similar.
+            </summary>
+        </member>
+        <member name="P:imbNLP.Toolkit.Space.SpaceModel.terms">
+            <summary>
+            Raw frequency dictionary for all terms
+            </summary>
+            <value>
+            The terms.
+            </value>
+        </member>
+        <member name="P:imbNLP.Toolkit.Space.SpaceModel.labels">
+            <summary>
+            Labels represent categories in the classification problem
+            </summary>
+            <value>
+            The labels.
+            </value>
+        </member>
+        <member name="P:imbNLP.Toolkit.Space.SpaceModel.topics">
+            <summary>
+            Gets or sets the topics.
+            </summary>
+            <value>
+            The topics.
+            </value>
+        </member>
+        <member name="T:imbNLP.Toolkit.Space.SpaceModelConstructor">
+            <summary>
+            Constructor for the <see cref="T:imbNLP.Toolkit.Space.SpaceDocumentModel"/> instances
+            </summary>
+        </member>
+        <member name="M:imbNLP.Toolkit.Space.SpaceModelConstructor.ConstructDocument(System.String,System.String,imbNLP.Toolkit.Space.SpaceModel,imbNLP.Toolkit.Planes.ICorpusPlaneContext,imbNLP.Toolkit.Processing.ITokenizer,imbNLP.Toolkit.Documents.Analysis.ContentMetrics)">
+            <summary>
+            Constructs a document model
+            </summary>
+            <param name="text">The text.</param>
+            <param name="name">The name.</param>
+            <param name="context">The context.</param>
+            <param name="corpusContext">The corpus context.</param>
+            <param name="tokenizer">The tokenizer.</param>
+            <returns></returns>
+        </member>
+        <member name="M:imbNLP.Toolkit.Space.SpaceModelConstructor.AddLabel(System.String,imbNLP.Toolkit.Space.SpaceModel)">
+            <summary>
+            Adds the label if not already declared within the context
+            </summary>
+            <param name="text">The text.</param>
+            <param name="context">The context.</param>
+        </member>
+        <member name="M:imbNLP.Toolkit.Space.SpaceModelConstructor.GetLabels(System.Collections.Generic.IEnumerable{System.String},imbNLP.Toolkit.Space.SpaceModel)">
+            <summary>
+            Gets the label instances for given list of label names
+            </summary>
+            <param name="labelIds">The label ids.</param>
+            <param name="context">The context.</param>
+            <returns></returns>
+        </member>
+        <member name="T:imbNLP.Toolkit.Space.SpaceTerm">
+            <summary>
+            Represents one distinct word, before stemming and lematizzation
+            </summary>
+        </member>
+        <member name="P:imbNLP.Toolkit.Space.SpaceTerm.data">
+            <summary>
+            Optionally associated object reference
+            </summary>
+            <value>
+            The data.
+            </value>
+        </member>
+        <member name="P:imbNLP.Toolkit.Space.SpaceTerm.name">
+            <summary>
+            Gets or sets the content.
+            </summary>
+            <value>
+            The content.
+            </value>
+        </member>
+        <member name="P:imbNLP.Toolkit.Space.SpaceTerm.type">
+            <summary>
+            type of the term
+            </summary>
+            <value>
+            </value>
+        </member>
+        <member name="P:imbNLP.Toolkit.Space.SpaceTerm.weight">
+            <summary>
+            Gets or sets the weight.
+            </summary>
+            <value>
+            The weight.
+            </value>
+        </member>
+        <member name="T:imbNLP.Toolkit.Space.SpaceTopic">
+            <summary>
+            Topic - represents extracted topics, i.e. ones produced by an algorithm for latent semantic analysis and/or topic modeling
+            </summary>
+            <seealso cref="T:imbNLP.Toolkit.Space.SpaceTerm" />
+        </member>
+        <member name="P:imbNLP.Toolkit.Space.SpaceWord.name">
+            <summary>
+            Content
+            </summary>
+            <value>
+            The name.
+            </value>
+        </member>
+        <member name="P:imbNLP.Toolkit.Space.SpaceWord.id">
+            <summary>
+            Corpus global ID
+            </summary>
+            <value>
+            The identifier.
+            </value>
+        </member>
+        <member name="F:imbNLP.Toolkit.Stemmers.nltkTools._select_isSuffixRulePattern">
+            <summary>
+            Regex select SuffixRulePattern : '([\w]*)'\:'([\w]*)',?
+            </summary>
+            <remarks>
+            <para>For text: example text</para>
+            <para>Selects: ex</para>
+            </remarks>
+        </member>
+        <member name="M:imbNLP.Toolkit.Stemmers.nltkTools.isSuffixRulePattern(System.String)">
+            <summary>
+            Test if input matches '([\w]*)'\:'([\w]*)',?
+            </summary>
+            <param name="input">String to test</param>
+            <returns>IsMatch against _select_isSuffixRulePattern</returns>
+        </member>
+        <member name="T:imbNLP.Toolkit.Stemmers.Porter2Stemmer.EnglishPorter2Stemmer">
+            <summary>
+            Based off of the improved Porter2 algorithm:
+            http://snowball.tartarus.org/algorithms/english/stemmer.html
+            </summary>
+        </member>
+        <member name="M:imbNLP.Toolkit.Stemmers.Porter2Stemmer.EnglishPorter2Stemmer.Stem(System.String)">
+            <summary>
+            Creates stemmed work -- without suffix/preffixes
+            </summary>
+            <param name="word">Word to stem.</param>
+            <returns>
+            The stemmed word, with a reference to the original unstemmed word.
+            </returns>
+        </member>
+        <member name="M:imbNLP.Toolkit.Stemmers.Porter2Stemmer.EnglishPorter2Stemmer.TrimStartingApostrophe(System.String)">
+            <summary>
+            The English stemmer treats apostrophe as a letter, removing it from the beginning of a word, where it might have stood for an opening quote, from the end of the word, where it might have stood for a closing quote, or been an apostrophe following s.
+            </summary>
+            <param name="word"></param>
+            <returns></returns>
+        </member>
+        <member name="M:imbNLP.Toolkit.Stemmers.Porter2Stemmer.EnglishPorter2Stemmer.GetRegion1(System.String)">
+            <summary>
+            R1 is the region after the first non-vowel following a vowel, or the end of the word if there is no such non-vowel.
+            </summary>
+            <param name="word"></param>
+            <returns></returns>
+        </member>
+        <member name="M:imbNLP.Toolkit.Stemmers.Porter2Stemmer.EnglishPorter2Stemmer.GetRegion2(System.String)">
+            <summary>
+            R2 is the region after the first non-vowel following a vowel in R1, or the end of the word if there is no such non-vowel.
+            </summary>
+            <param name="word"></param>
+            <returns></returns>
+        </member>
+        <member name="M:imbNLP.Toolkit.Stemmers.Porter2Stemmer.EnglishPorter2Stemmer.EndsInShortSyllable(System.String)">
+            <summary>
+            Define a short syllable in a word as either (a) a vowel followed
+            by a non-vowel other than w, x or Y and preceded by a non-vowel,
+            or * (b) a vowel at the beginning of the word followed by a non-vowel.
+            </summary>
+            <param name="word"></param>
+            <returns></returns>
+        </member>
+        <member name="M:imbNLP.Toolkit.Stemmers.Porter2Stemmer.EnglishPorter2Stemmer.IsShortWord(System.String)">
+            <summary>
+            A word is called short if it ends in a short syllable, and if R1 is null.
+            </summary>
+            <param name="word"></param>
+            <returns></returns>
+        </member>
+        <member name="M:imbNLP.Toolkit.Stemmers.Porter2Stemmer.EnglishPorter2Stemmer.MarkYsAsConsonants(System.String)">
+            <summary>
+            Set initial y, or y after a vowel, to Y
+            </summary>
+            <param name="word"></param>
+            <returns></returns>
+        </member>
+        <member name="P:imbNLP.Toolkit.Stemmers.Porter2Stemmer.IPorter2Stemmer.Vowels">
+            <summary>
+            Vowel characters used for stemming.
+            </summary>
+        </member>
+        <member name="P:imbNLP.Toolkit.Stemmers.Porter2Stemmer.IPorter2Stemmer.Doubles">
+            <summary>
+            Valid doubled letters used for stemming.
+            </summary>
+        </member>
+        <member name="P:imbNLP.Toolkit.Stemmers.Porter2Stemmer.IPorter2Stemmer.LiEndings">
+            <summary>
+            Li- endings used for stemming.
+            </summary>
+        </member>
+        <member name="M:imbNLP.Toolkit.Stemmers.Porter2Stemmer.IPorter2Stemmer.GetRegion1(System.String)">
+            <summary>
+            R1 is the region after the first non-vowel following a vowel,
+            or the end of the word if there is no such non-vowel.
+            This definition may be modified for certain exceptional words.
+            </summary>
+        </member>
+        <member name="M:imbNLP.Toolkit.Stemmers.Porter2Stemmer.IPorter2Stemmer.GetRegion2(System.String)">
+            <summary>
+            R2 is the region after the first non-vowel following a vowel in
+            R1, or the end of the word if there is no such non-vowel.
+            </summary>
+        </member>
+        <member name="M:imbNLP.Toolkit.Stemmers.Porter2Stemmer.IStemmer.Stem(System.String)">
+            <summary>
+            Stem a word.
+            </summary>
+            <param name="word">Word to stem.</param>
+            <returns>
+            The stemmed word, with a reference to the original unstemmed word.
+            </returns>
+        </member>
+        <member name="T:imbNLP.Toolkit.Stemmers.Serbian.SerbianStemmer">
+            <summary>
+            Ported from original pyton source: Milosevic, N. (2012). [Stemmer for Serbian language](http://arxiv.org/abs/1209.4471). arXiv preprint arXiv:1209.4471.
+            </summary>
+            <remarks>
+            <para>Stemmer for Serbian language created for my master thesis, rewritten in python. It is improvement of Keselj and Šipla's stemmer.</para>
+            </remarks>
+        </member>
+        <member name="P:imbNLP.Toolkit.Stemmers.Serbian.SerbianStemmer.suffixReplacement">
+            <summary>
+            Suffix rules
+            </summary>
+        </member>
+        <member name="P:imbNLP.Toolkit.Stemmers.Serbian.SerbianStemmer.modalVerbs">
+            <summary>
+            Modal verbs
+            </summary>
+        </member>
+        <member name="P:imbNLP.Toolkit.Stemmers.Serbian.SerbianStemmer.lowEncoding">
+            <summary>
+            Low-encoding
+            </summary>
+        </member>
+        <member name="T:imbNLP.Toolkit.Stemmers.Shaman.DanishStemmer">
+            <summary> Generated class implementing code defined by a snowball script.</summary>
+        </member>
+        <member name="T:imbNLP.Toolkit.Stemmers.Shaman.DutchStemmer">
+            <summary> Generated class implementing code defined by a snowball script.</summary>
+        </member>
+        <member name="T:imbNLP.Toolkit.Stemmers.Shaman.EnglishStemmer">
+            <summary> Generated class implementing code defined by a snowball script.</summary>
+        </member>
+        <member name="T:imbNLP.Toolkit.Stemmers.Shaman.FinnishStemmer">
+            <summary> Generated class implementing code defined by a snowball script.</summary>
+        </member>
+        <member name="T:imbNLP.Toolkit.Stemmers.Shaman.FrenchStemmer">
+            <summary> Generated class implementing code defined by a snowball script.</summary>
+        </member>
+        <member name="T:imbNLP.Toolkit.Stemmers.Shaman.German2Stemmer">
+            <summary> Generated class implementing code defined by a snowball script.</summary>
+        </member>
+        <member name="T:imbNLP.Toolkit.Stemmers.Shaman.GermanStemmer">
+            <summary> Generated class implementing code defined by a snowball script.</summary>
+        </member>
+        <member name="T:imbNLP.Toolkit.Stemmers.Shaman.ItalianStemmer">
+            <summary> Generated class implementing code defined by a snowball script.</summary>
+        </member>
+        <member name="T:imbNLP.Toolkit.Stemmers.Shaman.KpStemmer">
+            <summary> Generated class implementing code defined by a snowball script.</summary>
+        </member>
+        <member name="T:imbNLP.Toolkit.Stemmers.Shaman.LovinsStemmer">
+            <summary> Generated class implementing code defined by a snowball script.</summary>
+        </member>
+        <member name="T:imbNLP.Toolkit.Stemmers.Shaman.NorwegianStemmer">
+            <summary> Generated class implementing code defined by a snowball script.</summary>
+        </member>
+        <member name="T:imbNLP.Toolkit.Stemmers.Shaman.PorterStemmer">
+            <summary> Generated class implementing code defined by a snowball script.</summary>
+        </member>
+        <member name="T:imbNLP.Toolkit.Stemmers.Shaman.RussianStemmer">
+            <summary> Generated class implementing code defined by a snowball script.</summary>
+        </member>
+        <member name="T:imbNLP.Toolkit.Stemmers.Shaman.SnowballProgram">
+            <summary>
+            This is the rev 500 of the snowball SVN trunk,
+            but modified:
+            made abstract and introduced abstract method stem to avoid expensive reflection in filter class
+            </summary>
+        </member>
+        <member name="M:imbNLP.Toolkit.Stemmers.Shaman.SnowballProgram.SetCurrent(System.String)">
+            <summary> Set the current string.</summary>
+        </member>
+        <member name="M:imbNLP.Toolkit.Stemmers.Shaman.SnowballProgram.GetCurrent">
+            <summary> Get the current string.</summary>
+        </member>
+        <member name="T:imbNLP.Toolkit.Stemmers.Shaman.SpanishStemmer">
+            <summary> Generated class implementing code defined by a snowball script.</summary>
+        </member>
+        <member name="T:imbNLP.Toolkit.Stemmers.Shaman.SwedishStemmer">
+            <summary> Generated class implementing code defined by a snowball script.</summary>
+        </member>
+        <member name="T:imbNLP.Toolkit.ToolkitOperationContext">
+            <summary>
+            Containes input, output and data structures used by algorithms in the library.
+            </summary>
+            <remarks>
+            <para>Intended use of the OperationContext:</para>
+            <list type="bullet">
+            <item>Assign to the input <see cref="T:imbNLP.Toolkit.TextDocument"/>s</item>
+            <item>Assign any relevant extra information, like <see cref="T:imbNLP.Toolkit.Space.SpaceLabel"/>s for the documents contained</item>
+            </list>
+            <para>Once ready, call desired API method of the library and pass the OperationContext to it.</para>
+            <para>Depending on the method, the OperationContext instance may contain:</para>
+            <list type="bullet">
+            <item>The <see cref="T:imbNLP.Toolkit.Space.SpaceCorpora"/> constructed or updated by the procedure</item>
+            <item>Set of <see cref="T:imbNLP.Toolkit.Space.SpaceDocumentModel"/>s, constructed from the input documents</item>
+            <item>Set of extracted topics <see cref="T:imbNLP.Toolkit.Space.SpaceTopic"/>, if a method of latent semantic analysis, clusterization or other data mining method was performed</item>
+            </list>
+            </remarks>
+        </member>
+        <member name="F:imbNLP.Toolkit.TopicModels.LDA.LatentDirichletAllocation.theta">
+            <summary>
+            The theta - Document -> Topic distributions
+            </summary>
+        </member>
+        <member name="F:imbNLP.Toolkit.TopicModels.LDA.LatentDirichletAllocation.phi">
+            <summary>
+            The phi - Topic -> Word distributions
+            </summary>
+        </member>
+        <member name="P:imbNLP.Toolkit.TopicModels.LDA.LatentDirichletAllocationSettings.K">
+            <summary>
+            Targeted number of topics - parameter: K
+            </summary>
+            <value>
+            The n of topics.
+            </value>
+        </member>
+        <member name="M:imbNLP.Toolkit.TopicModels.TopicModelBase.PrepareTheModel(imbNLP.Toolkit.Space.SpaceModel)">
+            <summary>
+            Prepares the model.
+            </summary>
+            <param name="space">The space.</param>
+        </member>
+        <member name="T:imbNLP.Toolkit.Typology.TypeProviders">
+            <summary>
+            Type providers used for class-name-string to class instance part of settings deployment accross the imbNLP.Toolkit namespace
+            </summary>
+        </member>
+        <member name="P:imbNLP.Toolkit.Typology.TypeProviders.similarityFunctions">
+            <summary>
+            Types related to similarity computation between vectors
+            </summary>
+        </member>
+        <member name="P:imbNLP.Toolkit.Typology.TypeProviders.LocalTermFunction">
+            <summary>
+            static and autoinitiated object
+            </summary>
+        </member>
+        <member name="P:imbNLP.Toolkit.Typology.TypeProviders.InputDocumentFunctions">
+            <summary>
+            static and autoinitiated object
+            </summary>
+        </member>
+        <member name="P:imbNLP.Toolkit.Typology.TypeProviders.GlobalTermFunction">
+            <summary>
+            static and autoinitiated object
+            </summary>
+        </member>
+        <member name="P:imbNLP.Toolkit.Typology.TypeProviders.tokenizerTypes">
+            <summary>
+            static and autoinitiated object
+            </summary>
+        </member>
+        <member name="P:imbNLP.Toolkit.Typology.TypeProviders.stemmerTypes">
+            <summary>
+            Provider for stemmer instances
+            </summary>
+        </member>
+        <member name="T:imbNLP.Toolkit.Typology.UniversalTypeProvider`1">
+            <summary>
+            
+            </summary>
+            <typeparam name="TInterface">The type of the interface.</typeparam>
+        </member>
+        <member name="P:imbNLP.Toolkit.Typology.UniversalTypeProvider`1.typeDictionary">
+            <summary>
+            class name vs type dictionary 
+            </summary>
+        </member>
+        <member name="M:imbNLP.Toolkit.Typology.UniversalTypeProvider`1.GetInstance(System.String)">
+            <summary>
+            Gets new instance for the class name
+            </summary>
+            <param name="classname">The classname.</param>
+            <returns></returns>
+        </member>
+        <member name="T:imbNLP.Toolkit.Vectors.IVector">
+            <summary>
+            Vector in the <see cref="T:imbNLP.Toolkit.Vectors.VectorSpace"/>
+            </summary>
+            <seealso cref="T:imbSCI.Data.interfaces.IObjectWithName" />
+        </member>
+        <member name="P:imbNLP.Toolkit.Vectors.IVector.name">
+            <summary>
+            ID of the vector
+            </summary>
+            <value>
+            The name.
+            </value>
+        </member>
+        <member name="P:imbNLP.Toolkit.Vectors.IVector.terms">
+            <summary>
+            Weighted terms
+            </summary>
+            <value>
+            The terms.
+            </value>
+        </member>
+        <member name="T:imbNLP.Toolkit.Vectors.VectorBase">
+            <summary>
+            Common base for elements of <see cref="T:imbNLP.Toolkit.Vectors.VectorSpace"/>
+            </summary>
+            <seealso cref="T:imbNLP.Toolkit.Vectors.IVector" />
+        </member>
+        <member name="P:imbNLP.Toolkit.Vectors.VectorBase.terms">
+            <summary>
+            Weighted terms
+            </summary>
+            <value>
+            The terms.
+            </value>
+        </member>
+        <member name="P:imbNLP.Toolkit.Vectors.VectorBase.name">
+            <summary>
+            ID of the vector
+            </summary>
+            <value>
+            The name.
+            </value>
+        </member>
+        <member name="T:imbNLP.Toolkit.Vectors.VectorSpace">
+            <summary>
+            Vector space
+            </summary>
+        </member>
+        <member name="P:imbNLP.Toolkit.Vectors.VectorSpace.documents">
+            <summary>
+            Gets or sets the documents.
+            </summary>
+            <value>
+            The documents.
+            </value>
+        </member>
+        <member name="P:imbNLP.Toolkit.Vectors.VectorSpace.labels">
+            <summary>
+            Gets or sets the labels.
+            </summary>
+            <value>
+            The labels.
+            </value>
+        </member>
+        <member name="T:imbNLP.Toolkit.Weighting.Global.CollectionTDPElement">
+            <summary>
+            Collection level Term Discriminating Power factors
+            </summary>
+            <remarks>
+            <para>
+            Relevant paper: Lan, Man, Chew Lim Tan, Jian Su, and Yue Lu. 2009. “Supervised and Traditional Term Weighting Methods for Automatic Text Categorization.” IEEE Transactions on Pattern Analysis and Machine Intelligence 31 (4). IEEE: 721–35.
+            </para>
+            </remarks>
+            <seealso cref="!:imbNLP.Toolkit.Weighting.Elements.ModelElementBase" />
+        </member>
+        <member name="M:imbNLP.Toolkit.Weighting.Global.CollectionTDPElement.GetElementFactor(System.String,imbNLP.Toolkit.Space.SpaceModel,imbNLP.Toolkit.Space.SpaceLabel)">
+            <summary>
+            Gets the element factor.
+            </summary>
+            <param name="term">The term.</param>
+            <param name="space">The space.</param>
+            <param name="label">The label.</param>
+            <returns></returns>
+        </member>
+        <member name="M:imbNLP.Toolkit.Weighting.Global.CollectionTDPElement.PrepareTheModel(imbNLP.Toolkit.Space.SpaceModel)">
+            <summary>
+            Prepares the model.
+            </summary>
+            <param name="space">The space.</param>
+            <exception cref="T:System.ArgumentException">A document is already assigned to a label! This model is not applicable for multi-label problem.</exception>
+        </member>
+        <member name="P:imbNLP.Toolkit.Weighting.Global.CollectionTDPElement.DocumentVsLabel">
+            <summary>
+            Gets or sets the document vs label.
+            </summary>
+            <value>
+            The document vs label.
+            </value>
+        </member>
+        <member name="P:imbNLP.Toolkit.Weighting.Global.CollectionTDPElement.resultType">
+            <summary>
+            Gets the type of the result.
+            </summary>
+            <value>
+            The type of the result.
+            </value>
+        </member>
+        <member name="T:imbNLP.Toolkit.Weighting.Global.FunctionResultTypeEnum">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:imbNLP.Toolkit.Weighting.Global.GlobalElementBase">
+            <summary>
+            Global function
+            </summary>
+            <seealso cref="T:imbNLP.Toolkit.Weighting.Global.IGlobalElement" />
+        </member>
+        <member name="M:imbNLP.Toolkit.Weighting.Global.GlobalElementBase.GetElementFactors(System.Collections.Generic.IEnumerable{System.String},imbNLP.Toolkit.Space.SpaceModel,imbNLP.Toolkit.Space.SpaceLabel)">
+            <summary>
+            Builds dictionary of global element factors
+            </summary>
+            <param name="terms">The terms.</param>
+            <param name="space">The space.</param>
+            <param name="label">The label.</param>
+            <returns></returns>
+        </member>
+        <member name="T:imbNLP.Toolkit.Weighting.Global.GlobalFunctionSettings">
+            <summary>
+            Settings on a global weighting function
+            </summary>
+        </member>
+        <member name="M:imbNLP.Toolkit.Weighting.Global.GlobalFunctionSettings.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:imbNLP.Toolkit.Weighting.Global.GlobalFunctionSettings"/> class.
+            </summary>
+        </member>
+        <member name="P:imbNLP.Toolkit.Weighting.Global.GlobalFunctionSettings.functionName">
+            <summary>
+            Gets or sets the name of the function.
+            </summary>
+            <value>
+            The name of the function.
+            </value>
+        </member>
+        <member name="P:imbNLP.Toolkit.Weighting.Global.GlobalFunctionSettings.tdpFactor">
+            <summary>
+            Gets or sets the TDP factor.
+            </summary>
+            <value>
+            The TDP factor.
+            </value>
+        </member>
+        <member name="P:imbNLP.Toolkit.Weighting.Global.GlobalFunctionSettings.idfComputation">
+            <summary>
+            Gets or sets the idf computation.
+            </summary>
+            <value>
+            The idf computation.
+            </value>
+        </member>
+        <!-- Badly formed XML comment ignored for member "P:imbNLP.Toolkit.Weighting.Global.GlobalFunctionSettings.l" -->
+        <member name="P:imbNLP.Toolkit.Weighting.Global.GlobalFunctionSettings.weight">
+            <summary>
+            Gets or sets the weight.
+            </summary>
+            <value>
+            The weight.
+            </value>
+        </member>
+        <member name="M:imbNLP.Toolkit.Weighting.Global.GlobalFunctionSettings.GetFunction(imbSCI.Core.reporting.ILogBuilder)">
+            <summary>
+            Creates instance of a global function
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:imbNLP.Toolkit.Weighting.Global.GlobalFunctionType">
+            <summary>
+            Global function type
+            </summary>
+        </member>
+        <member name="F:imbNLP.Toolkit.Weighting.Global.GlobalFunctionType.ICF">
+            <summary>
+            The icf - <see cref="T:imbNLP.Toolkit.Weighting.Global.ICFElement"/>
+            </summary>
+        </member>
+        <member name="F:imbNLP.Toolkit.Weighting.Global.GlobalFunctionType.ICSdF">
+            <summary>
+            The ic sd f - <see cref="T:imbNLP.Toolkit.Weighting.Global.ICSdFElement"/>
+            </summary>
+        </member>
+        <member name="F:imbNLP.Toolkit.Weighting.Global.GlobalFunctionType.IDF">
+            <summary>
+            The idf - <see cref="T:imbNLP.Toolkit.Weighting.Global.IDFElement"/>
+            </summary>
+        </member>
+        <member name="F:imbNLP.Toolkit.Weighting.Global.GlobalFunctionType.IGM">
+            <summary>
+            The igm - <see cref="T:imbNLP.Toolkit.Weighting.Global.IGMElement"/>
+            </summary>
+        </member>
+        <member name="F:imbNLP.Toolkit.Weighting.Global.GlobalFunctionType.TDP">
+            <summary>
+            The TDP - <see cref="T:imbNLP.Toolkit.Weighting.Global.CollectionTDPElement"/>
+            </summary>
+        </member>
+        <member name="T:imbNLP.Toolkit.Weighting.Global.ICFElement">
+            <summary>
+            Provides Inverse Class Frequency for a term
+            </summary>
+            <remarks>
+            <para>
+            Related paper: Ren, Fuji, and Mohammad Golam Sohrab. 2013. “Class-Indexing-Based Term Weighting for Automatic Text Classification.” Information Sciences 236. Elsevier Inc.: 109–25. doi:10.1016/j.ins.2013.02.029.
+            </para>
+            </remarks>
+            <seealso cref="!:imbNLP.Toolkit.Weighting.Elements.ModelElementBase" />
+        </member>
+        <member name="P:imbNLP.Toolkit.Weighting.Global.ICFElement.ICF_index">
+            <summary>
+            Term vs IDF factor
+            </summary>
+            <value>
+            The index of the idf.
+            </value>
+        </member>
+        <member name="M:imbNLP.Toolkit.Weighting.Global.ICFElement.GetElementFactor(System.String,imbNLP.Toolkit.Space.SpaceModel,imbNLP.Toolkit.Space.SpaceLabel)">
+            <summary>
+            Returns Inverse Class Frequency - ICF
+            </summary>
+            <param name="term">The term.</param>
+            <param name="document">The document.</param>
+            <param name="space">The space.</param>
+            <returns></returns>
+        </member>
+        <member name="T:imbNLP.Toolkit.Weighting.Global.ICSdFElement">
+            <summary>
+            Provides Inverse class space density frequency
+            </summary>
+            <remarks>
+            <para>
+            Related paper: Ren, Fuji, and Mohammad Golam Sohrab. 2013. “Class-Indexing-Based Term Weighting for Automatic Text Classification.” Information Sciences 236. Elsevier Inc.: 109–25. doi:10.1016/j.ins.2013.02.029.
+            </para>
+            </remarks>
+            <seealso cref="!:imbNLP.Toolkit.Weighting.Elements.ModelElementBase" />
+        </member>
+        <member name="P:imbNLP.Toolkit.Weighting.Global.ICSdFElement.ICSdF_index">
+            <summary>
+            Term vs IDF factor
+            </summary>
+            <value>
+            The index of the idf.
+            </value>
+        </member>
+        <member name="M:imbNLP.Toolkit.Weighting.Global.ICSdFElement.GetElementFactor(System.String,imbNLP.Toolkit.Space.SpaceModel,imbNLP.Toolkit.Space.SpaceLabel)">
+            <summary>
+            Returns Inverse Class Frequency - ICF
+            </summary>
+            <param name="term">The term.</param>
+            <param name="document">The document.</param>
+            <param name="space">The space.</param>
+            <returns></returns>
+        </member>
+        <member name="T:imbNLP.Toolkit.Weighting.Global.IDFElement">
+            <summary>
+            Inverse Document Frequency and mIDF
+            </summary>
+            <seealso cref="!:imbNLP.Toolkit.Weighting.Elements.ModelElementBase" />
+        </member>
+        <member name="P:imbNLP.Toolkit.Weighting.Global.IDFElement.Computation">
+            <summary>
+            Gets or sets the idf computation.
+            </summary>
+            <value>
+            The idf computation.
+            </value>
+        </member>
+        <member name="P:imbNLP.Toolkit.Weighting.Global.IDFElement.IDF_index">
+            <summary>
+            Term vs IDF factor
+            </summary>
+            <value>
+            The index of the idf.
+            </value>
+        </member>
+        <member name="T:imbNLP.Toolkit.Weighting.Global.IDFElement.IDFComputation">
+            <summary>
+            Method of IDF computation
+            </summary>
+        </member>
+        <member name="F:imbNLP.Toolkit.Weighting.Global.IDFElement.IDFComputation.logPlus">
+            <summary>
+            The log idf plus one: log(N/DF_t) + 1
+            </summary>
+        </member>
+        <member name="F:imbNLP.Toolkit.Weighting.Global.IDFElement.IDFComputation.modified">
+            <summary>
+            mIDF computation as proposed by mTF-mIDF research
+            </summary>
+            <remarks>
+            Sabbah, Thabit, Ali Selamat, Md Hafiz Selamat, Fawaz S. Al-Anzi, Enrique Herrera Viedma, Ondrej Krejcar, and Hamido Fujita. 2017. “Modified Frequency-Based Term Weighting Schemes for Text Classification.” Applied Soft Computing Journal 58. Elsevier B.V.: 193–206. doi:10.1016/j.asoc.2017.04.069.
+            </remarks>
+        </member>
+        <member name="F:imbNLP.Toolkit.Weighting.Global.IDFElement.IDFComputation.DF">
+            <summary>
+            Non-inversed Document Frequency score
+            </summary>
+        </member>
+        <member name="T:imbNLP.Toolkit.Weighting.Global.IGMElement">
+            <summary>
+            Inverse Gravity Moment
+            </summary>
+            <remarks>
+            <para>
+            Related paper: Chen, Kewen, Zuping Zhang, Jun Long, and Hao Zhang. 2016. “Turning from TF-IDF to TF-IGM for Term Weighting in Text Classification.” Expert Systems With Applications 66. Elsevier Ltd: 245–60. doi:10.1016/j.eswa.2016.09.009.
+            </para>
+            </remarks>
+            <seealso cref="!:imbNLP.Toolkit.Weighting.Elements.ModelElementBase" />
+        </member>
+        <member name="M:imbNLP.Toolkit.Weighting.Global.IGMElement.GetElementFactor(System.String,imbNLP.Toolkit.Space.SpaceModel,imbNLP.Toolkit.Space.SpaceLabel)">
+            <summary>
+            Returns Inverse Gravity Moment of the term
+            </summary>
+            <param name="term">The term.</param>
+            <param name="document">The document.</param>
+            <param name="space">The space.</param>
+            <returns></returns>
+        </member>
+        <member name="M:imbNLP.Toolkit.Weighting.Global.IGMElement.PrepareTheModel(imbNLP.Toolkit.Space.SpaceModel)">
+            <summary>
+            Prepares the model - computes IGM for each term
+            </summary>
+            <param name="space">The space.</param>
+            <exception cref="T:System.ArgumentException">A document is already assigned to a label! This model is not applicable for multi-label problem.</exception>
+        </member>
+        <member name="T:imbNLP.Toolkit.Weighting.Local.TermFrequencyFunction">
+            <summary>
+            Term Frequency function from TF-IDF. It supports regular TF normalization but also some of derived computation methods for local term weighting factor (mTF, Glasgow, RTF...)
+            </summary>
+            <seealso cref="T:imbNLP.Toolkit.Weighting.Local.LocalElementBase" />
+        </member>
+        <member name="M:imbNLP.Toolkit.Weighting.Local.TermFrequencyFunction.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:imbNLP.Toolkit.Weighting.Local.TermFrequencyFunction"/> class.
+            </summary>
+        </member>
+        <member name="P:imbNLP.Toolkit.Weighting.Local.TermFrequencyFunction.normalization">
+            <summary>
+            Gets or sets the TF normalization.
+            </summary>
+            <value>
+            The normalization.
+            </value>
+        </member>
+        <member name="P:imbNLP.Toolkit.Weighting.Local.TermFrequencyFunction.computation">
+            <summary>
+            Gets or sets the computation.
+            </summary>
+            <value>
+            The computation.
+            </value>
+        </member>
+        <member name="P:imbNLP.Toolkit.Weighting.Local.TermFrequencyFunction.TFN_index">
+            <summary>
+            Normalization divisor for document
+            </summary>
+            <value>
+            The index of the TFN.
+            </value>
+        </member>
+        <member name="F:imbNLP.Toolkit.Weighting.Local.TFComputation.modifiedTF">
+            <summary>
+            The modified tf: Sabbah, Thabit, Ali Selamat, Md Hafiz Selamat, Fawaz S. Al-Anzi, Enrique Herrera Viedma, Ondrej Krejcar, and Hamido Fujita. 2017. “Modified Frequency-Based Term Weighting Schemes for Text Classification.” Applied Soft Computing Journal 58. Elsevier B.V.: 193–206. doi:10.1016/j.asoc.2017.04.069.
+            </summary>
+        </member>
+        <member name="T:imbNLP.Toolkit.Weighting.Local.TFNormalization">
+            <summary>
+            Method of TF in document normalization
+            </summary>
+        </member>
+        <member name="F:imbNLP.Toolkit.Weighting.Local.TFNormalization.divisionByMaxTF">
+            <summary>
+            Maximum raw term frequency
+            </summary>
+        </member>
+        <member name="F:imbNLP.Toolkit.Weighting.Local.TFNormalization.squareRootOfSquareSum">
+            <summary>
+            The square root of summation of square frequencies
+            </summary>
+        </member>
+        <member name="T:imbNLP.Toolkit.Weighting.Metrics.NamespaceDoc">
+             <summary>
+             Elementary term metrics, consumed by classes inheriting <see cref="!:ModelElementBase"/>
+             </summary>
+             <remarks>
+            
+             </remarks>
+        </member>
+        <member name="T:imbNLP.Toolkit.Weighting.Metrics.NamespaceGroupDoc">
+            <inheritdoc/>
+        </member>
+        <member name="T:imbNLP.Toolkit.Weighting.Metrics.TDPFactor">
+            <summary>
+            Computation mode for Term Discriminating Power
+            </summary>
+        </member>
+        <member name="F:imbNLP.Toolkit.Weighting.Metrics.TDPFactor.idf">
+            <summary>
+            Inverse Document Frequency
+            </summary>
+        </member>
+        <member name="F:imbNLP.Toolkit.Weighting.Metrics.TDPFactor.idf_prob">
+            <summary>
+            Probabilistic Inverse Document Frequency
+            </summary>
+        </member>
+        <member name="F:imbNLP.Toolkit.Weighting.Metrics.TDPFactor.chi">
+            <summary>
+            Chi Square
+            </summary>
+        </member>
+        <member name="F:imbNLP.Toolkit.Weighting.Metrics.TDPFactor.ig">
+            <summary>
+            Information Gain
+            </summary>
+        </member>
+        <member name="F:imbNLP.Toolkit.Weighting.Metrics.TDPFactor.gr">
+            <summary>
+            Gain Ratio
+            </summary>
+        </member>
+        <member name="F:imbNLP.Toolkit.Weighting.Metrics.TDPFactor.or">
+            <summary>
+            Odds Ratio
+            </summary>
+        </member>
+        <member name="F:imbNLP.Toolkit.Weighting.Metrics.TDPFactor.rf">
+            <summary>
+            Relevance frequency
+            </summary>
+        </member>
+        <member name="T:imbNLP.Toolkit.Weighting.Metrics.TermDiscriminatingPower">
+            <summary>
+            Term-Document-Class class-local statistic for a term
+            </summary>
+        </member>
+        <member name="M:imbNLP.Toolkit.Weighting.Metrics.TermDiscriminatingPower.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:imbNLP.Toolkit.Weighting.Metrics.TermDiscriminatingPower"/> class - sets the term
+            </summary>
+            <param name="_term">The term.</param>
+        </member>
+        <member name="M:imbNLP.Toolkit.Weighting.Metrics.TermDiscriminatingPower.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:imbNLP.Toolkit.Weighting.Metrics.TermDiscriminatingPower"/> class - for XML Serialization
+            </summary>
+        </member>
+        <member name="M:imbNLP.Toolkit.Weighting.Metrics.TermDiscriminatingPower.Compute(imbNLP.Toolkit.Weighting.Metrics.TDPFactor,System.Double)">
+            <summary>
+            Computes the factor
+            </summary>
+            <param name="factor">What computation schema to be used</param>
+            <param name="N">Total number of documents in the collection</param>
+            <returns></returns>
+        </member>
+        <member name="P:imbNLP.Toolkit.Weighting.Metrics.TermDiscriminatingPower.a">
+            <summary>
+            number of documents in the positive catogory which contain this term
+            </summary>
+            <value>
+            a.
+            </value>
+        </member>
+        <member name="P:imbNLP.Toolkit.Weighting.Metrics.TermDiscriminatingPower.b">
+            <summary>
+            number of documents in the positive catogory which do not contain this term
+            </summary>
+            <value>
+            The b.
+            </value>
+        </member>
+        <member name="P:imbNLP.Toolkit.Weighting.Metrics.TermDiscriminatingPower.c">
+            <summary>
+            number of documents in a negative catogory which contain this term
+            </summary>
+            <value>
+            The c.
+            </value>
+        </member>
+        <member name="P:imbNLP.Toolkit.Weighting.Metrics.TermDiscriminatingPower.d">
+            <summary>
+            number of documents in a negative catogory which do not contain this term
+            </summary>
+            <value>
+            The d.
+            </value>
+        </member>
+        <member name="P:imbNLP.Toolkit.Weighting.Metrics.TermDiscriminatingPowerDictionary.label">
+            <summary>
+            Name of positive category label
+            </summary>
+            <value>
+            The label.
+            </value>
+        </member>
+        <member name="T:imbNLP.Toolkit.Weighting.NamespaceDoc">
+            <summary>
+            Term Weighting models
+            </summary>
+            <remarks>
+            <para>
+            Namespace contains number of term weighting models, proposed in the literature on Text Classification, from 1972. to 2018.
+            </para>
+            </remarks>
+        </member>
+        <member name="T:imbNLP.Toolkit.Weighting.NamespaceGroupDoc">
+            <inheritdoc/>
+        </member>
+        <member name="M:imbNLP.Toolkit.WordVectors.Word2Vec.Distance.#ctor(System.String)">
+             <summary>
+            
+             </summary>
+             <param name="fileName">path to binary file created by Word2Vec</param>
+        </member>
+        <member name="M:imbNLP.Toolkit.WordVectors.Word2Vec.Distance.Search(System.String)">
+            <summary>
+            search nearest words to <param name="intext"></param>
+            </summary>
+            <returns>nearest words</returns>
+        </member>
+        <member name="T:imbNLP.Toolkit.WordVectors.Word2Vec.Utils.FileStreamExtensions">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="M:imbNLP.Toolkit.WordVectors.Word2Vec.Utils.FileStreamExtensions.ReadWord(System.IO.FileStream)">
+             <summary>
+            
+             </summary>
+             <param name="stream"></param>
+             <returns></returns>
+        </member>
+        <member name="T:imbNLP.Toolkit.WordVectors.Word2Vec.Word2Vec">
+            <summary>
+            the class an implementation of Google Word2Vec algorhitm
+            </summary>
+        </member>
+        <member name="M:imbNLP.Toolkit.WordVectors.Word2Vec.Word2Vec.SearchVocab(System.String)">
+            <summary>
+            Searching the word position in the vocabulary
+            </summary>
+            <param name="word"></param>
+            <returns>position of a word in the vocabulary; if the word is not found, returns -1</returns>
+        </member>
+        <member name="M:imbNLP.Toolkit.WordVectors.Word2Vec.Word2Vec.AddWordToVocab(System.String)">
+            <summary>
+            Adds a word to the vocabulary
+            </summary>
+            <param name="word"></param>
+            <returns></returns>
+        </member>
+        <member name="M:imbNLP.Toolkit.WordVectors.Word2Vec.Word2Vec.SortVocab">
+            <summary>
+            Sorts the vocabulary by frequency using word counts
+            </summary>
+        </member>
+        <member name="M:imbNLP.Toolkit.WordVectors.Word2Vec.Word2Vec.TrainModel">
+            <summary>
+            train model
+            WORD VECTOR estimation method
+            </summary>
+        </member>
+        <member name="M:imbNLP.Toolkit.WordVectors.Word2Vec.Word2VecAnalysisBase.#ctor(System.String)">
+            <summary>
+            Basic class for analysis algorithms( distnace, analogy, commpute-accuracy)
+            </summary>
+            <param name="fileName"></param>
+        </member>
+        <member name="M:imbNLP.Toolkit.WordVectors.Word2Vec.Word2VecBuilder.WithTrainFile(System.String)">
+            <summary>
+            adding train file path
+            </summary>
+            <param name="trainFileName">adding train file path</param>
+            <returns></returns>
+        </member>
+        <member name="M:imbNLP.Toolkit.WordVectors.Word2Vec.Word2VecBuilder.WithSaveVocubFile(System.String)">
+            <summary>
+            adding file path for saving vocabulary
+            </summary>
+            <param name="saveVocubFileName">file path for saving vocabulary</param>
+            <returns></returns>
+        </member>
+    </members>
+</doc>
