@@ -6,7 +6,7 @@
     <ApplicationIcon>imbNLP.ico</ApplicationIcon>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <PackageId>imbNLP.Core</PackageId>
-    <Version>0.2.24</Version>
+    <Version>0.2.352</Version>
     <Title>imbNLP.Core</Title>
     <Summary></Summary>
     <PackageIconUrl>http://doc.veles.rs/imbNLP.ico</PackageIconUrl>

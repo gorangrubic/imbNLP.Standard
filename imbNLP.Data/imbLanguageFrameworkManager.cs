@@ -32,6 +32,7 @@ namespace imbNLP.Data
     using imbACE.Core;
     using imbACE.Core.core;
     using imbNLP.Data.basic;
+    using imbNLP.Data.config;
     using imbNLP.Data.extended.dict.core;
     using imbSCI.Core.extensions.table;
     using imbSCI.Core.extensions.text;
@@ -56,6 +57,10 @@ namespace imbNLP.Data
         /// <returns></returns>
         public static basicLanguage GetBasicLanguage(basicLanguageEnum languageID)
         {
+            if (languageID == basicLanguageEnum.unknown)
+            {
+                return null;
+            }
             if (basicLanguageRegistry.ContainsKey(languageID))
             {
                 basicLanguage output = basicLanguageRegistry[languageID];
@@ -151,25 +156,29 @@ namespace imbNLP.Data
         {
             aceLog.consoleControl.setAsOutput(log, "lang_mng");
 
-            String hunListPath = appManager.Application.folder_resources.findFile("hunspel_list.xlsx", SearchOption.AllDirectories);
-            DataTable dt = hunListPath.deserializeDataTable(imbSCI.Data.enums.reporting.dataTableExportEnum.excel);
-            //dt.Rows.GetEnumerator
-            Parallel.ForEach<DataRow>(dt.Rows.ToList(), (rw) =>
+            if (imbNLPDataConfig.settings.DoLoadBasicLanguageDefinitions)
             {
-                basicLanguage bl = new basicLanguage();
-                bl.deploy(rw);
 
-                if (bl.languageEnum != basicLanguageEnum.unknown)
+                String hunListPath = appManager.Application.folder_resources.findFile(imbNLPDataConfig.settings.BasicLanguageDefinitionsList, SearchOption.AllDirectories);
+                DataTable dt = hunListPath.deserializeDataTable(imbSCI.Data.enums.reporting.dataTableExportEnum.excel);
+                //dt.Rows.GetEnumerator
+                Parallel.ForEach<DataRow>(dt.Rows.ToList(), (rw) =>
                 {
-                    basicLanguageRegistry[bl.languageEnum] = bl;
+                    basicLanguage bl = new basicLanguage();
+                    bl.deploy(rw);
 
-                    log.log("Hunspell dictionary entry for [" + bl.languageEnum + "] found");
-                }
-                else
-                {
-                    log.log("Hunspell dictionary entry failed [" + bl.languageEnum + "] found");
-                }
-            });
+                    if (bl.languageEnum != basicLanguageEnum.unknown)
+                    {
+                        basicLanguageRegistry[bl.languageEnum] = bl;
+
+                        log.log("Hunspell dictionary entry for [" + bl.languageEnum + "] found");
+                    }
+                    else
+                    {
+                        log.log("Hunspell dictionary entry failed [" + bl.languageEnum + "] found");
+                    }
+                });
+            }
 
 
             //     basicLanguageRegistry[basicLanguageEnum.english].testBoolean("known", basicLanguageCheck.spellCheck);

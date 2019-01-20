@@ -1,6 +1,4 @@
 ﻿using imbNLP.Toolkit.Processing;
-using System;
-using System.Collections.Generic;
 
 namespace imbNLP.Toolkit.Functions
 {
@@ -21,8 +19,8 @@ namespace imbNLP.Toolkit.Functions
         /// <param name="vectorA">The vector a.</param>
         /// <param name="vectorB">The vector b.</param>
         /// <returns></returns>
-        public abstract Double ComputeSimilarity(IEnumerable<WeightDictionaryEntry> vectorA, IEnumerable<WeightDictionaryEntry> vectorB);
-
+        //public abstract Double ComputeSimilarity(IEnumerable<WeightDictionaryEntry> vectorA, IEnumerable<WeightDictionaryEntry> vectorB);
+        public abstract double ComputeSimilarity(WeightDictionary vectorA, WeightDictionary vectorB);
     }
 
 

@@ -6,7 +6,7 @@
     <ApplicationIcon>imbNLP.ico</ApplicationIcon>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <PackageId>imbNLP.Data</PackageId>
-    <Version>0.2.26</Version>
+    <Version>0.2.350</Version>
     <Title>imbNLP.Data</Title>
     <Summary></Summary>
     <PackageIconUrl>http://doc.veles.rs/imbNLP.ico</PackageIconUrl>
@@ -53,7 +53,6 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="BrightstarDB" Version="1.13.3" />
-    <PackageReference Include="imbNLP.Transliteration" Version="0.2.1.1" />
     <PackageReference Include="NHunspell" Version="1.2.5359.26126" />
   </ItemGroup>
   <ItemGroup>

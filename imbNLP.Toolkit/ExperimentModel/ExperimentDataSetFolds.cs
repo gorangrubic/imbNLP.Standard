@@ -5,6 +5,7 @@ using imbSCI.Core.reporting;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Xml.Serialization;
 
 namespace imbNLP.Toolkit.ExperimentModel
 {
@@ -20,6 +21,17 @@ namespace imbNLP.Toolkit.ExperimentModel
 
         public CrossValidationModel settings { get; set; } = new CrossValidationModel();
 
+        /// <summary>
+        /// Input dataset, after initial filtration of empty sites and low-page count ones
+        /// </summary>
+        /// <value>
+        /// The dataset.
+        /// </value>
+        [XmlIgnore]
+        public ExperimentDataSetFold dataset { get; set; }
+
+
+
         public ExperimentDataSetFolds() { }
 
 
@@ -31,7 +43,7 @@ namespace imbNLP.Toolkit.ExperimentModel
         /// <param name="_settings">The settings.</param>
         /// <param name="_dataset">Un-folded dataset, without having the unknown class defined</param>
         /// <param name="logger">The logger.</param>
-        public void Deploy(CrossValidationModel _settings, List<WebSiteDocumentsSet> _dataset, ILogBuilder logger)
+        public void Deploy(CrossValidationModel _settings, IEnumerable<WebSiteDocumentsSet> _dataset, ILogBuilder logger)
         {
             settings = _settings;
 
@@ -44,6 +56,12 @@ namespace imbNLP.Toolkit.ExperimentModel
                 Add(fold);
                 return;
             }
+
+            if (_dataset is ExperimentDataSetFold foldInstance)
+            {
+                dataset = foldInstance;
+            }
+
             name = settings.K + "-fold Tr[" + _settings.TrainingFolds + "] Ts[" + _settings.TestFolds + "]";
 
             List<CategorySlicedFolds> folds = new List<CategorySlicedFolds>();
@@ -88,11 +106,11 @@ namespace imbNLP.Toolkit.ExperimentModel
 
                         if (toTraining)
                         {
-                            cat.AddRange(catPair.Value[s]);
+                            cat.AddRange(catPair.Value[s].WeakClone());
                         }
                         else
                         {
-                            unknownCat.AddRange(catPair.Value[s]);
+                            unknownCat.AddRange(catPair.Value[s].WeakClone());
                         }
                     }
                 }

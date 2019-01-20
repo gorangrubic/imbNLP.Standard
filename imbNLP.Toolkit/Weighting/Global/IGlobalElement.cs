@@ -6,10 +6,9 @@ using System.Collections.Generic;
 
 namespace imbNLP.Toolkit.Weighting.Global
 {
-
-    public interface IGlobalElement
+    public interface IGlobalElement : IWeightingElementBase
     {
-        void PrepareTheModel(SpaceModel space);
+        void PrepareTheModel(SpaceModel space, ILogBuilder log);
 
         WeightDictionaryEntry GetElementFactorEntry(string term, SpaceModel space, SpaceLabel label = null);
 
@@ -17,15 +16,12 @@ namespace imbNLP.Toolkit.Weighting.Global
 
         Double GetElementFactor(string term, SpaceModel space, SpaceLabel label = null);
 
-        Boolean IsEnabled { get; set; }
+        Dictionary<Double, String> DistinctReturns { get; }
 
         void Describe(ILogBuilder logger);
 
-        String shortName { get; set; }
+        void DeploySettings(GlobalFunctionSettings settings);
 
         FunctionResultTypeEnum resultType { get; }
-
-
     }
-
 }

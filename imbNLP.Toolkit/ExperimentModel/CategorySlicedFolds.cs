@@ -1,4 +1,6 @@
 using imbNLP.Toolkit.Documents;
+using imbNLP.Toolkit.ExperimentModel.CrossValidation;
+using imbNLP.Toolkit.ExperimentModel.Settings;
 using imbSCI.Core.math;
 using System;
 using System.Collections.Generic;
@@ -15,6 +17,21 @@ namespace imbNLP.Toolkit.ExperimentModel
         public CategorySlicedFolds()
         {
 
+        }
+
+        public List<WebSiteDocumentsSet> WeakClone()
+        {
+
+            List<WebSiteDocumentsSet> output = new List<WebSiteDocumentsSet>();
+
+
+
+            foreach (WebSiteDocumentsSet set in this)
+            {
+                output.Add(set.WeakClone());
+            }
+
+            return output;
         }
 
         /// <summary>
@@ -43,7 +60,7 @@ namespace imbNLP.Toolkit.ExperimentModel
 
             for (int i = 0; i < input.Count; i++)
             {
-            
+
                 if (random)
                 {
                     p = rnd.Next(K);
@@ -51,7 +68,7 @@ namespace imbNLP.Toolkit.ExperimentModel
                 else
                 {
                     p = i % K;
-                  //  p = (Convert.ToInt32((i.GetRatio(input.Count)).GetRatio(foldSizeD))) - 1;
+                    //  p = (Convert.ToInt32((i.GetRatio(input.Count)).GetRatio(foldSizeD))) - 1;
                 }
 
                 var item = input[i];

@@ -29,6 +29,7 @@
 // ------------------------------------------------------------------------------------------------------------------
 using imbNLP.PartOfSpeech.pipeline.machine;
 using imbSCI.Core.extensions.data;
+using imbSCI.Data;
 using System;
 using System.Collections.Generic;
 

@@ -76,6 +76,23 @@ namespace imbNLP.Toolkit.Classifiers.Core
             String output = name + "_k" + setup.kNN_k + "_" + setup.distanceFunction.ToString().First();
             return output;
         }
+
+        public override Double DoScore(FeatureVector target, ILogBuilder logger, Int32 labelID = -1)
+        {
+            Double result = 0;
+
+            if (labelID == -1)
+            {
+                result = kNearest.Score(target.dimensions);
+            }
+            else
+            {
+                result = kNearest.Score(target.dimensions, labelID);
+            }
+
+
+            return result;
+        }
     }
 
 }

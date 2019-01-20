@@ -10,27 +10,27 @@ using System.Xml.Serialization;
 namespace imbNLP.Toolkit.Weighting.Global
 {
     /// <summary>
-    /// 
-    /// </summary>
-    public enum FunctionResultTypeEnum
-    {
-        numeric,
-        numericVectorForMultiClass,
-    }
-
-    /// <summary>
     /// Global function
     /// </summary>
     /// <seealso cref="imbNLP.Toolkit.Weighting.Global.IGlobalElement" />
-    public abstract class GlobalElementBase : IDescribe, IGlobalElement
+    public abstract class GlobalElementBase : WeightingElementBase, IDescribe, IGlobalElement
     {
-        [XmlIgnore]
-        public String shortName { get; set; } = "global";
+        //  public String shortName { get; set; } = "global";
+
+        public abstract void DeploySettings(GlobalFunctionSettings settings);
 
         [XmlIgnore]
         public String description { get; set; } = "";
 
-        public abstract void PrepareTheModel(SpaceModel space);
+        /// <summary>
+        /// Diagnostic registry of distinct scores computed and first token that received such value
+        /// </summary>
+        [XmlIgnore]
+        public Dictionary<Double, String> DistinctReturns { get; set; } = new Dictionary<double, string>();
+
+        // public DocumentBlenderFunctionOptions DocumentScope { get; set; } = DocumentBlenderFunctionOptions.siteLevel;
+
+        public abstract void PrepareTheModel(SpaceModel space, ILogBuilder log);
 
         public abstract Double GetElementFactor(string term, SpaceModel space, SpaceLabel label = null);
 
@@ -43,6 +43,7 @@ namespace imbNLP.Toolkit.Weighting.Global
                 case FunctionResultTypeEnum.numeric:
                     output = new WeightDictionaryEntry(term, GetElementFactor(term, space, label));
                     break;
+
                 case FunctionResultTypeEnum.numericVectorForMultiClass:
                     Double[] vec = new double[space.labels.Count];
                     Int32 c = 0;
@@ -55,14 +56,19 @@ namespace imbNLP.Toolkit.Weighting.Global
                     //                    output.AddEntry(term, vec);
                     break;
             }
-            return output;
 
+            if (!DistinctReturns.ContainsKey(output.weight))
+            {
+                DistinctReturns.Add(output.weight, term);
+            }
+
+            return output;
         }
 
-        public Boolean IsEnabled { get; set; } = true;
+        //  public Boolean IsEnabled { get; set; } = true;
 
+        [XmlIgnore]
         public virtual FunctionResultTypeEnum resultType { get { return FunctionResultTypeEnum.numeric; } }
-
 
         /// <summary>
         /// Builds dictionary of global element factors
@@ -75,23 +81,20 @@ namespace imbNLP.Toolkit.Weighting.Global
         {
             WeightDictionary output = new WeightDictionary();
 
-
             switch (resultType)
             {
                 case FunctionResultTypeEnum.numeric:
                     output.nDimensions = 1;
                     break;
+
                 case FunctionResultTypeEnum.numericVectorForMultiClass:
                     output.nDimensions = space.labels.Count;
                     break;
             }
 
-
             foreach (String term in terms)
             {
-                output.entries.Add(GetElementFactorEntry(term, space, label));
-
-
+                output.AddEntry(GetElementFactorEntry(term, space, label));
             }
 
             return output;
@@ -110,6 +113,7 @@ namespace imbNLP.Toolkit.Weighting.Global
                 case FunctionResultTypeEnum.numeric:
                     logger.AppendPair(str_dataType, "Rational number", true, "\t\t\t");
                     break;
+
                 case FunctionResultTypeEnum.numericVectorForMultiClass:
                     logger.AppendPair(str_dataType, "n-dimensional vector", true, "\t\t\t");
                     logger.AppendComment("where n=|C|, C are classes");
@@ -117,5 +121,4 @@ namespace imbNLP.Toolkit.Weighting.Global
             }
         }
     }
-
 }

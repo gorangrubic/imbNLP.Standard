@@ -1,8 +1,8 @@
 using imbNLP.Toolkit.Entity;
-using imbNLP.Toolkit.Feature.Settings;
 using imbNLP.Toolkit.Planes.Core;
 using imbNLP.Toolkit.Processing;
 using imbNLP.Toolkit.Stemmers.Shaman;
+using imbNLP.Toolkit.Weighting;
 using imbNLP.Toolkit.Weighting.Global;
 using imbSCI.Core.reporting;
 using System;
@@ -10,26 +10,6 @@ using System;
 namespace imbNLP.Toolkit.Planes
 {
 
-
-    [Flags]
-    public enum PlanesReportOptions
-    {
-        none = 0,
-        report_corpusDictionary = 1,
-        report_documentDictionary = 2,
-        report_categoryDictionary = 4,
-
-        report_selectedFeatures = 8,
-
-        report_documentBoWModels = 16,
-        report_categoryBoWModels = 32,
-
-        report_featureVectors = 64,
-
-        report_fold_stats = 128,
-        report_fold_contentAnalysis = 256,
-        report_fold_textrender = 512,
-    }
 
     /// <summary>
     /// Settings covering the whole 
@@ -52,7 +32,8 @@ namespace imbNLP.Toolkit.Planes
             output.entityMethod.instructions.Add(DocumentRenderInstruction.GetDescriptionInstruction());
             output.entityMethod.instructions.Add(DocumentRenderInstruction.GetTitleInstruction());
             output.entityMethod.instructions.Add(DocumentRenderInstruction.GetBodyTextInstruction());
-            output.entityMethod.blenderOptions = DocumentBlenderFunctionOptions.binaryAggregation | DocumentBlenderFunctionOptions.pageLevel;
+
+          //  output.entityMethod.blenderOptions = DocumentBlenderFunctionOptions.binaryAggregation | DocumentBlenderFunctionOptions.pageLevel;
             output.entityMethod.filterFunctionName = ""; // nameof(DocumentEntropyFunction);
             output.entityMethod.filterLimit = 5;
 
@@ -63,23 +44,24 @@ namespace imbNLP.Toolkit.Planes
             output.corpusMethod.transliterationRuleSetId = "";
 
             #region PREPARE Weighting model
-            var weightModel = new Corpora.FeatureWeightModel();
+            var weightModel = new FeatureWeightModel();
             weightModel.LocalFunction = new Weighting.Local.TermFrequencyFunction();
 
-            var globalFactor = new Corpora.FeatureWeightFactor();
+            var globalFactor = new FeatureWeightFactor();
             globalFactor.Settings.functionName = nameof(IDFElement);
             weightModel.GlobalFactors.Add(globalFactor);
 
-            output.corpusMethod.weightModel = weightModel;
+            output.corpusMethod.WeightModel = weightModel;
             #endregion
 
 
-            var featureFilter = new Corpora.FeatureFilter();
+            var featureFilter = new FeatureFilter();
             featureFilter.limit = 8000;
-            featureFilter.functionSettings = new GlobalFunctionSettings();
-            featureFilter.functionSettings.functionName = nameof(CollectionTDPElement);
-            featureFilter.functionSettings.weight = 1.0;
-            featureFilter.functionSettings.tdpFactor = Weighting.Metrics.TDPFactor.chi;
+            //featureFilter.
+            //featureFilter.functionSettings = new GlobalFunctionSettings();
+            //featureFilter.functionSettings.functionName = nameof(CollectionTDPElement);
+            //featureFilter.functionSettings.weight = 1.0;
+            //featureFilter.functionSettings.flags.Add(Weighting.Metrics.TDPFactor.chi.ToString());
             output.corpusMethod.filter = featureFilter;
 
             /*
@@ -90,11 +72,11 @@ namespace imbNLP.Toolkit.Planes
             output.vectorMethod.constructor.labelDimensions.Add(dimSpec);
             */
 
-            output.vectorMethod.constructor = new Feature.Settings.FeatureVectorConstructorSettings();
-            dimensionSpecification dimSpec = new dimensionSpecification();
-            //dimSpec.functionName = nameof(CosineSimilarityFunction);
-            dimSpec.type = FeatureVectorDimensionType.directTermWeight;
-            output.vectorMethod.constructor.featureDimensions.Add(dimSpec);
+            //output.vectorMethod.constructor = new Feature.Settings.FeatureVectorConstructorSettings();
+            //dimensionSpecification dimSpec = new dimensionSpecification();
+            ////dimSpec.functionName = nameof(CosineSimilarityFunction);
+            //dimSpec.type = FeatureVectorDimensionType.directTermWeight;
+            //output.vectorMethod.constructor.featureDimensions.Add(dimSpec);
 
 
             output.featureMethod.classifierSettings.type = Classifiers.ClassifierType.multiClassSVM;
@@ -159,6 +141,7 @@ namespace imbNLP.Toolkit.Planes
         /// The feature method.
         /// </value>
         public FeaturePlaneMethodSettings featureMethod { get; set; } = new FeaturePlaneMethodSettings();
+
         public String cachePath { get; set; } = "";
     }
 

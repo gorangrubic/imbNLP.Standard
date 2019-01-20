@@ -18,6 +18,7 @@ namespace imbNLP.Toolkit.Classifiers.Core
 
         public String name { get; set; } = "";
 
+        public abstract Double DoScore(FeatureVector target, ILogBuilder logger, Int32 labelID = -1);
 
         public abstract void DoTraining(IEnumerable<FeatureVectorWithLabelID> trainingSet, ILogBuilder logger);
 

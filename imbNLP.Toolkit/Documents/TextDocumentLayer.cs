@@ -1,8 +1,7 @@
 using System;
-using System.Collections.Generic;
-using System.Text;
+using System.Xml.Serialization;
 
-namespace imbNLP.Toolkit
+namespace imbNLP.Toolkit.Documents
 {
 
     /// <summary>
@@ -15,14 +14,14 @@ namespace imbNLP.Toolkit
 
         public TextDocumentLayer() { }
 
-        public TextDocumentLayer(String _content, String _name, Int32 w = 1)
+        public TextDocumentLayer(String _content, String _name, Double w = 1)
         {
             name = _name;
             content = _content;
             layerWeight = w;
         }
 
-        public Int32 layerWeight { get; set; } = 1;
+        public Double layerWeight { get; set; } = 1;
 
         /// <summary>
         /// Gets or sets the name.
@@ -39,6 +38,22 @@ namespace imbNLP.Toolkit
         /// The content.
         /// </value>
         public string content { get; set; } = "";
+
+
+        /// <summary>
+        /// Gets the length.
+        /// </summary>
+        /// <value>
+        /// The length.
+        /// </value>
+        [XmlIgnore]
+        public Int32 length
+        {
+            get
+            {
+                return content.Length;
+            }
+        }
     }
 
 }

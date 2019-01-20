@@ -46,7 +46,7 @@ namespace imbNLP.Toolkit.TopicModels.LDA
             {
                 SpaceTopic topic = new SpaceTopic(i.ToString());
                 topics.Add(topic);
-                WordToTopic[i] = new Int32[space.terms.Count];
+                WordToTopic[i] = new Int32[space.terms_known_label.Count];
             }
 
             Int32 d = 0;
@@ -119,14 +119,14 @@ namespace imbNLP.Toolkit.TopicModels.LDA
             phi = new double[settings.K][];
             for (int k = 0; k < settings.K; k++)
             {
-                phi[k] = new double[space.terms.Count];
+                phi[k] = new double[space.terms_known_label.Count];
             }
 
 
             for (int iter = 1; iter <= settings.iterations; iter++)
             {
 
-                for (int i = 0; i < space.terms.Count; i++)
+                for (int i = 0; i < space.terms_known_label.Count; i++)
                 {
                     int topic = DoSampling(i, space);
                     TotalWordToTopic[i] = topic;
@@ -156,7 +156,7 @@ namespace imbNLP.Toolkit.TopicModels.LDA
             nwsum[oldZ] -= 1;
             ndsum[d] -= 1;
 
-            double Vbeta = space.terms.Count * settings.eta; // Beta;
+            double Vbeta = space.terms_known_label.Count * settings.eta; // Beta;
             double Kalpha = settings.K * settings.alpha; // Alpha;
 
             for (int k = 0; k < settings.K; k++)
@@ -198,9 +198,9 @@ namespace imbNLP.Toolkit.TopicModels.LDA
 
             for (int k = 0; k < settings.K; k++)
             {
-                for (int w = 0; w < space.terms.Count; w++)
+                for (int w = 0; w < space.terms_known_label.Count; w++)
                 {
-                    phi[k][w] = (WordToTopic[w][k] + settings.eta) / (nwsum[k] + space.terms.Count * settings.eta);
+                    phi[k][w] = (WordToTopic[w][k] + settings.eta) / (nwsum[k] + space.terms_known_label.Count * settings.eta);
                 }
             }
         }
@@ -211,13 +211,13 @@ namespace imbNLP.Toolkit.TopicModels.LDA
             {
                 var wordsProbsList = new Dictionary<int, double>();
 
-                for (int w = 0; w < space.terms.Count; w++)
+                for (int w = 0; w < space.terms_known_label.Count; w++)
                 {
                     wordsProbsList.Add(w, phi[k][w]);
                 }
 
                 double ans = 0;
-                for (int w = 0; w < space.terms.Count; w++)
+                for (int w = 0; w < space.terms_known_label.Count; w++)
                 {
                     ans += phi[k][w];
                 }

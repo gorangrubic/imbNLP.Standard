@@ -52,7 +52,7 @@
         </member>
         <member name="T:imbNLP.Project.Dataset.WebDocumentsCategory">
             <summary>
-            Hierarchical category model
+            Hierarchical category model, dataset Data Object Model oriented
             </summary>
             <seealso cref="T:imbSCI.Data.collection.graph.graphNodeCustom" />
         </member>
@@ -60,6 +60,13 @@
             <summary>
             Creates dataset list, with all entities, groupped into first level categories.
             </summary>
+            <returns></returns>
+        </member>
+        <member name="M:imbNLP.Project.Dataset.WebDocumentsCategory.GetAllCategories(System.String)">
+            <summary>
+            Gets flat list of categories, where names represent category hierarchy graph path
+            </summary>
+            <param name="parentCatName">Name of the parent category, leave blank if this category should be considered as root</param>
             <returns></returns>
         </member>
         <member name="M:imbNLP.Project.Dataset.WebDocumentsCategory.GetSites(System.Int32)">
@@ -83,6 +90,12 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="M:imbNLP.Project.Dataset.WebDocumentsCategory.SetCategoryByDataset(System.Collections.Generic.IEnumerable{imbNLP.Toolkit.Documents.WebSiteDocumentsSet})">
+            <summary>
+            Sets the categories by enumerable dataset
+            </summary>
+            <param name="categorySet">The category set.</param>
+        </member>
         <member name="M:imbNLP.Project.Dataset.WebDocumentsCategory.GetDomainCategory(imbNLP.Project.Dataset.WebDomainCategory)">
             <summary>
             Gets the domain category.
@@ -92,7 +105,7 @@
         </member>
         <member name="T:imbNLP.Project.Dataset.WebDomainCategory">
             <summary>
-            
+            Filesystem oriented directed graph structure describing a category within document dataset
             </summary>
             <seealso cref="T:imbSCI.Data.collection.graph.graphNodeCustom" />
         </member>
@@ -254,6 +267,508 @@
             </summary>
             <param name="dataset">The dataset.</param>
             <param name="path">The path.</param>
+        </member>
+        <member name="T:imbNLP.Project.Extensions.becDataSetReportingExtension">
+            <summary>
+            Extension providing dataset reporting capability
+            </summary>
+            <seealso cref="!:imbACE.Services.consolePlugins.instanceLoadSaveExtension&lt;imbNLP.Project.Extensions.Setups.SetupDataSetReporting&gt;" />
+        </member>
+        <member name="M:imbNLP.Project.Extensions.becDocumentSelectionExtension.aceOperation_setDocumentSelectionAddGraphFactor(System.Boolean,imbNLP.Toolkit.Documents.Ranking.Core.GraphFactorFunctionEnum,System.Double,System.Boolean)">
+            <summary>
+            Aces the operation set document selection add graph factor.
+            </summary>
+            <param name="remove">if set to <c>true</c> [remove].</param>
+            <param name="flags">The flags.</param>
+            <param name="weight">The weight.</param>
+            <param name="normalize">if set to <c>true</c> [normalize].</param>
+        </member>
+        <member name="M:imbNLP.Project.Extensions.becDocumentSelectionExtension.aceOperation_setDocumentSelectionAddMetricFactor(System.Boolean,imbNLP.Toolkit.Documents.Ranking.Core.ScoreModelMetricFactorEnum,System.Double,System.Boolean)">
+            <summary>
+            Aces the operation set document selection add metric factor.
+            </summary>
+            <param name="remove">The remove.</param>
+            <param name="metric">The metric.</param>
+            <param name="weight">The weight.</param>
+            <param name="normalize">if set to <c>true</c> [normalize].</param>
+        </member>
+        <member name="T:imbNLP.Project.Extensions.becGlobalWeightTableConstructionExtension">
+            <summary>
+            
+            </summary>
+            <seealso cref="!:imbACE.Services.consolePlugins.instanceLoadSaveExtension&lt;imbNLP.Project.Operations.Setups.SetupWeightTableConstruction&gt;" />
+        </member>
+        <member name="T:imbNLP.Project.Extensions.becProjectionWeightTableExtension">
+            <summary>
+            
+            </summary>
+            <seealso cref="!:imbACE.Services.consolePlugins.instanceLoadSaveExtension&lt;imbNLP.Project.Operations.Setups.SetupProjectionWeightTableConstruction&gt;" />
+        </member>
+        <member name="F:imbNLP.Project.Operations.ClassificationDatasetSeparationEnum.TrainingLabeled_TestUnlabeled">
+            <summary>
+            If will use labeled vectors for training and then perform test over unlabeled ones
+            </summary>
+        </member>
+        <member name="F:imbNLP.Project.Operations.ClassificationDatasetSeparationEnum.TrainingAll_TestUnlabeled">
+            <summary>
+            It will use all vectors, breaching k-fold sendbox, and test unlabeled. THIS RARELY MAKES SENSE FROM SCIENTIFIC POINT OF VIEW
+            </summary>
+        </member>
+        <member name="F:imbNLP.Project.Operations.ClassificationDatasetSeparationEnum.TrainingAll_TestAll">
+            <summary>
+            It will use all vectors, breaching k-fold sendbox, and test all. THIS RARELY MAKES SENSE FROM SCIENTIFIC POINT OF VIEW
+            </summary>
+        </member>
+        <member name="F:imbNLP.Project.Operations.ClassificationDatasetSeparationEnum.TrainingLabeled_TestAll">
+            <summary>
+            It will train with labeled vectors and then test both training and test sets
+            </summary>
+        </member>
+        <member name="T:imbNLP.Project.Operations.Core.ProceduralFolderFor`4">
+            <summary>
+            Folder for procedural execution
+            </summary>
+            <typeparam name="TP">The type of the p.</typeparam>
+            <typeparam name="T"></typeparam>
+            <typeparam name="TC">The type of the c.</typeparam>
+            <seealso cref="T:System.Collections.Generic.List`1" />
+        </member>
+        <member name="M:imbNLP.Project.Operations.Core.ProceduralFolderFor`4.SetExecutionOptions(imbNLP.Project.Operations.Core.ProceduralStackOptions)">
+            <summary>
+            Sets the execution options.
+            </summary>
+            <param name="_options">The options.</param>
+        </member>
+        <member name="M:imbNLP.Project.Operations.Core.ProceduralFolderFor`4.#ctor(System.Collections.Generic.IList{imbNLP.Toolkit.ExperimentModel.ExperimentDataSetFold},`1,imbNLP.Toolkit.ExperimentModel.ToolkitExperimentNotes,imbACE.Core.operations.IAceOperationSetExecutor)">
+            <summary>
+            Initializes a new instance of the <see cref="T:imbNLP.Project.Operations.Core.ProceduralFolderFor`4"/> class.
+            </summary>
+            <param name="folds">The folds.</param>
+            <param name="setup">The setup.</param>
+            <param name="_notes">The notes.</param>
+        </member>
+        <member name="M:imbNLP.Project.Operations.Core.ProceduralFolderFor`4.DeployFolder(System.Collections.Generic.IList{imbNLP.Toolkit.ExperimentModel.ExperimentDataSetFold},`1,imbNLP.Toolkit.ExperimentModel.ToolkitExperimentNotes)">
+            <summary>
+            Deploys the folder.
+            </summary>
+            <param name="folds">The folds.</param>
+            <param name="setup">The setup.</param>
+            <param name="_notes">The notes.</param>
+        </member>
+        <member name="M:imbNLP.Project.Operations.Core.ProceduralFolderFor`4.Execute(`0,imbSCI.Core.reporting.ILogBuilder,System.Collections.Generic.Dictionary{System.String,`2},`3)">
+            <summary>
+            Procedure execution method
+            </summary>
+            <param name="procedure">The procedure.</param>
+            <param name="logger">The logger.</param>
+            <param name="executionContextDict">The execution context dictionary.</param>
+            <param name="executionContextExtra">The execution context extra.</param>
+            <returns></returns>
+        </member>
+        <member name="M:imbNLP.Project.Operations.Core.ProceduralFolderFor`4.Execute(System.Int32,imbSCI.Core.reporting.ILogBuilder,System.Collections.Generic.Dictionary{System.String,`2},`3)">
+            <summary>
+            Executes the specified parallel threads.
+            </summary>
+            <param name="parallelThreads">The parallel threads.</param>
+            <param name="logger">The logger.</param>
+            <param name="executionContextDict">The execution context dictionary.</param>
+            <param name="executionContextExtra">The execution context extra.</param>
+            <returns></returns>
+        </member>
+        <member name="P:imbNLP.Project.Operations.Core.ProceduralFolderFor`4.completeFold">
+            <summary>
+            Reference to the complete dataset sample
+            </summary>
+            <value>
+            The complete fold.
+            </value>
+        </member>
+        <member name="T:imbNLP.Project.Operations.Core.ProceduralStack">
+            <summary>
+            Stack of procedures
+            </summary>
+            <seealso cref="!:System.Collections.Generic.Stack&lt;imbNLP.Project.Operations.Core.IProceduralFolderFor&gt;" />
+        </member>
+        <member name="P:imbNLP.Project.Operations.Core.ProcedureBase.index">
+            <summary>
+            Position at Procedural folder
+            </summary>
+            <value>
+            The index.
+            </value>
+        </member>
+        <member name="T:imbNLP.Project.Operations.Core.ProcedureBaseFor`3">
+            <summary>
+            
+            </summary>
+            <typeparam name="T"></typeparam>
+            <typeparam name="TCMAIN">The type of the cmain.</typeparam>
+            <typeparam name="TCEXTRA">The type of the cextra.</typeparam>
+            <seealso cref="T:imbNLP.Project.Operations.Core.ProcedureBase" />
+            <seealso cref="T:imbSCI.Core.data.cache.IHasCacheProvider" />
+        </member>
+        <member name="M:imbNLP.Project.Operations.Core.ProcedureBaseFor`3.CheckRequirements(imbNLP.Toolkit.Documents.Ranking.Core.ScoreModelRequirements)">
+            <summary>
+            Checks the requirements and connects the <see cref="P:imbNLP.Project.Operations.Core.ProcedureBaseFor`3.CacheProvider"/>
+            </summary>
+            <param name="requirements">The requirements.</param>
+            <returns></returns>
+        </member>
+        <member name="M:imbNLP.Project.Operations.Core.ProcedureBaseFor`3.ExecuteFinal(System.Collections.Generic.Dictionary{System.String,`1},`2,imbSCI.Core.reporting.ILogBuilder)">
+            <summary>
+            Executes the final step, over complete execution result set
+            </summary>
+            <param name="executionContextDict">The execution context dictionary.</param>
+            <param name="executionContextExtra">The execution context extra.</param>
+            <param name="logger">The logger.</param>
+        </member>
+        <member name="T:imbNLP.Project.Operations.OperationClassificationEngine">
+            <summary>
+            
+            </summary>
+            <seealso cref="T:imbNLP.Toolkit.Planes.MethodDesignBase" />
+            <seealso cref="T:imbNLP.Toolkit.Documents.Ranking.IHasProceduralRequirements" />
+        </member>
+        <member name="M:imbNLP.Project.Operations.OperationClassificationEngine.DeploySettings(imbNLP.Toolkit.Planes.FeaturePlaneMethodSettings,imbNLP.Toolkit.ExperimentModel.ToolkitExperimentNotes,imbSCI.Core.reporting.ILogBuilder)">
+            <summary>
+            Prepares everything for operation
+            </summary>
+            <param name="settings">The settings.</param>
+            <param name="_notes">The notes.</param>
+            <param name="logger">The logger.</param>
+        </member>
+        <member name="P:imbNLP.Project.Operations.OperationClassificationEngine.classifier">
+            <summary>
+            Gets or sets the classifier.
+            </summary>
+            <value>
+            The classifier.
+            </value>
+        </member>
+        <member name="M:imbNLP.Project.Operations.OperationClassificationEngine.CheckRequirements(imbNLP.Toolkit.Documents.Ranking.Core.ScoreModelRequirements)">
+            <summary>
+            Queries factors for preprocessing requirements
+            </summary>
+            <param name="requirements">The requirements.</param>
+            <returns></returns>
+        </member>
+        <member name="T:imbNLP.Project.Operations.OperationContextReport">
+            <summary>
+            
+            </summary>
+            <seealso cref="T:imbNLP.Toolkit.Planes.MethodDesignBase" />
+        </member>
+        <member name="F:imbNLP.Project.Operations.OperationContextReport.pathLimit">
+            <summary>
+            The path limit
+            </summary>
+        </member>
+        <member name="M:imbNLP.Project.Operations.OperationContextReport.GetFilename(System.String)">
+            <summary>
+            Gets the filename.
+            </summary>
+            <param name="path">The path.</param>
+            <returns></returns>
+        </member>
+        <member name="M:imbNLP.Project.Operations.OperationContextReport.GenerateReports(imbNLP.Toolkit.Documents.OperationContext,imbNLP.Toolkit.Core.OperationReportEnum,imbSCI.Core.reporting.ILogBuilder)">
+            <summary>
+            Generates the reports.
+            </summary>
+            <param name="context">The context.</param>
+            <param name="log">The log.</param>
+        </member>
+        <member name="T:imbNLP.Project.Operations.OperationCorpusEngine">
+             <summary>
+            
+             </summary>
+             <seealso cref="T:imbNLP.Toolkit.Planes.MethodDesignBase" />
+        </member>
+        <member name="P:imbNLP.Project.Operations.OperationCorpusEngine.tokenizer">
+            <summary>
+            Gets or sets the tokenizer.
+            </summary>
+            <value>
+            The tokenizer.
+            </value>
+        </member>
+        <member name="P:imbNLP.Project.Operations.OperationCorpusEngine.stemmer">
+            <summary>
+            Gets or sets the stemmer.
+            </summary>
+            <value>
+            The stemmer.
+            </value>
+        </member>
+        <member name="P:imbNLP.Project.Operations.OperationCorpusEngine.transliteration">
+            <summary>
+            Gets or sets the transliteration.
+            </summary>
+            <value>
+            The transliteration.
+            </value>
+        </member>
+        <member name="P:imbNLP.Project.Operations.OperationCorpusEngine.filter">
+            <summary>
+            Gets or sets the filter.
+            </summary>
+            <value>
+            The filter.
+            </value>
+        </member>
+        <member name="P:imbNLP.Project.Operations.OperationCorpusEngine.weightModel">
+            <summary>
+            Gets or sets the weight model.
+            </summary>
+            <value>
+            The weight model.
+            </value>
+        </member>
+        <member name="P:imbNLP.Project.Operations.OperationCorpusEngine.spaceConstructor">
+            <summary>
+            Gets or sets the space constructor.
+            </summary>
+            <value>
+            The space constructor.
+            </value>
+        </member>
+        <member name="P:imbNLP.Project.Operations.OperationCorpusEngine.featureSpaceConstructor">
+            <summary>
+            Gets or sets the feature space constructor.
+            </summary>
+            <value>
+            The feature space constructor.
+            </value>
+        </member>
+        <member name="P:imbNLP.Project.Operations.OperationCorpusEngine.constructorSettings">
+            <summary>
+            Gets or sets the constructor settings.
+            </summary>
+            <value>
+            The constructor settings.
+            </value>
+        </member>
+        <member name="P:imbNLP.Project.Operations.OperationCorpusEngine.blender">
+            <summary>
+            Gets or sets the blender.
+            </summary>
+            <value>
+            The blender.
+            </value>
+        </member>
+        <member name="M:imbNLP.Project.Operations.OperationCorpusEngine.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:imbNLP.Project.Operations.OperationCorpusEngine"/> class.
+            </summary>
+        </member>
+        <member name="M:imbNLP.Project.Operations.OperationCorpusEngine.#ctor(imbNLP.Toolkit.Planes.CorpusPlaneMethodSettings,imbNLP.Toolkit.Feature.Settings.FeatureVectorConstructorSettings,imbNLP.Toolkit.ExperimentModel.ToolkitExperimentNotes,imbSCI.Core.reporting.ILogBuilder)">
+            <summary>
+            Initializes a new instance of the <see cref="T:imbNLP.Project.Operations.OperationCorpusEngine"/> class.
+            </summary>
+            <param name="settings">The settings.</param>
+            <param name="_notes">The notes.</param>
+            <param name="logger">The logger.</param>
+        </member>
+        <member name="M:imbNLP.Project.Operations.OperationCorpusEngine.CheckRequirements(imbNLP.Toolkit.Documents.Ranking.Core.ScoreModelRequirements)">
+            <summary>
+            Queries factors for preprocessing requirements
+            </summary>
+            <param name="requirements">The requirements.</param>
+            <returns></returns>
+        </member>
+        <member name="M:imbNLP.Project.Operations.OperationCorpusEngine.DeploySettings(imbNLP.Toolkit.Planes.CorpusPlaneMethodSettings,imbNLP.Toolkit.Feature.Settings.FeatureVectorConstructorSettings,imbNLP.Toolkit.ExperimentModel.ToolkitExperimentNotes,imbSCI.Core.reporting.ILogBuilder)">
+            <summary>
+            Prepares everything for operation
+            </summary>
+            <param name="settings">The settings.</param>
+            <param name="_notes">The notes.</param>
+            <param name="logger">The logger.</param>
+        </member>
+        <member name="M:imbNLP.Project.Operations.OperationCorpusEngine.SpaceModelPopulation(imbNLP.Toolkit.Documents.OperationContext,imbSCI.Core.reporting.ILogBuilder)">
+            <summary>
+            Spaces the model population.
+            </summary>
+            <param name="context">The context.</param>
+            <param name="log">The log.</param>
+        </member>
+        <member name="M:imbNLP.Project.Operations.OperationCorpusEngine.FeatureSelection(imbNLP.Toolkit.Documents.OperationContext,imbSCI.Core.reporting.ILogBuilder,System.Boolean)">
+            <summary>
+            Features the selection.
+            </summary>
+            <param name="context">The context.</param>
+            <param name="log">The log.</param>
+        </member>
+        <member name="M:imbNLP.Project.Operations.OperationCorpusEngine.SpaceModelCategories(imbNLP.Toolkit.Documents.OperationContext,imbSCI.Core.reporting.ILogBuilder)">
+            <summary>
+            Spaces the model categories.
+            </summary>
+            <param name="context">The context.</param>
+            <param name="log">The log.</param>
+        </member>
+        <member name="M:imbNLP.Project.Operations.OperationCorpusEngine.VectorSpaceConstruction(imbNLP.Toolkit.Documents.OperationContext,imbSCI.Core.reporting.ILogBuilder,System.Boolean)">
+            <summary>
+            Builds vectors from selected features and feature weighting model
+            </summary>
+            <param name="context">The context.</param>
+            <param name="log">The log.</param>
+        </member>
+        <member name="M:imbNLP.Project.Operations.OperationCorpusEngine.FeatureVectorConstruction(imbNLP.Toolkit.Documents.OperationContext,imbSCI.Core.reporting.ILogBuilder)">
+            <summary>
+            Features the vector construction.
+            </summary>
+            <param name="context">The context.</param>
+            <param name="log">The log.</param>
+        </member>
+        <member name="T:imbNLP.Project.Operations.OperationEntityEngine">
+             <summary>
+            
+             </summary>
+             <seealso cref="T:imbNLP.Toolkit.Planes.MethodDesignBase" />
+        </member>
+        <member name="P:imbNLP.Project.Operations.OperationEntityEngine.render">
+            <summary>
+            Gets or sets the render.
+            </summary>
+            <value>
+            The render.
+            </value>
+        </member>
+        <member name="P:imbNLP.Project.Operations.OperationEntityEngine.filter">
+            <summary>
+            Gets or sets the filter.
+            </summary>
+            <value>
+            The filter.
+            </value>
+        </member>
+        <member name="M:imbNLP.Project.Operations.OperationEntityEngine.DeploySettings(imbNLP.Toolkit.Planes.EntityPlaneMethodSettings,imbNLP.Toolkit.ExperimentModel.ToolkitExperimentNotes,imbSCI.Core.reporting.ILogBuilder)">
+            <summary>
+            Prepares everything for operation
+            </summary>
+            <param name="settings">The settings.</param>
+            <param name="logger">The logger.</param>
+        </member>
+        <member name="M:imbNLP.Project.Operations.OperationEntityEngine.TextRendering(imbNLP.Toolkit.Documents.OperationContext,imbSCI.Core.reporting.ILogBuilder,System.Boolean)">
+            <summary>
+            Texts the rendering.
+            </summary>
+            <param name="context">The context.</param>
+            <param name="log">The log.</param>
+        </member>
+        <member name="M:imbNLP.Project.Operations.OperationEntityEngine.CheckRequirements(imbNLP.Toolkit.Documents.Ranking.Core.ScoreModelRequirements)">
+            <summary>
+            Queries factors for preprocessing requirements
+            </summary>
+            <param name="requirements">The requirements.</param>
+            <returns></returns>
+        </member>
+        <member name="T:imbNLP.Project.Operations.Procedures.ProcedureClassification">
+            <summary>
+            
+            </summary>
+            <seealso cref="!:imbNLP.Project.Operations.Core.ProcedureBaseFor&lt;imbNLP.Project.Operations.Setups.SetupDocumentClassification, imbNLP.Project.Operations.Data.OperationContext, imbNLP.Toolkit.ExperimentModel.ExperimentModelExecutionContext&gt;" />
+        </member>
+        <member name="T:imbNLP.Project.Operations.Procedures.ProcedureForWTConstruction">
+            <summary>
+            Constructs Weight Table according to settings
+            </summary>
+            <seealso cref="!:imbNLP.Project.Operations.Core.ProcedureBaseFor&lt;imbNLP.Project.Operations.Setups.SetupWeightTableConstruction, imbNLP.Project.Operations.Data.OperationContext, imbNLP.Project.Operations.Data.OperationContext&gt;" />
+        </member>
+        <member name="P:imbNLP.Project.Operations.Setups.SetupDocumentClassification.ExportEvaluationToFilename">
+            <summary>
+            Gets or sets the export evaluation to filename - if * it will be replaced with <see cref="P:imbNLP.Toolkit.Core.ProcedureSetupBase.OutputFilename"/>
+            </summary>
+            <value>
+            The export evaluation to filename.
+            </value>
+        </member>
+        <member name="P:imbNLP.Project.Operations.Setups.SetupDocumentClassification.entityMethod">
+            <summary>
+            Gets or sets the entity method settings
+            </summary>
+            <value>
+            The entity method.
+            </value>
+        </member>
+        <member name="P:imbNLP.Project.Operations.Setups.SetupDocumentClassification.corpusMethod">
+            <summary>
+            Gets or sets the corpus method settings
+            </summary>
+            <value>
+            The corpus method.
+            </value>
+        </member>
+        <member name="P:imbNLP.Project.Operations.Setups.SetupDocumentClassification.featureMethod">
+            <summary>
+            Gets or sets the feature method.
+            </summary>
+            <value>
+            The feature method.
+            </value>
+        </member>
+        <member name="P:imbNLP.Project.Operations.Setups.SetupDocumentClassification.averagingMethod">
+            <summary>
+            Gets or sets the averaging method.
+            </summary>
+            <value>
+            The averaging method.
+            </value>
+        </member>
+        <member name="T:imbNLP.Project.Operations.Setups.SetupDocumentSelection">
+            <summary>
+            
+            
+            </summary>
+            <seealso cref="T:imbNLP.Toolkit.Core.ProcedureSetupBase" />
+        </member>
+        <member name="P:imbNLP.Project.Operations.Setups.SetupWeightTableConstruction.entityMethod">
+            <summary>
+            Gets or sets the entity method settings
+            </summary>
+            <value>
+            The entity method.
+            </value>
+        </member>
+        <member name="P:imbNLP.Project.Operations.Setups.SetupWeightTableConstruction.corpusMethod">
+            <summary>
+            Gets or sets the corpus method settings
+            </summary>
+            <value>
+            The corpus method.
+            </value>
+        </member>
+        <member name="T:imbNLP.Project.Operations.Tools.DocumentRankingTools">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:imbNLP.Project.Operations.Tools.DocumentRankingTools.ToIndex(System.Collections.Generic.IEnumerable{imbNLP.Toolkit.Space.SpaceDocumentModel})">
+            <summary>
+            To the index.
+            </summary>
+            <param name="primary">The primary.</param>
+            <returns></returns>
+        </member>
+        <member name="M:imbNLP.Project.Operations.Tools.DocumentRankingTools.ConstructPairDictionary(System.Collections.Generic.IEnumerable{imbNLP.Toolkit.Space.SpaceDocumentModel},System.Collections.Generic.IEnumerable{imbNLP.Toolkit.Space.SpaceDocumentModel})">
+            <summary>
+            Constructs the pair dictionary.
+            </summary>
+            <param name="primary">The primary.</param>
+            <param name="secondary">The secondary.</param>
+            <returns></returns>
+        </member>
+        <member name="M:imbNLP.Project.Operations.Tools.DocumentRankingTools.PrepareContext(imbNLP.Toolkit.Documents.OperationContext,imbNLP.Toolkit.Documents.Ranking.DocumentRankingMethod,imbSCI.Core.files.folders.folderNode,imbSCI.Core.reporting.ILogBuilder)">
+            <summary>
+            Prepares the context.
+            </summary>
+            <param name="context">The context.</param>
+            <param name="log">The log.</param>
+            <returns></returns>
+        </member>
+        <member name="T:imbNLP.Project.Operations.nlpOperationsPlugin">
+            <summary>
+            Plugin for imbACE console - imbNLPProjectPlugin
+            </summary>
+            <seealso cref="T:imbACE.Services.consolePlugins.aceConsolePluginBase" />
         </member>
         <member name="T:imbNLP.Project.Plugin.imbNLPProjectPlugin">
             <summary>

@@ -1,6 +1,4 @@
 using imbACE.Network.tools;
-using imbSCI.Core;
-using imbSCI.Core.extensions.io;
 using imbSCI.Core.files.folders;
 using imbSCI.Core.reporting;
 using imbSCI.Data;
@@ -14,7 +12,7 @@ using System.Text;
 namespace imbNLP.Project.Dataset
 {
     /// <summary>
-    /// 
+    /// Filesystem oriented directed graph structure describing a category within document dataset
     /// </summary>
     /// <seealso cref="imbSCI.Data.collection.graph.graphNodeCustom" />
     public class WebDomainCategory : graphNodeCustom
@@ -225,7 +223,7 @@ namespace imbNLP.Project.Dataset
 
             FileInfo rootList = di.GetFiles(categorySiteList, SearchOption.TopDirectoryOnly).FirstOrDefault(); //folder.findFile(categorySiteList, SearchOption.TopDirectoryOnly);
 
-            if (rootList!=null)
+            if (rootList != null)
             {
                 LoadDomainList(rootList.FullName, options);
             }
@@ -268,8 +266,9 @@ namespace imbNLP.Project.Dataset
 
                 if (options.HasFlag(WebDomainCategoryFormatOptions.saveAggregate))
                 {
-
-                    sb.AppendLine(GetDomainList(options, logger));
+                    List<string> sites = GetSites(100);
+                    sites.ForEach(x => sb.AppendLine(x));
+                    //sb.AppendLine(GetDomainList(options, logger));
 
 
                 }

@@ -1,6 +1,6 @@
-using imbNLP.Toolkit.Core;
 
 using imbNLP.Toolkit.Space;
+using imbSCI.Data.collection;
 using System.Collections.Generic;
 
 namespace imbNLP.Toolkit.Feature

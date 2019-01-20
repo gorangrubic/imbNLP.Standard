@@ -1,13 +1,9 @@
-using imbNLP.Toolkit.Processing;
-
 namespace imbNLP.Toolkit.Vectors
 {
-
-    public class VectorLabel : VectorBase
+    public class VectorLabel : VectorDocument
     {
         public VectorLabel()
         {
-
         }
 
         public VectorLabel(string _name)
@@ -15,5 +11,4 @@ namespace imbNLP.Toolkit.Vectors
             name = _name;
         }
     }
-
 }

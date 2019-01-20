@@ -2,6 +2,7 @@
 using imbSCI.Core.reporting;
 using System;
 using System.Collections.Generic;
+using System.Text;
 
 namespace imbNLP.Toolkit.ExperimentModel.CrossValidation
 {
@@ -18,7 +19,26 @@ namespace imbNLP.Toolkit.ExperimentModel.CrossValidation
         /// <value>
         ///   <c>true</c> if [single fold]; otherwise, <c>false</c>.
         /// </value>
-        public Boolean SingleFold { get; set; } = true;
+        public Boolean SingleFold { get; set; } =false;
+
+        public String GetShortSignature()
+        {
+            StringBuilder sb = new StringBuilder();
+            sb.Append("T" + TrainingFolds + "U" + TestFolds);
+            if (randomFolds)
+            {
+                sb.Append("RND");
+            }
+            if (LimitFoldsExecution > 0)
+            {
+                sb.Append("L" + LimitFoldsExecution.ToString());
+            }
+
+            return sb.ToString();
+
+        }
+
+
 
         /// <summary>
         /// Describes the cross validation settings

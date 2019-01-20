@@ -56,14 +56,32 @@
 
   <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net40|AnyCPU'">
     <WarningLevel>1</WarningLevel>
+    <DebugType>pdbonly</DebugType>
+    <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
 
+
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net40|AnyCPU'">
+    <DebugType>pdbonly</DebugType>
+    <DebugSymbols>true</DebugSymbols>
+  </PropertyGroup>
+
+
   <ItemGroup>
-    <PackageReference Include="imbSCI.Graph.Standard" Version="0.3.70" />
-    <PackageReference Include="imbWEM.CommonData" Version="0.3.0.1" />
+    <Compile Remove="Operations\legacy\OperationClassificationEngine.cs" />
+    <Compile Remove="Operations\legacy\OperationCorpusEngine.cs" />
+    <Compile Remove="Operations\legacy\OperationEntityEngine.cs" />
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <None Include="Operations\legacy\OperationClassificationEngine.cs" />
+    <None Include="Operations\legacy\OperationCorpusEngine.cs" />
+    <None Include="Operations\legacy\OperationEntityEngine.cs" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\imbWEM.Standard\imbCommonData\imbCommonData.csproj" />
     <ProjectReference Include="..\imbNLP.Toolkit\imbNLP.Toolkit.csproj" />
   </ItemGroup>
 

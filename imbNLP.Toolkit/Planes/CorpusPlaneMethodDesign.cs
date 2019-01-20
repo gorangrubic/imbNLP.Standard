@@ -1,5 +1,5 @@
-using imbNLP.Toolkit.Corpora;
 using imbNLP.Toolkit.Documents;
+using imbNLP.Toolkit.Documents.Ranking.Core;
 using imbNLP.Toolkit.ExperimentModel;
 using imbNLP.Toolkit.Planes.Core;
 using imbNLP.Toolkit.Processing;
@@ -8,6 +8,7 @@ using imbNLP.Toolkit.Space;
 using imbNLP.Toolkit.Stemmers;
 using imbNLP.Toolkit.Typology;
 using imbNLP.Toolkit.Vectors;
+using imbNLP.Toolkit.Weighting;
 using imbNLP.Transliteration.ruleSet;
 using imbSCI.Core.extensions.io;
 using imbSCI.Core.reporting;
@@ -78,6 +79,11 @@ namespace imbNLP.Toolkit.Planes
         /// </value>
         public SpaceModelConstructor spaceConstructor { get; set; } = new SpaceModelConstructor();
 
+        public override ScoreModelRequirements CheckRequirements(ScoreModelRequirements requirements = null)
+        {
+            throw new NotImplementedException();
+        }
+
 
         /// <summary>
         /// Prepares everything for operation
@@ -135,8 +141,8 @@ namespace imbNLP.Toolkit.Planes
             // modelling the documents 
             foreach (TextDocument doc in context.corpus_documents)
             {
-                var model = spaceConstructor.ConstructDocument(doc.content, doc.name, context.space, context, tokenizer);
-                var labels = spaceConstructor.GetLabels(doc.labels, context.space);
+                SpaceDocumentModel model = spaceConstructor.ConstructDocument(doc.content, doc.name, context.space, context.stemmContext, tokenizer);
+                List<SpaceLabel> labels = spaceConstructor.GetLabels(doc.labels, context.space);
                 Boolean isUnknownLabel = true;
                 foreach (SpaceLabel label in labels)
                 {

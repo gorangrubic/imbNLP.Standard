@@ -1,4 +1,6 @@
 using imbNLP.Toolkit.Space;
+using imbNLP.Toolkit.Weighting.Data;
+using imbSCI.Core.reporting;
 using System;
 using System.Collections.Generic;
 
@@ -27,7 +29,7 @@ namespace imbNLP.Toolkit.Weighting.Global
         /// <value>
         /// The index of the idf.
         /// </value>
-        public Dictionary<String, Double> ICF_index { get; set; } = new Dictionary<string, double>();
+        //public Dictionary<String, Double> index { get; set; } = new Dictionary<string, double>();
 
         /// <summary>
         /// Returns Inverse Class Frequency - ICF
@@ -39,20 +41,32 @@ namespace imbNLP.Toolkit.Weighting.Global
         public override double GetElementFactor(string term, SpaceModel space, SpaceLabel label = null)
         {
             if (!IsEnabled) return 1;
-            if (!ICF_index.ContainsKey(term)) return 0;
+            if (!index.ContainsKey(term)) return 0;
 
-            return ICF_index[term];
+            Double score = index[term];
+            if (!DistinctReturns.ContainsKey(score))
+            {
+                DistinctReturns.Add(score, term);
+            }
+
+
+            return score;
+
         }
 
-        public override void PrepareTheModel(SpaceModel space)
+
+
+        public override void PrepareTheModel(SpaceModel space, ILogBuilder log)
         {
             if (!IsEnabled) return;
+
+            index.Clear();
 
             var labels = space.labels;
 
             Dictionary<String, List<SpaceLabel>> TermToLabelIndex = new Dictionary<string, List<SpaceLabel>>();
 
-            var terms = space.terms.GetTokens();
+            var terms = space.GetTokens(true, false);
 
             foreach (String term in terms)
             {
@@ -61,11 +75,10 @@ namespace imbNLP.Toolkit.Weighting.Global
 
             foreach (SpaceLabel label in labels)
             {
-                List<SpaceDocumentModel> documents = space.LabelToDocumentLinks.GetAllLinked(label);
-
+                List<SpaceDocumentModel> documents = space.GetDocumentsOfLabel(label.name); //.//LabelToDocumentLinks.GetAllLinked(label);
                 foreach (SpaceDocumentModel document in documents)
                 {
-                    var termsInDocument = document.terms.GetTokens();
+                    var termsInDocument = document.GetTerms(true, true).GetTokens();
                     foreach (String termInDocument in termsInDocument)
                     {
                         if (!TermToLabelIndex[termInDocument].Contains(label))
@@ -80,18 +93,40 @@ namespace imbNLP.Toolkit.Weighting.Global
 
             foreach (String term in terms)
             {
-                Double CF_t = TermToLabelIndex[term].Count;
-                Double ICF_t = 0;
-                if (CF_t == 0)
+                if (TermToLabelIndex.ContainsKey(term))
                 {
+                    Double CF_t = TermToLabelIndex[term].Count;
+                    Double ICF_t = 0;
+                    if (CF_t == 0)
+                    {
 
+                    }
+                    else
+                    {
+                        ICF_t = Math.Log(1 + (N / CF_t));
+                    }
+                    index.Add(term, ICF_t);
                 }
                 else
                 {
-                    ICF_t = Math.Log(1 + (N / CF_t));
+                    index.Add(term, 0);
                 }
-                ICF_index.Add(term, ICF_t);
             }
+        }
+
+        public override void LoadModelData(WeightingModelData data)
+        {
+            LoadModelDataBase(data);
+        }
+
+        public override WeightingModelData SaveModelData()
+        {
+            return SaveModelDataBase();
+        }
+
+        public override void DeploySettings(GlobalFunctionSettings settings)
+        {
+
         }
     }
 }

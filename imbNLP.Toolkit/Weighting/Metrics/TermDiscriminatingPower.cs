@@ -23,6 +23,12 @@ namespace imbNLP.Toolkit.Weighting.Metrics
         {
         }
 
+        /// <summary>
+        /// Gets or sets the term.
+        /// </summary>
+        /// <value>
+        /// The term.
+        /// </value>
         public String term { get; set; } = "";
 
         /// <summary>
@@ -105,7 +111,7 @@ namespace imbNLP.Toolkit.Weighting.Metrics
         /// <value>
         /// a.
         /// </value>
-        public double a { get; set; }
+        public double a { get; set; } = 0;
 
         /// <summary>
         /// number of documents in the positive catogory which do not contain this term
@@ -113,7 +119,7 @@ namespace imbNLP.Toolkit.Weighting.Metrics
         /// <value>
         /// The b.
         /// </value>
-        public double b { get; set; }
+        public double b { get; set; } = 0;
 
         /// <summary>
         /// number of documents in a negative catogory which contain this term
@@ -121,7 +127,7 @@ namespace imbNLP.Toolkit.Weighting.Metrics
         /// <value>
         /// The c.
         /// </value>
-        public double c { get; set; }
+        public double c { get; set; } = 0;
 
         /// <summary>
         /// number of documents in a negative catogory which do not contain this term
@@ -129,6 +135,6 @@ namespace imbNLP.Toolkit.Weighting.Metrics
         /// <value>
         /// The d.
         /// </value>
-        public double d { get; set; }
+        public double d { get; set; } = 0;
     }
 }

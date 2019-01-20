@@ -9,7 +9,7 @@ using System.Linq;
 namespace imbNLP.Project.Dataset
 {
     /// <summary>
-    /// Hierarchical category model
+    /// Hierarchical category model, dataset Data Object Model oriented
     /// </summary>
     /// <seealso cref="imbSCI.Data.collection.graph.graphNodeCustom" />
     public class WebDocumentsCategory : graphNodeCustom
@@ -53,6 +53,26 @@ namespace imbNLP.Project.Dataset
                 ds.AddRange(subcat.GetAllSites());
                 ds.name = subcat.name;
                 dataset.Add(ds);
+            }
+            return dataset;
+        }
+
+        /// <summary>
+        /// Gets flat list of categories, where names represent category hierarchy graph path
+        /// </summary>
+        /// <param name="parentCatName">Name of the parent category, leave blank if this category should be considered as root</param>
+        /// <returns></returns>
+        public List<WebSiteDocumentsSet> GetAllCategories(String parentCatName = "")
+        {
+            List<WebSiteDocumentsSet> dataset = new List<WebSiteDocumentsSet>();
+            foreach (WebDocumentsCategory subcat in this)
+            {
+                WebSiteDocumentsSet ds = new WebSiteDocumentsSet();
+                ds.AddRange(subcat.siteDocuments);
+                ds.name = parentCatName + pathSeparator + subcat.name;
+                dataset.Add(ds);
+
+                dataset.AddRange(subcat.GetAllCategories(ds.name));
             }
             return dataset;
         }
@@ -137,11 +157,50 @@ namespace imbNLP.Project.Dataset
         }
 
 
-        public WebDocumentsCategory GetOrAdd(String path, Boolean isAbsolute)
+        public WebDocumentsCategory GetOrAdd(String __path, Boolean isAbsolute)
         {
-            WebDocumentsCategory cat = graphTools.ConvertPathToGraph<WebDocumentsCategory>(this, path, isAbsolute, Path.DirectorySeparatorChar.ToString(), true);  //Add(pathForCategory) as WebDomainCategory;
+            WebDocumentsCategory cat = graphTools.ConvertPathToGraph<WebDocumentsCategory>(this, __path, isAbsolute, pathSeparator, true);  //Add(pathForCategory) as WebDomainCategory;
+
+            if (cat == this)
+            {
+                
+            }
+
             return cat;
         }
+
+
+
+        /// <summary>
+        /// Sets the categories by enumerable dataset
+        /// </summary>
+        /// <param name="categorySet">The category set.</param>
+        public void SetCategoryByDataset(IEnumerable<WebSiteDocumentsSet> categorySet)
+        {
+
+            foreach (WebSiteDocumentsSet category in categorySet)
+            {
+                WebDocumentsCategory catChild = GetOrAdd(category.name, false);
+
+                foreach (WebSiteDocuments site in category)
+                {
+                    var existingSite = catChild.siteDocuments.FirstOrDefault(x => x.domain == site.domain);
+
+                    if (existingSite != null)
+                    {
+                        catChild.siteDocuments.Remove(existingSite);
+                    }
+
+                    catChild.siteDocuments.Add(site);
+                    
+                }
+            }
+
+
+
+        }
+
+
 
         /// <summary>
         /// Gets the domain category.

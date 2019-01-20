@@ -1,5 +1,6 @@
 
 using imbNLP.Toolkit.Functions;
+using imbNLP.Toolkit.Processing;
 using imbNLP.Toolkit.Vectors;
 using System;
 using System.Xml.Serialization;
@@ -48,6 +49,13 @@ namespace imbNLP.Toolkit.Feature
         [XmlIgnore]
         public IVector classVector { get; set; }
 
+
+        public override double ComputeDimension(WeightDictionary vector, Int32 d = 0)
+        {
+            var entry = similarityFunction.ComputeSimilarity(vector, classVector.terms);  //vector.GetValue(term, d);
+            return entry;
+        }
+
         /// <summary>
         /// Computes the dimension value for the given vector
         /// </summary>
@@ -59,7 +67,7 @@ namespace imbNLP.Toolkit.Feature
             {
                 throw new System.Exception("Similarity function instance not set for a FeatureSpace dimension! [" + classVector.name + "]");
             }
-            return similarityFunction.ComputeSimilarity(vector.terms.entries, classVector.terms.entries);
+            return similarityFunction.ComputeSimilarity(vector.terms, classVector.terms);
         }
     }
 

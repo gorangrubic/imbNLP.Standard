@@ -12,6 +12,12 @@ namespace imbNLP.Toolkit.Classifiers.Core
     /// </summary>
     public class ClassifierSettings
     {
+
+
+
+
+
+
         public ClassifierSettings()
         {
         }
@@ -100,6 +106,7 @@ namespace imbNLP.Toolkit.Classifiers.Core
                 case ClassifierType.simpleTopScore:
                     break;
                 default:
+                    output = new kNNClassifier();
                     break;
 
             }

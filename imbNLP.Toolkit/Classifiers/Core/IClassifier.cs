@@ -26,6 +26,8 @@ namespace imbNLP.Toolkit.Classifiers.Core
 
         void DoTraining(IEnumerable<FeatureVectorWithLabelID> trainingSet, ILogBuilder logger);
 
+        Double DoScore(FeatureVector target, ILogBuilder logger, Int32 labelID = -1);
+
         Int32 DoSelect(FeatureVector target, ILogBuilder logger);
 
     }

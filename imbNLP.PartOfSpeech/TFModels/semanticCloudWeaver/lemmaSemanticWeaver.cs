@@ -1,4 +1,4 @@
-﻿using imbNLP.PartOfSpeech.analysis;
+﻿using imbNLP.Toolkit.Analysis;
 using imbNLP.PartOfSpeech.providers.dictionary.apertium;
 using imbNLP.PartOfSpeech.TFModels.semanticCloud;
 using imbSCI.Core.files.folders;

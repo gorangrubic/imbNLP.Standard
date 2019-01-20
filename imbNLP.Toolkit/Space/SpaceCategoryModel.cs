@@ -19,6 +19,17 @@ namespace imbNLP.Toolkit.Space
         }
 
         /// <summary>
+        /// Clones the specified clone children too.
+        /// </summary>
+        /// <param name="cloneChildrenToo">if set to <c>true</c> [clone children too].</param>
+        /// <returns></returns>
+        public SpaceCategoryModel Clone(bool cloneChildrenToo = false)
+        {
+            return base.Clone<SpaceCategoryModel>(cloneChildrenToo);
+        }
+
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="SpaceCategoryModel"/> class.
         /// </summary>
         /// <param name="label">The label.</param>
@@ -30,18 +41,23 @@ namespace imbNLP.Toolkit.Space
 
             foreach (SpaceDocumentModel doc in documents)
             {
-                terms.MergeDictionary(doc.terms);
+                terms.MergeDictionary(doc.GetTerms(true, true));
                 Length += doc.Length;
+
+                Children.Add(doc);
             }
             Words = new Int32[Length];
 
             Int32 c = 0;
             foreach (SpaceDocumentModel doc in documents)
             {
-                foreach (Int32 w in doc.Words)
+                if (doc.Words != null)
                 {
-                    Words[c] = w;
-                    c++;
+                    foreach (Int32 w in doc.Words)
+                    {
+                        Words[c] = w;
+                        c++;
+                    }
                 }
 
             }

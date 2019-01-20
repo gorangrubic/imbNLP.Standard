@@ -2,6 +2,7 @@ using imbNLP.Toolkit.Stemmers;
 using imbNLP.Toolkit.Stemmers.Shaman;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace imbNLP.Toolkit.Processing
 {
@@ -31,34 +32,88 @@ namespace imbNLP.Toolkit.Processing
             stemmer = _stemmer;
         }
 
+        /// <summary>
+        /// Gets the distinct tokens.
+        /// </summary>
+        /// <returns></returns>
+        public List<String> GetDistinctTokens()
+        {
+            return wordToStem.Keys.ToList();
+        }
+
+        /// <summary>
+        /// Gets the dictinct stems.
+        /// </summary>
+        /// <returns></returns>
+        public List<String> GetDictinctStems()
+        {
+            return wordToStem.Values.Distinct().ToList();
+
+        }
+
+
+        /// <summary>
+        /// Returns stems to words dictionary
+        /// </summary>
+        /// <returns></returns>
+        public Dictionary<String, List<String>> GetStemToWords()
+        {
+            Dictionary<String, List<String>> output = new Dictionary<string, List<string>>();
+
+            foreach (var pair in wordToStem)
+            {
+                if (!output.ContainsKey(pair.Value)) output.Add(pair.Value, new List<string>());
+                output[pair.Value].Add(pair.Key);
+
+            }
+
+
+
+            return output;
+        }
+
+
 
         private Object StemLock = new Object();
 
 
         /// <summary>
-        /// Stems the specified token.
+        /// Stems the specified token - using stemmer for new tokens or already known stem-word pair
         /// </summary>
         /// <param name="token">The token.</param>
         /// <returns></returns>
         public String Stem(String token)
         {
-            lock (StemLock)
+            String stem = "";
+
+            if (!wordToStem.ContainsKey(token))
             {
-                if (wordToStem.ContainsKey(token))
+                lock (StemLock)
                 {
-                    return wordToStem[token];
+                    if (!wordToStem.ContainsKey(token))
+                    {
+                        stemmer.SetCurrent(token);
+
+                        stemmer.Stem();
+
+                        stem = stemmer.GetCurrent();
+
+                        wordToStem.Add(token, stem);
+                    }
+
                 }
+            }
 
-                stemmer.SetCurrent(token);
 
-                stemmer.Stem();
-
-                String stem = stemmer.GetCurrent();
-
-                wordToStem.Add(token, stem);
-
+            if (wordToStem.ContainsKey(token))
+            {
+                stem = wordToStem[token];
                 return stem;
             }
+
+
+
+            return stem;
         }
     }
 }

@@ -1,5 +1,3 @@
-
-using imbSCI.Core.math;
 using imbSCI.Core.reporting;
 using imbSCI.Data;
 using System;
@@ -9,33 +7,50 @@ using System.Linq;
 namespace imbNLP.Toolkit.Documents
 {
 
-    public static class WebSiteDocumentsSetTools
-    {
 
-        public const Int32 filenameMaxLength = 100;
-
-        public static String GetSafeFilename(String input)
-        {
-            if (input.Length > filenameMaxLength)
-            {
-                input = input.Substring(0, filenameMaxLength) + md5.GetMd5Hash(input).Substring(0, 8);
-            }
-            return input;
-        }
-
-    }
 
     /// <summary>
     /// Selected set of WebSiteDocuments
     /// </summary>
+    [Serializable]
     public class WebSiteDocumentsSet : List<WebSiteDocuments>
     {
+
+        /// <summary>
+        /// Counts total number of documents in the set
+        /// </summary>
+        /// <returns></returns>
+        public Int32 CountDocumentsTotal()
+        {
+            Int32 output = 0;
+            foreach (WebSiteDocuments site in this)
+            {
+                output += site.documents.Count;
+            }
+            return output;
+        }
+
         /// <summary>
         /// Initializes a new instance of the <see cref="WebSiteDocumentsSet"/> class.
         /// </summary>
         public WebSiteDocumentsSet()
         {
 
+        }
+
+        public WebSiteDocumentsSet WeakClone()
+        {
+            WebSiteDocumentsSet output = new WebSiteDocumentsSet();
+            output.name = name;
+            output.description = description;
+            output.datasetSourceName = datasetSourceName;
+
+            foreach (WebSiteDocuments site in this)
+            {
+                output.Add(site.WeakClone());
+            }
+
+            return output;
         }
 
         /// <summary>
@@ -49,14 +64,33 @@ namespace imbNLP.Toolkit.Documents
             description = _desc;
         }
 
+
+        /// <summary>
+        /// Assigns default identifiers to documents
+        /// </summary>
+        /// <param name="logger">The logger.</param>
+        /// <param name="minPageCount">The minimum page count.</param>
+        public void AssignID(ILogBuilder logger)
+        {
+            foreach (WebSiteDocuments site in this)
+            {
+                foreach (WebSiteDocument page in site.documents)
+                {
+                    page.AssignedID = WebSiteDocumentsSetTools.GetPageURL(page, site); //WebSiteDocumentsSetTools.GetUrlSignature(site.domain + page.path);
+                }
+            }
+        }
+
+
+
         /// <summary>
         /// Removes the empty documents, and document sets with less pages than <c>minPageCount</c>
         /// </summary>
         /// <param name="logger">The logger.</param>
         /// <param name="minPageCount">The minimum page count.</param>
-        public void RemoveEmptyDocuments(ILogBuilder logger, Int32 minPageCount = 1)
+        public void RemoveEmptyDocuments(ILogBuilder logger, Int32 minPageCount = 1, Int32 maxPageCount = -1)
         {
-            logger.log(":: Removing empty documents from [" + name + "] dataset category");
+            if (logger != null) logger.log(":: Removing empty documents from [" + name + "] dataset category");
 
             List<WebSiteDocuments> removeSiteList = new List<WebSiteDocuments>();
 
@@ -64,8 +98,19 @@ namespace imbNLP.Toolkit.Documents
             {
                 List<WebSiteDocument> removeList = new List<WebSiteDocument>();
 
+                Int32 pc = 0;
+
                 foreach (WebSiteDocument page in site.documents)
                 {
+                    if (maxPageCount > 0)
+                    {
+                        pc++;
+                        if (pc > maxPageCount)
+                        {
+                            removeList.Add(page);
+                        }
+                    }
+
                     if (page.HTMLSource.isNullOrEmpty())
                     {
                         removeList.Add(page);
@@ -78,7 +123,7 @@ namespace imbNLP.Toolkit.Documents
                     {
                         site.documents.Remove(rem);
                     }
-                    logger.log(":: [" + site.domain + "] pages [" + removeList.Count + "] removed");
+                    if (logger != null) logger.log(":: [" + site.domain + "] pages [" + removeList.Count + "] removed");
                 }
 
                 if (site.documents.Count < minPageCount)
@@ -93,7 +138,7 @@ namespace imbNLP.Toolkit.Documents
                 {
                     this.Remove(rem);
                 }
-                logger.log(":: [" + name + "] had [" + removeSiteList.Count + "] sites removed, as they had less than [" + minPageCount + "] pages.");
+                if (logger != null) logger.log(":: [" + name + "] had [" + removeSiteList.Count + "] sites removed, as they had less than [" + minPageCount + "] pages.");
             }
 
 

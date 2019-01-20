@@ -1,5 +1,6 @@
-using imbNLP.PartOfSpeech.analysis;
+
 using imbNLP.PartOfSpeech.TFModels.semanticCloud;
+using imbNLP.Toolkit.Analysis;
 using imbSCI.Core.extensions.data;
 using imbSCI.Core.files.folders;
 using imbSCI.Data;

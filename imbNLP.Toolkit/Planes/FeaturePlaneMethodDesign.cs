@@ -1,5 +1,6 @@
 
 using imbNLP.Toolkit.Classifiers.Core;
+using imbNLP.Toolkit.Documents.Ranking.Core;
 using imbNLP.Toolkit.ExperimentModel;
 using imbNLP.Toolkit.Feature;
 using imbNLP.Toolkit.Planes.Core;
@@ -25,6 +26,11 @@ namespace imbNLP.Toolkit.Planes
         /// The classifier.
         /// </value>
         public IClassifier classifier { get; set; }
+
+        public override ScoreModelRequirements CheckRequirements(ScoreModelRequirements requirements = null)
+        {
+            throw new NotImplementedException();
+        }
 
         /// <summary>
         /// Prepares everything for operation

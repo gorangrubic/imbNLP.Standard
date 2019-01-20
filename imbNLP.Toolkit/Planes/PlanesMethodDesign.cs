@@ -1,4 +1,5 @@
-﻿using imbNLP.Toolkit.ExperimentModel;
+﻿using imbNLP.Toolkit.Documents.Ranking.Core;
+using imbNLP.Toolkit.ExperimentModel;
 using imbNLP.Toolkit.Planes.Core;
 using imbSCI.Core.files;
 using imbSCI.Core.files.folders;
@@ -10,6 +11,11 @@ namespace imbNLP.Toolkit.Planes
 {
 
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <seealso cref="imbNLP.Toolkit.Planes.MethodDesignBase" />
+    /// <seealso cref="imbNLP.Toolkit.Planes.Core.IPlaneMethodDesign" />
     public class PlanesMethodDesign : MethodDesignBase, IPlaneMethodDesign
     {
 
@@ -101,6 +107,11 @@ namespace imbNLP.Toolkit.Planes
 
             return generalContext;
 
+        }
+
+        public override ScoreModelRequirements CheckRequirements(ScoreModelRequirements requirements = null)
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

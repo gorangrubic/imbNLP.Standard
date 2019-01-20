@@ -33,7 +33,6 @@ namespace imbNLP.Project.Plugin
     using System;
     using System.ComponentModel;
     using System.ComponentModel.DataAnnotations;
-
     /// <summary>
     /// Plugin for imbACE console - imbNLPProjectPlugin
     /// </summary>

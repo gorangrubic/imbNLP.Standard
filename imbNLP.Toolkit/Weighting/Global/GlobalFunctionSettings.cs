@@ -1,8 +1,7 @@
 using imbNLP.Toolkit.Typology;
-using imbNLP.Toolkit.Weighting.Metrics;
 using imbSCI.Core.reporting;
 using System;
-using static imbNLP.Toolkit.Weighting.Global.IDFElement;
+using System.Collections.Generic;
 
 namespace imbNLP.Toolkit.Weighting.Global
 {
@@ -20,6 +19,9 @@ namespace imbNLP.Toolkit.Weighting.Global
 
         }
 
+        public List<String> flags { get; set; } = new List<string>();
+
+
         /// <summary>
         /// Gets or sets the name of the function.
         /// </summary>
@@ -28,21 +30,23 @@ namespace imbNLP.Toolkit.Weighting.Global
         /// </value>
         public String functionName { get; set; } = "IDFElement";
 
-        /// <summary>
-        /// Gets or sets the TDP factor.
-        /// </summary>
-        /// <value>
-        /// The TDP factor.
-        /// </value>
-        public TDPFactor tdpFactor { get; set; } = TDPFactor.none;
+        ///// <summary>
+        ///// Gets or sets the TDP factor.
+        ///// </summary>
+        ///// <value>
+        ///// The TDP factor.
+        ///// </value>
+        //[XmlIgnore]
+        //public TDPFactor tdpFactor { get; set; } = TDPFactor.none;
 
-        /// <summary>
-        /// Gets or sets the idf computation.
-        /// </summary>
-        /// <value>
-        /// The idf computation.
-        /// </value>
-        public IDFComputation idfComputation { get; set; } = IDFComputation.logPlus;
+        ///// <summary>
+        ///// Gets or sets the idf computation.
+        ///// </summary>
+        ///// <value>
+        ///// The idf computation.
+        ///// </value>
+        //[XmlIgnore]
+        //public IDFComputation idfComputation { get; set; } = IDFComputation.logPlus;
 
         ///// <summary>
         ///// Gets or sets the type of the function.
@@ -74,10 +78,10 @@ namespace imbNLP.Toolkit.Weighting.Global
             switch (output)
             {
                 case "TDP":
-                    output += tdpFactor.ToString();
+                    // output += flags.toCsvString(); 
                     break;
                 case "IDF":
-                    output += idfComputation.ToString();
+                    // output += idfComputation.ToString();
                     break;
                 case "IGM":
                     output += "l" + l.ToString("F1");
@@ -92,32 +96,59 @@ namespace imbNLP.Toolkit.Weighting.Global
         /// <returns></returns>
         public IGlobalElement GetFunction(ILogBuilder logger)
         {
-            IGlobalElement output = TypeProviders.GlobalTermFunction.GetInstance(functionName);
-            if (output == null)
+            if (functionName == "0")
             {
-                throw new Exception("Global element function [" + functionName + "] was not found by the TypeProviders.GlobalTermFunction!");
-            }
-
-            if (output is CollectionTDPElement tdpElement)
-            {
-                tdpElement.factor = tdpFactor;
-                logger.log("Created: TDP function based on [" + tdpFactor.ToString() + "] factor");
 
             }
-            else if (output is IDFElement idfElement)
+
+            IGlobalElement output = null;
+
+            var t = TypeProviders.GlobalTermFunction.GetTypeByName(functionName);
+            if (t != null)
             {
-                idfElement.Computation = idfComputation;
-                logger.log("Created: IDF function based on [" + idfComputation.ToString() + "] computation");
+
+
+
+                output = TypeProviders.GlobalTermFunction.GetInstance(functionName);
+                if (output == null)
+                {
+                    throw new Exception("Global element function [" + functionName + "] was not found by the TypeProviders.GlobalTermFunction!");
+                }
+
+                if (output is CollectionTDPElement tdpElement)
+                {
+
+                    //tdpElement.
+
+                    //  logger.log("Created: TDP function based on [" + tdpFactor.ToString() + "] factor");
+
+                }
+                else if (output is IDFElement idfElement)
+                {
+
+
+                    //  idfElement.Computation = imbEnumExtendBase.GetEnumFromStringFlags<IDFComputation>(flags).FirstOrDefault();
+                    //  logger.log("Created: IDF function based on [" + output.idfComputation.ToString() + "] computation");
+                }
+                else if (output is IGMElement igmElement)
+                {
+                    igmElement.l = l;
+                    logger.log("Created: IGM function with landa set to [" + l.ToString() + "]");
+                }
+                else if (output is ICSdFElement icsdElement)
+                {
+                    logger.log("Created: ICSd function");
+                }
+                else if (output is CWPElement cwpElement)
+                {
+
+
+                }
+
+
+                output.DeploySettings(this);
             }
-            else if (output is IGMElement igmElement)
-            {
-                igmElement.l = l;
-                logger.log("Created: IGM function with landa set to [" + l.ToString() + "]");
-            }
-            else if (output is ICSdFElement icsdElement)
-            {
-                logger.log("Created: ICSd function");
-            }
+
 
 
             /*

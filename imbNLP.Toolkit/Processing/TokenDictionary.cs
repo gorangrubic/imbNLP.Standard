@@ -1,17 +1,37 @@
+using imbSCI.Data.data;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace imbNLP.Toolkit.Processing
 {
+
     /// <summary>
     /// Stores raw frequencies of the tokens
     /// </summary>
-    public class TokenDictionary
+    [Serializable]
+    public class TokenDictionary: changeBindableBase
     {
         protected Dictionary<string, Int32> TokenFrequency { get; set; } = new Dictionary<string, Int32>();
         protected Dictionary<string, Int32> TokenID { get; set; } = new Dictionary<string, Int32>();
         protected List<String> Tokens { get; set; } = new List<string>();
+
+
+        /// <summary>
+        /// Converts to frequency dictionary
+        /// </summary>
+        /// <returns></returns>
+        public Dictionary<String, Double> ToFrequencyDictionary()
+        {
+            Dictionary<String, Double> output = new Dictionary<string, double>();
+
+            foreach (var pair in TokenFrequency)
+            {
+                output.Add(pair.Key, (Double)pair.Value);
+            }
+            return output;
+        }
+
 
         /// <summary>
         /// Gets the count of distinct tokens in the dictionary
@@ -22,19 +42,135 @@ namespace imbNLP.Toolkit.Processing
         public Int32 Count { get { return TokenFrequency.Count; } }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="TokenDictionary"/> class.
-        /// </summary>
-        public TokenDictionary()
-        {
-        }
-
-        /// <summary>
         /// Builds dictionary from tokens specified
         /// </summary>
         /// <param name="tokens">The tokens.</param>
         public TokenDictionary(IEnumerable<String> tokens)
         {
             CountTokens(tokens);
+        }
+
+
+
+
+        /// <summary>
+        /// Clones this instance.
+        /// </summary>
+        /// <returns></returns>
+        public TokenDictionary Clone()
+        {
+            TokenDictionary output = new TokenDictionary();
+            foreach (String token in Tokens)
+            {
+                output.TokenFrequency.Add(token, TokenFrequency[token]);
+                output.TokenID.Add(token, TokenID[token]);
+                output.Tokens.Add(token);
+                output.InvokeChanged();
+            }
+            return output;
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="TokenDictionary"/> class.
+        /// </summary>
+        public TokenDictionary()
+        {
+           
+        }
+
+
+        protected void UpdateIfChanged()
+        {
+            if (HasChanges)
+            {
+                MaxFrequency = Int32.MinValue;
+                SumFrequency = 0;
+                SumSquareFrequency = 0;
+                SquareRootOfSumSquareFrequency = 0;
+
+                
+                for (int i = 0; i < Count; i++)
+                {
+                    String tkn = Tokens[i];
+                    Int32 f = TokenFrequency[tkn];
+
+                    if (f > MaxFrequency)
+                    {
+                        MaxFrequency = f;
+                    }
+
+                    SumFrequency += f;
+                    SumSquareFrequency += f * f;
+
+                }
+
+                SquareRootOfSumSquareFrequency = Math.Sqrt(SumSquareFrequency);
+                Accept();
+            }
+        }
+
+
+        #region DICTIONARY STATS
+
+
+        protected Int32 MaxFrequency { get; set; } = 0;
+        protected Int32 SumFrequency { get; set; } = 0;
+        protected Double SumSquareFrequency { get; set; } = 0;
+        protected Double SquareRootOfSumSquareFrequency { get; set; } = 0;
+
+        /// <summary>
+        /// Returns maximum frequency
+        /// </summary>
+        /// <returns></returns>
+        public Int32 GetMaxFrequency()
+        {
+            if (Count == 0) return 0;
+            UpdateIfChanged();
+            return MaxFrequency;
+        }
+
+        /// <summary>
+        /// Sum of all frequencies
+        /// </summary>
+        /// <returns></returns>
+        public Int32 GetSumFrequency()
+        {
+            if (Count == 0) return 0;
+            UpdateIfChanged();
+            return SumFrequency;
+        }
+
+        public Double GetSumSquareFrequencies()
+        {
+            if (Count == 0) return 0;
+            UpdateIfChanged();
+
+            return SumSquareFrequency;
+        }
+
+        /// <summary>
+        /// Returns square root of summation of the sqares of term frequencies
+        /// </summary>
+        /// <returns></returns>
+        public Double GetSquareRootOfSumSquareFrequencies()
+        {
+            if (Count == 0) return 0;
+            UpdateIfChanged();
+            return SquareRootOfSumSquareFrequency;
+        }
+
+
+        #endregion
+
+
+
+      
+        public void Clear()
+        {
+            TokenID.Clear();
+            TokenFrequency.Clear();
+            Tokens.Clear();
+            InvokeChanged();
         }
 
         /// <summary>
@@ -107,48 +243,13 @@ namespace imbNLP.Toolkit.Processing
         /// <param name="tokens">The tokens.</param>
         public void CountTokens(IEnumerable<String> tokens)
         {
+            
             foreach (String token in tokens)
             {
                 CountToken(token);
             }
         }
 
-        /// <summary>
-        /// Returns maximum frequency
-        /// </summary>
-        /// <returns></returns>
-        public Int32 GetMaxFrequency()
-        {
-            return TokenFrequency.Values.Max();
-        }
-
-        /// <summary>
-        /// Sum of all frequencies
-        /// </summary>
-        /// <returns></returns>
-        public Int32 GetSumFrequency()
-        {
-            return TokenFrequency.Values.Sum();
-        }
-
-        public Double GetSumSquareFrequencies()
-        {
-            Double fc = 0;
-            foreach (Int32 f in TokenFrequency.Values)
-            {
-                fc += f * f;
-            }
-            return fc;
-        }
-
-        /// <summary>
-        /// Returns square root of summation of the sqares of term frequencies
-        /// </summary>
-        /// <returns></returns>
-        public Double GetSquareRootOfSumSquareFrequencies()
-        {
-            return Math.Sqrt(GetSumSquareFrequencies());
-        }
 
         /// <summary>
         /// Adds oscore point/s to the token frequency. If the token wasn't registered with the dictionary, it will register it automatically.
@@ -164,6 +265,25 @@ namespace imbNLP.Toolkit.Processing
                 TokenFrequency[token] = 0;
             }
             TokenFrequency[token] = TokenFrequency[token] + score;
+
+            InvokeChanged();
+        }
+
+        /// <summary>
+        /// Gets frequency of the token
+        /// </summary>
+        /// <param name="token">The token.</param>
+        /// <returns></returns>
+        public Int32 GetTokenFrequencies(IEnumerable<String> tokens)
+        {
+            if (Count == 0) return 0;
+            Int32 output = 0;
+            foreach (var tkn in tokens)
+            {
+                output += GetTokenFrequency(tkn);
+            }
+
+            return output;
         }
 
         /// <summary>
@@ -173,6 +293,7 @@ namespace imbNLP.Toolkit.Processing
         /// <returns></returns>
         public Int32 GetTokenFrequency(String token)
         {
+            if (Count == 0) return 0;
             if (TokenFrequency.ContainsKey(token))
             {
                 return TokenFrequency[token];
@@ -190,6 +311,49 @@ namespace imbNLP.Toolkit.Processing
             if (id > Count) return null;
             return Tokens[id];
         }
+
+        /// <summary>
+        /// Gets the token by identifier.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <returns></returns>
+        public List<string> GetTokenByIDs(IEnumerable<int> ids)
+        {
+            List<String> output = new List<string>();
+
+            foreach (Int32 i in ids)
+            {
+                if (Tokens.Count > i)
+                {
+                    output.Add(Tokens[i]);
+                }
+            }
+
+            return output;
+        }
+
+
+        /// <summary>
+        /// Gets the token by identifier.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <returns></returns>
+        public List<Int32> GetIDsByTokens(IEnumerable<String> tkns)
+        {
+            List<Int32> output = new List<Int32>();
+
+            foreach (String i in tkns)
+            {
+                if (TokenID.ContainsKey(i))
+                {
+                    output.Add(TokenID[i]);
+                }
+            }
+
+            return output;
+        }
+
+
 
         /// <summary>
         /// Returns ID of the token specified
@@ -220,9 +384,54 @@ namespace imbNLP.Toolkit.Processing
                 Tokens.Add(str);
                 TokenID[str] = Tokens.Count - 1;
                 TokenFrequency[str] = frequency;
+                InvokeChanged();
                 return TokenID[str];
             }
             return -1;
+        }
+
+        public Boolean RemoveToken(String token)
+        {
+            Boolean output = TokenFrequency.Remove(token);
+            output = output && TokenID.Remove(token);
+            output = output && Tokens.Remove(token);
+            InvokeChanged();
+            return output;
+        }
+
+        /// <summary>
+        /// Removes specified tokens from the dictionary
+        /// </summary>
+        /// <param name="tokens">The tokens.</param>
+        /// <param name="inverseFilter">if set to <c>true</c> [inverse filter].</param>
+        /// <returns></returns>
+        public Int32 FilterTokens(List<String> tokens, Boolean inverseFilter = true)
+        {
+            List<String> toRemove = new List<string>();
+            Int32 c = 0;
+
+            if (inverseFilter)
+            {
+                var tkns = GetTokens();
+                tokens.ForEach(x => tkns.Remove(x));
+                toRemove.AddRange(tkns);
+            }
+            else
+            {
+                toRemove.AddRange(tokens);
+            }
+
+            foreach (String tkn in toRemove)
+            {
+                if (RemoveToken(tkn))
+                {
+                    c++;
+                }
+            }
+
+            InvokeChanged();
+
+            return c;
         }
     }
 }

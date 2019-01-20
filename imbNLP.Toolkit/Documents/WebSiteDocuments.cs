@@ -1,4 +1,5 @@
 ﻿
+using imbNLP.Toolkit.Documents.WebExtensions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +10,7 @@ namespace imbNLP.Toolkit.Documents
     /// <summary>
     /// Single web site
     /// </summary>
+    [Serializable]
     public class WebSiteDocuments
     {
         public WebSiteDocuments()
@@ -20,9 +22,41 @@ namespace imbNLP.Toolkit.Documents
             domain = _domain;
         }
 
+        /// <summary>
+        /// Gets or sets the extensions.
+        /// </summary>
+        /// <value>
+        /// The extensions.
+        /// </value>
+        public WebSiteDocumentExtensions extensions { get; set; } = new WebSiteDocumentExtensions();
+
+        public WebSiteDocuments WeakClone()
+        {
+            WebSiteDocuments output = new WebSiteDocuments(domain);
+            output.documents.AddRange(documents);
+            extensions.graph = extensions.graph;
+            return output;
+        }
+
+
+        /// <summary>
+        /// Gets or sets the domain.
+        /// </summary>
+        /// <value>
+        /// The domain.
+        /// </value>
         public String domain { get; set; } = "";
 
+        /// <summary>
+        /// Gets or sets the documents.
+        /// </summary>
+        /// <value>
+        /// The documents.
+        /// </value>
         public List<WebSiteDocument> documents { get; set; } = new List<WebSiteDocument>();
+
+
+
 
         /// <summary>
         /// Gets the or add.

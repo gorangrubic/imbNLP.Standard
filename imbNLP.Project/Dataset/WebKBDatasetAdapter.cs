@@ -30,17 +30,17 @@ namespace imbNLP.Project.Dataset
         /// <value>
         /// The description.
         /// </value>
-        public String description { get; set; } = "WebKB 7Sectors dataset format adapter - blog.veles.rs - imbNLP framework.";
+        public String description { get; set; } = "DataSet produced with WebKB 7Sectors format adapter - blog.veles.rs - imbNLP framework.";
 
         /// <summary>
         /// Gets the URL path from filename.
         /// </summary>
         /// <param name="filename">The filename.</param>
         /// <returns></returns>
-        private String GetURLPathFromFilename(String filename)
+        public String GetURLPathFromFilename(String filename)
         {
             String output = filename;
-            output = output.Replace("_", ":");
+            output = output.Replace("_^^", "://");
             output = output.Replace("^", "/");
             return output;
         }
@@ -50,13 +50,14 @@ namespace imbNLP.Project.Dataset
         /// </summary>
         /// <param name="url">The URL.</param>
         /// <returns></returns>
-        private String GetFilenameFromURLPath(String url)
+        public String GetFilenameFromURLPath(String url)
         {
             String output = url;
-            output = output.Replace(":", "_");
+            output = output.Replace("://", "_^^");
             output = output.Replace("/", "^");
             return output;
         }
+
 
         /// <summary>
         /// Gets or sets the name of the select domain.
@@ -64,7 +65,7 @@ namespace imbNLP.Project.Dataset
         /// <value>
         /// The name of the select domain.
         /// </value>
-        private Regex SelectDomainName { get; set; } = new Regex("//([\\w\\d\\.\\-]*)/");
+        private Regex SelectDomainName { get; set; } = new Regex("//([\\w\\d\\.\\-]*)/?");
         /// <summary>
         /// Gets or sets the select path.
         /// </summary>
@@ -144,14 +145,45 @@ namespace imbNLP.Project.Dataset
                     logger.log("Web sites detected: [" + siteFilesIndex.Count + "]");
                 }
 
+
+
                 foreach (String k in siteFilesIndex.Keys)
                 {
                     WebSiteDocuments webSite = new WebSiteDocuments(k);
 
+                    List<String> k_list = new List<string>();
+
                     foreach (FileInfo fi in siteFilesIndex[k])
                     {
+                        WebSiteDocument d = LoadWebSiteDocument(fi, webSite, options);
 
-                        webSite.documents.Add(LoadWebSiteDocument(fi, webSite, options));
+                        //if (fi.FullName[fi.FullName.Length - 1] == '7')
+                        //{
+
+                        //}
+
+
+                        //String filename = webSite.domain.add(d.path, "/");
+                        //filename = filename.Replace("//", "/");
+                        //filename = "http://" + filename;
+                        //filename = GetFilenameFromURLPath(filename);
+                        //filename = WebSiteDocumentsSetTools.GetSafeFilename(filename);
+
+
+
+                        String AssociatedID = WebSiteDocumentsSetTools.GetPageURL(d, webSite);  //WebSiteDocumentsSetTools.GetUrlSignature(webSite.domain + d.path);
+                        d.AssignedID = AssociatedID;
+                        if (k_list.Contains(d.AssignedID))
+                        {
+
+                        }
+                        else
+                        {
+                            k_list.Add(d.AssignedID);
+
+                            webSite.documents.Add(d);
+                        }
+
                     }
 
                     category.siteDocuments.Add(webSite);
@@ -191,6 +223,11 @@ namespace imbNLP.Project.Dataset
         public WebDocumentsCategory LoadDataset(String path, WebDomainCategoryFormatOptions options, ILogBuilder logger = null)
         {
             WebDocumentsCategory output = new WebDocumentsCategory();
+
+            if (path.isNullOrEmpty())
+            {
+                throw new ArgumentException("Path is empty or null", nameof(path));
+            }
 
             DirectoryInfo dir = new DirectoryInfo(path);
 
@@ -235,6 +272,30 @@ namespace imbNLP.Project.Dataset
 
 
 
+        public void SaveWebSite(WebSiteDocuments site, folderNode folder)
+        {
+
+
+            foreach (WebSiteDocument page in site.documents)
+            {
+
+                String filename = site.domain.add(page.path, "/");
+                filename = filename.Replace("//", "/");
+                filename = "http://" + filename;
+                filename = GetFilenameFromURLPath(filename);
+                filename = WebSiteDocumentsSetTools.GetSafeFilename(filename);
+
+                String p = folder.pathFor(filename, imbSCI.Data.enums.getWritableFileMode.existing, "Page of [" + site.domain + "] at path [" + page.path + "]", false);
+
+                String source = GetWebDocumentSource(page);
+                if (!File.Exists(p))
+                {
+                    File.WriteAllText(p, source);
+                }
+            }
+
+        }
+
         /// <summary>
         /// Saves the web sites.
         /// </summary>
@@ -248,17 +309,25 @@ namespace imbNLP.Project.Dataset
             foreach (WebSiteDocuments site in category.siteDocuments)
             {
                 domainList.AppendLine(site.domain);
+                SaveWebSite(site, folder);
+                /*
                 foreach (WebSiteDocument page in site.documents)
                 {
-                    String source = GetWebDocumentSource(page);
+
                     String filename = site.domain.add(page.path, "/");
                     filename = filename.Replace("//", "/");
                     filename = "http://" + filename;
                     filename = GetFilenameFromURLPath(filename);
                     filename = WebSiteDocumentsSetTools.GetSafeFilename(filename);
 
-                    File.WriteAllText(folder.pathFor(filename, imbSCI.Data.enums.getWritableFileMode.overwrite, "Page of [" + site.domain + "] at path [" + page.path + "]", true), source);
-                }
+                    String p = folder.pathFor(filename, imbSCI.Data.enums.getWritableFileMode.existing, "Page of [" + site.domain + "] at path [" + page.path + "]", false);
+
+                    String source = GetWebDocumentSource(page);
+                    if (!File.Exists(p))
+                    {
+                        File.WriteAllText(p, source);
+                    }
+                }*/
             }
 
             if (options.HasFlag(WebDomainCategoryFormatOptions.saveDomainList))
@@ -300,7 +369,7 @@ namespace imbNLP.Project.Dataset
         public void SaveDataset(WebDocumentsCategory dataset, String path, WebDomainCategoryFormatOptions options, ILogBuilder logger = null)
         {
             folderNode folder = new DirectoryInfo(path);
-            folder.description = description;
+            folder.description = dataset.description.add(description, Environment.NewLine);
 
 
             SaveWebSites(dataset, folder, options);

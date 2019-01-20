@@ -1,5 +1,6 @@
 using imbNLP.Toolkit.Documents.Analysis;
 using imbSCI.Core.attributes;
+using imbSCI.Core.math.measurement;
 using System;
 using System.ComponentModel;
 

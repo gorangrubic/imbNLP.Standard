@@ -7,7 +7,7 @@ namespace imbNLP.Toolkit.Entity.DocumentFunctions
     {
         public DocumentFunctionKernelType kernel { get; set; } = DocumentFunctionKernelType.singleCycle;
 
-        public abstract Double Compute(TextDocumentLayerCollection document, TextDocumentSet documentSet);
+        public abstract Double Compute(TextDocumentLayerCollection document, String parentID);
 
         public abstract void Learn(IEnumerable<TextDocumentSet> documentSets);
 

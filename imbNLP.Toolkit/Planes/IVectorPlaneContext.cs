@@ -2,6 +2,7 @@ using imbNLP.Toolkit.Core;
 using imbNLP.Toolkit.Planes.Core;
 using imbNLP.Toolkit.Space;
 using imbNLP.Toolkit.Vectors;
+using imbSCI.Data.collection;
 
 namespace imbNLP.Toolkit.Planes
 {

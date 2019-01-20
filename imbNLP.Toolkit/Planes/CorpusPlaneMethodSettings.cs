@@ -1,5 +1,7 @@
-using imbNLP.Toolkit.Corpora;
-using imbNLP.Toolkit.Planes.Core;
+using imbNLP.Toolkit.Entity;
+using imbNLP.Toolkit.Processing;
+using imbNLP.Toolkit.Stemmers.Shaman;
+using imbNLP.Toolkit.Weighting;
 using imbSCI.Core.extensions.data;
 using imbSCI.Core.reporting;
 using System;
@@ -7,36 +9,77 @@ using System;
 namespace imbNLP.Toolkit.Planes
 {
 
-    public class CorpusPlaneMethodSettings : IPlaneSettings
+    public class CorpusPlaneMethodSettings : PlaneSettingsBase
     {
+        private FeatureFilter _filter = new FeatureFilter();
+
+
+        private FeatureWeightModel _weightModel = new FeatureWeightModel();
+
         public CorpusPlaneMethodSettings()
         {
 
         }
 
-        public String stemmer { get; set; } = "";
+        public String stemmer { get; set; } = nameof(EnglishStemmer);
 
-        public String tokenizer { get; set; } = "";
+        public String tokenizer { get; set; } = nameof(TokenizerBasic);
 
         public String transliterationRuleSetId { get; set; } = "";
 
-        public FeatureFilter filter { get; set; } = new FeatureFilter();
+        /// <summary>
+        /// Gets or sets the blender.
+        /// </summary>
+        /// <value>
+        /// The blender.
+        /// </value>
+        public DocumentBlenderFunction blender { get; set; } = new DocumentBlenderFunction();
 
-        public FeatureWeightModel weightModel { get; set; } = new FeatureWeightModel();
 
 
-        public void Describe(ILogBuilder logger)
+        public FeatureFilter filter
         {
-            logger.AppendPair("Stemmer", stemmer, true, "\t\t\t");
+            get { return _filter; }
+            set
+            {
 
-            logger.AppendPair("Tokenizer", tokenizer, true, "\t\t\t");
+                _filter = value;
+                OnPropertyChange(nameof(filter));
+            }
+        }
 
-            logger.AppendPair("Transliteration", !transliterationRuleSetId.isNullOrEmpty(), true, "\t\t\t");
+        /// <summary>
+        /// Gets or sets the weight model.
+        /// </summary>
+        /// <value>
+        /// The weight model.
+        /// </value>
+        public FeatureWeightModel WeightModel
+        {
+            get { return _weightModel; }
+            set
+            {
 
-            filter.Describe(logger);
+                _weightModel = value;
+                OnPropertyChange(nameof(WeightModel));
+            }
+        }
 
-            weightModel.Describe(logger);
 
+        public override void Describe(ILogBuilder logger)
+        {
+            if (logger != null)
+            {
+                logger.AppendPair("Stemmer", stemmer, true, "\t\t\t");
+
+                logger.AppendPair("Tokenizer", tokenizer, true, "\t\t\t");
+
+                logger.AppendPair("Transliteration", !transliterationRuleSetId.isNullOrEmpty(), true, "\t\t\t");
+
+                filter.Describe(logger);
+
+                WeightModel.Describe(logger);
+            }
 
         }
     }

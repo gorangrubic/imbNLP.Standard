@@ -1,3 +1,4 @@
+using imbNLP.Toolkit.Documents.Ranking.Core;
 using imbNLP.Toolkit.ExperimentModel;
 using imbNLP.Toolkit.Feature;
 using imbNLP.Toolkit.Feature.Settings;
@@ -21,14 +22,19 @@ namespace imbNLP.Toolkit.Planes
 
         public FeatureVectorConstructorSettings constructorSettings { get; set; }
 
+        public override ScoreModelRequirements CheckRequirements(ScoreModelRequirements requirements = null)
+        {
+            throw new System.NotImplementedException();
+        }
+
         public void DeploySettings(IPlaneSettings settings, ToolkitExperimentNotes _notes, ILogBuilder logger)
         {
             DeploySettingsBase(_notes);
 
             VectorPlaneMethodSettings vectorPlaneSettings = (VectorPlaneMethodSettings)settings;
-            constructorSettings = vectorPlaneSettings.constructor;
+           // constructorSettings = vectorPlaneSettings.constructor;
 
-            vectorPlaneSettings.Describe(notes);
+            if (notes != null) vectorPlaneSettings.Describe(notes);
 
             CloseDeploySettingsBase();
 

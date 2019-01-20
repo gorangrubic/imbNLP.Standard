@@ -1,13 +1,6 @@
-using System;
-using System.Linq;
-using System.Collections.Generic;
-using imbSCI.Core.extensions.text;
-using imbSCI.DataComplex.special;
-using imbSCI.Core.extensions.data;
-using imbSCI.Data;
-
 namespace imbNLP.Toolkit.Entity.DocumentFunctions
 {
+    /*
 
     /// <summary>
     /// Iterative function that selects page with highest number of yet unknown text tokens in each iteration, therefore maximizes number of tokens used for classification
@@ -31,12 +24,13 @@ namespace imbNLP.Toolkit.Entity.DocumentFunctions
         /// <returns></returns>
         public override double Compute(TextDocumentLayerCollection document, TextDocumentSet documentSet)
         {
-            if (!knownTerms[documentSet.name].ContainsKey(documentSet.Count))  {
+            if (!knownTerms[documentSet.name].ContainsKey(documentSet.Count))
+            {
                 knownTerms[documentSet.name].Add(documentSet.Count, new List<string>());
 
                 foreach (TextDocumentLayerCollection tx in sets[documentSet.name])
                 {
-                    if (!documentSet.Any(x=>x.name == tx.name))
+                    if (!documentSet.Any(x => x.name == tx.name))
                     {
                         knownTerms[documentSet.name][documentSet.Count].AddRange(setTokens[documentSet.name][tx], true);
                     }
@@ -72,5 +66,5 @@ namespace imbNLP.Toolkit.Entity.DocumentFunctions
             }
         }
     }
-
+    */
 }

@@ -1,3 +1,4 @@
+using imbNLP.Toolkit.Feature;
 using System;
 using System.Xml.Serialization;
 
@@ -8,8 +9,25 @@ namespace imbNLP.Toolkit.Processing
     /// Entry describing weight for a textual token
     /// </summary>
     [XmlRoot(ElementName = "wde")]
-    public class WeightDictionaryEntry
+    public class WeightDictionaryEntry : IVectorDimensions, IEquatable<WeightDictionaryEntry>
     {
+        Boolean IEquatable<WeightDictionaryEntry>.Equals(WeightDictionaryEntry vec)
+        {
+            return (vec.name == name);
+        }
+
+        public FeatureVector ToFeatureVector()
+        {
+            FeatureVector output = new FeatureVector(name);
+            output.dimensions = dimensions;
+            return output;
+        }
+
+        bool IEquatable<IVectorDimensions>.Equals(IVectorDimensions other)
+        {
+            return (other.name == name);
+        }
+
         public static WeightDictionaryEntry operator +(WeightDictionaryEntry entryA, WeightDictionaryEntry entryB)
         {
             Int32 d = Math.Min(entryA.dimensions.Length, entryB.dimensions.Length);
@@ -134,5 +152,7 @@ namespace imbNLP.Toolkit.Processing
 
         [XmlElement(ElementName = "w")]
         public Double[] dimensions { get; set; }
+        string IVectorDimensions.name { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        double[] IVectorDimensions.dimensions { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
     }
 }

@@ -19,6 +19,17 @@ namespace imbNLP.Toolkit.Processing
 
         }
 
+        public WeightDictionaryEntryPairs(WeightDictionary vectorA, WeightDictionary vectorB, Int32 vectorADimID = 0, Int32 vectorBDimID = 0)
+        {
+            foreach (String k in vectorA.GetKeys())
+            {
+                if (vectorB.ContainsKey(k))
+                {
+                    Add(new WeightDictionaryEntryPair(k, vectorA.index[k].dimensions[vectorADimID], vectorA.index[k].dimensions[vectorBDimID]));
+                }
+            }
+        }
+
         /// <summary>
         /// Initializes a new instance of the <see cref="WeightDictionaryEntryPairs"/> class.
         /// </summary>

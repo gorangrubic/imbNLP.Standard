@@ -9,6 +9,7 @@ namespace imbNLP.Toolkit.Feature.Settings
         directTermWeight,
         similarityFunction,
         topicWeight,
+        precompiledDocumentScore
     }
 
 }

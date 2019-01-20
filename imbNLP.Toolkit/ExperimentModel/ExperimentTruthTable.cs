@@ -5,6 +5,7 @@ using imbSCI.Core.math.classificationMetrics;
 using imbSCI.Core.reporting;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace imbNLP.Toolkit.ExperimentModel
 {
@@ -36,6 +37,48 @@ namespace imbNLP.Toolkit.ExperimentModel
                 output[catName].Add(label);
             }
             return output;
+        }
+
+
+        /// <summary>
+        /// Gets the evaluation as feature vector dictionary.
+        /// </summary>
+        /// <param name="testResults">The test results.</param>
+        /// <param name="_testName">Name of the test.</param>
+        /// <param name="logger">The logger.</param>
+        /// <param name="correctScore">Score to assign for correct classification</param>
+        /// <param name="incorrectScore">Score to assign for incorrect classification</param>
+        /// <returns></returns>
+        public FeatureVectorDictionaryWithDimensions GetEvaluationAsFeatureVectorDictionary(List<FeatureVectorWithLabelID> testResults, String _testName, ILogBuilder logger, Double correctScore = 1, Double incorrectScore = -1)
+        {
+            FeatureVectorDictionaryWithDimensions output = new FeatureVectorDictionaryWithDimensions();
+
+            output.dimensions.Add("Correct", "Classification is performed correctly in [" + _testName + "] test", Feature.Settings.FeatureVectorDimensionType.precompiledDocumentScore, _testName);
+
+
+            foreach (FeatureVectorWithLabelID test_item in testResults)
+            {
+                String test_response = labels_without_unknown[test_item.labelID];
+
+                String test_truth = siteToLabel[test_item.vector.name];
+
+                var fv = output.Create(test_item.name);
+
+                if (test_response == test_truth)
+                {
+                    fv.dimensions[0] = correctScore;
+                }
+                else
+                {
+                    fv.dimensions[0] = incorrectScore;
+                }
+
+                output.Add(fv);
+
+            }
+
+            return output;
+
         }
 
 
@@ -85,6 +128,73 @@ namespace imbNLP.Toolkit.ExperimentModel
 
         }
 
+        //public void Deploy(FeatureVectorDictionary dataset, ILogBuilder logger)
+        //{
+        //    Deploy(dataset.GetVectorsWithLabelID(d))
+        //}
+
+        public void Deploy(FeatureSpace space, List<String> labels, ILogBuilder logger)
+        {
+
+            //List<String> labels = space.labelToDocumentAssociations.GetAllDistinctNames(true);
+
+            List<FeatureVectorWithLabelID> dataset = new List<FeatureVectorWithLabelID>();
+
+            foreach (FeatureVector vec in space.documents)
+            {
+                var associated = space.labelToDocumentAssociations.GetAllLinked(vec);
+
+                Int32 lbi = -1;
+
+
+                FeatureVectorWithLabelID fvl = null;
+
+                if (associated.Any())
+                {
+                    lbi = labels.IndexOf(associated.First().name);
+                }
+                else
+                {
+                    lbi = labels.IndexOf(SpaceLabel.UNKNOWN);
+                }
+
+                fvl = new FeatureVectorWithLabelID(vec, lbi);
+                dataset.Add(fvl);
+            }
+
+            Deploy(dataset, logger, labels);
+
+        }
+
+
+        /// <summary>
+        /// Deploys custom truth table
+        /// </summary>
+        /// <param name="vectors">The vectors.</param>
+        /// <param name="logger">The logger.</param>
+        public void Deploy(IEnumerable<FeatureVectorWithLabelID> vectors, ILogBuilder logger, List<String> labels = null)
+        {
+
+            label_index = SpaceLabel.SetDefaultLabelList(true, labels);
+
+            labels_without_unknown = SpaceLabel.SetDefaultLabelList(false, labels);
+
+
+            index_to_label = new Dictionary<int, string>();
+            for (int i = 0; i < label_index.Count; i++)
+            {
+                index_to_label.Add(i, label_index[i]);
+            }
+
+
+            foreach (FeatureVectorWithLabelID vector in vectors)
+            {
+                siteToLabel.Add(vector.name, index_to_label[vector.labelID]);
+
+            }
+
+
+        }
 
 
 
@@ -125,6 +235,16 @@ namespace imbNLP.Toolkit.ExperimentModel
                 foreach (WebSiteDocuments entity in set)
                 {
                     siteToLabel.Add(entity.domain, set.name);
+
+
+                    foreach (IAssignedID entityDoc in entity.documents)
+                    {
+                        if (!siteToLabel.ContainsKey(entityDoc.AssignedID))
+                        {
+                            siteToLabel.Add(entityDoc.AssignedID, set.name);
+                        }
+                    }
+
                     //if (!documentToLabelID.ContainsKey(entity.domain))
                     //{
                     //    c++;

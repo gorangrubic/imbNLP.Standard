@@ -1,5 +1,4 @@
 using imbNLP.Toolkit.Documents.Analysis;
-using imbNLP.Toolkit.Planes;
 using imbNLP.Toolkit.Processing;
 using System;
 using System.Collections.Generic;
@@ -13,16 +12,19 @@ namespace imbNLP.Toolkit.Space
     public class SpaceModelConstructor
     {
 
+
+
         /// <summary>
         /// Constructs a document model
         /// </summary>
         /// <param name="text">The text.</param>
         /// <param name="name">The name.</param>
         /// <param name="context">The context.</param>
-        /// <param name="corpusContext">The corpus context.</param>
+        /// <param name="stemmContext">The stemm context.</param>
         /// <param name="tokenizer">The tokenizer.</param>
+        /// <param name="metrics">The metrics.</param>
         /// <returns></returns>
-        public SpaceDocumentModel ConstructDocument(string text, String name, SpaceModel context, ICorpusPlaneContext corpusContext, ITokenizer tokenizer, ContentMetrics metrics = null)
+        public SpaceDocumentModel ConstructDocument(string text, String name, SpaceModel context, StemmingContext stemmContext, ITokenizer tokenizer, Boolean isKnownDocument, ContentMetrics metrics = null)
         {
             var tokens = tokenizer.Tokenize(text);
 
@@ -38,7 +40,7 @@ namespace imbNLP.Toolkit.Space
             List<String> tkn = tokenDictionary.GetTokens();
             foreach (String tk in tkn)
             {
-                String stk = corpusContext.stemmContext.Stem(tk);
+                String stk = stemmContext.Stem(tk);
                 stemmDictionary.CountToken(stk, tokenDictionary.GetTokenFrequency(tk));
             }
 
@@ -56,8 +58,17 @@ namespace imbNLP.Toolkit.Space
             Int32 c = 0;
             foreach (String tk in tokens)
             {
-                String stk = corpusContext.stemmContext.Stem(tk);
+                String stk = stemmContext.Stem(tk);
                 Int32 id = context.terms.GetTokenID(stk);
+                if (isKnownDocument)
+                {
+                    context.terms_known_label.AddToken(stk);
+                }
+                else
+                {
+                    context.terms_unknown_label.AddToken(stk);
+                }
+
                 document.Words[c] = id;
                 c++;
             }

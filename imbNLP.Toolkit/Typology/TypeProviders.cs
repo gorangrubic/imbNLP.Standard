@@ -1,9 +1,11 @@
+using imbNLP.Toolkit.Documents.Ranking.Core;
 using imbNLP.Toolkit.Entity.DocumentFunctions;
 using imbNLP.Toolkit.Functions;
 using imbNLP.Toolkit.Processing;
 using imbNLP.Toolkit.Stemmers;
 using imbNLP.Toolkit.Weighting.Global;
 using imbNLP.Toolkit.Weighting.Local;
+using imbSCI.Core.data;
 using imbSCI.Core.reporting;
 using System;
 
@@ -16,6 +18,10 @@ namespace imbNLP.Toolkit.Typology
     public static class TypeProviders
     {
 
+        /// <summary>
+        /// Prepares the specified logger.
+        /// </summary>
+        /// <param name="logger">The logger.</param>
         public static void Prepare(ILogBuilder logger)
         {
             similarityFunctions.Prepare(logger);
@@ -26,6 +32,35 @@ namespace imbNLP.Toolkit.Typology
             stemmerTypes.Prepare(logger);
 
         }
+
+
+
+        private static Object _ScoreModelFactorProvider_lock = new Object();
+        private static UniversalTypeProvider<IScoreModelFactor> _ScoreModelFactorProvider;
+        /// <summary>
+        /// Type provider for Document ScoreModel factors
+        /// </summary>
+        public static UniversalTypeProvider<IScoreModelFactor> ScoreModelFactorProvider
+        {
+            get
+            {
+                if (_ScoreModelFactorProvider == null)
+                {
+                    lock (_ScoreModelFactorProvider_lock)
+                    {
+
+                        if (_ScoreModelFactorProvider == null)
+                        {
+                            _ScoreModelFactorProvider = new UniversalTypeProvider<IScoreModelFactor>();
+                            // add here if any additional initialization code is required
+                        }
+                    }
+                }
+                return _ScoreModelFactorProvider;
+            }
+        }
+
+
 
 
         private static Object _similarityFunctions_lock = new Object();

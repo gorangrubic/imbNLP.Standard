@@ -84,6 +84,42 @@ namespace imbNLP.Toolkit.Classifiers.Core
 
         }
 
+        public override Double DoScore(FeatureVector target, ILogBuilder logger, Int32 labelID = -1)
+        {
+            Double result = 0;
+            switch (model)
+            {
+                case mSVMModels.linear:
+                    if (labelID == -1)
+                    {
+                        result = machine.Score(target.dimensions);
+                    }
+                    else
+                    {
+                        result = machine.Score(target.dimensions, labelID);
+                    }
+
+
+
+                    break;
+                case mSVMModels.gaussian:
+                    if (labelID == -1)
+                    {
+                        result = machineGaussian.Score(target.dimensions);
+                    }
+                    else
+                    {
+                        result = machineGaussian.Score(target.dimensions, labelID);
+                    }
+
+
+
+                    break;
+            }
+
+            return result;
+        }
+
         public override int DoSelect(FeatureVector target, ILogBuilder logger)
         {
             Int32 result = 0;
@@ -94,6 +130,7 @@ namespace imbNLP.Toolkit.Classifiers.Core
                     break;
                 case mSVMModels.gaussian:
                     result = machineGaussian.Decide(target.dimensions);
+
                     break;
             }
 

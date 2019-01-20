@@ -1,3 +1,5 @@
+using System;
+
 namespace imbNLP.Toolkit.Entity.DocumentFunctions
 {
 
@@ -17,9 +19,9 @@ namespace imbNLP.Toolkit.Entity.DocumentFunctions
         /// <param name="document">The document.</param>
         /// <param name="documentSet">The document set.</param>
         /// <returns></returns>
-        public override double Compute(TextDocumentLayerCollection document, TextDocumentSet documentSet)
+        public override double Compute(TextDocumentLayerCollection document, String documentSet)
         {
-            return stats[documentSet.name][document.name].entropyFreq;
+            return stats[documentSet][document.name].entropyFreq;
         }
     }
 

@@ -22,14 +22,19 @@ namespace imbNLP.Toolkit.Feature
         }
 
 
-        public void Deploy(FeatureVectorConstructorSettings settings, WeightDictionary selectedFeatures)
+        /// <summary>
+        /// Deploysterm based dimensions
+        /// </summary>
+        /// <param name="settings">The settings.</param>
+        /// <param name="selectedFeatures">The selected features.</param>
+        public void Deploy(FeatureVectorConstructorSettings settings, List<String> selectedTokens)
         {
             foreach (dimensionSpecification ld in settings.featureDimensions)
             {
 
-                foreach (var entry in selectedFeatures.entries)
+                foreach (var entry in selectedTokens)
                 {
-                    FeatureSpaceDimensionTerm dimensionTerm = new FeatureSpaceDimensionTerm(entry.name);
+                    FeatureSpaceDimensionTerm dimensionTerm = new FeatureSpaceDimensionTerm(entry);
 
 
                     dimensionFunctionSet.Add(dimensionTerm);
@@ -71,6 +76,39 @@ namespace imbNLP.Toolkit.Feature
         /// The document vs cat dimension set.
         /// </value>
         public List<FeatureSpaceDimensionBase> dimensionFunctionSet { get; protected set; } = new List<FeatureSpaceDimensionBase>();
+
+        /// <summary>
+        /// Constructs a feature vector - having dimension values set by <see cref="dimensionFunctionSet"/>
+        /// </summary>
+        /// <param name="vector">The vector.</param>
+        /// <returns></returns>
+        public FeatureVector ConstructFeatureVector(WeightDictionary terms, String name)
+        {
+            FeatureVector fv = new FeatureVector(name);
+
+            Int32 c = 0;
+            Int32 d = terms.nDimensions;
+
+            fv.dimensions = new double[dimensionFunctionSet.Count * d]; //terms.index.Select(x => x.Value.CompressNumericVector(compression)).ToArray(); // new double[dimensionFunctionSet.Count];
+
+            foreach (FeatureSpaceDimensionBase dimension in dimensionFunctionSet)
+            {
+                for (int i = 0; i < d; i++)
+                {
+
+                    fv.dimensions[c] = dimension.ComputeDimension(terms, i);
+                    c++;
+                }
+            }
+
+
+
+            return fv;
+
+        }
+
+
+
 
         /// <summary>
         /// Constructs a feature vector - having dimension values set by <see cref="dimensionFunctionSet"/>

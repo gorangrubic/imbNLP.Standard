@@ -1,5 +1,6 @@
 using imbNLP.Toolkit.Core;
 using imbNLP.Toolkit.Documents;
+using imbNLP.Toolkit.Documents.Ranking.Core;
 using imbNLP.Toolkit.Entity;
 using imbNLP.Toolkit.ExperimentModel;
 using imbNLP.Toolkit.Planes.Core;
@@ -49,6 +50,14 @@ namespace imbNLP.Toolkit.Planes
         /// </value>
         public DocumentBlenderFunction blender { get; set; } = new DocumentBlenderFunction();
 
+
+        public Boolean DoBlendPagesIntoSingleEntity { get; set; } = true;
+
+        public override ScoreModelRequirements CheckRequirements(ScoreModelRequirements requirements = null)
+        {
+            throw new NotImplementedException();
+        }
+
         /// <summary>
         /// Prepares everything for operation
         /// </summary>
@@ -64,7 +73,7 @@ namespace imbNLP.Toolkit.Planes
             render.instructions.AddRange(entitySettings.instructions);
 
 
-            if (!entitySettings.filterFunctionName.isNullOrEmpty())
+            if (entitySettings.filterLimit > 0)
             {
                 filter.function = TypeProviders.InputDocumentFunctions.GetInstance(entitySettings.filterFunctionName);
                 filter.limit = entitySettings.filterLimit;
@@ -77,12 +86,13 @@ namespace imbNLP.Toolkit.Planes
 
 
             blender.options = entitySettings.blenderOptions;
-
-            entitySettings.Describe(notes);
-            render.Describe(notes);
-            filter.Describe(notes);
-            blender.Describe(notes);
-
+            if (notes != null)
+            {
+                entitySettings.Describe(notes);
+                render.Describe(notes);
+                filter.Describe(notes);
+                blender.Describe(notes);
+            }
             CloseDeploySettingsBase();
         }
 
@@ -97,7 +107,7 @@ namespace imbNLP.Toolkit.Planes
         /// </returns>
         public IPlaneContext ExecutePlaneMethod(IPlaneContext inputContext, ExperimentModelExecutionContext generalContext, ILogBuilder logger)
         {
-            notes.logStartPhase("[1] Entity Plane - execution", "");
+            if (notes != null) notes.logStartPhase("[1] Entity Plane - execution", "");
 
             IEntityPlaneContext context = inputContext as IEntityPlaneContext;
             CorpusPlaneContext outputContext = new CorpusPlaneContext();
@@ -183,7 +193,7 @@ namespace imbNLP.Toolkit.Planes
 
             }
 
-            notes.log("Text document for [" + c + "] entities created");
+            if (notes != null) notes.log("Text document for [" + c + "] entities created");
 
             // tmp index
             foreach (String key in inputSites.Keys)
@@ -213,24 +223,40 @@ namespace imbNLP.Toolkit.Planes
             }
 
 
+
+
             // blending pages into single page per web site
+            //  DoBlendPagesIntoSingleEntity = blender.options.HasFlag(DocumentBlenderFunctionOptions.separatePages);
+
+            Boolean keepSeparated = blender.DoKeepPagesSeparated;
             foreach (var pair in renderIndex)
             {
                 foreach (TextDocumentSet entitySet in pair.Value)
                 {
                     TextDocumentSet selectedTexts = TextDocumentsByDomainName[entitySet.name];
-
-                    // filter function
-                    TextDocument doc = blender.blendToTextDocument(selectedTexts);
                     WebSiteDocuments web = inputSites[entitySet.name];
+                    IEnumerable<string> label = inputSiteVsLabels[web].Select(x => x.name);
 
-                    doc.labels.AddRange(inputSiteVsLabels[web].Select(x => x.name));
-
-                    outputContext.corpus_documents.Add(doc);
+                    if (keepSeparated)
+                    {
+                        // filter function
+                        TextDocument doc = blender.blendToTextDocument(selectedTexts);
+                        doc.labels.AddRange(label);
+                        outputContext.corpus_documents.Add(doc);
+                    }
+                    else
+                    {
+                        var docs = blender.blendToSeparateTextDocuments(selectedTexts); //blender.blendToTextDocument(selectedTexts);
+                        foreach (TextDocument doc in docs)
+                        {
+                            doc.labels.AddRange(label);
+                            outputContext.corpus_documents.Add(doc);
+                        }
+                    }
                 }
             }
 
-            notes.logEndPhase();
+            if (notes != null) notes.logEndPhase();
 
 
             return outputContext;

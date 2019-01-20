@@ -40,6 +40,7 @@ namespace imbNLP.Data.semanticLexicon.morphology
     using imbNLP.PartOfSpeech.flags.basic;
     using imbSCI.Core.extensions.data;
     using imbSCI.Core.reporting;
+    using imbSCI.Data;
     using System;
     using System.Collections.Generic;
     using System.Linq;

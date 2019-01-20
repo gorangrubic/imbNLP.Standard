@@ -1,3 +1,4 @@
+using imbNLP.Toolkit.Processing;
 using System;
 namespace imbNLP.Toolkit.Feature
 {
@@ -9,7 +10,7 @@ namespace imbNLP.Toolkit.Feature
     /// <summary>
     /// 
     /// </summary>
-    public class FeatureVectorWithLabelID
+    public class FeatureVectorWithLabelID : IVectorDimensions
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="FeatureVectorWithLabelID"/> class.
@@ -45,6 +46,13 @@ namespace imbNLP.Toolkit.Feature
         /// </value>
         public Int32 labelID { get; set; } = -1;
 
+        public double[] dimensions { get => ((IVectorDimensions)vector).dimensions; set => ((IVectorDimensions)vector).dimensions = value; }
+        public string name { get => ((IVectorDimensions)vector).name; set => ((IVectorDimensions)vector).name = value; }
+
+        public bool Equals(IVectorDimensions other)
+        {
+            return ((IVectorDimensions)vector).Equals(other);
+        }
     }
 
 }

@@ -1,10 +1,13 @@
 using imbNLP.Toolkit.Space;
+using imbNLP.Toolkit.Weighting.Data;
+using imbSCI.Core.reporting;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace imbNLP.Toolkit.Weighting.Global
 {
+
     /// <summary>
     /// Provides Inverse class space density frequency
     /// </summary>
@@ -29,9 +32,9 @@ namespace imbNLP.Toolkit.Weighting.Global
         /// <value>
         /// The index of the idf.
         /// </value>
-        protected Dictionary<String, Double> ICSdF_index { get; set; } = new Dictionary<string, double>();
+        //protected Dictionary<String, Double> index { get; set; } = new Dictionary<string, double>();
 
-        protected Dictionary<String, Dictionary<SpaceLabel, Double>> TermClassDensity { get; set; } = new Dictionary<string, Dictionary<SpaceLabel, double>>();
+        //   protected 
 
         /// <summary>
         /// Returns Inverse Class Frequency - ICF
@@ -43,19 +46,42 @@ namespace imbNLP.Toolkit.Weighting.Global
         public override double GetElementFactor(string term, SpaceModel space, SpaceLabel label = null)
         {
             if (!IsEnabled) return 1;
-            if (!ICSdF_index.ContainsKey(term)) return 0;
-            return 1 + ICSdF_index[term];
+            if (!index.ContainsKey(term)) return 0;
+
+            Double score = 1 + index[term];
+            if (!DistinctReturns.ContainsKey(score))
+            {
+                DistinctReturns.Add(score, term);
+            }
+
+
+            return score;
+
         }
 
-        public override void PrepareTheModel(SpaceModel space)
+        public override void LoadModelData(WeightingModelData data)
+        {
+            LoadModelDataBase(data);
+        }
+
+        public override WeightingModelData SaveModelData()
+        {
+            return SaveModelDataBase();
+        }
+
+        public override void PrepareTheModel(SpaceModel space, ILogBuilder log)
         {
             if (!IsEnabled) return;
 
+            index.Clear();
+
             var labels = space.labels;
+
+            Dictionary<String, Dictionary<SpaceLabel, Double>> TermClassDensity = new Dictionary<string, Dictionary<SpaceLabel, double>>();
 
             //    Dictionary<String, List<SpaceLabel>> TermToLabelIndex = new Dictionary<string, List<SpaceLabel>>();
 
-            var terms = space.terms.GetTokens();
+            var terms = space.GetTokens(true, false);
 
             foreach (String term in terms)
             {
@@ -66,19 +92,19 @@ namespace imbNLP.Toolkit.Weighting.Global
                 }
 
                 TermClassDensity.Add(term, ClassDensity);
-                ICSdF_index.Add(term, 0);
+                index.Add(term, 0);
             }
 
 
 
             foreach (SpaceLabel label in labels)
             {
-                List<SpaceDocumentModel> documents = space.LabelToDocumentLinks.GetAllLinked(label);
+                List<SpaceDocumentModel> documents = space.GetDocumentsOfLabel(label.name); // .LabelToDocumentLinks.GetAllLinked(label);
 
                 Int32 doc_N = documents.Count;
                 foreach (String term in terms)
                 {
-                    Int32 doc_t = documents.Count(x => x.terms.Contains(term));
+                    Int32 doc_t = documents.Count(x => x.Contains(term));
                     if (doc_t > 0)
                     {
                         Double f = Convert.ToDouble(doc_t) / Convert.ToDouble(doc_N);
@@ -97,17 +123,33 @@ namespace imbNLP.Toolkit.Weighting.Global
                 Double CS = 0;
                 foreach (SpaceLabel label in labels)
                 {
-                    if (TermClassDensity[term][label] > 0)
+                    if (TermClassDensity.ContainsKey(term))
                     {
-                        CS = CS + TermClassDensity[term][label];
+                        if (TermClassDensity[term][label] > 0)
+                        {
+                            CS = CS + TermClassDensity[term][label];
+                        }
                     }
                 }
                 if (CS > 0)
                 {
-                    ICSdF_index[term] = Math.Log(C / CS);
+                    if (index.ContainsKey(term))
+                    {
+                        index[term] = Math.Log(C / CS);
+                    }
                 }
 
             }
+
+            //foreach (KeyValuePair<string, double> pair in index)
+            //{
+            //    if (index.ContainsKey(pair.Key)) index[pair.Key] = 
+            //}
+        }
+
+        public override void DeploySettings(GlobalFunctionSettings settings)
+        {
+
         }
     }
 }

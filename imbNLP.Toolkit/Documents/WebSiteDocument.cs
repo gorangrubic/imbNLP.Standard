@@ -5,11 +5,33 @@ using System.IO;
 
 namespace imbNLP.Toolkit.Documents
 {
+
+
+
     /// <summary>
     /// Single web page document
     /// </summary>
-    public class WebSiteDocument
+    [Serializable]
+    public class WebSiteDocument : IAssignedID
     {
+
+        /// <summary>
+        /// Temporary ID associated with the web document
+        /// </summary>
+        /// <value>
+        /// Usually derived from absolute URL address.
+        /// </value>
+        public String AssignedID { get; set; } = "";
+
+        ///// <summary>
+        ///// Gets or sets the URL.
+        ///// </summary>
+        ///// <value>
+        ///// The URL.
+        ///// </value>
+        //[XmlIgnore]
+        //public String URL { get; set; } = "";
+
         private String _hTMLSource = "";
         private String _textContent = "";
         private String _hTTPHeader = "";
@@ -60,12 +82,13 @@ namespace imbNLP.Toolkit.Documents
         public void Load(String _fullPath = "")
         {
 
-                triedToLoad = true;
+            triedToLoad = true;
 
             if (_fullPath.isNullOrEmpty()) _fullPath = realPath;
             if (realPath.isNullOrEmpty()) return;
 
             String sourceCode = File.ReadAllText(_fullPath);
+            pathFull = _fullPath;
 
             Int32 htmlStart = sourceCode.IndexOf('<');
 
@@ -89,6 +112,14 @@ namespace imbNLP.Toolkit.Documents
         /// The path.
         /// </value>
         public String path { get; set; } = "";
+
+        /// <summary>
+        /// Real path of origin - set after loading the page
+        /// </summary>
+        /// <value>
+        /// The path full.
+        /// </value>
+        public String pathFull { get; set; } = "";
 
         /// <summary>
         /// Original HTML source code
@@ -118,17 +149,6 @@ namespace imbNLP.Toolkit.Documents
 
         protected Boolean triedToLoad = false;
 
-        ///// <summary>
-        ///// Visible text content
-        ///// </summary>
-        ///// <value>
-        ///// The content of the text.
-        ///// </value>
-        //public String TextContent
-        //{
-        //    get { return _textContent; }
-        //    set { _textContent = value; }
-        //}
 
         /// <summary>
         /// HTTP Header of the document
@@ -155,12 +175,6 @@ namespace imbNLP.Toolkit.Documents
             set { _hTTPHeader = value; }
         }
 
-        ///// <summary>
-        ///// META content: Title, Description, Keywords...
-        ///// </summary>
-        ///// <value>
-        ///// The content of the meta.
-        ///// </value>
-        //public String MetaContent { get; set; } = "";
+
     }
 }

@@ -17,7 +17,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "imbNLP.Skunkworks", "imbNLP
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "imbNLP.ToolkitTest", "imbNLP.ToolkitTest\imbNLP.ToolkitTest.csproj", "{59900F32-E756-4966-85FD-92CE9581C206}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "imbNLP.Project", "imbNLP.Project\imbNLP.Project.csproj", "{A3D32C5E-DB05-4483-ACE8-81C59671790A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "imbNLP.Project", "imbNLP.Project\imbNLP.Project.csproj", "{A3D32C5E-DB05-4483-ACE8-81C59671790A}"
+EndProject
+Project("{7CF6DF6D-3B04-46F8-A40B-537D21BCA0B4}") = "imbNLP", "..\imbSCI.Documentation\imbNLP\imbNLP.shfbproj", "{AB145693-D96C-43DD-9573-CA7BE27625D4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -159,6 +161,22 @@ Global
 		{A3D32C5E-DB05-4483-ACE8-81C59671790A}.Release|Win32.Build.0 = Release|Any CPU
 		{A3D32C5E-DB05-4483-ACE8-81C59671790A}.Release|x86.ActiveCfg = Release|Any CPU
 		{A3D32C5E-DB05-4483-ACE8-81C59671790A}.Release|x86.Build.0 = Release|Any CPU
+		{AB145693-D96C-43DD-9573-CA7BE27625D4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AB145693-D96C-43DD-9573-CA7BE27625D4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AB145693-D96C-43DD-9573-CA7BE27625D4}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{AB145693-D96C-43DD-9573-CA7BE27625D4}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{AB145693-D96C-43DD-9573-CA7BE27625D4}.Debug|Win32.ActiveCfg = Debug|Any CPU
+		{AB145693-D96C-43DD-9573-CA7BE27625D4}.Debug|Win32.Build.0 = Debug|Any CPU
+		{AB145693-D96C-43DD-9573-CA7BE27625D4}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{AB145693-D96C-43DD-9573-CA7BE27625D4}.Debug|x86.Build.0 = Debug|Any CPU
+		{AB145693-D96C-43DD-9573-CA7BE27625D4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AB145693-D96C-43DD-9573-CA7BE27625D4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AB145693-D96C-43DD-9573-CA7BE27625D4}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{AB145693-D96C-43DD-9573-CA7BE27625D4}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{AB145693-D96C-43DD-9573-CA7BE27625D4}.Release|Win32.ActiveCfg = Release|Any CPU
+		{AB145693-D96C-43DD-9573-CA7BE27625D4}.Release|Win32.Build.0 = Release|Any CPU
+		{AB145693-D96C-43DD-9573-CA7BE27625D4}.Release|x86.ActiveCfg = Release|Any CPU
+		{AB145693-D96C-43DD-9573-CA7BE27625D4}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

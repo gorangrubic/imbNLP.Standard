@@ -1,6 +1,10 @@
 using imbNLP.Toolkit.Space;
+using imbNLP.Toolkit.Weighting.Data;
+using imbSCI.Core.extensions.enumworks;
+using imbSCI.Core.reporting;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace imbNLP.Toolkit.Weighting.Global
 {
@@ -29,18 +33,40 @@ namespace imbNLP.Toolkit.Weighting.Global
         /// <value>
         /// The index of the idf.
         /// </value>
-        public Dictionary<String, Double> IDF_index { get; set; } = new Dictionary<string, double>();
+        // public Dictionary<String, Double> index { get; set; } = new Dictionary<string, double>();
+
+        public override void LoadModelData(WeightingModelData data)
+        {
+            LoadModelDataBase(data);
+        }
+
+        public override WeightingModelData SaveModelData()
+        {
+            return SaveModelDataBase();
+        }
+
+        protected Int32 DocumentN { get; set; } = 0;
 
         public override double GetElementFactor(string term, SpaceModel space, SpaceLabel label = null)
         {
             if (!IsEnabled) return 1;
-            if (!IDF_index.ContainsKey(term)) return 0;
-            return IDF_index[term];
+            if (!index.ContainsKey(term)) return 0;
+            Double score = index[term];
+            if (!DistinctReturns.ContainsKey(score))
+            {
+                DistinctReturns.Add(score, term);
+            }
+
+
+            return score;
+
         }
 
-        public override void PrepareTheModel(SpaceModel space)
+        public override void PrepareTheModel(SpaceModel space, ILogBuilder log)
         {
             if (!IsEnabled) return;
+
+            index.Clear();
 
             if (Computation == IDFComputation.DF)
             {
@@ -48,44 +74,65 @@ namespace imbNLP.Toolkit.Weighting.Global
             }
 
             Dictionary<String, List<SpaceDocumentModel>> TermToDocumentIndex = new Dictionary<string, List<SpaceDocumentModel>>();
-            var terms = space.terms.GetTokens();
+
+            List<SpaceLabel> labels = space.labels.ToList();
+
+            var terms = space.GetTokens(true, true);
+
             foreach (String term in terms)
             {
                 TermToDocumentIndex.Add(term, new List<SpaceDocumentModel>());
             }
 
-            foreach (SpaceDocumentModel document in space.documents)
+            Double N = 0;
+
+            foreach (SpaceLabel label in labels)
             {
-                var termsInDocument = document.terms.GetTokens();
-                foreach (String termInDocument in termsInDocument)
+                foreach (SpaceDocumentModel document in space.LabelToDocumentLinks.GetAllLinked(label))
                 {
-                    TermToDocumentIndex[termInDocument].Add(document);
+                    var termsInDocument = document.GetTerms(true, true, true).GetTokens();
+
+                    foreach (String termInDocument in termsInDocument)
+                    {
+                        TermToDocumentIndex[termInDocument].Add(document);
+                    }
+
+                    DocumentN++;
                 }
+
             }
 
-            Double N = space.documents.Count;
+            N = DocumentN;
 
             foreach (String term in terms)
             {
                 Double DF_t = TermToDocumentIndex[term].Count;
                 Double IDF_t = 0;
 
-                switch (Computation)
+                if (DF_t != 0)
                 {
-                    case IDFComputation.logPlus:
-                        IDF_t = Math.Log(N / DF_t) + 1;
-                        break;
+                    switch (Computation)
+                    {
+                        case IDFComputation.logPlus:
+                            IDF_t = Math.Log(N / DF_t) + 1;
+                            break;
 
-                    case IDFComputation.modified:
-                        IDF_t = Math.Log((N * N) - (N - DF_t) + N);
-                        break;
-                    case IDFComputation.DF:
-                        IDF_t = DF_t / N;
-                        break;
+                        case IDFComputation.modified:
+                            IDF_t = Math.Log((N * N) - (N - DF_t) + N);
+                            break;
+                        case IDFComputation.DF:
+                            IDF_t = DF_t / N;
+                            break;
+                    }
                 }
 
-                IDF_index.Add(term, IDF_t);
+                index.Add(term, IDF_t);
             }
+        }
+
+        public override void DeploySettings(GlobalFunctionSettings settings)
+        {
+            Computation = imbEnumExtendBase.GetEnumFromStringFlags<IDFComputation>(settings.flags, Computation).FirstOrDefault();
         }
 
         /// <summary>

@@ -1,4 +1,5 @@
 ﻿using imbNLP.Toolkit.Space;
+using imbNLP.Toolkit.Weighting.Data;
 using imbSCI.Core.reporting;
 using System;
 using System.Collections.Generic;
@@ -17,13 +18,11 @@ namespace imbNLP.Toolkit.Weighting.Global
     /// <seealso cref="imbNLP.Toolkit.Weighting.Elements.ModelElementBase" />
     public class IGMElement : GlobalElementBase
     {
-        protected Dictionary<String, Double> IGM_index { get; set; } = new Dictionary<string, double>();
+        public override void DeploySettings(GlobalFunctionSettings settings)
+        {
 
-        protected Dictionary<String, Dictionary<SpaceLabel, Int32>> TermClassFrequency { get; set; } = new Dictionary<string, Dictionary<SpaceLabel, int>>();
+        }
 
-        protected Dictionary<String, List<KeyValuePair<SpaceLabel, Int32>>> TermClassRank { get; set; } = new Dictionary<String, List<KeyValuePair<SpaceLabel, Int32>>>();
-
-        protected Dictionary<SpaceDocumentModel, SpaceLabel> DocumentVsLabel { get; set; } = new Dictionary<SpaceDocumentModel, SpaceLabel>();
 
         public Double l { get; set; } = 7;
 
@@ -44,8 +43,17 @@ namespace imbNLP.Toolkit.Weighting.Global
         public override double GetElementFactor(string term, SpaceModel space, SpaceLabel label = null)
         {
             if (!IsEnabled) return 1;
-            if (!IGM_index.ContainsKey(term)) return 0;
-            return 1 + (l * IGM_index[term]);
+            if (!index.ContainsKey(term)) return 0;
+
+            Double score = index[term];
+            if (!DistinctReturns.ContainsKey(score))
+            {
+                DistinctReturns.Add(score, term);
+            }
+
+
+            return score;
+
         }
 
         public override void Describe(ILogBuilder logger)
@@ -54,19 +62,35 @@ namespace imbNLP.Toolkit.Weighting.Global
             logger.AppendPair("Landa (λ)", l.ToString("F3"), true, "\t\t\t");
         }
 
+        public override void LoadModelData(WeightingModelData data)
+        {
+            LoadModelDataBase(data);
+        }
+
+        public override WeightingModelData SaveModelData()
+        {
+            return SaveModelDataBase();
+        }
+
 
         /// <summary>
         /// Prepares the model - computes IGM for each term
         /// </summary>
         /// <param name="space">The space.</param>
         /// <exception cref="ArgumentException">A document is already assigned to a label! This model is not applicable for multi-label problem.</exception>
-        public override void PrepareTheModel(SpaceModel space)
+        public override void PrepareTheModel(SpaceModel space, ILogBuilder log)
         {
             if (!IsEnabled) return;
 
-            var labels = space.labels;
+            index.Clear();
 
-            var terms = space.terms.GetTokens();
+            Dictionary<String, Dictionary<SpaceLabel, Int32>> TermClassFrequency = new Dictionary<string, Dictionary<SpaceLabel, int>>();
+            Dictionary<String, List<KeyValuePair<SpaceLabel, Int32>>> TermClassRank = new Dictionary<String, List<KeyValuePair<SpaceLabel, Int32>>>();
+            Dictionary<SpaceDocumentModel, SpaceLabel> DocumentVsLabel = new Dictionary<SpaceDocumentModel, SpaceLabel>();
+
+            var labels = space.labels.ToList();
+
+            var terms = space.GetTokens(true, false);
 
             foreach (String term in terms)
             {
@@ -77,8 +101,26 @@ namespace imbNLP.Toolkit.Weighting.Global
                 }
 
                 TermClassFrequency.Add(term, ClassFrequency);
-                IGM_index.Add(term, 0);
+                index.Add(term, 0);
             }
+            /*
+            foreach (SpaceDocumentModel document in space.documents)
+            {
+                String lab = document.labels.First();
+                var spaceLabel = space.labels.FirstOrDefault(x => x.name == lab);
+
+                if (lab != SpaceLabel.UNKNOWN)
+                {
+
+                    if (DocumentVsLabel.ContainsKey(document))
+                    {
+                        throw new ArgumentException("A document [" + document.name + "] is already assigned to a label! This model is not applicable for multi-label problem.");
+                    }
+
+                    DocumentVsLabel.Add(document, spaceLabel);
+                }
+            }
+            */
 
             foreach (SpaceLabel label in labels)
             {
@@ -87,17 +129,18 @@ namespace imbNLP.Toolkit.Weighting.Global
                 {
                     if (DocumentVsLabel.ContainsKey(document))
                     {
-                        throw new ArgumentException("A document is already assigned to a label! This model is not applicable for multi-label problem.");
+                        throw new ArgumentException("A document [" + document.name + "] is already assigned to a label! This model is not applicable for multi-label problem.");
                     }
                     DocumentVsLabel.Add(document, label);
                 }
 
                 foreach (SpaceDocumentModel document in documents)
                 {
-                    var doc_terms = document.terms.GetTokens();
+                    var doc_terms_dict = document.GetTerms(true, true, true);
+                    var doc_terms = doc_terms_dict.GetTokens();
                     foreach (String term in doc_terms)
                     {
-                        TermClassFrequency[term][label] += document.terms.GetTokenFrequency(term);
+                        TermClassFrequency[term][label] += doc_terms_dict.GetTokenFrequency(term);
                     }
                 }
             }
@@ -109,8 +152,12 @@ namespace imbNLP.Toolkit.Weighting.Global
                 Double igm_tk_below = 0;
 
                 Double f_ki = TermClassRank[term].Max(x => x.Value);
+
                 Double r = 1;
-                foreach (KeyValuePair<SpaceLabel, int> ranked in TermClassRank[term])
+
+                var termRanks = TermClassRank[term];
+
+                foreach (KeyValuePair<SpaceLabel, int> ranked in termRanks)
                 {
                     if (ranked.Value > 0)
                     {
@@ -118,8 +165,27 @@ namespace imbNLP.Toolkit.Weighting.Global
                     }
                     r++;
                 }
-                IGM_index[term] = 1 / igm_tk_below;
+
+                Double t = 0;
+
+                if (igm_tk_below == 0)
+                {
+                    //index[term] = 0;
+                }
+                else
+                {
+                    t = 1 / igm_tk_below;
+                }
+
+
+                index[term] = 1 + (l * t);
+
             }
+
+
+
         }
+
+
     }
 }

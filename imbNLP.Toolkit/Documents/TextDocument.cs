@@ -1,7 +1,7 @@
 using imbNLP.Toolkit.Core;
 using System;
 
-namespace imbNLP.Toolkit
+namespace imbNLP.Toolkit.Documents
 {
 
 
@@ -20,6 +20,14 @@ namespace imbNLP.Toolkit
         /// The content.
         /// </value>
         public string content { get; set; } = "";
+
+        public Boolean HasContent
+        {
+            get
+            {
+                return content != "";
+            }
+        }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="TextDocument"/> class.

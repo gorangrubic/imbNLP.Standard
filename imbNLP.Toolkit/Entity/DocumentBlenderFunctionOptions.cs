@@ -1,12 +1,11 @@
-using HtmlAgilityPack;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace imbNLP.Toolkit.Entity
 {
 
+    /// <summary>
+    /// Options that control how documents are blended into single web site representation
+    /// </summary>
     [Flags]
     public enum DocumentBlenderFunctionOptions
     {
@@ -23,6 +22,7 @@ namespace imbNLP.Toolkit.Entity
         weightedAggregation = 2,
 
 
+        //  keepPageSeparated = 4,
 
 
         /// <summary>
@@ -38,11 +38,22 @@ namespace imbNLP.Toolkit.Entity
         /// </summary>
         sentenceLevel = 64,
 
+
+        siteLevel = 128,
+
         /// <summary>
         /// Only content units that are DocumentSet-wide unique will be included in the blended output
         /// </summary>
-        uniqueContentUnitsOnly = 256
+        uniqueContentUnitsOnly = 256,
+        separatePages = 512,
+        keepLayersInMemory = 1024,
 
+
+        categoryLevel = 2048,
+
+        datasetLevel = 4092,
+
+        layerLevel = 8192
     }
 
 }

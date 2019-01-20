@@ -38,6 +38,7 @@ namespace imbNLP.PartOfSpeech.pipelineForPos.node
     using imbNLP.PartOfSpeech.pipelineForPos.subject;
     using imbSCI.Core.extensions.data;
     using imbSCI.Core.extensions.text;
+    using imbSCI.Data;
 
     /// <summary>
     /// Determinates generic, regex based annotation. Can be used for <see cref="imbMCToken"/>, but also for token streams

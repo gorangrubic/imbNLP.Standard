@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace imbNLP.Toolkit
+namespace imbNLP.Toolkit.Documents
 {
     public abstract class TextDocumentBase
     {
