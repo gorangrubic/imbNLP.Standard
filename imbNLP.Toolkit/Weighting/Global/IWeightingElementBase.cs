@@ -1,12 +1,9 @@
 using imbNLP.Toolkit.Weighting.Data;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Xml.Serialization;
 
 namespace imbNLP.Toolkit.Weighting.Global
 {
-public interface IWeightingElementBase
+    public interface IWeightingElementBase
     {
         String shortName { get; set; }
 
@@ -15,5 +12,10 @@ public interface IWeightingElementBase
         void LoadModelData(WeightingModelData data);
 
         WeightingModelData SaveModelData();
+
+        /// <summary>
+        /// Releases unmanaged and - optionally - managed resources.
+        /// </summary>
+        void Dispose();
     }
 }

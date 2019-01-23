@@ -23,14 +23,23 @@ namespace imbNLP.Toolkit.Documents.FeatureAnalytics
 
         public WeightDictionary EntryDictionary { get; set; }
 
+        public FeatureCWPAnalysisSettings.AnalysisPurpose purpose { get; set; }
+
+
         public aceDictionarySet<FeatureCWPTermClass, String> featuresByClass { get; protected set; } = new aceDictionarySet<FeatureCWPTermClass, string>();
 
-        public FeatureCWPAnalysisEntryReport(String __name, String description, folderNode _folder)
+        public FeatureCWPAnalysisEntryReport(String __name, String description, folderNode _folder, FeatureCWPAnalysisSettings.AnalysisPurpose _purpose)
         {
+            purpose = _purpose;
+
             name = __name;
-            //EntryDictionary = new WeightDictionary("DictionaryFor" + CategoryID, "Dictionary with term metrics for category " + CategoryID);
-            EntryDictionary = new WeightDictionary("DictionaryFor" + name, description);
-            EntryDictionary.nDimensions = fields().Count;
+            if (purpose != FeatureCWPAnalysisSettings.AnalysisPurpose.application)
+            {
+                //EntryDictionary = new WeightDictionary("DictionaryFor" + CategoryID, "Dictionary with term metrics for category " + CategoryID);
+                EntryDictionary = new WeightDictionary("DictionaryFor" + name, description);
+                EntryDictionary.nDimensions = fields().Count;
+            }
+
             folder = _folder;
         }
 
@@ -47,7 +56,7 @@ namespace imbNLP.Toolkit.Documents.FeatureAnalytics
 
             return _fields;
         }
-
+        /*
         /// <summary>
         /// Gets the metric value.
         /// </summary>
@@ -72,7 +81,7 @@ namespace imbNLP.Toolkit.Documents.FeatureAnalytics
             {
                 return 0;
             }
-        }
+        }*/
 
         public void PostMerge()
         {
@@ -126,11 +135,14 @@ namespace imbNLP.Toolkit.Documents.FeatureAnalytics
         {
             AddEntry(metrics);
 
-            featuresByClass.Add(metrics.featureClass, metrics.term);
+            if (purpose != FeatureCWPAnalysisSettings.AnalysisPurpose.application)
+            {
+                featuresByClass.Add(metrics.featureClass, metrics.term);
 
-            List<Double> scores = metrics.GetVectors(true, true);
+                List<Double> scores = metrics.GetVectors(true, true);
 
-            EntryDictionary.AddEntry(metrics.term, scores.ToArray(), false);
+                EntryDictionary.AddEntry(metrics.term, scores.ToArray(), false);
+            }
 
         }
 
@@ -160,52 +172,54 @@ namespace imbNLP.Toolkit.Documents.FeatureAnalytics
             //if (folder == null) folder = notes.folder_corpus;
 
             if (folder == null) return;
-
-            SaveFeatures(folder.Add("Features", "Features", "Features"), featuresByClass);
-
-            EntryDictionary.Save(folder, log, name);
-
-            if (!SubLevelCall)
+            if (purpose != FeatureCWPAnalysisSettings.AnalysisPurpose.application)
             {
-                var flds = fields();
+                SaveFeatures(folder.Add("Features", "Features", "Features"), featuresByClass);
 
-                DataSet dataSet = new DataSet("rep_" + name);
+                EntryDictionary.Save(folder, log, name);
 
-                // List<DataTableForStatistics> rdt_list = new List<DataTableForStatistics>();
-                foreach (String n in flds)
+                if (!SubLevelCall)
                 {
-                    DataTable dt = EntryDictionary.MakeTable(n + "_" + name, EntryDictionary.description,
-                        flds
-                        , 500, flds.IndexOf(n));
+                    var flds = fields();
 
-                    dt.AddStringLine("Report for " + name);
+                    DataSet dataSet = new DataSet("rep_" + name);
 
-                    dataSet.Tables.Add(dt);
-                    //DataTableForStatistics rdt = dt.GetReportTableVersion();
-                    //rdt_list.Add(rdt);
+                    // List<DataTableForStatistics> rdt_list = new List<DataTableForStatistics>();
+                    foreach (String n in flds)
+                    {
+                        DataTable dt = EntryDictionary.MakeTable(n + "_" + name, EntryDictionary.description,
+                            flds
+                            , 500, flds.IndexOf(n));
+
+                        dt.AddStringLine("Report for " + name);
+
+                        dataSet.Tables.Add(dt);
+                        //DataTableForStatistics rdt = dt.GetReportTableVersion();
+                        //rdt_list.Add(rdt);
+                    }
+
+                    DataSetForStatistics report = dataSet.GetReportAndSave(folder, null, "cwp_" + name);
+
+                    var keys = Keys.ToList();
+                    keys.Sort();
+
+                    DataTableTypeExtended<FeatureCWPAnalysisSiteMetrics> metrics = new DataTableTypeExtended<FeatureCWPAnalysisSiteMetrics>();
+                    Int32 c = 0;
+                    foreach (var key in keys)
+                    {
+                        metrics.AddRow(this[key]);
+                        c++;
+                        if (c > 2000) break;
+                    }
+
+                    metrics.GetReportAndSave(folder, null, "cwp_" + name + "metrics");
+
+                    //foreach (var pair in entryReport)
+                    //{
+                    //    folderNode fn = folder.Add(pair.Key, pair.Key, "Sub entry report");
+                    //    pair.Value.Save(log, true);
+                    //}
                 }
-
-                DataSetForStatistics report = dataSet.GetReportAndSave(folder, null, "cwp_" + name);
-
-                var keys = Keys.ToList();
-                keys.Sort();
-
-                DataTableTypeExtended<FeatureCWPAnalysisSiteMetrics> metrics = new DataTableTypeExtended<FeatureCWPAnalysisSiteMetrics>();
-                Int32 c = 0;
-                foreach (var key in keys)
-                {
-                    metrics.AddRow(this[key]);
-                    c++;
-                    if (c > 2000) break;
-                }
-
-                metrics.GetReportAndSave(folder, null, "cwp_" + name + "metrics");
-
-                //foreach (var pair in entryReport)
-                //{
-                //    folderNode fn = folder.Add(pair.Key, pair.Key, "Sub entry report");
-                //    pair.Value.Save(log, true);
-                //}
             }
         }
 

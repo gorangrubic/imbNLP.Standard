@@ -16,13 +16,35 @@ namespace imbNLP.Toolkit.Weighting.Global
     public enum GeneralComputationOptionEnum
     {
         inverse,
+        /// <summary>
+        /// The log inverse - the value is inversed against maximal score + 1
+        /// </summary>
+        logPlusOne,
+        /// <summary>
+        /// The log inverse - the value is inversed against maximal score + 1
+        /// </summary>
+        logInverse,
         log
     }
 
-    public class CWPElement : GlobalElementBase
+    public class CWPElement : GlobalElementBase, IGlobalElementWithSharedData
     {
+        public override void Dispose()
+        {
+            CWPAnalysis = null;
 
+            base.Dispose();
+        }
 
+        public ISharedDataPool GetSharedDataStructure()
+        {
+            return CWPAnalysis;
+        }
+
+        public void SetSharedDataStructure(ISharedDataPool data)
+        {
+            CWPAnalysis = data as FeatureCWPAnalysis;
+        }
 
         public CWPElement()
         {
@@ -31,7 +53,7 @@ namespace imbNLP.Toolkit.Weighting.Global
             description = "Class-Website-Page density frenquency";
         }
 
-
+        public override FunctionResultTypeEnum resultType { get { return FunctionResultTypeEnum.numeric; } }
 
 
         public String property { get; set; } = nameof(FeatureCWPAnalysisSiteMetrics.particularity_score);
@@ -50,8 +72,9 @@ namespace imbNLP.Toolkit.Weighting.Global
             computation = imbEnumExtendBase.GetEnumFromStringFlags<CWPAnalysusScoreOutput>(settings.flags, computation).FirstOrDefault();
             normalization = imbEnumExtendBase.GetEnumFromStringFlags<IDFComputation>(settings.flags, normalization).FirstOrDefault();
 
-            FeatureCWPAnalysisSettings CWPSettings = new FeatureCWPAnalysisSettings(computation, FeatureCWPAnalysisSettings.AnalysisPurpose.application);
-            CWPAnalysis = new FeatureCWPAnalysis(CWPSettings);
+
+
+
 
             shortName = "CWP";
             shortName += computation.ToString().imbGetAbbrevation(3, true);
@@ -70,6 +93,12 @@ namespace imbNLP.Toolkit.Weighting.Global
             {
                 case GeneralComputationOptionEnum.inverse:
                     score = 1 - score;
+                    break;
+                case GeneralComputationOptionEnum.logInverse:
+
+
+
+
                     break;
 
             }
@@ -124,9 +153,22 @@ namespace imbNLP.Toolkit.Weighting.Global
 
         public override void PrepareTheModel(SpaceModel space, ILogBuilder log)
         {
-            CWPAnalysis.Prepare(space, null);
+            FeatureCWPAnalysisSettings CWPSettings = new FeatureCWPAnalysisSettings(computation, FeatureCWPAnalysisSettings.AnalysisPurpose.application);
 
-            CWPAnalysis.Analysis(null, null);
+            if (CWPAnalysis != null)
+            {
+                log.log("Shared CWPAnalysis in use at " + shortName);
+                CWPAnalysis.settings.DeployUpdate(CWPSettings);
+            }
+            else
+            {
+                log.log("New CWPAnalysis will be used at " + shortName);
+                CWPAnalysis = new FeatureCWPAnalysis(CWPSettings);
+                CWPAnalysis.Prepare(space, null);
+            }
+
+
+            CWPAnalysis.Analysis(null, log);
 
             foreach (String term in space.GetTokens(true, false))
             {
@@ -141,5 +183,7 @@ namespace imbNLP.Toolkit.Weighting.Global
         {
             return SaveModelDataBase();
         }
+
+
     }
 }

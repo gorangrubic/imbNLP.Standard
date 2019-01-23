@@ -4,8 +4,8 @@ using imbNLP.Toolkit.Documents.Ranking;
 using imbNLP.Toolkit.Documents.Ranking.Core;
 using imbNLP.Toolkit.Documents.Ranking.Data;
 using imbNLP.Toolkit.ExperimentModel;
-using imbNLP.Toolkit.Processing;
 using imbNLP.Toolkit.Space;
+using imbNLP.Toolkit.Weighting.Global;
 using imbSCI.Core.files.folders;
 using imbSCI.Core.reporting;
 using System;
@@ -14,8 +14,11 @@ using System.Linq;
 
 namespace imbNLP.Toolkit.Documents.FeatureAnalytics
 {
-    public class FeatureCWPAnalysis
+    public class FeatureCWPAnalysis : ISharedDataPool
     {
+
+        public String name { get; set; } = "CWP";
+
         public FeatureCWPAnalysisSettings settings { get; set; }
 
         public FeatureCWPAnalysis(FeatureCWPAnalysisSettings _settings)
@@ -59,7 +62,7 @@ namespace imbNLP.Toolkit.Documents.FeatureAnalytics
             {
             }
         }
-
+        /*
         /// <summary>
         /// Gets the metric.
         /// </summary>
@@ -116,7 +119,7 @@ namespace imbNLP.Toolkit.Documents.FeatureAnalytics
             }
             return null;
         }
-
+        */
         public FeatureCWPAnalysisEntryReport unitaryReport { get; set; } = null;
 
         public FeatureCWPAnalysisEntryReport globalReport { get; set; } = null;
@@ -124,6 +127,10 @@ namespace imbNLP.Toolkit.Documents.FeatureAnalytics
         public FeatureCWPAnalysisEntryReport flatReport { get; set; } = null;
 
         public FeatureCWPAnalysisDatasetReport datasetReport { get; set; } = null;
+
+
+
+
 
         /// <summary>
         /// Gets the score.
@@ -184,6 +191,13 @@ namespace imbNLP.Toolkit.Documents.FeatureAnalytics
             return output;
         }
 
+        public void CheckRequirements<T>(T __settings) where T : class
+        {
+            FeatureCWPAnalysisSettings _settings = __settings as FeatureCWPAnalysisSettings;
+
+            settings.DeployUpdate(_settings);
+        }
+
         /// <summary>
         /// Analysises the specified notes.
         /// </summary>
@@ -193,7 +207,7 @@ namespace imbNLP.Toolkit.Documents.FeatureAnalytics
         /// <returns></returns>
         protected FeatureCWPAnalysisEntryReport SubAnalysis(SpaceDocumentStatsModel model, folderNode folder, ILogBuilder log)
         {
-            FeatureCWPAnalysisEntryReport entryReport = new FeatureCWPAnalysisEntryReport(model.name, "Feature analysis for dataset branch [" + model.name + "]", folder);
+            FeatureCWPAnalysisEntryReport entryReport = new FeatureCWPAnalysisEntryReport(model.name, "Feature analysis for dataset branch [" + model.name + "]", folder, settings.purpose);
 
             foreach (var term in model.terms.GetTokens())
             {
@@ -222,11 +236,13 @@ namespace imbNLP.Toolkit.Documents.FeatureAnalytics
         /// <param name="log">The log.</param>
         public void Analysis(folderNode folder, ILogBuilder log)
         {
-            if (settings.RequiredScopes.HasFlag(CWPAnalysisScopeEnum.globalLevel))
+            if (globalReport == null && settings.RequiredScopes.HasFlag(CWPAnalysisScopeEnum.globalLevel))
             {
+                if (log != null) log.log("Making global report");
+
                 FeatureCWPAnalysisEntryReport entryReport = null;
 
-                entryReport = new FeatureCWPAnalysisEntryReport("Global", "Feature analysis for complete dataset ", folder?.Add("_global", "Global", "GlobalReport"));
+                entryReport = new FeatureCWPAnalysisEntryReport("Global", "Feature analysis for complete dataset ", folder?.Add("_global", "Global", "GlobalReport"), settings.purpose);
 
                 if (log != null) log.log("Making global dataset report");
                 foreach (var term in datasetStatsModel.terms.GetTokens())
@@ -241,8 +257,10 @@ namespace imbNLP.Toolkit.Documents.FeatureAnalytics
                 globalReport = entryReport;
             }
 
-            if (settings.RequiredScopes.HasFlag(CWPAnalysisScopeEnum.categoryLevel))
+            if (!categoryReports.Any() && settings.RequiredScopes.HasFlag(CWPAnalysisScopeEnum.categoryLevel))
             {
+
+
                 if (folder != null)
                 {
                     foreach (SpaceDocumentStatsModel category in datasetStatsModel.Children)
@@ -273,17 +291,20 @@ namespace imbNLP.Toolkit.Documents.FeatureAnalytics
 
             }
 
-            if (log != null) log.log("Making unitary and flat level reports");
 
-            if (settings.RequiredScopes.HasFlag(CWPAnalysisScopeEnum.mainLevel))
+
+            if (datasetReport == null && settings.RequiredScopes.HasFlag(CWPAnalysisScopeEnum.mainLevel))
             {
+                if (log != null) log.log("Making main level report");
+
                 datasetReport = new FeatureCWPAnalysisDatasetReport("Dataset", "Final report on the dataset", folder?.Add("_main", "main", ""), categoryReports);
                 datasetReport.Save(log);
             }
 
-            if (settings.RequiredScopes.HasFlag(CWPAnalysisScopeEnum.unitaryLevel))
+            if (unitaryReport == null && settings.RequiredScopes.HasFlag(CWPAnalysisScopeEnum.unitaryLevel))
             {
-                unitaryReport = new FeatureCWPAnalysisEntryReport("Fusioned report", "Cross category report with MAX(particularity) and MAX(commonality)", folder?.Add("_unitary", "Unitary", ""));
+                if (log != null) log.log("Making unitary report");
+                unitaryReport = new FeatureCWPAnalysisEntryReport("Fusioned report", "Cross category report with MAX(particularity) and MAX(commonality)", folder?.Add("_unitary", "Unitary", ""), settings.purpose);
 
                 foreach (var pair in categoryReports)
                 {
@@ -298,21 +319,28 @@ namespace imbNLP.Toolkit.Documents.FeatureAnalytics
                 unitaryReport.Save(log, false);
             }
 
-            if (settings.RequiredScopes.HasFlag(CWPAnalysisScopeEnum.rawLevel))
+            if (frequencies == null && settings.RequiredScopes.HasFlag(CWPAnalysisScopeEnum.rawLevel))
             {
+                if (log != null) log.log("Making raw report");
+
+                frequencies = new FeatureCWPFrequencyDictionary();
                 frequencies.Deploy(datasetStatsModel);
                 frequencies.PublishTableBlocks(folder.Add("_freq", "Frequencies", "Absolute frequencies by scope"));
             }
 
-            if (settings.RequiredScopes.HasFlag(CWPAnalysisScopeEnum.flatSiteLevel))
+            if (flatReport == null && settings.RequiredScopes.HasFlag(CWPAnalysisScopeEnum.flatSiteLevel))
             {
-                flatReport = new FeatureCWPAnalysisEntryReport("Flat report", "Report produced as if all sites are in single cateogry", folder?.Add("_flat", "Flat", ""));
+                if (log != null) log.log("Making flat report");
+
+                flatReport = new FeatureCWPAnalysisEntryReport("Flat report", "Report produced as if all sites are in single cateogry", folder?.Add("_flat", "Flat", ""), settings.purpose);
                 flatReport = SubAnalysis(flatDataSetStatsModel, flatReport.folder, log);
                 flatReport.Save(log, false);
             }
         }
 
-        public FeatureCWPFrequencyDictionary frequencies = new FeatureCWPFrequencyDictionary();
+        public FeatureCWPFrequencies totalCounts { get; set; } = new FeatureCWPFrequencies();
+
+        public FeatureCWPFrequencyDictionary frequencies { get; set; } = null;
 
         public List<FeatureCWPAnalysisEntryReport> categoryReports = new List<FeatureCWPAnalysisEntryReport>();
 
@@ -332,6 +360,7 @@ namespace imbNLP.Toolkit.Documents.FeatureAnalytics
             datasetStatsModel.documentScope = Entity.DocumentBlenderFunctionOptions.datasetLevel;
             flatDataSetStatsModel = new SpaceDocumentStatsModel("FlatStats", log);
             flatDataSetStatsModel.documentScope = Entity.DocumentBlenderFunctionOptions.datasetLevel;
+
 
             foreach (string label in labels)
             {
@@ -353,6 +382,13 @@ namespace imbNLP.Toolkit.Documents.FeatureAnalytics
                 datasetStatsModel.termsChildCount.CountTokens(labelDocModel.terms.GetTokens());
 
                 if (log != null) log.log("Statistics for category [" + label + "]");
+
+
+                var allChildren = labelDocModel.GetAllChildren();
+                for (int i = 0; i < allChildren.Count; i++)
+                {
+                    totalCounts.DirectCount(allChildren[i].documentScope);
+                }
             }
 
             if (settings.RequiredScopes.HasFlag(CWPAnalysisScopeEnum.flatSiteLevel))

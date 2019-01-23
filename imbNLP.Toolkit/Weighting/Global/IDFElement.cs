@@ -90,11 +90,14 @@ namespace imbNLP.Toolkit.Weighting.Global
             {
                 foreach (SpaceDocumentModel document in space.LabelToDocumentLinks.GetAllLinked(label))
                 {
-                    var termsInDocument = document.GetTerms(true, true, true).GetTokens();
+                    var termsInDocument = document.GetTokens(terms); //.GetTerms(true, true, true).GetTokens();
 
-                    foreach (String termInDocument in termsInDocument)
+                    for (int i = 0; i < termsInDocument.Count; i++)
                     {
-                        TermToDocumentIndex[termInDocument].Add(document);
+                        if (TermToDocumentIndex.ContainsKey(termsInDocument[i]))
+                        {
+                            TermToDocumentIndex[termsInDocument[i]].Add(document);
+                        }
                     }
 
                     DocumentN++;

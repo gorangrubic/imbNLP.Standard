@@ -3,6 +3,7 @@ using imbNLP.Toolkit.Weighting.Data;
 using imbSCI.Core.reporting;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace imbNLP.Toolkit.Weighting.Global
 {
@@ -64,6 +65,13 @@ namespace imbNLP.Toolkit.Weighting.Global
 
             var labels = space.labels;
 
+            if (labels.Any(x=>x.name==SpaceLabel.UNKNOWN))
+            {
+                log.log("Space labels include the UNKNOWN label!");
+                labels.RemoveAll(x => x.name == SpaceLabel.UNKNOWN);
+            }
+            
+
             Dictionary<String, List<SpaceLabel>> TermToLabelIndex = new Dictionary<string, List<SpaceLabel>>();
 
             var terms = space.GetTokens(true, false);
@@ -75,15 +83,21 @@ namespace imbNLP.Toolkit.Weighting.Global
 
             foreach (SpaceLabel label in labels)
             {
-                List<SpaceDocumentModel> documents = space.GetDocumentsOfLabel(label.name); //.//LabelToDocumentLinks.GetAllLinked(label);
-                foreach (SpaceDocumentModel document in documents)
+                if (label.name != SpaceLabel.UNKNOWN)
                 {
-                    var termsInDocument = document.GetTerms(true, true).GetTokens();
-                    foreach (String termInDocument in termsInDocument)
+                    List<SpaceDocumentModel> documents = space.GetDocumentsOfLabel(label.name); //.//LabelToDocumentLinks.GetAllLinked(label);
+                    foreach (SpaceDocumentModel document in documents)
                     {
-                        if (!TermToLabelIndex[termInDocument].Contains(label))
+                        var termsInDocument = document.GetTokens(terms); //.GetTerms(true, true).GetTokens();
+                        for (int i = 0; i < termsInDocument.Count; i++)
                         {
-                            TermToLabelIndex[termInDocument].Add(label);
+                            if (TermToLabelIndex.ContainsKey(termsInDocument[i]))
+                            {
+                                if (!TermToLabelIndex[termsInDocument[i]].Contains(label))
+                                {
+                                    TermToLabelIndex[termsInDocument[i]].Add(label);
+                                }
+                            }
                         }
                     }
                 }

@@ -45,6 +45,8 @@ namespace imbNLP.Project.Operations.Procedures
             componentsWithRequirements.Add(entityOperation);
             componentsWithRequirements.Add(corpusOperation);
 
+            setup.analysisSettings.Deploy(CWPAnalysusScoreOutput.binaryCWParticularity, Toolkit.Documents.FeatureAnalytics.Data.FeatureCWPAnalysisSettings.AnalysisPurpose.exploration);  //.purpose = Toolkit.Documents.FeatureAnalytics.Data.FeatureCWPAnalysisSettings.AnalysisPurpose.exploration;
+            
             analysis = new FeatureCWPAnalysis(setup.analysisSettings);
             
 

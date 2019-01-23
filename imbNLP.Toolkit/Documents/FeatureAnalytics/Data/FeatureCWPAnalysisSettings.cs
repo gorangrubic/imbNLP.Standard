@@ -28,12 +28,22 @@ namespace imbNLP.Toolkit.Documents.FeatureAnalytics.Data
 
         public CWPAnalysisScopeEnum RequiredScopes { get; set; } = CWPAnalysisScopeEnum.siteLevel;
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="FeatureCWPAnalysisSettings"/> class.
-        /// </summary>
-        /// <param name="computation">The computation.</param>
-        /// <param name="purpose">The purpose.</param>
-        public FeatureCWPAnalysisSettings(CWPAnalysusScoreOutput computation=CWPAnalysusScoreOutput.flatSiteParticularity, AnalysisPurpose purpose=AnalysisPurpose.application)
+        public String GetSignature()
+        {
+            return RequiredScopes.ToString();
+        }
+
+        public FeatureCWPAnalysisSettings()
+        {
+
+        }
+
+        public void DeployUpdate(FeatureCWPAnalysisSettings learnFrom)
+        {
+            RequiredScopes |= learnFrom.Computation.GetScope();
+        }
+
+        public void Deploy(CWPAnalysusScoreOutput computation, AnalysisPurpose purpose = AnalysisPurpose.application, Boolean update = false)
         {
             if (purpose == AnalysisPurpose.exploration)
             {
@@ -41,9 +51,28 @@ namespace imbNLP.Toolkit.Documents.FeatureAnalytics.Data
             }
             else
             {
-                RequiredScopes = computation.GetScope();
+                if (update)
+                {
+                    RequiredScopes |= computation.GetScope();
+                }
+                else
+                {
+                    RequiredScopes = computation.GetScope();
+                }
+
             }
             Computation = computation;
+
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="FeatureCWPAnalysisSettings"/> class.
+        /// </summary>
+        /// <param name="computation">The computation.</param>
+        /// <param name="purpose">The purpose.</param>
+        public FeatureCWPAnalysisSettings(CWPAnalysusScoreOutput computation, AnalysisPurpose purpose = AnalysisPurpose.application)
+        {
+            Deploy(computation, purpose);
         }
 
         /// <summary>

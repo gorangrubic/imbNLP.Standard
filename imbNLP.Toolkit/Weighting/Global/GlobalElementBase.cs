@@ -1,10 +1,12 @@
 using imbNLP.Toolkit.Core;
 using imbNLP.Toolkit.Processing;
 using imbNLP.Toolkit.Space;
+using imbSCI.Core.math.range.finder;
 using imbSCI.Core.reporting;
 using imbSCI.Data;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Xml.Serialization;
 
 namespace imbNLP.Toolkit.Weighting.Global
@@ -27,6 +29,30 @@ namespace imbNLP.Toolkit.Weighting.Global
         /// </summary>
         [XmlIgnore]
         public Dictionary<Double, String> DistinctReturns { get; set; } = new Dictionary<double, string>();
+
+        public Boolean DoFactorNormalization { get; set; } = false;
+
+        public void DoIndexNormalization(ILogBuilder log)
+        {
+            log.log("Global factor normalization [" + DoFactorNormalization + "]");
+            if (DoFactorNormalization)
+            {
+                rangeFinder ranger = new rangeFinder();
+                foreach (var pair in index)
+                {
+                    ranger.Learn(pair.Value);
+                }
+                foreach (var pair in index.ToList())
+                {
+                    index[pair.Key] = ranger.GetPositionInRange(pair.Value);
+                }
+                log.log("Global factor [" + shortName + "] range [" + ranger.Range.ToString("F5") + "] before normalization.");
+            }
+            else
+            {
+
+            }
+        }
 
         // public DocumentBlenderFunctionOptions DocumentScope { get; set; } = DocumentBlenderFunctionOptions.siteLevel;
 

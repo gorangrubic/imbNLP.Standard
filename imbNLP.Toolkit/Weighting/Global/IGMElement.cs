@@ -138,9 +138,13 @@ namespace imbNLP.Toolkit.Weighting.Global
                 {
                     var doc_terms_dict = document.GetTerms(true, true, true);
                     var doc_terms = doc_terms_dict.GetTokens();
+
                     foreach (String term in doc_terms)
                     {
-                        TermClassFrequency[term][label] += doc_terms_dict.GetTokenFrequency(term);
+                        if (TermClassFrequency.ContainsKey(term))
+                        {
+                            TermClassFrequency[term][label] += doc_terms_dict.GetTokenFrequency(term);
+                        }
                     }
                 }
             }

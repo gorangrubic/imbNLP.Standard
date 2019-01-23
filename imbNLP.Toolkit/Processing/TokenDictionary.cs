@@ -10,7 +10,7 @@ namespace imbNLP.Toolkit.Processing
     /// Stores raw frequencies of the tokens
     /// </summary>
     [Serializable]
-    public class TokenDictionary: changeBindableBase
+    public class TokenDictionary : changeBindableBase
     {
         protected Dictionary<string, Int32> TokenFrequency { get; set; } = new Dictionary<string, Int32>();
         protected Dictionary<string, Int32> TokenID { get; set; } = new Dictionary<string, Int32>();
@@ -75,7 +75,7 @@ namespace imbNLP.Toolkit.Processing
         /// </summary>
         public TokenDictionary()
         {
-           
+
         }
 
 
@@ -88,7 +88,7 @@ namespace imbNLP.Toolkit.Processing
                 SumSquareFrequency = 0;
                 SquareRootOfSumSquareFrequency = 0;
 
-                
+
                 for (int i = 0; i < Count; i++)
                 {
                     String tkn = Tokens[i];
@@ -164,13 +164,37 @@ namespace imbNLP.Toolkit.Processing
 
 
 
-      
+
         public void Clear()
         {
             TokenID.Clear();
             TokenFrequency.Clear();
             Tokens.Clear();
             InvokeChanged();
+        }
+
+        /// <summary>
+        /// Returns cross-section tokens between the specified list and dictionary
+        /// </summary>
+        /// <param name="toMatch">To match.</param>
+        /// <param name="removeFromToMatch">if set to <c>true</c> it will remove tokens that were matched from specified <c>toMatch</c> list.</param>
+        /// <returns></returns>
+        public List<String> GetTokens(List<String> toMatch, Boolean removeFromToMatch = true)
+        {
+            List<String> output = new List<string>();
+
+            for (int i = 0; i < toMatch.Count; i++)
+            {
+                if (TokenFrequency.ContainsKey(toMatch[i]))
+                {
+                    output.Add(toMatch[i]);
+                }
+            }
+
+            if (removeFromToMatch) toMatch.RemoveAll(x => output.Contains(x));
+
+
+            return output;
         }
 
         /// <summary>
@@ -243,7 +267,7 @@ namespace imbNLP.Toolkit.Processing
         /// <param name="tokens">The tokens.</param>
         public void CountTokens(IEnumerable<String> tokens)
         {
-            
+
             foreach (String token in tokens)
             {
                 CountToken(token);
@@ -261,7 +285,7 @@ namespace imbNLP.Toolkit.Processing
             if (!TokenID.ContainsKey(token))
             {
                 Tokens.Add(token);
-                TokenID[token] = Tokens.Count - 1;
+                TokenID[token] = TokenID.Count;
                 TokenFrequency[token] = 0;
             }
             TokenFrequency[token] = TokenFrequency[token] + score;
@@ -399,6 +423,21 @@ namespace imbNLP.Toolkit.Processing
             return output;
         }
 
+        public List<String> GetTokensOtherThan(List<String> notToGet)
+        {
+            List<String> toRemove = new List<string>();
+
+            var tkns = GetTokens();
+            for (int i = 0; i < notToGet.Count; i++)
+            {
+                tkns.Remove(notToGet[i]);
+            }
+
+            return tkns;
+
+        }
+
+
         /// <summary>
         /// Removes specified tokens from the dictionary
         /// </summary>
@@ -407,8 +446,25 @@ namespace imbNLP.Toolkit.Processing
         /// <returns></returns>
         public Int32 FilterTokens(List<String> tokens, Boolean inverseFilter = true)
         {
-            List<String> toRemove = new List<string>();
             Int32 c = 0;
+            if (!inverseFilter)
+            {
+                Tokens.RemoveAll(x => tokens.Contains(x));
+
+
+                for (int i = 0; i < tokens.Count; i++)
+                {
+                    TokenFrequency.Remove(tokens[i]);
+                    TokenID.Remove(tokens[i]);
+                    c++;
+                    
+                }
+                InvokeChanged();
+                return c;
+            }
+
+            List<String> toRemove = new List<string>();
+
 
             if (inverseFilter)
             {

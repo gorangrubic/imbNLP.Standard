@@ -86,6 +86,8 @@ namespace imbNLP.Toolkit.Weighting
 
             if (WeightModel != null)
             {
+                WeightModel.DoUseLocalFunction = false;
+
                 WeightModel.Deploy(logger);
             }
 
@@ -244,15 +246,7 @@ namespace imbNLP.Toolkit.Weighting
 
         public String outputFilename { get; set; } = "";
 
-        //public GlobalFunctionSettings functionSettings
-        //{
-        //    get { return _functionSettings; }
-        //    set
-        //    {
-        //        OnPropertyChange(nameof(functionSettings));
-        //        _functionSettings = value;
-        //    }
-        //}
+
     }
 
 

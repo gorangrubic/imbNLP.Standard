@@ -46,20 +46,23 @@ namespace imbNLP.Toolkit.Space
 
                 Children.Add(doc);
             }
-            Words = new Int32[Length];
+            if (SpaceModelConstructor.spaceSettings.DoMaintainWordIndex) Words = new Int32[Length];
 
-            Int32 c = 0;
-            foreach (SpaceDocumentModel doc in documents)
+            if (SpaceModelConstructor.spaceSettings.DoMaintainWordIndex)
             {
-                if (doc.Words != null)
+                Int32 c = 0;
+                foreach (SpaceDocumentModel doc in documents)
                 {
-                    foreach (Int32 w in doc.Words)
+                    if (doc.Words != null)
                     {
-                        Words[c] = w;
-                        c++;
+                        foreach (Int32 w in doc.Words)
+                        {
+                            Words[c] = w;
+                            c++;
+                        }
                     }
-                }
 
+                }
             }
         }
 

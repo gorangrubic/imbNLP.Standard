@@ -90,6 +90,32 @@ namespace imbNLP.Toolkit.Space
             return tokens;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="model">The model.</param>
+        /// <param name="labeled">if set to <c>true</c> [labeled].</param>
+        /// <param name="unlabeled">if set to <c>true</c> [unlabeled].</param>
+        /// <returns></returns>
+        public static TokenDictionary GetTerms(this SpaceModel model, Boolean labeled, Boolean unlabeled)
+        {
+
+            TokenDictionary output = new TokenDictionary();
+
+            if (labeled)
+            {
+                output.MergeDictionary(model.terms_known_label);
+            }
+
+            if (unlabeled)
+            {
+                output.MergeDictionary(model.terms_unknown_label);
+
+            }
+
+            return output;
+        }
+
 
 
         /// <summary>
@@ -134,24 +160,28 @@ namespace imbNLP.Toolkit.Space
             Int32 c_filter_out = 0;
             List<String> keys = selectedFeatures.GetKeys();
 
-            foreach (SpaceDocumentModel model in spaceModel.documents)
+
+            List<String> termsToRemove = spaceModel.terms.GetTokensOtherThan(keys);
+
+            for (int i2 = 0; i2 < spaceModel.documents.Count; i2++)
             {
 
-                c_filter_out += model.FilterSelectedFeatures(keys, true);
+                c_filter_out += spaceModel.documents[i2].FilterSelectedFeatures(termsToRemove, false);
 
 
-                if (i % s == 0)
+                if (i > s)
                 {
-                    Double r = i.GetRatio(spaceModel.documents.Count());
+                    Double r = i2.GetRatio(spaceModel.documents.Count());
                     log.log("Filter SelectedFeatures [" + r.ToString("P2") + "]");
+                    i = 0;
                 }
                 i++;
 
             }
 
 
-            spaceModel.terms_known_label.FilterTokens(keys, true);
-            spaceModel.terms_unknown_label.FilterTokens(keys, true);
+            spaceModel.terms_known_label.FilterTokens(termsToRemove, false);
+            spaceModel.terms_unknown_label.FilterTokens(termsToRemove, false);
 
             return c_filter_out;
 

@@ -19,12 +19,42 @@ namespace imbNLP.Toolkit.Space
     {
 
 
+        /// <summary>
+        /// Gets all children.
+        /// </summary>
+        /// <returns></returns>
+        public List<SpaceDocumentModel> GetAllChildren()
+        {
+            List<SpaceDocumentModel> iteration = new List<SpaceDocumentModel>();
+            List<SpaceDocumentModel> output = new List<SpaceDocumentModel>();
+
+            iteration.Add(this);
+
+            while (iteration.Any())
+            {
+                List<SpaceDocumentModel> nextIteration = new List<SpaceDocumentModel>();
+                for (int i = 0; i < iteration.Count; i++)
+                {
+                    output.Add(iteration[i]);
+
+                    if (iteration[i].Children.Any())
+                    {
+                        nextIteration.AddRange(iteration[i].Children);
+                    }
+
+                }
+                iteration = nextIteration;
+            }
+
+            return output;
+
+        }
 
         /// <summary>
         /// Returns all leaf nodes, excluding branch nodes leading to the leafs. If this is leaf node it will be included in the result.
         /// </summary>
         /// <returns>Leaf nodes, including this in case it is leaf</returns>
-        public List<SpaceDocumentModel> GetLeafs(Boolean clearBranchTerms=false)
+        public List<SpaceDocumentModel> GetLeafs(Boolean clearBranchTerms = false)
         {
             List<SpaceDocumentModel> iteration = new List<SpaceDocumentModel>();
 
@@ -97,7 +127,11 @@ namespace imbNLP.Toolkit.Space
             output.name = name;
             output.labels = labels.ToList();
 
-            output.Words = Words;
+            if (SpaceModelConstructor.spaceSettings.DoMaintainWordIndex)
+            {
+                output.Words = Words;
+            }
+
             output.terms = terms.Clone();
             output.Length = length;
 
@@ -146,14 +180,26 @@ namespace imbNLP.Toolkit.Space
         /// <param name="selectedFeatures">Tokens to filter</param>
         /// <param name="inverseFilter">if set to <c>true</c> it will remove all other than specified.</param>
         /// <returns>Number of distinct tokens removed from this model and children nodes</returns>
-        public Int32 FilterSelectedFeatures(List<String> keys, Boolean inverseFilter = true)
+        public Int32 FilterSelectedFeatures(List<String> keys, Boolean inverseFilter = true, Boolean filterFirstLine = true)
         {
             SpaceDocumentModel output = null;
 
             Int32 ca = 0;
             Int32 cb = 0;
 
-            List<SpaceDocumentModel> iteration = GetLeafs(true);
+            List<SpaceDocumentModel> iteration = new List<SpaceDocumentModel>();
+
+            if (filterFirstLine)
+            {
+                iteration.Add(this);
+                iteration.AddRange(Children);
+                //terms.FilterTokens(keys);
+            }
+            else
+            {
+                iteration = GetLeafs(true);
+            }
+
 
 
             for (int i = 0; i < iteration.Count; i++)
@@ -222,7 +268,7 @@ namespace imbNLP.Toolkit.Space
 
 
             List<List<String>> wordIndexes = new List<List<string>>();
-
+            TokenDictionary new_terms = new TokenDictionary();
 
             iteration.AddRange(Children);
 
@@ -233,8 +279,8 @@ namespace imbNLP.Toolkit.Space
 
                 for (int i = 0; i < iteration.Count; i++)
                 {
-                    wordIndexes.Add(iteration[i].GetWordIndexed());
-                    output.terms.MergeDictionary(iteration[i].terms);
+                    if (SpaceModelConstructor.spaceSettings.DoMaintainWordIndex) wordIndexes.Add(iteration[i].GetWordIndexed());
+                    new_terms.MergeDictionary(iteration[i].terms);
 
                     if (iteration[i].terms.Count == 0)
                     {
@@ -251,11 +297,15 @@ namespace imbNLP.Toolkit.Space
             List<Int32> wsum = new List<int>();
             for (int i2 = 0; i2 < wordIndexes.Count; i2++)
             {
-                wsum.AddRange(output.terms.GetIDsByTokens(wordIndexes[i2]));
+                wsum.AddRange(new_terms.GetIDsByTokens(wordIndexes[i2]));
             }
 
-            output.Words = wsum.ToArray();
-            length = wsum.Count;
+            output.terms = new_terms;
+            if (SpaceModelConstructor.spaceSettings.DoMaintainWordIndex)
+            {
+                output.Words = wsum.ToArray();
+                length = wsum.Count;
+            }
 
             return output;
             //output.terms.MergeDictionary(GetTerms(false, true));
@@ -263,6 +313,48 @@ namespace imbNLP.Toolkit.Space
 
         }
 
+        /// <summary>
+        /// Returns matched tokens
+        /// </summary>
+        /// <param name="tokensToMatch">The tokens to match.</param>
+        /// <returns></returns>
+        public List<String> GetTokens(List<String> tokensToMatch)
+        {
+
+            if (terms.Count > 0)
+            {
+                return terms.GetTokens(tokensToMatch, false);
+            }
+
+            List<String> result = new List<String>();
+            tokensToMatch = tokensToMatch.ToList();
+
+            List<SpaceDocumentModel> iteration = new List<SpaceDocumentModel>();
+
+            iteration.AddRange(this.Children);
+
+            List<SpaceDocumentModel> output = new List<SpaceDocumentModel>();
+            while (iteration.Any())
+            {
+                List<SpaceDocumentModel> nextIteration = new List<SpaceDocumentModel>();
+                for (int i = 0; i < iteration.Count; i++)
+                {
+
+                    result.AddRange(iteration[i].terms.GetTokens(tokensToMatch, true));
+                    if (tokensToMatch.Any())
+                    {
+                        nextIteration.AddRange(iteration[i].Children);
+                    }
+                    else
+                    {
+                        return result;
+                    }
+                }
+                iteration = nextIteration;
+            }
+
+            return result;
+        }
 
         /// <summary>
         /// Gets the terms.
@@ -270,7 +362,7 @@ namespace imbNLP.Toolkit.Space
         /// <param name="includingSelf">if set to <c>true</c> [including self].</param>
         /// <param name="includingChildren">if set to <c>true</c> [including children].</param>
         /// <returns></returns>
-        public TokenDictionary GetTerms(Boolean includingSelf, Boolean includingChildren, Boolean PassSelfIfNotEmpty = true, Boolean SetToSelfIfEmpty=true)
+        public TokenDictionary GetTerms(Boolean includingSelf, Boolean includingChildren, Boolean PassSelfIfNotEmpty = true, Boolean SetToSelfIfEmpty = true)
         {
             TokenDictionary output = new TokenDictionary();
 
@@ -295,9 +387,10 @@ namespace imbNLP.Toolkit.Space
 
             if (SetToSelfIfEmpty)
             {
-                if (terms.Count == 0)
+                if (terms.HasChanges || terms.Count == 0)
                 {
-                    terms.MergeDictionary(output);
+                    terms = output;
+                    //terms.MergeDictionary(output);
                 }
             }
 

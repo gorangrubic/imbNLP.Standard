@@ -331,7 +331,8 @@ namespace imbNLP.Project.Operations
             else if (filter.WeightModel == null)
             {
                 EnableSelection = false;
-            } else if (!filter.WeightModel.GlobalFactors.Any())
+            }
+            else if (!filter.WeightModel.GlobalFactors.Any())
             {
                 EnableSelection = false;
             }
@@ -389,6 +390,13 @@ namespace imbNLP.Project.Operations
             {
                 context.spaceModel.terms_unknown_label.FilterTokens(context.SelectedFeatures.GetKeys());
             }
+
+            if (filter.WeightModel != null)
+            {
+                filter.WeightModel.Dispose();
+            }
+
+
         }
 
         /// <summary>
@@ -437,10 +445,40 @@ namespace imbNLP.Project.Operations
             Int32 i = 0;
             Int32 s = toBlendIntoVectors.Count() / 5;
 
+
+            Dictionary<String, List<VectorDocument>> labelToDocumentSets = new Dictionary<String, List<VectorDocument>>();
+
+
+            foreach (SpaceCategoryModel catModel in context.spaceModel.categories)
+            {
+                labelToDocumentSets.Add(catModel.name, new List<VectorDocument>());
+            }
+
+            Int32 unlabeled = 0;
+
             foreach (SpaceDocumentModel model in toBlendIntoVectors)
             {
                 VectorDocument docVec = model.BlendToVector<VectorDocument>(weightModel, context.spaceModel, FV);  //new VectorDocument(model.name);
                 context.vectorSpace.documents.Add(docVec);
+
+                if (constructCategories)
+                {
+                    String l = model.labels.FirstOrDefault();
+
+                    if (!l.isNullOrEmpty())
+                    {
+                        if (labelToDocumentSets.ContainsKey(l))
+                        {
+                            labelToDocumentSets[l].Add(docVec);
+                        }
+                        else
+                        {
+                            unlabeled++;
+                            // 
+                        }
+                    }
+                }
+
 
                 if (i % s == 0)
                 {
@@ -450,17 +488,35 @@ namespace imbNLP.Project.Operations
                 i++;
             }
 
+            if (constructCategories && (unlabeled > 0))
+            {
+                log.log("Vectors [" + unlabeled + "] are unlabeled");
+            }
+
             if (constructCategories)
             {
-                // logger.log(":: Creating VectorSpace instances for categories");
+                log.log(":: Creating VectorSpace instances for categories");
                 // building category VSM
                 foreach (SpaceCategoryModel catModel in context.spaceModel.categories)
                 {
-                    VectorLabel catVec = catModel.BlendToVector<VectorLabel>(weightModel, context.spaceModel, FV); //weightModel.GetWeights(FV, catModel, context.spaceModel);
+                    VectorLabel catVec = new VectorLabel(catModel.name);
+                    foreach (var docVec in labelToDocumentSets[catModel.name])
+                    {
+                        catVec.terms.Merge(docVec.terms);
+                    }
+
+                    //= catModel.BlendToVector<VectorLabel>(weightModel, context.spaceModel, FV); //weightModel.GetWeights(FV, catModel, context.spaceModel);
 
                     context.vectorSpace.labels.Add(catVec);
                 }
             }
+
+
+            if (weightModel != null)
+            {
+                weightModel.Dispose();
+            }
+
         }
 
         public SpaceLabel designateSpaceLabel(OperationContext context, IVector vector)

@@ -32,9 +32,19 @@ namespace imbNLP.Toolkit.Documents.FeatureAnalytics
             return default(T);
         }
 
-        public void AddEntry(T entry)
+        public void AddEntry(T entry, Boolean allowUpdate=false)
         {
-            Add(entry.term, entry);
+            if (ContainsKey(entry.term))
+            {
+                if (allowUpdate)
+                {
+                    this[entry.term] = entry;
+                }
+            }
+            else
+            {
+                Add(entry.term, entry);
+            }
         }
 
         /// <summary>

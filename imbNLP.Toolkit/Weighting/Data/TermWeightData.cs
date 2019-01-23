@@ -1,8 +1,10 @@
+using imbNLP.Toolkit.Weighting.Global;
 using System;
 using System.Collections.Generic;
 
 namespace imbNLP.Toolkit.Weighting.Data
 {
+
     public class TermWeightData
     {
         public TermWeightData()

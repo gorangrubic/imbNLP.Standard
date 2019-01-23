@@ -77,6 +77,48 @@ namespace imbNLP.Toolkit.Documents.FeatureAnalytics.Data
         [imb(imbAttributeName.reporting_valueformat, "F1")]
         public Double total_frequency { get; set; }
 
+        public void DirectCount(DocumentBlenderFunctionOptions scope)
+        {
+            switch (scope)
+            {
+                case DocumentBlenderFunctionOptions.none:
+                    break;
+                case DocumentBlenderFunctionOptions.binaryAggregation:
+                    break;
+                case DocumentBlenderFunctionOptions.weightedAggregation:
+                    break;
+                case DocumentBlenderFunctionOptions.pageLevel:
+                    page_frequency++;
+                    break;
+                case DocumentBlenderFunctionOptions.blockLevel:
+                    block_frequency++;
+                    break;
+                case DocumentBlenderFunctionOptions.sentenceLevel:
+
+                    break;
+                case DocumentBlenderFunctionOptions.siteLevel:
+                    site_frequency++;
+                    break;
+                case DocumentBlenderFunctionOptions.uniqueContentUnitsOnly:
+                    break;
+                case DocumentBlenderFunctionOptions.separatePages:
+                    break;
+                case DocumentBlenderFunctionOptions.keepLayersInMemory:
+                    break;
+                case DocumentBlenderFunctionOptions.categoryLevel:
+                    class_frequency++;
+                    break;
+                case DocumentBlenderFunctionOptions.datasetLevel:
+                    total_frequency++;
+                    break;
+                case DocumentBlenderFunctionOptions.layerLevel:
+                    layer_frequency++;
+                    break;
+                default:
+                    break;
+            }
+        }
+
         public void Add(DocumentBlenderFunctionOptions scope, Double __score, Boolean sumValue = true)
         {
             if (!TermFrequencyByScope.ContainsKey(scope)) TermFrequencyByScope.Add(scope, 0);

@@ -88,13 +88,30 @@ namespace imbNLP.Toolkit.Weighting
         /// <returns></returns>
         public String GetSignature()
         {
-            String output = LocalFunction.GetSignature();
+            String output = "";
+
+            if (DoUseLocalFunction) output += LocalFunction.GetSignature();
             foreach (FeatureWeightFactor gf in GlobalFactors)
             {
                 output = output.add(gf.Settings.GetSignature(), "-");
             }
             return output;
         }
+
+
+        public static Boolean DoShareAnalyticData { get; set; } = true;
+
+        public Boolean DoUseLocalFunction { get; set; } = true;
+
+        /// <summary>
+        /// Allows global function instances of the same type to share analytical data
+        /// </summary>
+        /// <value>
+        /// The shared data pool.
+        /// </value>
+        [XmlIgnore]
+        public FunctionSharedDataPool SharedDataPool { get; protected set; } = new FunctionSharedDataPool();
+
 
         /// <summary>
         /// Prepares the model.
@@ -104,15 +121,21 @@ namespace imbNLP.Toolkit.Weighting
         {
             foreach (FeatureWeightFactor gf in GlobalFactors)
             {
+                if (DoShareAnalyticData) SharedDataPool.TryToGet(gf.GlobalFunction, log);
                 gf.GlobalFunction.PrepareTheModel(space, log);
+
+                gf.GlobalFunction.DoIndexNormalization(log);
+
                 if (gf.GlobalFunction.resultType == FunctionResultTypeEnum.numericVectorForMultiClass)
                 {
                     nDimensions = space.labels.Count;
                     resultType = gf.GlobalFunction.resultType;
                 }
+
+                if (DoShareAnalyticData) SharedDataPool.TryToSet(gf.GlobalFunction, log);
             }
 
-            LocalFunction.PrepareTheModel(space, log);
+            if (DoUseLocalFunction) LocalFunction.PrepareTheModel(space, log);
 
             if (!GlobalFactors.Any())
             {
@@ -240,7 +263,7 @@ namespace imbNLP.Toolkit.Weighting
                     WeightDictionaryEntry entry = new WeightDictionaryEntry(term, 0);
 
 
-                    entry = LocalFunction.GetElementFactorEntry(term, document);
+                    if (DoUseLocalFunction) entry = LocalFunction.GetElementFactorEntry(term, document);
 
                     foreach (FeatureWeightFactor gf in GlobalFactors)
                     {
@@ -274,7 +297,7 @@ namespace imbNLP.Toolkit.Weighting
         /// <returns></returns>
         public double GetElementFactor(String term, SpaceDocumentModel document)
         {
-            if (LocalFunction != null)
+            if (DoUseLocalFunction && LocalFunction != null)
             {
                 if (LocalFunction.IsEnabled)
                 {
@@ -417,7 +440,7 @@ namespace imbNLP.Toolkit.Weighting
             if (dict.ContainsKey(LocalFunction.shortName))
             {
                 var localData = dict[LocalFunction.shortName];
-                LocalFunction.LoadModelData(localData);
+                if (DoUseLocalFunction) LocalFunction.LoadModelData(localData);
             }
             else
             {
@@ -465,14 +488,17 @@ namespace imbNLP.Toolkit.Weighting
         {
             logger.AppendLine("Feature Weighting model");
 
+            if (DoUseLocalFunction)
+            {
+                logger.AppendLine("Local weight model");
+                logger.nextTabLevel();
+                LocalFunction.Describe(logger);
+                logger.prevTabLevel();
+            }
 
-            logger.AppendLine("Local weight model");
-            logger.nextTabLevel();
-            LocalFunction.Describe(logger);
-            logger.prevTabLevel();
 
+            if (DoUseLocalFunction) logger.AppendLine("Global weight model(s)");
 
-            logger.AppendLine("Global weight model(s)");
             logger.nextTabLevel();
             foreach (var lf in GlobalFactors)
             {
@@ -495,6 +521,21 @@ namespace imbNLP.Toolkit.Weighting
         public void DeploySettings(GlobalFunctionSettings settings)
         {
 
+        }
+
+        public void Dispose()
+        {
+            SharedDataPool.storage.Clear();
+
+            foreach (var gf in GlobalFactors)
+            {
+                gf.GlobalFunction.Dispose();
+            }
+        }
+
+        public void DoIndexNormalization(ILogBuilder log)
+        {
+            
         }
 
         public FeatureWeightModel()

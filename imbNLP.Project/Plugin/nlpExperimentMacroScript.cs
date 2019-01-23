@@ -1,5 +1,4 @@
 ﻿using imbACE.Services.console;
-using imbSCI.Core.extensions.text;
 using imbSCI.Core.math.classificationMetrics;
 using imbSCI.Data;
 using System;
@@ -22,6 +21,11 @@ namespace imbNLP.Project.Plugin
         {
             definitions.Add("OR", "    .GlobalWeight function=\"CollectionTDPElement\";weight=1.0;flags=\"or,max\";", "Odds Ratio function");
             definitions.Add("IG", "    .GlobalWeight function=\"CollectionTDPElement\";weight=1.0;flags=\"ig,max\";", "Information gain function");
+            definitions.Add("IDFp", "    .GlobalWeight function=\"CollectionTDPElement\";weight=1.0;flags=\"idf_prob,max\";", "Probabilistic IDF");
+            definitions.Add("CHI", "    .GlobalWeight function=\"CollectionTDPElement\";weight=1.0;flags=\"chi,max\";", "Chi-square factor");
+            definitions.Add("GR", "    .GlobalWeight function=\"CollectionTDPElement\";weight=1.0;flags=\"gr,max\";", "Information gain ratio");
+            definitions.Add("RF", "    .GlobalWeight function=\"CollectionTDPElement\";weight=1.0;flags=\"rf,max\";", "Relevance frequency");
+
             definitions.Add("IDF", "    .GlobalWeight function=\"IDFElement\";weight=1.0;flags=\"logPlus\";", "Inverse document frequency (IDF)");
             definitions.Add("mIDF", "    .GlobalWeight function=\"IDFElement\";weight=1.0;flags=\"modified\";", "modified inverse document frequency");
             definitions.Add("IGM", "    .GlobalWeight function=\"IGMElement\";weight=1.0;flags=\"logPlus\";", "Inverse gravity moment");
@@ -58,13 +62,18 @@ namespace imbNLP.Project.Plugin
         List<String> filter_tags = new List<string>();
         List<String> weight_tags = new List<string>();
 
+        public Boolean RemoveZero = true;
 
         Int32 fs_size = 0;
 
         public aceConsoleScript GenerateScript([Description("tags")] String tags = "")
         {
 
-
+            if (tags.Contains("!"))
+            {
+                tags = tags.Replace("!", "");
+                RemoveZero = false;
+            }
 
             List<string> left_tags = new List<string>();
             List<string> right_tags = new List<String>();
@@ -126,8 +135,14 @@ namespace imbNLP.Project.Plugin
 
             StringBuilder sb = new StringBuilder();
 
+            if (!RemoveZero)
+            {
+                tags = "n" + tags;
+                description += " Feature selection without zero-filter.";
+            }
+
             sb.AppendLine($"bec.InitExperimentContext runName=\"{tags}\";runComment=\"{description}\";silendDatasetLoad=true;");
-            sb.AppendLine($"bec.ops.docClassification.filter.FeatureFilter RemoveZero=true;limit={fs_size};nVectorOperation=\"max\";outputFilename=\"{tags}_selected\";");
+            sb.AppendLine($"bec.ops.docClassification.filter.FeatureFilter RemoveZero={RemoveZero};limit={fs_size};nVectorOperation=\"max\";outputFilename=\"{tags}_selected\";");
             sb.AppendLine("bec.ops.docClassification.ResetModels;");
 
             sb.AppendLine(filter_code);

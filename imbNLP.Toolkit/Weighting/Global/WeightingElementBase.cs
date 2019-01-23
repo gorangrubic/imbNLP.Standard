@@ -9,6 +9,11 @@ namespace imbNLP.Toolkit.Weighting.Global
 
     public abstract class WeightingElementBase : IWeightingElementBase
     {
+        public virtual void Dispose()
+        {
+            index.Clear();
+        }
+
         [XmlIgnore]
         public String shortName { get; set; } = "local";
 

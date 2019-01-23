@@ -3,6 +3,7 @@ using imbNLP.Toolkit.Weighting.Data;
 using imbNLP.Toolkit.Weighting.Metrics;
 using imbSCI.Core.enums;
 using imbSCI.Core.extensions.enumworks;
+using imbSCI.Core.math.range.finder;
 using imbSCI.Core.reporting;
 using System;
 using System.Collections.Generic;
@@ -22,6 +23,13 @@ namespace imbNLP.Toolkit.Weighting.Global
     /// <seealso cref="imbNLP.Toolkit.Weighting.Elements.ModelElementBase" />
     public class CollectionTDPElement : GlobalElementBase
     {
+        public override void Dispose()
+        {
+            computedModel = null;
+
+            base.Dispose();
+        }
+
         /// <summary>
         /// Initializes a new instance of the <see cref="CollectionTDPElement"/> class.
         /// </summary>
@@ -35,7 +43,17 @@ namespace imbNLP.Toolkit.Weighting.Global
 
         private double GetElementFactor(string term, String labelName)
         {
-            return computedModel.index[labelName][term];
+            Double output = 0;
+
+            if (computedModel.index.ContainsKey(labelName))
+            {
+                if (computedModel.index[labelName].ContainsKey(term))
+                {
+                    output = computedModel.index[labelName][term];
+                }
+            }
+
+            return output;
         }
 
         /// <summary>
@@ -53,7 +71,14 @@ namespace imbNLP.Toolkit.Weighting.Global
             List<String> labelNames = new List<string>();
             if (label == null)
             {
-                labelNames = computedModel.index.Keys.ToList();
+                if (index.ContainsKey(term))
+                {
+                    return index[term];
+                } else
+                {
+                    return 0;
+                }
+                //labelNames = computedModel.index.Keys.ToList();
             }
             else
             {
@@ -64,8 +89,11 @@ namespace imbNLP.Toolkit.Weighting.Global
 
             foreach (String ln in labelNames)
             {
-                scores.Add(GetElementFactor(term, ln));
+                var d = GetElementFactor(term, ln);
+
+                scores.Add(d);
             }
+
 
             output = operationExtensions.CompressNumericVector(scores.ToArray(), defaultOperation);
 
@@ -175,7 +203,26 @@ namespace imbNLP.Toolkit.Weighting.Global
 
             computedModel = model.GetComputedModel(factor, N);
 
+            Dictionary<String, Double> tempIndex = new Dictionary<string, double>();
 
+            foreach (String term in terms)
+            {
+
+                List<Double> scores = new List<double>();
+
+                foreach (String ln in labelNames)
+                {
+                    var d = GetElementFactor(term, ln);
+
+                    scores.Add(d);
+                }
+
+                tempIndex.Add(term, operationExtensions.CompressNumericVector(scores.ToArray(), defaultOperation));
+            }
+
+            index = tempIndex;
+
+          
 
             /*
                 foreach (SpaceLabel label in labels) // << --- UNKNOWN LABEL IS INCLUDED

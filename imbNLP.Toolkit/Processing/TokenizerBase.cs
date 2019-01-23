@@ -53,9 +53,9 @@ namespace imbNLP.Toolkit.Processing
         /// <returns></returns>
         protected string ExecuteInputReplacers(string text)
         {
-            foreach (TokenizeReplaceRule rule in InputReplacers)
+            for (int i = 0; i < InputReplacers.Count; i++)
             {
-                text = rule.Execute(text);
+                text = InputReplacers[i].Execute(text);
             }
             return text;
         }

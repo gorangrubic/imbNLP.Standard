@@ -110,7 +110,7 @@ namespace imbNLP.Toolkit.Weighting.Local
 
             var space = _space;
 
-            TokenDictionary training_terms = space.terms;
+            TokenDictionary training_terms = space.GetTerms(true, true);
 
             List<SpaceLabel> labels = space.labels.ToList();
 
@@ -163,10 +163,7 @@ namespace imbNLP.Toolkit.Weighting.Local
 
             TokenDictionary docDict = document.GetTerms(true, true);
 
-            if (docDict.Count == 0)
-            {
 
-            }
 
             Double TF = docDict.GetTokenFrequency(term);
 
@@ -229,7 +226,7 @@ namespace imbNLP.Toolkit.Weighting.Local
 
         public override void Describe(ILogBuilder logger)
         {
-            logger.AppendPair("Schema", shortName, true, "\t\t\t");
+            logger.AppendPair("Schema", GetFunctionName(computation), true, "\t\t\t");
             if (!description.isNullOrEmpty())
             {
                 logger.AppendComment(description);
@@ -264,6 +261,8 @@ namespace imbNLP.Toolkit.Weighting.Local
             SqrTc = dict[nameof(SqrTc)]; //(Double)data.properties[nameof(SqrTc)];
 
         }
+
+
     }
 
 }

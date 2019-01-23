@@ -494,15 +494,6 @@
         <member name="P:imbNLP.Toolkit.Documents.FeatureAnalytics.Data.FeatureCWPMetrics.Score_MeanStdDev">
             <summary> Ratio </summary>
         </member>
-        <member name="M:imbNLP.Toolkit.Documents.FeatureAnalytics.FeatureCWPAnalysis.GetMetric(System.String,imbNLP.Toolkit.Documents.FeatureAnalytics.Core.CWPAnalysisScopeEnum,System.String)">
-            <summary>
-            Gets the metric.
-            </summary>
-            <param name="term">The term.</param>
-            <param name="scope">The scope.</param>
-            <param name="property">The property.</param>
-            <returns></returns>
-        </member>
         <member name="M:imbNLP.Toolkit.Documents.FeatureAnalytics.FeatureCWPAnalysis.GetScore(System.String,imbNLP.Toolkit.Documents.FeatureAnalytics.Core.CWPAnalysusScoreOutput)">
             <summary>
             Gets the score.
@@ -539,15 +530,6 @@
             </summary>
             <param name="context">The context.</param>
             <param name="log">The log.</param>
-        </member>
-        <member name="M:imbNLP.Toolkit.Documents.FeatureAnalytics.FeatureCWPAnalysisEntryReport.GetMetricValue(System.String,System.String)">
-            <summary>
-            Gets the metric value.
-            </summary>
-            <param name="term">The term.</param>
-            <param name="property">The property.</param>
-            <returns></returns>
-            <exception cref="T:System.ArgumentOutOfRangeException">Property not recognized - property</exception>
         </member>
         <member name="M:imbNLP.Toolkit.Documents.FeatureAnalytics.FeatureCWPDictionary`1.DisposeExtraInfo">
             <summary>
@@ -3682,6 +3664,14 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="M:imbNLP.Toolkit.Processing.TokenDictionary.GetTokens(System.Collections.Generic.List{System.String},System.Boolean)">
+            <summary>
+            Returns cross-section tokens between the specified list and dictionary
+            </summary>
+            <param name="toMatch">To match.</param>
+            <param name="removeFromToMatch">if set to <c>true</c> it will remove tokens that were matched from specified <c>toMatch</c> list.</param>
+            <returns></returns>
+        </member>
         <member name="M:imbNLP.Toolkit.Processing.TokenDictionary.GetTokens">
             <summary>
             Gets list of currently known tokens
@@ -4238,6 +4228,12 @@
             <para>The frequency property of DocumentModel, represents total number of tokens that are represented by the model (i.e. sum of all absolute frequencies of the LemmaTerm)</para>
             </remarks>
         </member>
+        <member name="M:imbNLP.Toolkit.Space.SpaceDocumentModel.GetAllChildren">
+            <summary>
+            Gets all children.
+            </summary>
+            <returns></returns>
+        </member>
         <member name="M:imbNLP.Toolkit.Space.SpaceDocumentModel.GetLeafs(System.Boolean)">
             <summary>
             Returns all leaf nodes, excluding branch nodes leading to the leafs. If this is leaf node it will be included in the result.
@@ -4266,7 +4262,7 @@
             The document scope.
             </value>
         </member>
-        <member name="M:imbNLP.Toolkit.Space.SpaceDocumentModel.FilterSelectedFeatures(System.Collections.Generic.List{System.String},System.Boolean)">
+        <member name="M:imbNLP.Toolkit.Space.SpaceDocumentModel.FilterSelectedFeatures(System.Collections.Generic.List{System.String},System.Boolean,System.Boolean)">
             <summary>
             Removes all features other than specirfi
             </summary>
@@ -4279,6 +4275,13 @@
             Projects all term counts and word indexes from children to this instance or new instance
             </summary>
             <param name="newInstance">if set to <c>true</c> [new instance].</param>
+            <returns></returns>
+        </member>
+        <member name="M:imbNLP.Toolkit.Space.SpaceDocumentModel.GetTokens(System.Collections.Generic.List{System.String})">
+            <summary>
+            Returns matched tokens
+            </summary>
+            <param name="tokensToMatch">The tokens to match.</param>
             <returns></returns>
         </member>
         <member name="M:imbNLP.Toolkit.Space.SpaceDocumentModel.GetTerms(System.Boolean,System.Boolean,System.Boolean,System.Boolean)">
@@ -4406,6 +4409,11 @@
             Constructor for the <see cref="T:imbNLP.Toolkit.Space.SpaceDocumentModel"/> instances
             </summary>
         </member>
+        <member name="P:imbNLP.Toolkit.Space.SpaceModelConstructor.spaceSettings">
+            <summary>
+            Global control over space model construction and handling
+            </summary>
+        </member>
         <member name="M:imbNLP.Toolkit.Space.SpaceModelConstructor.ConstructDocument(System.String,System.String,imbNLP.Toolkit.Space.SpaceModel,imbNLP.Toolkit.Processing.StemmingContext,imbNLP.Toolkit.Processing.ITokenizer,System.Boolean,imbNLP.Toolkit.Documents.Analysis.ContentMetrics)">
             <summary>
             Constructs a document model
@@ -4442,6 +4450,15 @@
             <returns></returns>
         </member>
         <member name="M:imbNLP.Toolkit.Space.SpaceModelExtensions.GetTokens(imbNLP.Toolkit.Space.SpaceModel,System.Boolean,System.Boolean)">
+            <summary>
+            
+            </summary>
+            <param name="model">The model.</param>
+            <param name="labeled">if set to <c>true</c> [labeled].</param>
+            <param name="unlabeled">if set to <c>true</c> [unlabeled].</param>
+            <returns></returns>
+        </member>
+        <member name="M:imbNLP.Toolkit.Space.SpaceModelExtensions.GetTerms(imbNLP.Toolkit.Space.SpaceModel,System.Boolean,System.Boolean)">
             <summary>
             
             </summary>
@@ -4890,6 +4907,11 @@
             The labels.
             </value>
         </member>
+        <member name="T:imbNLP.Toolkit.Weighting.Data.FunctionSharedDataPool">
+            <summary>
+            
+            </summary>
+        </member>
         <member name="T:imbNLP.Toolkit.Weighting.Data.WeightingModelData">
             <summary>
             Serializable weighting model data
@@ -4965,6 +4987,14 @@
             Gets the signature.
             </summary>
             <returns></returns>
+        </member>
+        <member name="P:imbNLP.Toolkit.Weighting.FeatureWeightModel.SharedDataPool">
+            <summary>
+            Allows global function instances of the same type to share analytical data
+            </summary>
+            <value>
+            The shared data pool.
+            </value>
         </member>
         <member name="M:imbNLP.Toolkit.Weighting.FeatureWeightModel.PrepareTheModel(imbNLP.Toolkit.Space.SpaceModel,imbSCI.Core.reporting.ILogBuilder)">
             <summary>
@@ -5089,6 +5119,16 @@
             <value>
             The type of the result.
             </value>
+        </member>
+        <member name="F:imbNLP.Toolkit.Weighting.Global.GeneralComputationOptionEnum.logPlusOne">
+            <summary>
+            The log inverse - the value is inversed against maximal score + 1
+            </summary>
+        </member>
+        <member name="F:imbNLP.Toolkit.Weighting.Global.GeneralComputationOptionEnum.logInverse">
+            <summary>
+            The log inverse - the value is inversed against maximal score + 1
+            </summary>
         </member>
         <member name="T:imbNLP.Toolkit.Weighting.Global.FunctionResultTypeEnum">
             <summary>
@@ -5263,6 +5303,21 @@
             Non-inversed Document Frequency score
             </summary>
         </member>
+        <member name="P:imbNLP.Toolkit.Weighting.Global.ISharedDataPool.name">
+            <summary>
+            name of function produced the data
+            </summary>
+            <value>
+            The name.
+            </value>
+        </member>
+        <member name="M:imbNLP.Toolkit.Weighting.Global.ISharedDataPool.CheckRequirements``1(``0)">
+            <summary>
+            Checks if something should be recomputed
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="settings">The settings.</param>
+        </member>
         <member name="T:imbNLP.Toolkit.Weighting.Global.IGMElement">
             <summary>
             Inverse Gravity Moment
@@ -5289,6 +5344,11 @@
             </summary>
             <param name="space">The space.</param>
             <exception cref="T:System.ArgumentException">A document is already assigned to a label! This model is not applicable for multi-label problem.</exception>
+        </member>
+        <member name="M:imbNLP.Toolkit.Weighting.Global.IWeightingElementBase.Dispose">
+            <summary>
+            Releases unmanaged and - optionally - managed resources.
+            </summary>
         </member>
         <member name="M:imbNLP.Toolkit.Weighting.Global.WeightingElementBase.SaveModelData">
             <summary>

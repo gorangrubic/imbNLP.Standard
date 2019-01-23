@@ -6,11 +6,48 @@ using System.Linq;
 
 namespace imbNLP.Toolkit.Space
 {
+
+    public class SpaceModelSettings
+    {
+
+
+        public Boolean DoMaintainWordIndex { get; set; } = false;
+
+    }
+
+
+
     /// <summary>
     /// Constructor for the <see cref="SpaceDocumentModel"/> instances
     /// </summary>
     public class SpaceModelConstructor
     {
+
+
+        private static Object _spaceSettings_lock = new Object();
+        private static SpaceModelSettings _spaceSettings;
+        /// <summary>
+        /// Global control over space model construction and handling
+        /// </summary>
+        public static SpaceModelSettings spaceSettings
+        {
+            get
+            {
+                if (_spaceSettings == null)
+                {
+                    lock (_spaceSettings_lock)
+                    {
+
+                        if (_spaceSettings == null)
+                        {
+                            _spaceSettings = new SpaceModelSettings();
+                            // add here if any additional initialization code is required
+                        }
+                    }
+                }
+                return _spaceSettings;
+            }
+        }
 
 
 
@@ -38,10 +75,10 @@ namespace imbNLP.Toolkit.Space
             TokenDictionary stemmDictionary = new TokenDictionary();
 
             List<String> tkn = tokenDictionary.GetTokens();
-            foreach (String tk in tkn)
+            for (int i2 = 0; i2 < tkn.Count; i2++)
             {
-                String stk = stemmContext.Stem(tk);
-                stemmDictionary.CountToken(stk, tokenDictionary.GetTokenFrequency(tk));
+                String stk = stemmContext.Stem(tkn[i2]);
+                stemmDictionary.CountToken(stk, tokenDictionary.GetTokenFrequency(tkn[i2]));
             }
 
             //  context.terms.MergeDictionary(stemmDictionary);
@@ -53,13 +90,16 @@ namespace imbNLP.Toolkit.Space
             document.terms = stemmDictionary;
             document.Length = tokens.Length;
 
-            document.Words = new int[document.Length];
+            if (spaceSettings.DoMaintainWordIndex)
+            {
+                document.Words = new int[document.Length];
+            }
 
             Int32 c = 0;
-            foreach (String tk in tokens)
+            for (int i = 0; i < tokens.Length; i++)
             {
-                String stk = stemmContext.Stem(tk);
-                Int32 id = context.terms.GetTokenID(stk);
+                String stk = stemmContext.Stem(tokens[i]);
+
                 if (isKnownDocument)
                 {
                     context.terms_known_label.AddToken(stk);
@@ -69,7 +109,10 @@ namespace imbNLP.Toolkit.Space
                     context.terms_unknown_label.AddToken(stk);
                 }
 
-                document.Words[c] = id;
+                if (spaceSettings.DoMaintainWordIndex)
+                {
+                    document.Words[c] = context.terms.GetTokenID(stk);
+                }
                 c++;
             }
 
